@@ -1,0 +1,13 @@
+.onboarding__bar {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  top: 81vh;
+}
+.onboarding__bar__title {
+  text-align: center;
+}
+.onboarding__bar__radio {
+  margin-top: 4vh;
+}
