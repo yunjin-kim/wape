@@ -1,0 +1,33 @@
+.splash {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.splash-logo {
+  width: 100px;
+  height: 100px;
+  margin-top: 18vh;
+}
+.splash p {
+  margin-top: 10vw;
+  font-size: 1rem;
+  color: var(--main-font);
+}
+.splash h1 {
+  margin-top: 8vw;
+  font-size: 2.5rem;
+  color: var(--main-color);
+}
+.splash-next {
+  display: flex;
+  align-items: center;
+  margin-top: 44vh;
+  cursor: pointer;
+}
+.splash-next h2 {
+  font-size: 1rem;
+  margin-right: 0.5rem;
+}
+.splash-icon {
+  width: 10px;
+}
