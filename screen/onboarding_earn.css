@@ -1,0 +1,16 @@
+.onboarding-earn {
+  margin-top: 18vh;
+  margin-left: 21vw;
+  line-height: 6vh;
+}
+.onboarding-earn span {
+  font-size: 3rem;
+}
+.onboarding-earn p {
+  font-size: 1rem;
+  width: 210px;
+}
+.onboarding-earn p {
+  font-size: 1.4rem;
+  position: absolute;
+}
