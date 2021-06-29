@@ -1,0 +1,27 @@
+.onboarding-login {
+  position: relative;
+}
+.onboarding-login__img {
+  position: absolute;
+  top: -8vh;
+  left: -20vw;
+}
+
+.onboarding-login__img img {
+  width: 157vw;
+  height: 60vh;
+}
+.onboarding-login h1 {
+  position: absolute;
+  line-height: 20vw;
+  font-size: 3rem;
+  top: 22vh;
+  left: 10vw;
+}
+.onboarding-login__button {
+}
+.onboarding-login__button button {
+  width: 64vw;
+  height: 5vh;
+  background-color: #42ab34;
+}
