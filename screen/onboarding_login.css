@@ -1,12 +1,6 @@
 .onboarding-login {
   position: relative;
 }
-.onboarding-login__img {
-  position: absolute;
-  top: -8vh;
-  left: -20vw;
-}
-
 .onboarding-login__img img {
   width: 157vw;
   height: 60vh;
@@ -19,9 +13,24 @@
   left: 10vw;
 }
 .onboarding-login__button {
+  position: absolute;
+  width: 66vw;
+  height: 12vh;
+  top: 68vh;
+  left: 18vw;
+}
+.onboarding-login__button p {
+  text-align: center;
+  font-size: 12px;
+  margin-top: 2vh;
 }
 .onboarding-login__button button {
-  width: 64vw;
+  width: 66vw;
   height: 5vh;
-  background-color: #42ab34;
+  background-color: var(--main-color);
+  border: none;
+  border-radius: 20px;
+  color: var(--nav-background);
+  font-size: 1rem;
+  margin-bottom: 0.8vh;
 }
