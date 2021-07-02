@@ -2,6 +2,7 @@
   margin-top: 18vh;
   margin-left: 21vw;
   line-height: 6vh;
+  box-sizing: border-box;
 }
 .onboarding-earn span {
   font-size: 2.5rem;
