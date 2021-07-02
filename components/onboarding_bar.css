@@ -5,6 +5,8 @@
   flex-direction: column;
   text-align: center;
   margin: 0 auto;
+  position: relative;
+  top: 80vh;
 }
 .onboarding__bar__title {
   text-align: center;
