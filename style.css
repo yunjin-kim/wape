@@ -7,6 +7,7 @@
   --sub-color: #e5c84d;
   --main-font: #191919;
   --sub-font: #707070;
+  --thir-font: #ffffff;
 }
 body {
   background-color: var(--main-background);
