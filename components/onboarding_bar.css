@@ -1,12 +1,12 @@
 .onboarding__bar {
-  width: 70vw;
+  width: 74vw;
   height: 5.5vh;
   display: flex;
   flex-direction: column;
   text-align: center;
   margin: 0 auto;
   position: relative;
-  top: 80vh;
+  top: 15vh;
 }
 .onboarding__bar__title {
   text-align: center;
