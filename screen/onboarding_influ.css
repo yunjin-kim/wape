@@ -1,4 +1,6 @@
 .onboarding-influ {
+  width: 100%;
+  height: 66vh;
   position: relative;
 }
 .onboarding-influ > div {
