@@ -1,13 +1,14 @@
 .onboarding-plan {
-  margin-top: 18vh;
-  margin-left: 21vw;
+  width: 100%;
+  height: 66vh;
   line-height: 6vh;
 }
 .onboarding-plan span {
   font-size: 2.5rem;
 }
 .onboarding-plan p {
-  width: 210px;
+  width: 212px;
   font-size: 1.4rem;
-  position: absolute;
+  padding-top: 18vh;
+  padding-left: 21vw;
 }
