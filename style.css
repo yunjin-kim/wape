@@ -8,6 +8,7 @@
   --main-font: #191919;
   --sub-font: #707070;
   --thir-font: #ffffff;
+  --line-color: #999999;
 }
 body {
   background-color: var(--main-background);
