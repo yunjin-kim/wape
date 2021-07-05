@@ -1,0 +1,24 @@
+.line {
+  width: 100%;
+  position: absolute;
+  top: 14vh;
+  height: 1px;
+  border-bottom: 1px solid black;
+}
+.mainpage__title {
+  height: 5.5vh;
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid red;
+  align-items: center;
+  margin-top: 5.5vh;
+}
+.mainpage__title__text {
+  font-size: 2rem;
+  color: var(--main-color);
+}
+.mainpage__title__icon img {
+  width: 20px;
+  height: 20px;
+  margin-left: 3vw;
+}
