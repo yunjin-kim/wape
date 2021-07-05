@@ -4,6 +4,9 @@
 
 /* Components */
 @import "components/onboarding_bar.css";
+@import "components/onboarding_bar.css";
+@import "components/bar.css";
+@import "components/mainpage_title.css";
 
 /* Screens */
 @import "screen/splash.css";
@@ -15,3 +18,4 @@
 @import "screen/login.css";
 @import "screen/join.css";
 @import "screen/find.css";
+@import "screen/mainpage.css";
