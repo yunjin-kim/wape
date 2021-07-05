@@ -8,6 +8,10 @@
   position: relative;
   top: 15vh;
 }
+.onboarding__bar__radio input {
+  width: 5vw;
+  height: 3vh;
+}
 .onboarding__bar__title {
   text-align: center;
 }
