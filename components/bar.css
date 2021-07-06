@@ -7,4 +7,23 @@
   right: 0;
   bottom: 0;
   box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.mainpage__bar__home img {
+  width: 32px;
+  height: 32px;
+}
+.mainpage__bar__anay img {
+  width: 32px;
+  height: 32px;
+}
+.mainpage__bar__bank img {
+  width: 32px;
+  height: 32px;
+}
+.mainpage__bar__map img {
+  width: 32px;
+  height: 32px;
 }
