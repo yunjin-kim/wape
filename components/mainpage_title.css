@@ -9,7 +9,6 @@
   height: 5.5vh;
   display: flex;
   justify-content: space-between;
-  border: 1px solid red;
   align-items: center;
   margin-top: 5.5vh;
 }
