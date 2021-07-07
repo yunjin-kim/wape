@@ -1,5 +1,5 @@
 .wrap {
-  overflow: hidden;
+  height: 150vh;
   border: 1px solid burlywood;
   margin: 0px 6.4vw;
 }
@@ -7,7 +7,6 @@
   width: 100%;
   height: 7.4vh;
   margin-bottom: 5vh;
-  border: 1px solid green;
   display: flex;
   align-items: center;
 }
@@ -33,7 +32,7 @@
 .mainpage__goal {
   width: 100%;
   height: 18vh;
-  border: 1px solid tomato;
+  margin-bottom: 5vh;
 }
 .mainpage__goal h3 {
   font-size: 1rem;
@@ -169,4 +168,119 @@
 .mainpage__money__icon img {
   width: 8vw;
   height: 8vw;
+}
+.mainpage__today {
+  width: 100%;
+  height: 21vh;
+  margin-bottom: 5vh;
+}
+.mainpage__today__title {
+  display: flex;
+  height: 3vh;
+}
+.mainpage__today__title h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-right: 2vw;
+}
+.mainpage__today__title span {
+  font-size: 0.5rem;
+  color: var(--sub-font);
+  margin-top: 0.6vh;
+}
+.mainpage__today__scroll {
+  overflow-x: scroll;
+  box-shadow: 2px 6px 6px 3px rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+}
+.mainpage__today__main {
+  width: 200%;
+  height: 18vh;
+  background-color: var(--sub-background);
+  border-radius: 20px;
+}
+.mainpage__book {
+  width: 100%;
+  height: 24vh;
+  margin-bottom: 5vh;
+}
+.mainpage__book h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 1.4vh;
+}
+.mainpage__book__main {
+  width: 100%;
+  height: 22vh;
+  box-shadow: 2px 6px 6px 3px rgba(0, 0, 0, 0.2);
+  background-color: var(--sub-background);
+  border-radius: 20px;
+  box-sizing: border-box;
+  padding: 2.4vh 2vw 2.4vh 2vw;
+  border: 1px solid red;
+}
+.mainpage__book__main h4 {
+  font-size: 0.5rem;
+  font-weight: 700;
+  margin-bottom: 1.2vh;
+}
+.mainpage__book__date {
+  width: 100%;
+  height: 6.6vh;
+  display: flex;
+  justify-content: space-between;
+}
+.mainpage__book__date div {
+  width: 9.4vw;
+  height: 5.5vh;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.mainpage__book__date span:nth-of-type(1) {
+  color: var(--sub-font);
+  font-size: 0.9rem;
+}
+.mainpage__book__date span:nth-of-type(1) {
+  font-size: 0.8rem;
+}
+.mainpage__book__time {
+  width: 40vw;
+  height: 8vh;
+  float: left;
+}
+.mainpage__book__time h4 {
+  font-size: 0.5rem;
+  font-weight: 700;
+}
+.mainpage__book__select select {
+  width: 12vw;
+  height: 5vh;
+  border: none;
+  background-color: var(--time-background);
+  border-radius: 10px;
+  -webkit-appearance: none;
+  font-size: 1.6rem;
+  font-weight: 300;
+  box-sizing: border-box;
+  padding-left: 2vw;
+}
+.mainpage__book__btn {
+  width: 30vw;
+  height: 8vh;
+  float: right;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+.mainpage__book__btn input {
+  width: 20vw;
+  height: 5.5vh;
+  border: none;
+  background-color: var(--main-color);
+  color: var(--thir-font);
+  border-radius: 10px;
+  font-size: 1rem;
 }
