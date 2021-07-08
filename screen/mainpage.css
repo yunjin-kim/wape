@@ -1,5 +1,5 @@
 .wrap {
-  height: 150vh;
+  overflow: hidden;
   border: 1px solid burlywood;
   margin: 0px 6.4vw;
 }
@@ -44,7 +44,7 @@
   height: 6vh;
   background-color: var(--sub-background);
   border-radius: 10px;
-  box-shadow: 2px 4px 6px 3px rgba(0, 0, 0, 0.2);
+  box-shadow: 2px 6px 6px 3px rgba(0, 0, 0, 0.2);
   box-sizing: border-box;
   padding: 1vh 0 0 3.2vw;
   margin-bottom: 1.4vh;
@@ -104,13 +104,12 @@
   width: 10vw;
   height: 8vw;
 }
-
 .mainpage__money {
   width: 100%;
   height: 6vh;
   background-color: var(--sub-background);
   border-radius: 10px;
-  box-shadow: 2px 4px 6px 3px rgba(0, 0, 0, 0.2);
+  box-shadow: 2px 6px 6px 3px rgba(0, 0, 0, 0.2);
   box-sizing: border-box;
   padding: 1vh 0 0 3.2vw;
 }
@@ -283,4 +282,84 @@
   color: var(--thir-font);
   border-radius: 10px;
   font-size: 1rem;
+}
+.mainpage__calendar {
+  width: 100%;
+  height: 35.5vh;
+  box-shadow: 2px 6px 6px 3px rgba(0, 0, 0, 0.2);
+  background-color: var(--sub-background);
+  border-radius: 20px;
+  box-sizing: border-box;
+  padding: 0 2.6vw 1.4vh 2.6vw;
+  margin-bottom: 5vh;
+}
+.mainpage__calendar__slide {
+  width: 100%;
+  height: 3.7vh;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.mainpage__calendar__slide .left {
+  width: 20px;
+  height: 20px;
+  margin-right: 3vw;
+}
+.mainpage__calendar__slide .right {
+  width: 20px;
+  height: 20px;
+  margin-left: 3vw;
+}
+.mainpage__calendar__main {
+  width: 100%;
+  height: 28vh;
+  margin-top: 2vh;
+  border: 1px solid darkblue;
+}
+.mainpage__calendar__week {
+  width: 100%;
+  height: 2vh;
+  display: flex;
+  justify-content: space-between;
+}
+.mainpage__quote {
+  width: 100%;
+  height: 11vh;
+  margin-bottom: 5vh;
+}
+.mainpage__quote h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 1.4vh;
+}
+.mainpage__quote__main {
+  width: 100%;
+  height: 7vh;
+  box-shadow: 2px 6px 6px 3px rgba(0, 0, 0, 0.2);
+  background-color: var(--sub-background);
+  border-radius: 14px;
+  box-sizing: border-box;
+  padding: 1.3vh 3.2vw 1.3vh 3.2vw;
+}
+.mainpage__quote__main .quote {
+  font: 0.8rem;
+}
+.mainpage__weather {
+  width: 100%;
+  height: 11vh;
+  margin-bottom: 12vh;
+}
+.mainpage__weather h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 1.4vh;
+}
+.mainpage__weather__main {
+  width: 100%;
+  height: 7vh;
+  box-shadow: 2px 6px 6px 3px rgba(0, 0, 0, 0.2);
+  background-color: var(--sub-background);
+  border-radius: 14px;
+  box-sizing: border-box;
+  padding: 1.3vh 3.2vw 1.3vh 3.2vw;
 }
