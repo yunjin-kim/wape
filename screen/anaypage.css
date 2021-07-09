@@ -1,0 +1,13 @@
+.wrap {
+  overflow: hidden;
+  border: 1px solid burlywood;
+  margin: 0px 6.4vw;
+}
+.anaypage__header {
+  width: 100%;
+  height: 7.2vh;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  font-size: 1.3rem;
+}
