@@ -84,6 +84,7 @@
 .anaypage__walk__graph__day ul {
   display: flex;
   justify-content: space-between;
+  font-size: 0.8rem;
 }
 .anaypage__walk__flex {
   display: flex;
@@ -158,12 +159,12 @@
 .anaypage__weight {
   width: 100%;
   height: 33vh;
+  margin-bottom: 5vh;
 }
 .anaypage__weight h3 {
   font-size: 1rem;
   margin-bottom: 1.4vh;
 }
-
 .anaypage__weight__graph {
   width: 100%;
   height: 20vh;
@@ -207,10 +208,10 @@
   justify-content: space-between;
 }
 .anaypage__weight__graph__graph div {
-  width: 1.4vw;
-  height: 10vh;
+  width: 7px;
+  height: 7px;
   background-color: var(--main-color);
-  border-radius: 6px 6px 0px 0px;
+  border-radius: 5px;
 }
 .anaypage__weight__graph__graph span {
   font-size: 1px;
@@ -227,6 +228,7 @@
 .anaypage__weight__graph__day ul {
   display: flex;
   justify-content: space-between;
+  font-size: 0.8rem;
 }
 .anaypage__weight__flex {
   display: flex;
@@ -239,7 +241,7 @@
   background-color: var(--sub-background);
   border-radius: 14px;
   box-sizing: border-box;
-  padding: 1.4vh 10vw 1.6vh 3.2vw;
+  padding: 1.4vh 6vw 1.6vh 3.2vw;
   display: flex;
   justify-content: space-between;
 }
@@ -249,11 +251,20 @@
   align-items: flex-start;
   justify-content: space-around;
 }
+.anaypage__weight__average div:last-child {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  font-size: 0.9rem;
+}
 .anaypage__weight__average h4 {
   font-size: 0.8rem;
 }
-.anaypage__weight__average span {
+.anaypage__weight__average p {
   font-weight: 700;
+}
+.anaypage__weight__average span {
+  margin-left: 1vw;
 }
 .anaypage__weight__average div:last-child {
   color: var(--sub-font);
@@ -277,8 +288,11 @@
 .anaypage__weight__accure__value h4 {
   font-size: 0.8rem;
 }
-.anaypage__weight__accure__value span {
+.anaypage__weight__accure__value p {
   font-weight: 700;
+}
+.anaypage__weight__accure span {
+  margin-left: 1vw;
 }
 .anaypage__weight__accure__percent {
   display: flex;
@@ -290,11 +304,228 @@
 }
 .anaypage__weight__accure__percent h5 {
   font-size: 0.6rem;
+  color: var(--sub-font);
 }
 .anaypage__weight__accure__percent img {
   width: 3vw;
   margin-right: 1vw;
 }
 .anaypage__weight__accure__percent h6 {
+  font-size: 0.8rem;
+  color: var(--sub-color);
+}
+
+.anaypage__sleep {
+  width: 100%;
+  height: 33vh;
+  margin-bottom: 5vh;
+}
+.anaypage__sleep h3 {
+  font-size: 1rem;
+  margin-bottom: 1.4vh;
+}
+.anaypage__sleep__graph {
+  width: 100%;
+  height: 20vh;
+  box-shadow: 2px 6px 6px 3px rgba(0, 0, 0, 0.2);
+  background-color: var(--sub-background);
+  border-radius: 20px;
+  box-sizing: border-box;
+  padding: 1.4vh 3.2vw 1.4vh 3.2vw;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.4vh;
+}
+.anaypage__sleep__graph__period {
+  width: 100%;
+  height: 1.8vh;
+  display: flex;
+  font-size: 0.8rem;
+  margin-bottom: 1.4vh;
+}
+.anaypage__sleep__graph__week {
+  margin-right: 3vw;
+}
+.anaypage__sleep__graph__box {
+  width: 100%;
+  height: 12vh;
+  display: flex;
+  align-items: center;
+  border: 1px solid red;
+  justify-content: space-between;
+}
+.anaypage__sleep__graph__left img {
+  width: 5vw;
+}
+.anaypage__sleep__graph__graph {
+  width: 7vw;
+  height: 12vh;
+  border: 1px solid blue;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+.anaypage__sleep__graph__graph div {
+  width: 1.4vw;
+  height: 10vh;
+  background-color: var(--main-color);
+  border-radius: 6px 6px 0px 0px;
+}
+.anaypage__sleep__graph__graph span {
+  font-size: 1px;
+}
+.anaypage__sleep__graph__right img {
+  width: 5vw;
+}
+.anaypage__sleep__graph__day {
+  width: 100%;
+  height: 1.4vh;
+  box-sizing: border-box;
+  padding: 0.4vh 12vw;
+}
+.anaypage__sleep__graph__day ul {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+}
+.anaypage__sleep__flex {
+  display: flex;
+  justify-content: space-between;
+}
+.anaypage__sleep__average {
+  width: 42vw;
+  height: 8.4vh;
+  box-shadow: 2px 6px 6px 3px rgba(0, 0, 0, 0.2);
+  background-color: var(--sub-background);
+  border-radius: 14px;
+  box-sizing: border-box;
+  padding: 1.4vh 6vw 1.6vh 3.2vw;
+  display: flex;
+  justify-content: space-between;
+}
+.anaypage__sleep__average div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-around;
+}
+.anaypage__sleep__average h4 {
+  font-size: 0.8rem;
+}
+.anaypage__sleep__average p {
+  font-weight: 700;
+}
+.anaypage__sleep__average span {
+  margin-left: 1vw;
+}
+.anaypage__sleep__average div:last-child {
+  color: var(--sub-font);
+}
+.anaypage__sleep__accure {
+  width: 42vw;
+  height: 8.4vh;
+  box-shadow: 2px 6px 6px 3px rgba(0, 0, 0, 0.2);
+  background-color: var(--sub-background);
+  border-radius: 14px;
+  box-sizing: border-box;
+  padding: 1.4vh 4vw 1.6vh 2.2vw;
+  display: flex;
+  justify-content: space-between;
+}
+.anaypage__sleep__accure__value {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.anaypage__sleep__accure__value h4 {
+  font-size: 0.8rem;
+}
+.anaypage__walk__accure__value p {
+  font-weight: 700;
+}
+.anaypage__walk__accure__value span {
+  margin-left: 1vw;
+}
+.anaypage__sleep__accure__percent {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.anaypage__sleep__accure__percent div {
+  display: flex;
+}
+.anaypage__sleep__accure__percent h5 {
+  font-size: 0.6rem;
+}
+.anaypage__sleep__accure__percent img {
+  width: 3vw;
+  margin-right: 1vw;
+}
+.anaypage__sleep__accure__percent h6 {
+  font-size: 0.8rem;
+  color: var(--sub-color);
+}
+.anaypage__goal {
+  width: 100%;
+  height: 16vh;
+  margin-bottom: 14vh;
+}
+.anaypage__goal h3 {
+  font-size: 1rem;
+  margin-bottom: 1.4vh;
+}
+.anaypage__goal__check {
+  width: 100%;
+  height: 13vh;
+  box-shadow: 2px 6px 6px 3px rgba(0, 0, 0, 0.2);
+  background-color: var(--sub-background);
+  border-radius: 20px;
+  box-sizing: border-box;
+  padding: 1.4vh 4vw 1.6vh 2.2vw;
+}
+.anaypage__goal__check__period {
+  width: 100%;
+  height: 1.8vh;
+  display: flex;
+  font-size: 0.8rem;
+  margin-bottom: 1.4vh;
+}
+.anaypage__goal__check__week {
+  margin-right: 3vw;
+}
+.anaypage__goal__check__main {
+  width: 100%;
+  height: 4vh;
+  display: flex;
+  justify-content: space-between;
+}
+.anaypage__goal__check__main div {
+  width: 8vw;
+  height: 4vh;
+  border: 1px solid red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.anaypage__goal__check__main img {
+  width: 5vw;
+}
+.anaypage__goal__check__left img {
+  width: 5vw;
+}
+.anaypage__goal__check__right img {
+  width: 5vw;
+}
+
+.anaypage__goal__check__day {
+  width: 100%;
+  height: 1.4vh;
+  box-sizing: border-box;
+  padding: 0.4vh 12vw;
+}
+.anaypage__goal__check__day ul {
+  display: flex;
+  justify-content: space-between;
   font-size: 0.8rem;
 }
