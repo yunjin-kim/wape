@@ -1,0 +1,134 @@
+.wrap {
+  overflow: hidden;
+  border: 1px solid burlywood;
+  margin: 0px 6.4vw;
+}
+.mappage {
+  width: 100%;
+  height: 80vh;
+  background-color: gainsboro;
+  position: relative;
+}
+.mappage__map {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-shadow: 0px -8px 10px 4px rgba(0, 0, 0, 0.2) inset;
+}
+.mappage__location {
+  position: absolute;
+}
+.mappage__location__gu {
+  width: 18vw;
+  height: 3vh;
+  position: absolute;
+  left: 6.4vw;
+  top: 50vh;
+  font-size: 1.4rem;
+}
+.mappage__location__dong {
+  width: 80vw;
+  height: 2.4vh;
+  position: absolute;
+  left: 6.4vw;
+  top: 54vh;
+  font-size: 1rem;
+  color: var(--sub-font);
+}
+.mappage__walkload {
+  width: 100%;
+  height: 21vh;
+  position: absolute;
+  border: 1px solid royalblue;
+  top: 57vh;
+}
+.mappage__walkload__course {
+  width: 36vw;
+  height: 20vh;
+  border: 2px solid silver;
+  margin-left: 6vw;
+  position: relative;
+}
+.mappage__walkload__course__img {
+  position: absolute;
+  width: 30vw;
+  height: 9vh;
+  border: 1px solid black;
+  border-radius: 10px;
+  top: 0;
+  left: 0;
+  z-index: 3;
+}
+.mappage__walkload__course__img img {
+  width: 30vw;
+  height: 9vh;
+}
+.mappage__walkload__course__desc {
+  width: 33vw;
+  height: 18vh;
+  background-color: var(--nav-background);
+  border-radius: 14px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 9vh 0px 0px 3.2vw;
+}
+.mappage__walkload__course__desc h4 {
+  width: 50%;
+  font-size: 0.4rem;
+  margin-bottom: 0.5vh;
+}
+.mappage__walkload__course__desc p {
+  width: 70%;
+  font-size: 0.4rem;
+  margin-bottom: 0.5vh;
+}
+.mappage__walkload__course__detail {
+  width: 100%;
+  display: flex;
+}
+.mappage__walkload__course__detail img {
+  width: 12px;
+  height: 12px;
+  margin-right: 1vw;
+}
+.mappage__walkload__course__detail h5 {
+  font-size: 0.4rem;
+  margin-right: 1vw;
+}
+.mappage__walkload__mine {
+  width: 33vw;
+  height: 18vh;
+  background-color: var(--nav-background);
+  border-radius: 14px;
+  position: absolute;
+  left: 46vw;
+  top: 1.8vh;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  justify-content: center;
+  align-items: center;
+}
+.mappage__walkload__mine__text {
+  width: 24vw;
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  line-height: 2vh;
+}
+.mappage__walkload__mine__button button {
+  width: 10vw;
+  height: 4vh;
+  background-color: var(--nav-background);
+  border: none;
+}
+.mappage__walkload__mine__button img {
+  width: 5vw;
+  height: 4vh;
+}
