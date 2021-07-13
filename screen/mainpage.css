@@ -328,9 +328,10 @@
   margin-bottom: 5vh;
 }
 .mainpage__quote h3 {
-  font-size: 1rem;
+  font-size: 0.8rem;
   font-weight: 700;
   margin-bottom: 1.4vh;
+  line-height: 2.4vh;
 }
 .mainpage__quote__main {
   width: 100%;
