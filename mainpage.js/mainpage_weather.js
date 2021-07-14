@@ -10,7 +10,7 @@ const weatherSucc = (event) => {
   .then(response => response.json())
   .then(data=> {
     const temp = data.main.temp;
-    const atmosCondition =  data.weather[0].main;
+    const atmosCon =  data.weather[0].main;
   })
 
 }
