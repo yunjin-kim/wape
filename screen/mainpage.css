@@ -362,5 +362,10 @@
   background-color: var(--sub-background);
   border-radius: 14px;
   box-sizing: border-box;
-  padding: 1.3vh 3.2vw 1.3vh 3.2vw;
+  padding: 1vh 3.2vw 1vh 3.2vw;
+}
+.mainpage__weather__temp {
+  width: 18vw;
+  height: 5vh;
+  border: 1px solid black;
 }
