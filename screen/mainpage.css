@@ -363,9 +363,49 @@
   border-radius: 14px;
   box-sizing: border-box;
   padding: 1vh 3.2vw 1vh 3.2vw;
+  border: 1px solid black;
+  display: flex;
+  justify-content: space-between;
+}
+.mainpage__weather__condi {
+  width: 26vw;
+  height: 5vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.mainpage__weather__weather {
+  font-size: 0.8rem;
+  margin-bottom: 0.4vh;
+  margin-left: 2vw;
+}
+.mainpage__weather__flex {
+  display: flex;
+  align-items: center;
 }
 .mainpage__weather__temp {
-  width: 18vw;
+  font-size: 1.2rem;
+  margin-right: 2vw;
+}
+.mainpage__weather__condi p {
+  font-size: 0.6rem;
+}
+.mainpage__weather__flex span {
+  margin: 0px 1vw;
+}
+.mainpage__weather__dust {
+  width: 24vw;
   height: 5vh;
-  border: 1px solid black;
+  border: 1px solid red;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.mainpage__weather__dust__gu {
+  font-size: 1rem;
+}
+.mainpage__weather__dust__value {
+  font-size: 0.6rem;
+  color: var(--main-color);
 }
