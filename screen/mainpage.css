@@ -368,7 +368,7 @@
   justify-content: space-between;
 }
 .mainpage__weather__condi {
-  width: 26vw;
+  width: 40vw;
   height: 5vh;
   display: flex;
   flex-direction: column;
