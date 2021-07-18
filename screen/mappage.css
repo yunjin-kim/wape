@@ -1,7 +1,7 @@
 .wrap {
   overflow: hidden;
   border: 1px solid burlywood;
-  margin: 0px 6.4vw;
+  margin: 0 6.4vw;
 }
 .mappage {
   width: 100%;
@@ -15,7 +15,8 @@
   position: absolute;
   top: 0;
   left: 0;
-  box-shadow: 0px -8px 10px 4px rgba(0, 0, 0, 0.2) inset;
+  box-shadow: 0 -8px 10px 4px rgba(0, 0, 0, 0.2) inset;
+  z-index: 0;
 }
 .mappage__location {
   position: absolute;
@@ -76,7 +77,7 @@
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  padding: 9vh 0px 0px 3.2vw;
+  padding: 9vh 0 0 3.2vw;
 }
 .mappage__walkload__course__desc h4 {
   width: 50%;
@@ -131,4 +132,29 @@
 .mappage__walkload__mine__button img {
   width: 5vw;
   height: 4vh;
+}
+.title {
+  font-weight: bold;
+  display: block;
+}
+.hAddr {
+  position: relative;
+  top: -300px;
+  z-index: 10;
+  border-radius: 2px;
+  background: #fff;
+  background: rgba(255, 255, 255, 0.8);
+  z-index: 1;
+  padding: 10px;
+}
+#centerAddr {
+  display: block;
+  margin-top: 2px;
+  font-weight: normal;
+}
+.bAddr {
+  padding: 5px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
