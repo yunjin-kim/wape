@@ -48,6 +48,22 @@ function getGeo(event){
   showMarker(map)
 }
 
+loadMapPoint()
+.then(points => {
+  getData(points)
+})
+.catch(console.log)
+
+function loadMapPoint(){
+  return fetch('../data/mappoint.json')
+  .then(response => response.json())
+  .then(json => json.points)
+}
+
+function getData(points){
+  console.log(points);
+}
+
 function showMarker(map){
   const imgSrc = '../img/loc.png';
   const imgSize = new kakao.maps.Size(18,26);
@@ -63,7 +79,6 @@ function showMarker(map){
   marker.setMap(map);
 }
 
-showMarker();
 
 // 지도 좌측상단에 지도 중심좌표에 대한 주소정보를 표출하는 함수입니다
 function displayCenterInfo(result, status) {

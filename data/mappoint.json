@@ -1,0 +1,22 @@
+{
+  "points": [
+    {
+      "lat": "37.52203536615755",
+      "lon": "127.10420512159912",
+      "imgae": "../parkimg/jamsil_seongnaechen.jpg",
+      "name": "잠실 성내천길",
+      "address": "서울특별시 송파구 잠실4동",
+      "distance": "1.2",
+      "money": "3,000"
+    },
+    {
+      "lat": "37.518235",
+      "lon": "127.113646",
+      "imgae": "../parkimg/peacesquare.jpg",
+      "name": "펑화의 광장",
+      "address": "서울특별시 송파구 오륜동",
+      "distance": "3.5",
+      "money": "10,200"
+    }
+  ]
+}
