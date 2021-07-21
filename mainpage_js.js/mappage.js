@@ -49,10 +49,10 @@ function getGeo(event){
 }
 
 loadMapPoint()
-.then(points => {
-  getData(points)
-})
-.catch(console.log)
+  .then(points => {
+    getData(points)
+  })
+  .catch(console.log)
 
 function loadMapPoint(){
   return fetch('../data/mappoint.json')
@@ -92,5 +92,3 @@ function displayCenterInfo(result, status) {
         }
     }    
 }
-
-//37.52203536615755, 127.10420512159912
