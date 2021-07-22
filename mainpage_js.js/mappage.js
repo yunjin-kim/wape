@@ -61,10 +61,11 @@ function showMarker(map ,pointArr){
   const imgSrc = '../img/loc.png';
   const imgSize = new kakao.maps.Size(18,26);
   const markerImg = new kakao.maps.MarkerImage(imgSrc, imgSize);
+  let marker;
 
   for(let i = 0; i < pointArr[0].length; i++){
     let markerPos = new kakao.maps.LatLng(pointArr[0][i].lat, pointArr[0][i].lon);
-    const marker = new kakao.maps.Marker({
+    marker = new kakao.maps.Marker({
       position: markerPos,
       image: markerImg
     });
@@ -72,6 +73,7 @@ function showMarker(map ,pointArr){
     marker.setMap(map);
   }
 
+  console.log(marker)
   kakao.maps.event.addListener(marker, 'click', ()=>{
     console.log("aa")
   })
