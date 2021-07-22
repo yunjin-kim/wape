@@ -67,12 +67,12 @@
   box-sizing: border-box;
   padding: 9vh 0 0 3.2vw;
 }
-.mappage__walkload__course__desc h4 {
-  width: 50%;
+.mappage__walkload__course__name {
+  width: 100%;
   font-size: 0.4rem;
   margin-bottom: 0.5vh;
 }
-.mappage__walkload__course__desc p {
+.mappage__walkload__course__location {
   width: 70%;
   font-size: 0.4rem;
   margin-bottom: 0.5vh;

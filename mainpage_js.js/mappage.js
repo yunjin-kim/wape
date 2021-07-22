@@ -57,10 +57,17 @@ async function getMap(mapOption){
   showMarker(map, pointArr);
 }
 
+const $courseImage = document.querySelector('.mappage__walkload__course__img');
+const $courseName = document.querySelector('.mappage__walkload__course__name');
+const $courseLocation = document.querySelector('.mappage__walkload__course__location');
+const $courseDistance = document.querySelector('.mappage__walkload__course__distance');
+const $courseMoney = document.querySelector('.mappage__walkload__course__money');
+
 function showMarker(map ,pointArr){
   const imgSrc = '../img/loc.png';
   const imgSize = new kakao.maps.Size(18,26);
   const markerImg = new kakao.maps.MarkerImage(imgSrc, imgSize);
+  let markerArr = [];
   let marker;
 
   for(let i = 0; i < pointArr[0].length; i++){
@@ -69,14 +76,21 @@ function showMarker(map ,pointArr){
       position: markerPos,
       image: markerImg
     });
-
+    markerArr.push(marker);
     marker.setMap(map);
   }
+  console.log(pointArr[0]);
 
-  console.log(marker)
-  kakao.maps.event.addListener(marker, 'click', ()=>{
-    console.log("aa")
-  })
+  for(let i = 0; i < markerArr.length; i++){
+    markerArr[i].addListener('click', ()=>{
+      $courseImage.textContent = pointArr[0][i].image;
+      $courseName.textContent = pointArr[0][i].name;
+      $courseLocation.textContent = pointArr[0][i].address;
+      $courseDistance.textContent = pointArr[0][i].distance;
+      $courseMoney.textContent = pointArr[0][i].money;
+    })
+  }
+
 }
 
 
