@@ -1,7 +1,6 @@
 navigator.geolocation.getCurrentPosition(getGeo);
 
 function getGeo(event){
-  console.log(event);
   const lat = event.coords.latitude;
   const lon = event.coords.longitude;
 
@@ -38,7 +37,6 @@ async function getMap(mapOption){
     searchAddrFromCoords(map.getCenter(), displayCenterInfo);
   });
 
-
   await loadMapPoint()
     .then(points => {
     getData(points)
@@ -55,9 +53,10 @@ async function getMap(mapOption){
     pointArr.push(points);
   }
   showMarker(map, pointArr);
+
 }
 
-const $courseImage = document.querySelector('.mappage__walkload__course__img');
+const $courseImage = document.querySelector('.mappage__walkload__course__img__img');
 const $courseName = document.querySelector('.mappage__walkload__course__name');
 const $courseLocation = document.querySelector('.mappage__walkload__course__location');
 const $courseDistance = document.querySelector('.mappage__walkload__course__distance');
@@ -79,17 +78,37 @@ function showMarker(map ,pointArr){
     markerArr.push(marker);
     marker.setMap(map);
   }
-  console.log(pointArr[0]);
 
   for(let i = 0; i < markerArr.length; i++){
     markerArr[i].addListener('click', ()=>{
-      $courseImage.textContent = pointArr[0][i].image;
+      $courseImage.setAttribute("src", pointArr[0][i].image)
       $courseName.textContent = pointArr[0][i].name;
       $courseLocation.textContent = pointArr[0][i].address;
       $courseDistance.textContent = pointArr[0][i].distance;
       $courseMoney.textContent = pointArr[0][i].money;
     })
   }
+
+
+  //드래그로 지도 이동을 완료했을 때 마지막 파라미터로 넘어온 함수를 호출
+  kakao.maps.event.addListener(map, 'dragend', function(){
+    const mapCenter = map.getCenter();
+    let shortDistance = Number.MAX_SAFE_INTEGER;
+    let nearMark;
+    for(let i = 0; i < pointArr[0].length; i++){
+      let markToMark = Math.abs((Number(pointArr[0][i].lat) + Number(pointArr[0][i].lon)) - (mapCenter.Ma + mapCenter.La));
+      if(markToMark < shortDistance){
+        shortDistance = markToMark;
+        nearMark = pointArr[0][i];
+      } 
+    }
+    $courseImage.setAttribute("src", nearMark.image)
+    $courseName.textContent = nearMark.name;
+    $courseLocation.textContent = nearMark.address;
+    $courseDistance.textContent = nearMark.distance;
+    $courseMoney.textContent = nearMark.money;
+  })
+
 
 }
 

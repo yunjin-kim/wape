@@ -3,7 +3,7 @@
     {
       "lat": "37.52203536615755",
       "lon": "127.10420512159912",
-      "imgae": "../parkimg/jamsil_seongnaechen.jpg",
+      "image": "../parkimg/jamsil_seongnaechen.jpg",
       "name": "잠실 성내천길",
       "address": "서울특별시 송파구 잠실4동",
       "distance": "1.2",
@@ -12,11 +12,29 @@
     {
       "lat": "37.518235",
       "lon": "127.113646",
-      "imgae": "../parkimg/peacesquare.jpg",
+      "image": "../parkimg/peacesquare.jpg",
       "name": "펑화의 광장",
       "address": "서울특별시 송파구 오륜동",
       "distance": "3.5",
       "money": "10,200"
+    },
+    {
+      "lat": "37.513459",
+      "lon": "127.107189",
+      "image": "../parkimg/seokchon_lake.jpg",
+      "name": "석촌호수",
+      "address": "서울특별시 송파구 잠실6동",
+      "distance": "4.6",
+      "money": "15,200"
+    },
+    {
+      "lat": "37.504245",
+      "lon": "127.101924",
+      "image": "../parkimg/baekje_ancient.jpg",
+      "name": "백제고분군",
+      "address": "서울특별시 송파구 석촌동",
+      "distance": "1.1",
+      "money": "2,800"
     }
   ]
 }

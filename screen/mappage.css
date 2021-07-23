@@ -50,9 +50,10 @@
   left: 0;
   z-index: 3;
 }
-.mappage__walkload__course__img img {
+.mappage__walkload__course__img__img {
   width: 30vw;
   height: 9vh;
+  border-radius: 20px;
 }
 .mappage__walkload__course__desc {
   width: 33vw;
