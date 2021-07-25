@@ -1,4 +1,6 @@
-navigator.geolocation.getCurrentPosition(getGeo);
+function getLocation(){
+  navigator.geolocation.getCurrentPosition(getGeo);
+}
 
 function getGeo(event) {
   const lat = event.coords.latitude;
@@ -6,22 +8,10 @@ function getGeo(event) {
 
   const mapOption = {
     center: new kakao.maps.LatLng(lat, lon), // 지도의 중심좌표
-    level: 3 // 지도의 확대 레벨
+    level: 1 // 지도의 확대 레벨
   };
   getMap(mapOption);
-
-  // myLocation(lat, lon)
 };
-
-// function myLocation(lat, lon) {
-//   var $map = new kakao.maps.Map
-//   var locPos = new kakao.maps.LatLng(lat, lon);
-//   var mypos = new kakao.maps.Marker({
-//     position: locPos
-//   })
-//   mypos.setMap(map);
-
-// }
 
 const $showMap = document.getElementById('showmap');
 const $mapText = document.querySelector('.mappage__location__text ');
@@ -64,26 +54,66 @@ async function getMap(mapOption) {
   function getData(points) {
     pointArr.push(points);
   };
+  
   showMarker(map, pointArr);
   myLocation(map, mapOption);
 }
 
-//내 위치 표시
-function myLocation(map, mapOption) {
-  console.log(map);
-  let mypos;
-  const myImg = '../img/mylocation.png';
-  let locPos = new kakao.maps.LatLng(mapOption.center.Ma, mapOption.center.La);
 
-  console.log('aaa')
-  mypos = new kakao.maps.Marker({
-    image: myImg,
-    position: locPos
-  })
-  console.log(mypos)
-  mypos.setMap(map);
-
+//내 위치 표시   map 계속 생기는 문제 발생
+function myLocation(map, mapOption){
+      console.log("내 위치 탐색");
+      const locImg = '../img/mylocation.png';
+      const myLocSize = new kakao.maps.Size(14,14);
+      const myLocImg = new kakao.maps.MarkerImage(locImg, myLocSize);
+      let myLoc = new kakao.maps.LatLng(mapOption.center.Ma, mapOption.center.La);
+      console.log(mapOption.center.Ma, mapOption.center.La);
+      let mypos = new kakao.maps.Marker({
+        map: map,
+        position: myLoc,
+        image: myLocImg,
+      })
+      mypos.setMap(map);
 }
+
+if(navigator.geolocation){
+  getLocation();
+  // setInterval(getLocation, 3000)
+}
+else{
+  console.log('error');
+}
+
+// function myLocation() {
+
+//   navigator.geolocation.getCurrentPosition((position)=>{
+//     let myLat = position.coords.latitude;
+//     let myLon = position.coords.longitude;
+//     let locPosition ={
+//       center: new kakao.maps.LatLng(myLat, myLon),
+//       level: 1
+//     } 
+//     const map1 = new kakao.maps.Map($aaa, locPosition);
+//     showMyLocation(map1, locPosition);
+//   })
+
+//   function showMyLocation(map1, locPosition){
+//     console.log(map1)
+//     console.log(locPosition)
+//     console.log("내 위치 탐색");
+//     const myLocImg = '../img/mylocation.png';
+//     const myLocSize = new kakao.maps.Size(14,14);
+//     const myLocation = new kakao.maps.MarkerImage(myLocImg, myLocSize);
+//     let bbb = new kakao.maps.LatLng(locPosition.center.Ma, locPosition.center.La)
+  
+//     let mypos = new kakao.maps.Marker({
+//       map: map1,
+//       position: bbb,
+//       // image: myLocation
+//     })
+//     mypos.setMap(map1);
+//   }
+// }
 
 
 const $courseImage = document.querySelector('.mappage__walkload__course__img__img');
