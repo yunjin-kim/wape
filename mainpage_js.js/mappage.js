@@ -1,3 +1,15 @@
+const array = [];
+const array1 = [];
+//드래그 해서 중심 좌표 변경할 수 있게 map을 어떻게 쓸수 있게
+// let level1;
+// let latlng1;
+// kakao.maps.event.addListener(map, 'center_change', function(){
+//   level1  = map.getLevel();
+//   latlng1 = map.getCenter();
+// })
+// console.log(level1)
+// console.log(latlng1)
+
 function getLocation(){
   navigator.geolocation.getCurrentPosition(getGeo);
 }
@@ -8,7 +20,7 @@ function getGeo(event) {
 
   const mapOption = {
     center: new kakao.maps.LatLng(lat, lon), // 지도의 중심좌표
-    level: 1 // 지도의 확대 레벨
+    level: 2 // 지도의 확대 레벨
   };
   getMap(mapOption);
 };
@@ -19,21 +31,30 @@ const geocoder = new kakao.maps.services.Geocoder();// 주소-좌표 변환 객�
 const pointArr = [];
 
 async function getMap(mapOption) {
+
   // 지도를 생성합니다    
-  const map = new kakao.maps.Map($showMap, mapOption);
+  let map;
+  if(array.length < 1){
+    map = new kakao.maps.Map($showMap, mapOption);
+    array.push(map);
+  }
+  else if(array.length >= 1){
+    // mapOption = {
+    //   center: new kakao.maps.LatLng(latlng1), // 지도의 중심좌표
+    //   level:level1 // 지도의 확대 레벨
+    // };
+    map = new kakao.maps.Map($showMap, mapOption);
+    array.push(map);
+    array.shift();
+  }
+  console.log(array);
+  console.log(array.length)
+  
+
 
   // 현재 지도 중심좌표로 주소를 검색해서 지도 좌측 상단에 표시합니다
   searchAddrFromCoords(map.getCenter(), displayCenterInfo);
 
-  // 지도를 클릭했을 때 클릭 위치 좌표에 대한 주소정보를 표시하도록 이벤트를 등록합니다
-  kakao.maps.event.addListener(map, 'click', function (mouseEvent) {
-    searchDetailAddrFromCoords(mouseEvent.latLng, function (result, status) {
-      if (status === kakao.maps.services.Status.OK) {
-        let detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
-        detailAddr += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
-      }
-    });
-  });
   // 중심 좌표나 확대 수준이 변경됐을 때 지도 중심 좌표에 대한 주소 정보를 표시하도록 이벤트를 등록합니다
   kakao.maps.event.addListener(map, 'idle', function () {
     searchAddrFromCoords(map.getCenter(), displayCenterInfo);
@@ -58,7 +79,7 @@ async function getMap(mapOption) {
   showMarker(map, pointArr);
   myLocation(map, mapOption);
 }
-
+// navigator.geolocation.watchPosition(myLocation)
 
 //내 위치 표시   map 계속 생기는 문제 발생
 function myLocation(map, mapOption){
@@ -78,42 +99,11 @@ function myLocation(map, mapOption){
 
 if(navigator.geolocation){
   getLocation();
-  // setInterval(getLocation, 3000)
+  // setInterval(getLocation, 3000);
 }
 else{
   console.log('error');
 }
-
-// function myLocation() {
-
-//   navigator.geolocation.getCurrentPosition((position)=>{
-//     let myLat = position.coords.latitude;
-//     let myLon = position.coords.longitude;
-//     let locPosition ={
-//       center: new kakao.maps.LatLng(myLat, myLon),
-//       level: 1
-//     } 
-//     const map1 = new kakao.maps.Map($aaa, locPosition);
-//     showMyLocation(map1, locPosition);
-//   })
-
-//   function showMyLocation(map1, locPosition){
-//     console.log(map1)
-//     console.log(locPosition)
-//     console.log("내 위치 탐색");
-//     const myLocImg = '../img/mylocation.png';
-//     const myLocSize = new kakao.maps.Size(14,14);
-//     const myLocation = new kakao.maps.MarkerImage(myLocImg, myLocSize);
-//     let bbb = new kakao.maps.LatLng(locPosition.center.Ma, locPosition.center.La)
-  
-//     let mypos = new kakao.maps.Marker({
-//       map: map1,
-//       position: bbb,
-//       // image: myLocation
-//     })
-//     mypos.setMap(map1);
-//   }
-// }
 
 
 const $courseImage = document.querySelector('.mappage__walkload__course__img__img');
@@ -153,7 +143,8 @@ function showMarker(map, pointArr) {
 
   //드래그로 지도 이동을 완료했을 때 마지막 파라미터로 넘어온 함수를 호출
   kakao.maps.event.addListener(map, 'dragend', function () {
-    const mapCenter = map.getCenter();
+    let mapLevel = map.getLevel();
+    let mapCenter = map.getCenter();
     let shortDistance = Number.MAX_SAFE_INTEGER;
     let nearMark;
     for (let i = 0; i < pointArr[0].length; i++) {
@@ -168,6 +159,8 @@ function showMarker(map, pointArr) {
     $courseLocation.textContent = nearMark.address;
     $courseDistance.textContent = nearMark.distance;
     $courseMoney.textContent = nearMark.money;
+
+    return mapLevel;
   })
 }
 
