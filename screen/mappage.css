@@ -8,6 +8,23 @@
   background-color: gainsboro;
   position: relative;
 }
+.mappage__location__btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 30px;
+  z-index: 1;
+  position: absolute;
+  top: 2vh;
+  left: 88vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+}
+.mappage__location__btn__img {
+  width: 24px;
+  height: 24px;
+}
 .mappage__map {
   width: 100%;
   height: 100%;
