@@ -2,6 +2,15 @@ let mapOption;
 let map;
 let dragged = false;
 
+if(navigator.geolocation){
+  getLocation();
+  // setInterval(getLocation, 3000);
+}
+else{
+  console.log('error');
+}
+
+
 function getLocation(){
   navigator.geolocation.getCurrentPosition(getGeo);
 }
@@ -55,8 +64,9 @@ async function getMap(mapOption) {
 
 }
 
+const myLocArr = [];
 setTimeout(()=>{
-
+  //내 위치가 변경되면 좌표를 반환한다. map을 재생성하는 것을 방지
   navigator.geolocation.watchPosition(getMyLocation);
 
   function getMyLocation(){
@@ -71,62 +81,58 @@ setTimeout(()=>{
       center: new kakao.maps.LatLng(lat1, lon1), // 지도의 중심좌표
       level: 2 // 지도의 확대 레벨
     };
-    // myLocation(myMapOption);
-    gps_tracking(myMapOption);
-
+    showMyLoc(myMapOption);
+    
+    // if(myLocArr.length === 0){
+    // }
+    // else{
+    //   controlMyLoc(myMapOption);
+    // }
   };
 },4000)
 
-const $nowLocation = document.querySelector('.mappage__location__btn');
+const $backToMyLoc = document.querySelector('.mappage__location__btn');
 
 //클릭하면 dragged 가 false로 바뀌고 현재 위치로 바로 갈 수 있게
-$nowLocation.addEventListener('click', ()=>{
+$backToMyLoc.addEventListener('click', ()=>{
   dragged = false;
-  console.log(dragged)
+  map.panTo(new kakao.maps.LatLng(myMapOption.center.Ma, myMapOption.center.La));
 })
 
-const arr1 = [];
-function gps_tracking(myMapOption){
-  console.log(dragged)
-  let currentOverlay;
-  const gps_content = '<img src="../img/mylocation.png" />';
-  
-  if(arr1.length === 0){
-    console.log('위치 최신화')
+//내 위치 표시
+function showMyLoc(myMapOption){
+  console.log(dragged);
+  const myLocIcon = '<img src="../img/mylocation.png" />';
+  let myLocPosition = new kakao.maps.LatLng(myMapOption.center.Ma, myMapOption.center.La);
 
     if(dragged === false){
       console.log('aaa')
       map.panTo(new kakao.maps.LatLng(myMapOption.center.Ma, myMapOption.center.La));
     }
-
-    currentOverlay = new kakao.maps.CustomOverlay({
+    const currentOverlay = new kakao.maps.CustomOverlay({
         map: map,
         position: new kakao.maps.LatLng(myMapOption.center.Ma, myMapOption.center.La),
-        content: gps_content,
+        content: myLocIcon,
     });
-    arr1.push(currentOverlay);
-  }
-  else{
-    currentOverlay = new kakao.maps.CustomOverlay({
-      map: map,
-      position: new kakao.maps.LatLng(myMapOption.center.Ma, myMapOption.center.La),
-      content: gps_content,
-    });
-    arr1.push(currentOverlay);
-
-  }
-  console.log(arr1)
-  currentOverlay.setMap(map);
+    currentOverlay.setMap(map);
+    
+    myLocArr.push(currentOverlay);
+    console.log(myLocArr)
 }
 
+// function displayMyLoc(myLocPosition){
+//   var myMarker = new kakao.maps.Marker({
+//     map: map,
+//     position: myLocPosition
+//   })
+//   myMarker.setMap(map);
+// }
 
-if(navigator.geolocation){
-  getLocation();
-  // setInterval(getLocation, 3000);
-}
-else{
-  console.log('error');
-}
+
+// function controlMyLoc(myMapOption){
+//   currentOverlay.panTo(new kakao.maps.LatLng(myMapOption.center.Ma, myMapOption.center.La));
+// }
+
 
 
 const $courseImage = document.querySelector('.mappage__walkload__course__img__img');
@@ -163,12 +169,13 @@ function showMarker(pointArr) {
       $courseMoney.textContent = pointArr[0][i].money;
     })
   }
-
+  
   //드래그로 지도 이동을 완료했을 때 마지막 파라미터로 넘어온 함수를 호출
   kakao.maps.event.addListener(map, 'dragend', function () {
     dragged = true;
     console.log(dragged)
     let mapCenter = map.getCenter();
+    qqq = mapCenter.Ma;
     let mapLevel = map.getLevel();
     let shortDistance = Number.MAX_SAFE_INTEGER;
     let nearMark;
@@ -184,7 +191,6 @@ function showMarker(pointArr) {
     $courseLocation.textContent = nearMark.address;
     $courseDistance.textContent = nearMark.distance;
     $courseMoney.textContent = nearMark.money;
-
   })
 }
 
