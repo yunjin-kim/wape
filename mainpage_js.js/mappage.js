@@ -67,8 +67,9 @@ async function getMap(mapOption) {
 const myLocArr = [];
 setTimeout(()=>{
   //내 위치가 변경되면 좌표를 반환한다. map을 재생성하는 것을 방지
-  navigator.geolocation.watchPosition(getMyLocation);
-
+  // navigator.geolocation.watchPosition(getMyLocation);
+  //watchPosition로 하면 너무 부정확해서 setinerval로 보류
+setInterval(getMyLocation, 4000);
   function getMyLocation(){
     navigator.geolocation.getCurrentPosition(getMyGeo);
   }
@@ -82,12 +83,6 @@ setTimeout(()=>{
       level: 2 // 지도의 확대 레벨
     };
     showMyLoc(myMapOption);
-    
-    // if(myLocArr.length === 0){
-    // }
-    // else{
-    //   controlMyLoc(myMapOption);
-    // }
   };
 },4000)
 
@@ -100,24 +95,34 @@ $backToMyLoc.addEventListener('click', ()=>{
 })
 
 //내 위치 표시
+let currentMyLoc;
 function showMyLoc(myMapOption){
   console.log(dragged);
-  const myLocIcon = '<img src="../img/mylocation.png" />';
+  console.log(myLocArr)
+  const myLocIconImg = '../img/mylocation.png';
+  const myLocIconSize = new kakao.maps.Size(10,10);
+  const myLocIcon = new kakao.maps.MarkerImage(myLocIconImg, myLocIconSize);
   let myLocPosition = new kakao.maps.LatLng(myMapOption.center.Ma, myMapOption.center.La);
-
+   
     if(dragged === false){
       console.log('aaa')
       map.panTo(new kakao.maps.LatLng(myMapOption.center.Ma, myMapOption.center.La));
     }
-    const currentOverlay = new kakao.maps.CustomOverlay({
+
+    if(myLocArr.length <= 0){
+      console.log('aa')
+        currentMyLoc = new kakao.maps.Marker({
         map: map,
-        position: new kakao.maps.LatLng(myMapOption.center.Ma, myMapOption.center.La),
-        content: myLocIcon,
-    });
-    currentOverlay.setMap(map);
-    
-    myLocArr.push(currentOverlay);
-    console.log(myLocArr)
+        position: myLocPosition,
+        image: myLocIcon,
+      });
+      myLocArr.push(currentMyLoc);
+      currentMyLoc.setMap(map);
+    }
+    else if(myLocArr.length > 0){
+      currentMyLoc.setPosition(myLocPosition);
+      console.log('bb')
+    }
 }
 
 // function displayMyLoc(myLocPosition){
