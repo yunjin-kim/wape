@@ -135,15 +135,14 @@ const $courseMoney = document.querySelector('.mappage__walkload__course__money')
 
 //걷기 포인트 표시
 function showMarker(pointArr) {
-  const imgSrc = '../img/loaction.png';
-  const imgSize = new kakao.maps.Size(18, 26);
-  const markerImg = new kakao.maps.MarkerImage(imgSrc, imgSize);
+  const markImgSrc = '../img/loaction.png';
+  const markImgSize = new kakao.maps.Size(18, 26);
+  const markerImg = new kakao.maps.MarkerImage(markImgSrc, markImgSize);
   let markerArr = [];
   let marker;
   //걷기 포인트 표시
   for (let i = 0; i < pointArr[0].length; i++) {
     let markerPos = new kakao.maps.LatLng(pointArr[0][i].lat, pointArr[0][i].lon);
-
     marker = new kakao.maps.Marker({
       position: markerPos,
       image: markerImg
@@ -161,16 +160,39 @@ function showMarker(pointArr) {
       $courseMoney.textContent = pointArr[0][i].money;
     })
   }
+//걷기 코스 보여주기
+//카카오 다각형에 이벤트 등록하기로 해야함
+let course;
+let courseArr = [];
+const courseImgSize = new kakao.maps.Size(200, 200);
 
-  //걷기 코스 보여주기
-  $selectCourse.addListener('click', () => {
+  for (let i = 0; i < pointArr[0].length; i++) {
+    let courseImgSrc = pointArr[0][i].mapImage;
+    console.log(courseImgSrc);
+    let courseImg = new kakao.maps.MarkerImage(courseImgSrc, courseImgSize);
+    let coursePos = new kakao.maps.LatLng(pointArr[0][i].lat, pointArr[0][i].lon);
 
-  })
-
+    course = new kakao.maps.Marker({
+      position: coursePos,
+      image: courseImg
+    });
+    console.log(course)
+    courseArr.push(course);
+    course.setMap(map);
+  }
 
   //드래그로 지도 이동을 완료했을 때 마지막 파라미터로 넘어온 함수를 호출
   kakao.maps.event.addListener(map, 'dragend', showWalkBanner)
 }
+
+// $selectCourse.addListener('click', () => {
+
+    
+// })
+
+
+
+
 
 function showWalkBanner() {
   dragged = true;
