@@ -161,26 +161,31 @@ function showMarker(pointArr) {
     })
   }
 //걷기 코스 보여주기
-//카카오 다각형에 이벤트 등록하기로 해야함
-let course;
-let courseArr = [];
-const courseImgSize = new kakao.maps.Size(200, 200);
-
-  for (let i = 0; i < pointArr[0].length; i++) {
-    let courseImgSrc = pointArr[0][i].mapImage;
-    console.log(courseImgSrc);
-    let courseImg = new kakao.maps.MarkerImage(courseImgSrc, courseImgSize);
-    let coursePos = new kakao.maps.LatLng(pointArr[0][i].lat, pointArr[0][i].lon);
-
-    course = new kakao.maps.Marker({
-      position: coursePos,
-      image: courseImg
-    });
-    console.log(course)
-    courseArr.push(course);
-    course.setMap(map);
+  const arr = [];
+for(let i = 0; i < pointArr[0].length; i++){
+  let polygonPath = [];
+  for(let j = 0; j < pointArr[0][i].mapPoints.length; j++){
+    polygonPath.push(new kakao.maps.LatLng(pointArr[0][i].mapPoints[j][0], pointArr[0][i].mapPoints[j][1]));
   }
+  arr.push(polygonPath);
+}
 
+for(let i = 0; i < arr.length; i++){
+  var polygon = new kakao.maps.Polygon({
+    path: arr[i],
+    stroke: 5,
+    strokeColor: '#42AB34',
+    strokeOpacity: 1,
+    strokeStyle: 'solid',
+    fillColor: 'none',
+    fillOpacity: 0
+  });
+
+  polygon.setMap(map);
+}
+    
+
+  
   //드래그로 지도 이동을 완료했을 때 마지막 파라미터로 넘어온 함수를 호출
   kakao.maps.event.addListener(map, 'dragend', showWalkBanner)
 }
