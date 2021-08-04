@@ -133,6 +133,7 @@ const $courseLocation = document.querySelector('.mappage__walkload__course__loca
 const $courseDistance = document.querySelector('.mappage__walkload__course__distance');
 const $courseMoney = document.querySelector('.mappage__walkload__course__money');
 
+let polygon;
 //걷기 포인트 표시
 function showMarker(pointArr) {
   const markImgSrc = '../img/loaction.png';
@@ -160,40 +161,43 @@ function showMarker(pointArr) {
       $courseMoney.textContent = pointArr[0][i].money;
     })
   }
-//걷기 코스 보여주기
-  const arr = [];
-for(let i = 0; i < pointArr[0].length; i++){
-  let polygonPath = [];
-  for(let j = 0; j < pointArr[0][i].mapPoints.length; j++){
-    polygonPath.push(new kakao.maps.LatLng(pointArr[0][i].mapPoints[j][0], pointArr[0][i].mapPoints[j][1]));
-  }
-  arr.push(polygonPath);
-}
 
-for(let i = 0; i < arr.length; i++){
-  var polygon = new kakao.maps.Polygon({
-    path: arr[i],
-    stroke: 5,
-    strokeColor: '#42AB34',
-    strokeOpacity: 1,
-    strokeStyle: 'solid',
-    fillColor: 'none',
-    fillOpacity: 0
-  });
+  //걷기 코스 보여주기
+  const hiddenClass = 'hidden';
+  let courseF = false;
+    const courseArr = [];
+    for(let i = 0; i < pointArr[0].length; i++){
+        let polygonPath = [];
+      for(let j = 0; j < pointArr[0][i].mapPoints.length; j++){
+        polygonPath.push(new kakao.maps.LatLng(pointArr[0][i].mapPoints[j][0], pointArr[0][i].mapPoints[j][1]));
+      }
+      courseArr.push(polygonPath);
+    }
+    let polygon;
+    for(let i = 0; i < courseArr.length; i++){
+        polygon = new kakao.maps.Polygon({
+        path: courseArr[i],
+        stroke: 5,
+        strokeColor: '#42AB34',
+        strokeOpacity: 1,
+        strokeStyle: 'solid',
+        fillColor: 'none',
+        fillOpacity: 0
+      });
+      polygon.setMap(map);
+      console.log(polygon);
+    }
 
-  polygon.setMap(map);
-}
+  $selectCourse.addEventListener('click', () => {
     
-
+    
+  })
   
   //드래그로 지도 이동을 완료했을 때 마지막 파라미터로 넘어온 함수를 호출
   kakao.maps.event.addListener(map, 'dragend', showWalkBanner)
 }
 
-// $selectCourse.addListener('click', () => {
 
-    
-// })
 
 
 
