@@ -122,7 +122,6 @@ function showMyLoc(myMapOption) {
   }
   else if (myLocArr.length > 0) {
     currentMyLoc.setPosition(myLocPosition);
-    console.log('bb')
   }
 }
 
@@ -162,10 +161,11 @@ function showMarker(pointArr) {
     })
   }
 
-  //걷기 코스 보여주기
-  const hiddenClass = 'hidden';
-  let courseF = false;
+    //걷기 코스 보여주기
+    const hiddenClass = 'hidden';
+    let courseF = false;
     const courseArr = [];
+    const polygonArr = [];
     for(let i = 0; i < pointArr[0].length; i++){
         let polygonPath = [];
       for(let j = 0; j < pointArr[0][i].mapPoints.length; j++){
@@ -185,17 +185,34 @@ function showMarker(pointArr) {
         fillOpacity: 0
       });
       polygon.setMap(map);
-      console.log(polygon);
+      polygonArr.push(polygon);
     }
+    console.log(polygonArr[1].stroke)
+    console.log(polygon.D.r.childNodes[1].style)
+    const cssArr = [];
+    setTimeout(()=>{
+      for(let i = 1; i <= polygonArr.length; i++){
+        console.log("AAA")
+        // polygon.D.r.childNodes[i].style({"display":"none"})
+        cssArr.push(polygon.D.r.childNodes[i].style.cssText);
+        polygon.D.r.childNodes[i].style.cssText = ""
+        // polygonArr[i].strokeOpacity === "0";
+        // polygonArr[i].D.r.childNodes[i].classList.add("hidden")
+      }
+    },3000)
+    //event에서 클릭한 배너의 인덱스를 polygoncssText cssArr인덱스로 해서 다시 넣어준다
+  $selectCourse.addEventListener('click', (event) => {
+    console.log(event);
+      console.log(cssArr)
 
-  $selectCourse.addEventListener('click', () => {
-    
-    
+      
   })
+
   
   //드래그로 지도 이동을 완료했을 때 마지막 파라미터로 넘어온 함수를 호출
   kakao.maps.event.addListener(map, 'dragend', showWalkBanner)
 }
+
 
 
 
