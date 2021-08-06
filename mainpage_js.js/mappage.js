@@ -131,6 +131,7 @@ const $courseName = document.querySelector('.mappage__walkload__course__name');
 const $courseLocation = document.querySelector('.mappage__walkload__course__location');
 const $courseDistance = document.querySelector('.mappage__walkload__course__distance');
 const $courseMoney = document.querySelector('.mappage__walkload__course__money');
+// const $courseLat = document.querySelector('.mappage__walkload__course__lat');
 
 let polygon;
 //걷기 포인트 표시
@@ -158,9 +159,10 @@ function showMarker(pointArr) {
       $courseLocation.textContent = pointArr[0][i].address;
       $courseDistance.textContent = pointArr[0][i].distance;
       $courseMoney.textContent = pointArr[0][i].money;
+      //이거를 selectCourse 이런데에 넣어서 해보기
+      // $courseLat.textContent = pointArr[0][i].lat;
     })
   }
-
     //걷기 코스 보여주기
     const hiddenClass = 'hidden';
     let courseF = false;
@@ -187,7 +189,7 @@ function showMarker(pointArr) {
       polygon.setMap(map);
       polygonArr.push(polygon);
     }
-    console.log(polygonArr[1].stroke)
+    console.log(polygonArr[1])
     console.log(polygon.D.r.childNodes[1].style)
     const cssArr = [];
     setTimeout(()=>{
@@ -199,12 +201,21 @@ function showMarker(pointArr) {
         // polygonArr[i].strokeOpacity === "0";
         // polygonArr[i].D.r.childNodes[i].classList.add("hidden")
       }
-    },3000)
+    },10)
     //event에서 클릭한 배너의 인덱스를 polygoncssText cssArr인덱스로 해서 다시 넣어준다
   $selectCourse.addEventListener('click', (event) => {
     console.log(event);
-      console.log(cssArr)
-
+    console.log(cssArr)
+    console.log(polygonArr[1].Rg[0])
+    console.log(event.target.fristElementChild)
+    console.log(event.target.lastElementChild)
+    // let aaa = event.target.lastElementChild.innerHTML;
+    // console.log(aaa)
+    // for(let i = 0; i < cssArr.length; i++){
+    //   if(polygonArr[i].Rg[0] === event.target.lastElementChild.innerHTML){
+    //     polygon.D.r.childNodes[i].style.cssText = cssArr[i];
+    //   }
+    // }
       
   })
 
@@ -212,9 +223,6 @@ function showMarker(pointArr) {
   //드래그로 지도 이동을 완료했을 때 마지막 파라미터로 넘어온 함수를 호출
   kakao.maps.event.addListener(map, 'dragend', showWalkBanner)
 }
-
-
-
 
 
 
@@ -239,6 +247,7 @@ function showWalkBanner() {
   $courseLocation.textContent = nearMark.address;
   $courseDistance.textContent = nearMark.distance;
   $courseMoney.textContent = nearMark.money;
+  // $courseLat.textContent = nearMark.lat;
 }
 
 

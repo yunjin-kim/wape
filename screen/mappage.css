@@ -108,6 +108,9 @@
   font-size: 0.4rem;
   margin-right: 1vw;
 }
+.mappage__walkload__course__lat {
+  display: block;
+}
 .mappage__walkload__mine {
   width: 33vw;
   height: 18vh;
