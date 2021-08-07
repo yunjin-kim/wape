@@ -66,6 +66,7 @@ async function getMap(mapOption) {
 
 const myLocArr = [];
 setTimeout(() => {
+  //showWalkBanner error 처리!!!!
   showWalkBanner();
   //내 위치가 변경되면 좌표를 반환한다. map을 재생성하는 것을 방지
   // navigator.geolocation.watchPosition(getMyLocation);
@@ -127,6 +128,7 @@ function showMyLoc(myMapOption) {
 
 const $selectCourse = document.querySelector('.mappage__walkload__course');
 const $courseImage = document.querySelector('.mappage__walkload__course__img__img');
+const $courseDesc = document.querySelector('.mappage__walkload__course__desc');
 const $courseName = document.querySelector('.mappage__walkload__course__name');
 const $courseLocation = document.querySelector('.mappage__walkload__course__location');
 const $courseDistance = document.querySelector('.mappage__walkload__course__distance');
@@ -154,7 +156,9 @@ function showMarker(pointArr) {
   //배너에 정보 표시
   for (let i = 0; i < markerArr.length; i++) {
     markerArr[i].addListener('click', () => {
-      $courseImage.setAttribute("src", pointArr[0][i].image)
+      $selectCourse.setAttribute('id', pointArr[0][i].lat);
+      $courseImage.setAttribute("src", pointArr[0][i].image);
+      $courseDesc.setAttribute('id', pointArr[0][i].index);
       $courseName.textContent = pointArr[0][i].name;
       $courseLocation.textContent = pointArr[0][i].address;
       $courseDistance.textContent = pointArr[0][i].distance;
@@ -195,20 +199,32 @@ function showMarker(pointArr) {
     setTimeout(()=>{
       for(let i = 1; i <= polygonArr.length; i++){
         console.log("AAA")
-        // polygon.D.r.childNodes[i].style({"display":"none"})
         cssArr.push(polygon.D.r.childNodes[i].style.cssText);
         polygon.D.r.childNodes[i].style.cssText = ""
         // polygonArr[i].strokeOpacity === "0";
-        // polygonArr[i].D.r.childNodes[i].classList.add("hidden")
+        // polygonArr[i].D.r.path.className.add("hidden")
       }
+      console.log(polygon)
     },10)
+    //$selectCourse 모든 부분에서 잘 동작하는지 체크 path[1,2,3,4]
     //event에서 클릭한 배너의 인덱스를 polygoncssText cssArr인덱스로 해서 다시 넣어준다
+    //잠실 성내천길만 된다 딴것도
   $selectCourse.addEventListener('click', (event) => {
-    console.log(event);
-    console.log(cssArr)
-    console.log(polygonArr[1].Rg[0])
-    console.log(event.target.fristElementChild)
-    console.log(event.target.lastElementChild)
+    let number = Number(event.target.parentNode.offsetParent.childNodes[3].id);
+    // console.log(cssArr[event.target.parentNode.offsetParent.childNodes[3].id])
+    console.log(polygonArr[number].Rg[0].Ma )
+    console.log(event.path[2].attributes.id.textContent)
+    if(polygonArr[number].Rg[0].Ma === Number(event.path[2].attributes.id.textContent)){
+      console.log("SIBAL")
+      polygon.D.r.childNodes[number+1].style.cssText = `${cssArr[number]}`;
+    }
+    console.log(polygon.D.r.childNodes[event.target.parentNode.offsetParent.childNodes[3].id].style);
+    console.log(polygon.D.r.childNodes[event.target.parentNode.offsetParent.childNodes[3].id].style.cssText);
+    // console.log(polygonArr[0].Rg[0].Ma)
+    // console.log(event.path[2].attributes)
+    // console.log(event.path[2].attributes.id)
+    console.log(event.path[2].attributes.id.textContent)
+    // console.log(event.target.parentNode.offsetParent.childNodes[3].id)
     // let aaa = event.target.lastElementChild.innerHTML;
     // console.log(aaa)
     // for(let i = 0; i < cssArr.length; i++){
@@ -242,12 +258,13 @@ function showWalkBanner() {
       nearMark = pointArr[0][i];
     }
   }
+  $selectCourse.setAttribute('id', nearMark.lat);
   $courseImage.setAttribute("src", nearMark.image)
+  $courseDesc.setAttribute('id', nearMark.index);
   $courseName.textContent = nearMark.name;
   $courseLocation.textContent = nearMark.address;
   $courseDistance.textContent = nearMark.distance;
   $courseMoney.textContent = nearMark.money;
-  // $courseLat.textContent = nearMark.lat;
 }
 
 
