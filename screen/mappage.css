@@ -111,6 +111,68 @@
 .mappage__walkload__course__lat {
   display: block;
 }
+
+.mappage__walkload__course2 {
+  width: 36vw;
+  height: 20vh;
+  position: absolute;
+  left: 46vw;
+  top: 0;
+}
+.mappage__walkload__course2__img {
+  position: absolute;
+  width: 30vw;
+  height: 9vh;
+  border-radius: 10px;
+  top: 0;
+  left: 0;
+  z-index: 3;
+}
+.mappage__walkload__course2__img__img {
+  width: 30vw;
+  height: 9vh;
+  border-radius: 20px;
+}
+.mappage__walkload__course2__desc {
+  width: 33vw;
+  height: 18vh;
+  background-color: var(--nav-background);
+  border-radius: 14px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 9vh 0 0 3.2vw;
+}
+.mappage__walkload__course2__name {
+  width: 100%;
+  font-size: 0.4rem;
+  margin-bottom: 0.5vh;
+}
+.mappage__walkload__course2__location {
+  width: 70%;
+  font-size: 0.4rem;
+  margin-bottom: 0.5vh;
+}
+.mappage__walkload__course2__detail {
+  width: 100%;
+  display: flex;
+}
+.mappage__walkload__course2__detail img {
+  width: 12px;
+  height: 12px;
+  margin-right: 1vw;
+}
+.mappage__walkload__course2__detail h5 {
+  font-size: 0.4rem;
+  margin-right: 1vw;
+}
+.mappage__walkload__course2__lat {
+  display: block;
+}
+/* 
 .mappage__walkload__mine {
   width: 33vw;
   height: 18vh;
@@ -141,4 +203,4 @@
 .mappage__walkload__mine__button img {
   width: 5vw;
   height: 4vh;
-}
+} */

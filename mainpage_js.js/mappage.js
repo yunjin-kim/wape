@@ -134,6 +134,14 @@ const $courseLocation = document.querySelector('.mappage__walkload__course__loca
 const $courseDistance = document.querySelector('.mappage__walkload__course__distance');
 const $courseMoney = document.querySelector('.mappage__walkload__course__money');
 // const $courseLat = document.querySelector('.mappage__walkload__course__lat');
+const $selectCourse2 = document.querySelector('.mappage__walkload__course2');
+const $courseImage2 = document.querySelector('.mappage__walkload__course2__img__img');
+const $courseDesc2 = document.querySelector('.mappage__walkload__course2__desc');
+const $courseName2 = document.querySelector('.mappage__walkload__course2__name');
+const $courseLocation2 = document.querySelector('.mappage__walkload__course2__location');
+const $courseDistance2 = document.querySelector('.mappage__walkload__course2__distance');
+const $courseMoney2 = document.querySelector('.mappage__walkload__course2__money');
+
 
 let polygon;
 //걷기 포인트 표시
@@ -193,46 +201,59 @@ function showMarker(pointArr) {
       polygon.setMap(map);
       polygonArr.push(polygon);
     }
-    console.log(polygonArr[1])
+    console.log(polygonArr)
     console.log(polygon.D.r.childNodes[1].style)
-    const cssArr = [];
+    let courseStokeStyle;
     setTimeout(()=>{
+      courseStokeStyle = (polygon.D.r.childNodes[1].style.cssText)
       for(let i = 1; i <= polygonArr.length; i++){
         console.log("AAA")
-        cssArr.push(polygon.D.r.childNodes[i].style.cssText);
         polygon.D.r.childNodes[i].style.cssText = ""
-        // polygonArr[i].strokeOpacity === "0";
-        // polygonArr[i].D.r.path.className.add("hidden")
       }
-      console.log(polygon)
     },10)
     //$selectCourse 모든 부분에서 잘 동작하는지 체크 path[1,2,3,4]
     //event에서 클릭한 배너의 인덱스를 polygoncssText cssArr인덱스로 해서 다시 넣어준다
-    //잠실 성내천길만 된다 딴것도
+
+    //이미지하고 설명 누르면 잘 되지만 딴거 누르면 오류 path number가 제각각 나중에 폰으로 해보고 결정
+  // $courseDesc.addEventListener('click', (event)=>{
+  //   let couresFirstLat = Number(event.target.parentNode.offsetParent.childNodes[3].id);
+  //   if(polygonArr[couresFirstLat].Rg[0].Ma === Number(event.path[4].parentElement.firstElementChild.id)){
+  //     console.log("SIBAL")
+  //     polygon.D.r.childNodes[couresFirstLat+1].style.cssText = `${courseStokeStyle}`;
+  //   }
+  // })
+
   $selectCourse.addEventListener('click', (event) => {
-    let number = Number(event.target.parentNode.offsetParent.childNodes[3].id);
-    // console.log(cssArr[event.target.parentNode.offsetParent.childNodes[3].id])
-    console.log(polygonArr[number].Rg[0].Ma )
-    console.log(event.path[2].attributes.id.textContent)
-    if(polygonArr[number].Rg[0].Ma === Number(event.path[2].attributes.id.textContent)){
-      console.log("SIBAL")
-      polygon.D.r.childNodes[number+1].style.cssText = `${cssArr[number]}`;
+    let couresFirstLat = Number(event.target.parentNode.offsetParent.childNodes[3].id);
+
+    for(let i = 1; i <= polygonArr.length; i++){
+      console.log("aaa")
+      if(polygon.D.r.childNodes[i].style.cssText){
+        console.log("bbb")
+        polygon.D.r.childNodes[i].style.cssText = "";
+      }
+    } 
+    if(polygonArr[couresFirstLat].Rg[0].Ma === Number(event.path[2].parentElement.firstElementChild.id)){
+      console.log("ccc")
+      polygon.D.r.childNodes[couresFirstLat+1].style.cssText = `${courseStokeStyle}`;
     }
-    console.log(polygon.D.r.childNodes[event.target.parentNode.offsetParent.childNodes[3].id].style);
-    console.log(polygon.D.r.childNodes[event.target.parentNode.offsetParent.childNodes[3].id].style.cssText);
-    // console.log(polygonArr[0].Rg[0].Ma)
-    // console.log(event.path[2].attributes)
-    // console.log(event.path[2].attributes.id)
-    console.log(event.path[2].attributes.id.textContent)
-    // console.log(event.target.parentNode.offsetParent.childNodes[3].id)
-    // let aaa = event.target.lastElementChild.innerHTML;
-    // console.log(aaa)
-    // for(let i = 0; i < cssArr.length; i++){
-    //   if(polygonArr[i].Rg[0] === event.target.lastElementChild.innerHTML){
-    //     polygon.D.r.childNodes[i].style.cssText = cssArr[i];
-    //   }
-    // }
-      
+  })
+
+  $selectCourse2.addEventListener('click', (event) => {
+    console.log(event)
+    let couresFirstLat = Number(event.target.parentNode.offsetParent.childNodes[3].id);
+
+    for(let i = 1; i <= polygonArr.length; i++){
+      console.log("aaa")
+      if(polygon.D.r.childNodes[i].style.cssText){
+        console.log("bbb")
+        polygon.D.r.childNodes[i].style.cssText = "";
+      }
+    } 
+    if(polygonArr[couresFirstLat].Rg[0].Ma === Number(event.path[2].parentElement.lastElementChild.id)){
+      console.log("ccc")
+      polygon.D.r.childNodes[couresFirstLat+1].style.cssText = `${courseStokeStyle}`;
+    }
   })
 
   
@@ -241,30 +262,47 @@ function showMarker(pointArr) {
 }
 
 
-
-
-
+//배너를 클릭하면 해당 배너의 코스로 위치할 수 있도록!!!!!
 function showWalkBanner() {
   dragged = true;
   console.log(dragged)
   let mapCenter = map.getCenter();
   let mapLevel = map.getLevel();
   let shortDistance = Number.MAX_SAFE_INTEGER;
-  let nearMark;
-  for (let i = 0; i < pointArr[0].length; i++) {
-    let markToMark = Math.abs((Number(pointArr[0][i].lat) + Number(pointArr[0][i].lon)) - (mapCenter.Ma + mapCenter.La));
-    if (markToMark < shortDistance) {
+  let firstNearMark;
+  let secondNearMark;
+  let first = 0;
+  let second = Number.MAX_SAFE_INTEGER;
+
+  pointArr[0].forEach((e,i)=>{
+    let markToMark = Math.abs((Number(e.lat) + Number(e.lon)) - (mapCenter.Ma + mapCenter.La));
+    if(markToMark < shortDistance){
       shortDistance = markToMark;
-      nearMark = pointArr[0][i];
+      first = shortDistance;
+      firstNearMark = pointArr[0][i];
     }
-  }
-  $selectCourse.setAttribute('id', nearMark.lat);
-  $courseImage.setAttribute("src", nearMark.image)
-  $courseDesc.setAttribute('id', nearMark.index);
-  $courseName.textContent = nearMark.name;
-  $courseLocation.textContent = nearMark.address;
-  $courseDistance.textContent = nearMark.distance;
-  $courseMoney.textContent = nearMark.money;
+    else if(markToMark > shortDistance){
+      if(markToMark < second){
+        second = markToMark;
+        secondNearMark = pointArr[0][i];
+      }
+    }
+  })
+  $selectCourse.setAttribute('id', firstNearMark.lat);
+  $courseImage.setAttribute("src", firstNearMark.image)
+  $courseDesc.setAttribute('id', firstNearMark.index);
+  $courseName.textContent = firstNearMark.name;
+  $courseLocation.textContent = firstNearMark.address;
+  $courseDistance.textContent = firstNearMark.distance;
+  $courseMoney.textContent = firstNearMark.money;
+
+  $selectCourse2.setAttribute('id', secondNearMark.lat);
+  $courseImage2.setAttribute("src", secondNearMark.image)
+  $courseDesc2.setAttribute('id', secondNearMark.index);
+  $courseName2.textContent = secondNearMark.name;
+  $courseLocation2.textContent = secondNearMark.address;
+  $courseDistance2.textContent = secondNearMark.distance;
+  $courseMoney2.textContent = secondNearMark.money;
 }
 
 
