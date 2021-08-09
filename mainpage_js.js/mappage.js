@@ -1,15 +1,14 @@
 let mapOption;
 let map;
 let dragged = false;
+let canLoadBanner = false;
 
 if (navigator.geolocation) {
   getLocation();
-  // setInterval(getLocation, 3000);
 }
 else {
   console.log('error');
 }
-
 
 function getLocation() {
   navigator.geolocation.getCurrentPosition(getGeo);
@@ -32,7 +31,6 @@ console.log(geocoder)
 const pointArr = [];
 
 async function getMap(mapOption) {
-
   // 지도를 생성합니다
   map = new kakao.maps.Map($showMap, mapOption);
 
@@ -58,35 +56,50 @@ async function getMap(mapOption) {
 
   function getData(points) {
     pointArr.push(points);
+    canLoadBanner = true;
+    console.log('AA')
   };
 
   showMarker(pointArr);
 
 }
-
-const myLocArr = [];
-setTimeout(() => {
-  //showWalkBanner error 처리!!!!
-  showWalkBanner();
-  //내 위치가 변경되면 좌표를 반환한다. map을 재생성하는 것을 방지
-  // navigator.geolocation.watchPosition(getMyLocation);
-  //watchPosition로 하면 너무 부정확해서 setinerval로 보류
-  setInterval(getMyLocation, 4000);
-  function getMyLocation() {
-    navigator.geolocation.getCurrentPosition(getMyGeo);
+//배너 정보 보여주기
+setTimeout(()=>{
+  function showWhenTrue(){
+    if(canLoadBanner === true){
+      showWalkBanner();
+      //내 위치가 변경되면 좌표를 반환한다. map을 재생성하는 것을 방지
+      // navigator.geolocation.watchPosition(getMyLocation);
+      //watchPosition로 하면 너무 부정확해서 setinerval로 보류
+      setInterval(getMyLocation, 4000);
+      function getMyLocation() {
+        navigator.geolocation.getCurrentPosition(getMyGeo);
+      }
+      function getMyGeo(event) {
+        const lat1 = event.coords.latitude;
+        const lon1 = event.coords.longitude;
+        console.log(lat1, lon1)
+    
+        myMapOption = {
+          center: new kakao.maps.LatLng(lat1, lon1), // 지도의 중심좌표
+          level: 2 // 지도의 확대 레벨
+        };
+        showMyLoc(myMapOption);
+      };
+    }
+    else if(canLoadBanner === false){
+      rotateWhenFalse();
+    }
   }
-  function getMyGeo(event) {
-    const lat1 = event.coords.latitude;
-    const lon1 = event.coords.longitude;
-    console.log(lat1, lon1)
-
-    myMapOption = {
-      center: new kakao.maps.LatLng(lat1, lon1), // 지도의 중심좌표
-      level: 2 // 지도의 확대 레벨
+  //showWalkBanner error 처리
+    function rotateWhenFalse(){
+      setTimeout(()=>{
+        showWhenTrue();
+      },1000)
     };
-    showMyLoc(myMapOption);
-  };
-}, 4000)
+    rotateWhenFalse();
+}, 0)
+
 
 const $backToMyLoc = document.querySelector('.mappage__location__btn');
 
@@ -97,6 +110,7 @@ $backToMyLoc.addEventListener('click', () => {
 })
 
 //내 위치 표시
+const myLocArr = [];
 let currentMyLoc;
 function showMyLoc(myMapOption) {
   console.log(dragged);
@@ -176,8 +190,6 @@ function showMarker(pointArr) {
     })
   }
     //걷기 코스 보여주기
-    const hiddenClass = 'hidden';
-    let courseF = false;
     const courseArr = [];
     const polygonArr = [];
     for(let i = 0; i < pointArr[0].length; i++){
@@ -201,13 +213,11 @@ function showMarker(pointArr) {
       polygon.setMap(map);
       polygonArr.push(polygon);
     }
-    console.log(polygonArr)
-    console.log(polygon.D.r.childNodes[1].style)
     let courseStokeStyle;
     setTimeout(()=>{
       courseStokeStyle = (polygon.D.r.childNodes[1].style.cssText)
       for(let i = 1; i <= polygonArr.length; i++){
-        console.log("AAA")
+        // console.log("AAA")
         polygon.D.r.childNodes[i].style.cssText = ""
       }
     },10)
@@ -223,46 +233,40 @@ function showMarker(pointArr) {
   //   }
   // })
 
+  //첫번째 배너 클릭하면 배너의 코스 보여주고 코스 출발 지점으로 이동
   $selectCourse.addEventListener('click', (event) => {
     let couresFirstLat = Number(event.target.parentNode.offsetParent.childNodes[3].id);
 
+    map.panTo(new kakao.maps.LatLng(polygonArr[couresFirstLat].Rg[0].Ma, polygonArr[couresFirstLat].Rg[0].La));
     for(let i = 1; i <= polygonArr.length; i++){
-      console.log("aaa")
       if(polygon.D.r.childNodes[i].style.cssText){
-        console.log("bbb")
         polygon.D.r.childNodes[i].style.cssText = "";
       }
     } 
     if(polygonArr[couresFirstLat].Rg[0].Ma === Number(event.path[2].parentElement.firstElementChild.id)){
-      console.log("ccc")
       polygon.D.r.childNodes[couresFirstLat+1].style.cssText = `${courseStokeStyle}`;
     }
   })
 
+  //두번째 배너 클릭하면 배너의 코스 보여주고 코스 출발 지점으로 이동
   $selectCourse2.addEventListener('click', (event) => {
-    console.log(event)
     let couresFirstLat = Number(event.target.parentNode.offsetParent.childNodes[3].id);
+    map.panTo(new kakao.maps.LatLng(polygonArr[couresFirstLat].Rg[0].Ma, polygonArr[couresFirstLat].Rg[0].La));
 
     for(let i = 1; i <= polygonArr.length; i++){
-      console.log("aaa")
       if(polygon.D.r.childNodes[i].style.cssText){
-        console.log("bbb")
         polygon.D.r.childNodes[i].style.cssText = "";
       }
     } 
     if(polygonArr[couresFirstLat].Rg[0].Ma === Number(event.path[2].parentElement.lastElementChild.id)){
-      console.log("ccc")
       polygon.D.r.childNodes[couresFirstLat+1].style.cssText = `${courseStokeStyle}`;
     }
   })
-
   
   //드래그로 지도 이동을 완료했을 때 마지막 파라미터로 넘어온 함수를 호출
   kakao.maps.event.addListener(map, 'dragend', showWalkBanner)
 }
 
-
-//배너를 클릭하면 해당 배너의 코스로 위치할 수 있도록!!!!!
 function showWalkBanner() {
   dragged = true;
   console.log(dragged)
@@ -271,19 +275,17 @@ function showWalkBanner() {
   let shortDistance = Number.MAX_SAFE_INTEGER;
   let firstNearMark;
   let secondNearMark;
-  let first = 0;
-  let second = Number.MAX_SAFE_INTEGER;
+  let secondShortDistance = Number.MAX_SAFE_INTEGER;
 
   pointArr[0].forEach((e,i)=>{
     let markToMark = Math.abs((Number(e.lat) + Number(e.lon)) - (mapCenter.Ma + mapCenter.La));
     if(markToMark < shortDistance){
       shortDistance = markToMark;
-      first = shortDistance;
       firstNearMark = pointArr[0][i];
     }
     else if(markToMark > shortDistance){
-      if(markToMark < second){
-        second = markToMark;
+      if(markToMark < secondShortDistance){
+        secondShortDistance = markToMark;
         secondNearMark = pointArr[0][i];
       }
     }
