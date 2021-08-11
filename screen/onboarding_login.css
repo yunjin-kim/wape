@@ -1,6 +1,7 @@
 .onboarding-login {
   width: 100%;
-  height: 70vh;
+  height: 80vh;
+  position: relative;
 }
 .onboarding-login__img {
   width: 100%;
@@ -22,7 +23,7 @@
   width: 66vw;
   height: 12vh;
   margin: 0 auto;
-  margin-top: 16vh;
+  margin-top: 6vh;
 }
 .onboarding-login__button button {
   width: 66vw;

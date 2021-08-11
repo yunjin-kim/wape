@@ -1,6 +1,6 @@
 .onboarding-plan {
   width: 100%;
-  height: 66vh;
+  height: 80vh;
   line-height: 6vh;
 }
 .onboarding-plan span {
@@ -11,4 +11,8 @@
   font-size: 1.4rem;
   padding-top: 18vh;
   padding-left: 21vw;
+}
+.onboarding__plan__title {
+  font-size: 1rem;
+  text-align: center;
 }

@@ -1,6 +1,13 @@
+.wrapper {
+  overflow-x: scroll;
+  height: 80vh;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  left: 0px;
+}
 .onboarding-influ {
-  width: 100%;
-  height: 66vh;
+  height: 80vh;
   position: relative;
 }
 .onboarding-influ > div {
@@ -47,4 +54,8 @@
 .onboarding-influ div:nth-child(6) {
   top: 50vh;
   left: 40vw;
+}
+.onboarding__influ__title {
+  font-size: 1rem;
+  text-align: center;
 }

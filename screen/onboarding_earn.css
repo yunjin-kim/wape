@@ -1,6 +1,6 @@
 .onboarding-earn {
   width: 100%;
-  height: 66vh;
+  height: 80vh;
   line-height: 6vh;
 }
 .onboarding-earn span {
@@ -11,4 +11,8 @@
   padding-left: 21vw;
   width: 210px;
   font-size: 1.4rem;
+}
+.onboarding__earn__title {
+  font-size: 1rem;
+  text-align: center;
 }
