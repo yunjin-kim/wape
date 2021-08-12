@@ -1,13 +1,11 @@
-.wrapper {
-  overflow-x: scroll;
-  height: 80vh;
+.container {
+  width: 100%;
   display: flex;
   flex-direction: row;
   position: relative;
   left: 0px;
 }
 .onboarding-influ {
-  height: 80vh;
   position: relative;
 }
 .onboarding-influ > div {

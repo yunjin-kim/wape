@@ -1,4 +1,4 @@
-const $wrapper = document.querySelector('.wrapper');
+const $container = document.querySelector('.container');
 const $onboardingForm = document.querySelector('.onboarding__bar__radio');
 const $influScreen = document.querySelector('.onboarding-influ');
 const $earnScreen = document.querySelector('.onboarding-earn');
@@ -6,31 +6,33 @@ const $mapScreen = document.querySelector('.onboarding-map');
 const $planScreen = document.querySelector('.onboarding-plan');
 const $loginScreen = document.querySelector('.onboarding-login');
 
+$container.style.width = `${screen.width * 5}px`;
 $influScreen.style.width = `${screen.width}px`;
 $earnScreen.style.width = `${screen.width}px`;
 $mapScreen.style.width = `${screen.width}px`;
 $planScreen.style.width = `${screen.width}px`;
 $loginScreen.style.width = `${screen.width}px`;
 
+$influScreen.style.height = `${screen.height * 0.7}px`;
+$earnScreen.style.height = `${screen.height * 0.7}px`;
+$mapScreen.style.height = `${screen.height * 0.7}px`;
+$planScreen.style.height = `${screen.height * 0.7}px`;
+$loginScreen.style.height = `${screen.height * 0.7}px`;
 
 $onboardingForm.addEventListener('click',(event)=>{
-  if(event.target.classList.contains('influ')){
-    $wrapper.style.left = `0px`;
-    console.log( $wrapper.style.left)
+  if(event.target.classList.contains('inputInflu')){
+    $container.style.left = "0px";
   }
-  else if(event.target.classList.contains('earn')){
-    $wrapper.style.left = `-${screen.width}px`;
-    console.log( $wrapper.style.left)
+  else if(event.target.classList.contains('inputEarn')){
+    $container.style.left = `${-screen.width}px`;
+  }
+  else if(event.target.classList.contains('inputMap')){
+    $container.style.left = `${-screen.width*2}px`;
+  }
+  else if(event.target.classList.contains('inputPlan')){
+    $container.style.left = `${-screen.width*3}px`;
+  }
+  else if(event.target.classList.contains('inputLogin')){
+    $container.style.left = `${-screen.width*4.07}px`;
   }
 })
-
-// function changePageToRadio(){
-//   const form = document.onboradingform;
-//   if(form.onboarding[0].checked === true){
-//     form.action = 'onboarding_influ.html'
-//   }
-//   else if(form.onboarding[1].checked === true){
-//     form.action = 'onboarding_earn.html'
-//   }
-//   form.submit();
-// }
