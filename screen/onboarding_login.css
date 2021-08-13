@@ -8,6 +8,7 @@
 .onboarding-login__img img {
   width: 100%;
   height: 100%;
+  margin-left: -6vw;
   object-fit: cover;
 }
 .onboarding-login h1 {
@@ -19,7 +20,7 @@
 .onboarding-login__button {
   width: 66vw;
   height: 12vh;
-  margin: 0 auto;
+  margin: auto;
   margin-top: 6vh;
 }
 .onboarding-login__button button {
@@ -30,5 +31,6 @@
   border-radius: 20px;
   color: var(--nav-background);
   font-size: 1rem;
+  margin-left: -6vw;
   margin-bottom: 0.8vh;
 }

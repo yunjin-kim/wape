@@ -1,9 +1,14 @@
+.wrapper {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
 .container {
-  width: 100%;
   display: flex;
   flex-direction: row;
   position: relative;
   left: 0px;
+  transition: all 0.3s;
 }
 .onboarding-influ {
   position: relative;

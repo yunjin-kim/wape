@@ -18,13 +18,13 @@
   height: 6vh;
   border-radius: 20px;
   border: none;
-  background-color: var(--sub-background);
+  background-color: var(--time-background);
   font-size: 0.8rem;
   margin: 1vh 0px;
   padding-left: 10px;
 }
 .login__form label {
-  font-size: 0.8rem;
+  font-size: 0.4rem;
   margin-left: 10px;
   color: var(--sub-font);
 }
