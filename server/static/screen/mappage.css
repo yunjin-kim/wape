@@ -1,0 +1,206 @@
+.wrap {
+  overflow: hidden;
+  margin: 0 6.4vw;
+}
+.mappage {
+  width: 100%;
+  height: 80vh;
+  background-color: gainsboro;
+  position: relative;
+}
+.mappage__location__btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 30px;
+  z-index: 1;
+  position: absolute;
+  top: 2vh;
+  left: 88vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+}
+.mappage__location__btn__img {
+  width: 24px;
+  height: 24px;
+}
+.mappage__map {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-shadow: 0 -8px 10px 4px rgba(0, 0, 0, 0.2) inset;
+  z-index: 0;
+}
+.mappage__location {
+  position: absolute;
+}
+.mappage__location__text {
+  width: 90vw;
+  height: 3vh;
+  position: absolute;
+  left: 6.4vw;
+  top: 52vh;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+.mappage__walkload {
+  width: 100%;
+  height: 21vh;
+  position: absolute;
+  top: 57vh;
+}
+.mappage__walkload__course {
+  width: 36vw;
+  height: 20vh;
+  margin-left: 6vw;
+  position: relative;
+}
+.mappage__walkload__course__img {
+  position: absolute;
+  width: 30vw;
+  height: 9vh;
+  border-radius: 10px;
+  top: 0;
+  left: 0;
+  z-index: 3;
+}
+.mappage__walkload__course__img__img {
+  width: 30vw;
+  height: 9vh;
+  border-radius: 20px;
+}
+.mappage__walkload__course__desc {
+  width: 33vw;
+  height: 18vh;
+  background-color: var(--nav-background);
+  border-radius: 14px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 9vh 0 0 3.2vw;
+}
+.mappage__walkload__course__name {
+  width: 100%;
+  font-size: 0.4rem;
+  margin-bottom: 0.5vh;
+}
+.mappage__walkload__course__location {
+  width: 70%;
+  font-size: 0.4rem;
+  margin-bottom: 0.5vh;
+}
+.mappage__walkload__course__detail {
+  width: 100%;
+  display: flex;
+}
+.mappage__walkload__course__detail img {
+  width: 12px;
+  height: 12px;
+  margin-right: 1vw;
+}
+.mappage__walkload__course__detail h5 {
+  font-size: 0.4rem;
+  margin-right: 1vw;
+}
+.mappage__walkload__course__lat {
+  display: block;
+}
+
+.mappage__walkload__course2 {
+  width: 36vw;
+  height: 20vh;
+  position: absolute;
+  left: 46vw;
+  top: 0;
+}
+.mappage__walkload__course2__img {
+  position: absolute;
+  width: 30vw;
+  height: 9vh;
+  border-radius: 10px;
+  top: 0;
+  left: 0;
+  z-index: 3;
+}
+.mappage__walkload__course2__img__img {
+  width: 30vw;
+  height: 9vh;
+  border-radius: 20px;
+}
+.mappage__walkload__course2__desc {
+  width: 33vw;
+  height: 18vh;
+  background-color: var(--nav-background);
+  border-radius: 14px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 9vh 0 0 3.2vw;
+}
+.mappage__walkload__course2__name {
+  width: 100%;
+  font-size: 0.4rem;
+  margin-bottom: 0.5vh;
+}
+.mappage__walkload__course2__location {
+  width: 70%;
+  font-size: 0.4rem;
+  margin-bottom: 0.5vh;
+}
+.mappage__walkload__course2__detail {
+  width: 100%;
+  display: flex;
+}
+.mappage__walkload__course2__detail img {
+  width: 12px;
+  height: 12px;
+  margin-right: 1vw;
+}
+.mappage__walkload__course2__detail h5 {
+  font-size: 0.4rem;
+  margin-right: 1vw;
+}
+.mappage__walkload__course2__lat {
+  display: block;
+}
+/* 
+.mappage__walkload__mine {
+  width: 33vw;
+  height: 18vh;
+  background-color: var(--nav-background);
+  border-radius: 14px;
+  position: absolute;
+  left: 46vw;
+  top: 1.8vh;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  justify-content: center;
+  align-items: center;
+}
+.mappage__walkload__mine__text {
+  width: 24vw;
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  line-height: 2vh;
+}
+.mappage__walkload__mine__button button {
+  width: 10vw;
+  height: 4vh;
+  background-color: var(--nav-background);
+  border: none;
+}
+.mappage__walkload__mine__button img {
+  width: 5vw;
+  height: 4vh;
+} */

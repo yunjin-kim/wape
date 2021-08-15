@@ -1,0 +1,276 @@
+.wrap {
+  overflow: hidden;
+  border: 1px solid burlywood;
+  margin: 0px 6.4vw;
+}
+.bankpage__asset {
+  width: 100%;
+  height: 22vh;
+  background-color: var(--sub-background);
+  border-radius: 20px;
+  box-shadow: 2px 6px 6px 3px rgba(0, 0, 0, 0.2);
+  margin-top: 5vh;
+  box-sizing: border-box;
+  padding: 2.5vh 5.2vw 2.5vh 5.2vw;
+}
+.bankpage__asset__value {
+  width: 100%;
+  height: 4.2vh;
+  display: flex;
+  align-items: center;
+  margin-bottom: 2.5vh;
+}
+.bankpage__asset__value img {
+  width: 9vw;
+  margin-right: 4.8vw;
+}
+.bankpage__asset__title {
+  width: 100%;
+  height: 4.5vh;
+  box-sizing: border-box;
+  padding-right: 9.2vw;
+  margin-bottom: 2.4vh;
+}
+.bankpage__asset__title h3 {
+  font-size: 0.8rem;
+}
+.bankpage__asset__flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1vh;
+}
+.bankpage__asset__next {
+  width: 23vw;
+  height: 1.3vh;
+  font-size: 0.5rem;
+  color: var(--sub-font);
+}
+.bankpage__asset__all {
+  width: 20vw;
+  height: 1.3vh;
+  font-size: 0.5rem;
+  color: var(--sub-font);
+}
+.bankpage__asset__all img {
+  width: 2vw;
+}
+.bankpage__asset__flex {
+  display: flex;
+  margin: 0;
+}
+.bankpage__asset__graph {
+  width: 100%;
+  height: 4vh;
+}
+.bankpage__asset__graph span {
+  font-size: 0.5rem;
+  color: var(--sub-font);
+}
+
+.bankpage__asset__graph__graph {
+  width: 100%;
+  height: 1.2vh;
+  position: relative;
+  top: 0.5vh;
+  float: left;
+  margin-top: 0.4vh;
+}
+.bankpage__asset__graph__total {
+  width: 76vw;
+  height: 1vh;
+  background-color: #ffffff;
+  border: 1px solid #707070;
+  border-radius: 4px;
+  position: absolute;
+}
+.bankpage__asset__graph__my {
+  width: 10vw;
+  height: 1vh;
+  background-color: var(--sub-color);
+  border-radius: 4px;
+  position: absolute;
+}
+.bankpage__walk {
+  width: 100%;
+  height: 20vh;
+  background-color: var(--sub-background);
+  border-radius: 20px;
+  box-shadow: 2px 6px 6px 3px rgba(0, 0, 0, 0.2);
+  margin: 5vh 0;
+  box-sizing: border-box;
+  padding: 2.5vh 5.2vw 2.5vh 5.2vw;
+}
+.bankpage__walk__value {
+  width: 100%;
+  height: 7.2vh;
+  margin-bottom: 2.4vh;
+}
+.bankpage__walk__flex {
+  display: flex;
+  align-items: center;
+}
+.bankpage__walk__value img {
+  width: 12.5vw;
+  margin-right: 3.2vw;
+}
+.bankpage__walk__value h1 {
+  font-size: 1.2rem;
+}
+.bankpage__walk__value h2 {
+  margin-left: 16vw;
+}
+.bankpage__walk__like {
+  width: 100%;
+  height: 6.2vh;
+  display: flex;
+  justify-content: space-between;
+}
+.bankpage__walk__like div {
+  width: 24vw;
+  height: 100%;
+  background-color: var(--point-background);
+  border-radius: 10px;
+  display: flex;
+  font-size: 0.8rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.bankpage__walk__like div h3 {
+  margin-bottom: 0.6vh;
+}
+.bankpage__reposit {
+  width: 100%;
+  height: 40vh;
+}
+.bankpage__reposit__title {
+  width: 100%;
+  height: 6.8vh;
+  margin-bottom: 2.4vh;
+}
+.bankpage__reposit__flex {
+  display: flex;
+  align-items: center;
+}
+.circle {
+  width: 8px;
+  height: 8px;
+  border-radius: 4px;
+  border: 1px solid black;
+  margin-right: 3.2vw;
+}
+.bankpage__reposit__day {
+  width: 100%;
+  height: 2vh;
+}
+.bankpage__reposit__value {
+  width: 100%;
+  height: 3.8vh;
+  margin-left: 5.3vw;
+  margin-top: 1vh;
+}
+.bankpage__reposit__value h3 {
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.bankpage__reposit__walk {
+  width: 100%;
+  height: 4.8vh;
+  background-color: var(--sub-background);
+  border-radius: 14px;
+  box-sizing: border-box;
+  padding: 0.6vh 10vw 0.6vh 6vw;
+  box-shadow: 2px 4px 4px -2px rgba(0, 0, 0, 0.2);
+  margin-bottom: 1vh;
+}
+.bankpage__reposit__walk__flex {
+  display: flex;
+  justify-content: space-between;
+}
+.bankpage__reposit__walk__flex h4 {
+  font-size: 0.5rem;
+  font-weight: 900;
+}
+.bankpage__reposit__walk__flex b {
+  color: var(--main-color);
+  font-weight: 600;
+}
+.bankpage__reposit__walk__flex p {
+  font-size: 0.5rem;
+  color: var(--sub-font);
+}
+.bankpage__reposit__walk__graph {
+  width: 70vw;
+  height: 1.2vh;
+  position: relative;
+  top: 0.5vh;
+  float: left;
+  margin-top: 0.4vh;
+}
+.bankpage__reposit__walk__total {
+  width: 100%;
+  height: 1vh;
+  background-color: #ffffff;
+  border: 1px solid #707070;
+  border-radius: 4px;
+  position: absolute;
+}
+.bankpage__reposit__walk__my {
+  width: 10vw;
+  height: 1vh;
+  background-color: var(--main-color);
+  border-radius: 4px;
+  position: absolute;
+}
+
+.bankpage__reposit__money {
+  width: 100%;
+  height: 4.8vh;
+  background-color: var(--sub-background);
+  border-radius: 14px;
+  box-sizing: border-box;
+  padding: 0.6vh 10vw 0.6vh 6vw;
+  box-shadow: 2px 4px 4px -2px rgba(0, 0, 0, 0.2);
+  margin-bottom: 1vh;
+}
+.bankpage__reposit__money__flex {
+  display: flex;
+  justify-content: space-between;
+}
+.bankpage__reposit__money__flex h4 {
+  font-size: 0.5rem;
+  font-weight: 900;
+}
+.bankpage__reposit__money__flex b {
+  color: var(--sub-color);
+  font-weight: 600;
+}
+.bankpage__reposit__money__flex p {
+  font-size: 0.5rem;
+  color: var(--sub-font);
+}
+.bankpage__reposit__money__graph {
+  width: 70vw;
+  height: 1.2vh;
+  position: relative;
+  top: 0.5vh;
+  float: left;
+  margin-top: 0.4vh;
+}
+.bankpage__reposit__money__total {
+  width: 100%;
+  height: 1vh;
+  background-color: #ffffff;
+  border: 1px solid #707070;
+  border-radius: 4px;
+  position: absolute;
+}
+.bankpage__reposit__money__my {
+  width: 10vw;
+  height: 1vh;
+  background-color: var(--sub-color);
+  border-radius: 4px;
+  position: absolute;
+}

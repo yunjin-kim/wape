@@ -1,0 +1,65 @@
+.line {
+  width: 100%;
+  position: absolute;
+  top: 10vh;
+  height: 1px;
+  border-bottom: 1px solid black;
+}
+.find {
+  margin: 0px 6.4vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.find__title {
+  width: 100%;
+  height: 10vh;
+}
+.find__title img {
+  width: 10px;
+  margin-top: 5vh;
+  float: left;
+}
+.find__title h2 {
+  font-size: 1.4rem;
+  float: left;
+  margin: 4.5vh 0 1.8vh 24vw;
+}
+
+.find__main {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 80vh;
+}
+.find__main h3 {
+  font-size: 1rem;
+  margin-bottom: 2vh;
+}
+.find__main__phone input {
+  width: 99%;
+  height: 3vh;
+  border: none;
+  margin-bottom: 1vh;
+  border-bottom: 1px solid var(--line-color);
+  background: none;
+}
+.find__main__phone {
+  margin-top: 3vh;
+}
+.find__main__phone input {
+  width: 70%;
+}
+.find__main__phone button {
+  width: 26%;
+  height: 3vh;
+  font-size: 0.7rem;
+  background: none;
+  border: 1px solid var(--main-color);
+  color: var(--main-color);
+  border-radius: 10px;
+}
+.find__main__text {
+  font-size: 10px;
+  color: var(--main-color);
+}
