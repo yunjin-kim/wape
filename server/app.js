@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 
 const app = express();
+//!!!express session 미들웨어 들을 차례
 
 app.set('port', process.env.PORT || 4000);
 
@@ -27,16 +28,24 @@ app.get('/onboarding',(req, res)=>{
   res.sendFile(path.join(__dirname, './static/onboarding_html/onboarding_influ.html'));
 })
 
-app.get('/login',(req, res)=>{
-  res.sendFile(path.join(__dirname, ''));
-  if(true){//로그인 성공
-    next('route');
-  }else{
-    next();
-  }
-},(req, res)=>{
-  res.sendFile(path.join(__dirname, '로그인 필요한 서비스 입니다 페이지'))
+app.get('/login',(req,res)=>{
+  res.sendFile(path.join(__dirname, './static/login_html/login.html'))
 })
+
+app.get('/login',(req,res)=>{
+  res.sendFile(path.join(__dirname, './static/login_html/join.html'))
+})
+
+// app.get('/login',(req, res)=>{
+//   res.sendFile(path.join(__dirname, ''));
+//   if(true){//로그인 성공
+//     next('route');
+//   }else{
+//     next();
+//   }
+// },(req, res)=>{
+//   res.sendFile(path.join(__dirname, '로그인 필요한 서비스 입니다 페이지'))
+// })
 
 
 // app.use((req, res, next)=>{
