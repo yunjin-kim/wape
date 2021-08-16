@@ -1,20 +1,38 @@
+const dotenv = require('dotenv');
 const express = require('express');
 const path = require('path');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
-
+dotenv.config();
 const app = express();
-//!!!express session 미들웨어 들을 차례
 
 app.set('port', process.env.PORT || 4000);
 
 app.use(morgan('dev')); //배포시 combined
+
+// app.use('/', (req, res, next)=>{ /미들웨어 확장법
+//   if(req.session.id){ //로그인 성공
+        // express.static(__dirname, 'public')(req, res, next)
+//   }else{
+//     next();
+//   }
+// })
 app.use('', express.static(path.join(__dirname, 'static')));
 app.use(cookieParser('password'));
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
-app.use(session())
+app.use(express.urlencoded({extended: false}));
+app.use(cookieParser(process.env.COOKIE_SECRET))
+app.use(session({
+  resave: false,
+  saveUninitialized: false,
+  secret: process.env.COOKIE_SECRET,
+  cookie: {
+    httpOnly: true,
+    secure: false,
+  },
+  name: 'session-cookie'
+}));
 
 app.get('/', (req,res)=>{
   res.sendFile(path.join(__dirname, './static/splash.html'));
@@ -35,6 +53,7 @@ app.get('/login',(req,res)=>{
 app.get('/login',(req,res)=>{
   res.sendFile(path.join(__dirname, './static/login_html/join.html'))
 })
+
 
 // app.get('/login',(req, res)=>{
 //   res.sendFile(path.join(__dirname, ''));

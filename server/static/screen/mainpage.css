@@ -385,7 +385,7 @@
 }
 .mainpage__weather__temp {
   font-size: 1.2rem;
-  margin-right: 2vw;
+  margin-left: 2vw;
 }
 .mainpage__weather__condi p {
   font-size: 0.6rem;
