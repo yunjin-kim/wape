@@ -19,7 +19,6 @@ app.use(morgan('dev')); //배포시 combined
 //   }
 // })
 app.use('', express.static(path.join(__dirname, 'static')));
-app.use(cookieParser('password'));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser(process.env.COOKIE_SECRET))
