@@ -4,13 +4,19 @@ const path = require('path');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
+const nunjucks = require('nunjucks');
 
 dotenv.config();
-const pageRouter = require('./routes/page');
+// const pageRouter = require('./routes/page');
 const { sequelize } = require('./models');
 const app = express();
 
 app.set('port', process.env.PORT || 4000); //배포할 때는 port=80
+app.set('view engine', 'html');
+nunjucks.configure('views',{
+  express: app,
+  watch: true,
+})
 
 
 sequelize.sync({force: false})
@@ -49,9 +55,6 @@ app.get('/', (req,res)=>{
   res.sendFile(path.join(__dirname, './static/splash.html'));
 });
 
-app.post('/', (req, res)=>{
-  res.send('hola');
-})
 
 app.get('/onboarding',(req, res)=>{
   res.sendFile(path.join(__dirname, './static/onboarding_html/onboarding_influ.html'));
@@ -61,7 +64,7 @@ app.get('/login',(req,res)=>{
   res.sendFile(path.join(__dirname, './static/login_html/login.html'))
 })
 
-app.get('/login',(req,res)=>{
+app.get('/join',(req,res)=>{
   res.sendFile(path.join(__dirname, './static/login_html/join.html'))
 })
 
