@@ -7,12 +7,11 @@ const nunjucks = require('nunjucks');
 const dotenv = require('dotenv');
 
 dotenv.config();
-const pageRouter = require('./routes/page');
+const loginRouter = require('./routes/login');
 
-//넌적스 쓸지 말지 굄ㄴ
 const app = express();
 app.set('port', process.env.PORT || 8880);
-// app.set('view engine', 'html');
+// app.set('view', 'html');
 // nunjucks.configure('static', {
 //   express: app,
 //   watch: true,
@@ -33,14 +32,25 @@ app.use(session({
   },
 }));
 
-app.use('/static', pageRouter);
+app.use('/', loginRouter);
+
+// app.get('/', (req, res)=>{
+//   res.sendFile(path.join(__dirname, 'static/login_html/login.html'))
+// });
+
+// app.get('/', (req, res)=>{
+//   res.sendFile(path.join(__dirname, 'static/login_html/join.html'))
+// });
+
+// app.get('/', (req, res)=>{
+//   res.sendFile(path.join(__dirname, 'static/login_html/find.html'))
+// });
 
 app.use((req, res, next) => {
   const error = new Error(`${req.method} ${req.url} 라우터가 없습니다`);
   error.status = 404;
   next(error);
 });
-
 
 app.use((err, req, res, next) => {
   res.locals.message = err.message;
