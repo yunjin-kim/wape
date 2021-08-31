@@ -21,7 +21,7 @@
                 <div class="input__box">
                     <div class="join__main__phone">
                         <h3>휴대전화 번호</h3>
-                        <input type="text" placeholder="'-' 구분없이 입력해주세요" id="number" onkeyup="printNum()" />
+                        <input type="number" placeholder="'-' 구분없이 입력해주세요" id="number" onchange="printNum()" />
                         <button>인증번호 전송</button>
                     </div>
                     <div class="join__main__certi">
@@ -31,19 +31,20 @@
                     </div>
                     <div>
                         <h3>비밀번호</h3>
-                        <input type="password" placeholder="8자리 이상 입력해주세요" minlength="8" id="password" onkeyup="printPass()" />
+                        <input type="password" placeholder="8자리 이상 입력해주세요" minlength="8" id="password" onchange="printPass()" />
                     </div>
                     <div>
                         <h3>비밀번호 재입력</h3>
-                        <input type="password" placeholder="비밀번호를 입력해주세요"  />
+                        <input type="password" placeholder="비밀번호를 다시 입력해주세요" id="samePassword" onchange="printSamePass()"  />
+                        <div id="sameOrDiff"></div>
                     </div>
                     <div>
                         <h3>생년월일</h3>
-                        <input type="text" placeholder="생년월일 8자리를 입력해주세요" id="birth" onkeyup="printBirth()" />
+                        <input type="number" placeholder="생년월일 8자리를 입력해주세요" id="birth" onchange="printBirth()" />
                     </div>
                     <div class="join__main__gender">
                         <h3>성별</h3>
-                        <form class="join__main__gender__form">
+                        <form class="join__main__gender__form" onclick="printGender(event)">
                                 <input type="radio" id="women" name="gender" class="women" >
                                 여성
                                 <input type="radio" id="men" name="gender"  class="men" >
@@ -54,26 +55,18 @@
                 </div>
 
                 <div class="join__main__trem">
-                    <form>
-
-                    </form>
-                    
                     <label for="">
-                        <input type="radio">
-                        모두 동의합니다
-                    </label>
-                    <label for="">
-                        <input type="radio">
+                        <input type="checkbox" id="fristCheck" checked>
                         워피 이용약관
                     </label>
                     <span>보기</span>
                     <label for="">
-                        <input type="radio">
+                        <input type="checkbox" id="secondCheck">
                         개인정보 취급방침
                     </label>
                     <span>보기</span>
                     <label for="">
-                        <input type="radio">
+                        <input type="checkbox" id="thirdCheck">
                         위치기반 서비스 이용약관
                     </label>
                     <span>보기</span>
@@ -86,6 +79,6 @@
 
         </div>
     <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
-    <!-- <script src="../public/sequelize.js"></script> -->
+    <script src="../login_js/join.js"></script>
     </body>
 </html>

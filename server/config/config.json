@@ -2,7 +2,7 @@
   "development": {
     "username": "root",
     "password": "sion1129",
-    "database": "wappe",
+    "database": "wape",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },

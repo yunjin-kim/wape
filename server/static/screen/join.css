@@ -83,34 +83,29 @@
   display: flex;
   flex-direction: column;
 }
-.join__main__trem label:nth-of-type(1) {
+.join__main__trem label {
   font-size: 1rem;
   margin-left: 0px;
-}
-.join__main__trem label {
-  font-size: 0.8rem;
-  margin-bottom: 0.5vh;
-  margin-left: 5vw;
 }
 .join__main__trem span:nth-of-type(1) {
   position: absolute;
   font-size: 0.8rem;
   left: 124px;
-  top: 30px;
+  top: 4px;
   color: var(--sub-font);
 }
 .join__main__trem span:nth-of-type(2) {
   position: absolute;
   font-size: 0.8rem;
-  left: 144px;
-  top: 52px;
+  left: 150px;
+  top: 24px;
   color: var(--sub-font);
 }
 .join__main__trem span:nth-of-type(3) {
   position: absolute;
   font-size: 0.8rem;
-  left: 184px;
-  top: 74px;
+  left: 200px;
+  top: 45px;
   color: var(--sub-font);
 }
 .join__button button {
@@ -121,4 +116,9 @@
   border-radius: 18px;
   font-size: 1.5rem;
   color: var(--thir-font);
+}
+#sameOrDiff {
+  font-size: 0.8rem;
+  margin-top: -2vh;
+  margin-bottom: 1vh;
 }

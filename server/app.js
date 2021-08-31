@@ -7,15 +7,11 @@ const nunjucks = require('nunjucks');
 const dotenv = require('dotenv');
 
 dotenv.config();
-const loginRouter = require('./routes/login');
+// const loginRouter = require('./routes/login');
 
 const app = express();
 app.set('port', process.env.PORT || 8880);
-// app.set('view', 'html');
-// nunjucks.configure('static', {
-//   express: app,
-//   watch: true,
-// });
+
 
 app.use(morgan('dev'))
 app.use(express.static(path.join(__dirname, 'static')));
@@ -32,19 +28,24 @@ app.use(session({
   },
 }));
 
-app.use('/', loginRouter);
+// app.use('/', loginRouter);
 
-// app.get('/', (req, res)=>{
-//   res.sendFile(path.join(__dirname, 'static/login_html/login.html'))
-// });
+app.get('/', (req, res)=>{
+  res.sendFile(path.join(__dirname, 'static/login_html/login.html'))
+});
 
-// app.get('/', (req, res)=>{
-//   res.sendFile(path.join(__dirname, 'static/login_html/join.html'))
-// });
+app.get('/', (req, res)=>{
+  res.sendFile(path.join(__dirname, 'static/login_html/join.html'))
+});
 
-// app.get('/', (req, res)=>{
-//   res.sendFile(path.join(__dirname, 'static/login_html/find.html'))
-// });
+app.get('/', (req, res)=>{
+  res.sendFile(path.join(__dirname, 'static/login_html/find.html'))
+});
+
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + 'static/mainpage_html/mainpage.html')
+});
+
 
 app.use((req, res, next) => {
   const error = new Error(`${req.method} ${req.url} 라우터가 없습니다`);
@@ -53,9 +54,9 @@ app.use((req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-  res.locals.message = err.message;
-  res.locals.error = process.env.NODE_ENV !== 'production' ? err : {};
-  res.status(err.status || 500).render('error');
+  res.error = process.env.NODE_ENV !== 'production' ? err : {};
+  res.status(err.status || 500);
+  res.render('error');
 });
 
 app.listen(app.get('port'), ()=>{
