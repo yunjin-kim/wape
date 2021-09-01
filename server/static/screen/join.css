@@ -117,8 +117,9 @@
   font-size: 1.5rem;
   color: var(--thir-font);
 }
-#sameOrDiff {
+.noticeWrongPass,
+.noticeNotSamePass,
+.noticeWrongBirth {
   font-size: 0.8rem;
   margin-top: -2vh;
-  margin-bottom: 1vh;
 }

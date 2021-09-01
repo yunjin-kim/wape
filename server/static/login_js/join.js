@@ -1,56 +1,82 @@
-let userPass;
-const sameOrDiff = document.getElementById('sameOrDiff');
-
+let userNum;
 function printNum(){
-  let userNum = document.getElementById('number').value;
+  userNum = document.getElementById('number').value;
   console.log(userNum);
 }
 
+const $noticeWrongPass = document.querySelector('.noticeWrongPass');
+let userPass;
+let userPassTP = false;
 function printPass(){
   userPass = document.getElementById('password').value;
+  if(userPass.length < 8){
+    $noticeWrongPass.innerText = "비밀번호 8자리 이상 입력해주세요";
+  }
+  userPassTP = true;
   console.log(userPass);
 }
 
+let userSamePass
+let userSamePassTF = false;
+const $noticeNotSamePass = document.querySelector('.noticeNotSamePass');
 function printSamePass(){
-  let userSamePass = document.getElementById('samePassword').value;
+  userSamePass = document.getElementById('samePassword').value;
   console.log(userSamePass);
   if(userPass === userSamePass){
-    sameOrDiff.innerText = "비밀번호가 동일해"
+    $noticeNotSamePass.innerText = "비밀번호가 동일합니다"
+    userPassTF = true;
   }
   else if(userPass !== userSamePass){
-    sameOrDiff.innerText = "비밀번호가 동일하지 않아"
+    $noticeNotSamePass.innerText = "비밀번호가 동일하지 않습니다"
+    userPassTF = false;
   }
 }
 
+const $noticeWrongBirth = document.querySelector('.noticeWrongBirth');
+let userBirth;
 function printBirth(){
-  let userBirth = document.getElementById('birth').value;
+  userBirth = document.getElementById('birth').value;
+  if(userBirth.length !== 8){
+    $noticeWrongBirth.innerText = "생년월일 8자를 입력해주세요"
+  }
   console.log(userBirth);
 }
 
+let userGender 
 function printGender(event){
-  let userGender = event.target.id;
+  userGender = event.target.id;
   console.log(userGender)
 }
 
-//체크 상태면 null이 아니다
-console.log(fristCheckResult)
 let $fristCheck = document.getElementById('fristCheck')
-let fristCheckResult = $fristCheck.getAttribute("checked");
+let fristCheck;
+$fristCheck.addEventListener('click',(e)=>{
+  fristCheck = e.path[0].checked;
+})
 
 let $secondCheck = document.getElementById('secondCheck')
-let secondCheckResult = $secondCheck.getAttribute("checked");
+let secondCheck;
+$secondCheck.addEventListener('click',(e)=>{
+  secondCheck = e.path[0].checked;
+})
 
 let $thirdCheck = document.getElementById('thirdCheck')
-let thirdCheckResult = $thirdCheck.getAttribute("checked");
+let thirdCheck;
+$thirdCheck.addEventListener('click',(e)=>{
+  thirdCheck = e.path[0].checked;
+})
+
 
 const $loginComplete = document.getElementById("userJoinButton");
 
 $loginComplete.addEventListener('click',()=>{
-  if(sameOrDiff.innerText = "비밀번호가 동일해")
+  console.log("AAAAA")
+  if(userPassTP)
+  if(userSamePassTF)
   if(userBirth)
   if(userGender)
-  if(fristCheckResult !== null)
-  if(secondCheckResult !== null)
-  if(thirdCheckResult !== null)
-  console.log("AAAAA")
+  if(fristCheck)
+  if(secondCheck)
+  if(thirdCheck)
+  console.log("CCCCC")
 })
