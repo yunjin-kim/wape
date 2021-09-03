@@ -78,5 +78,40 @@ $loginComplete.addEventListener('click',()=>{
   if(fristCheck)
   if(secondCheck)
   if(thirdCheck)
-  console.log("CCCCC")
+  console.log("CCCCC");
+
+  // let userInfo = {
+  //   number: userNum,
+  //   password: userPass,
+  //   birth: userBirth,
+  //   gender: userGender
+  // }
+
+  postUserInfo();
 })
+
+const $joinError = document.querySelector('.joinError');
+function postUserInfo(){
+  console.log();
+
+  axios({
+    method: "POST",
+    url: 'https://reqres.in/api/login',
+    data: {
+      number: userNum,
+      password: userPass,
+      birth: userBirth,
+      gender: userGender
+    }
+  }).then((res)=>{
+    console.log(res);
+  }).catch(error =>{
+    console.log(error);
+
+  })
+  
+  // axios.post('../../models/user', JSON.parse(userInfo))
+  //   .then(function (res){
+
+  //   })
+}
