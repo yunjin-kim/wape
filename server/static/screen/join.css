@@ -70,6 +70,15 @@
   color: var(--main-color);
   border-radius: 10px;
 }
+.join__main__pass__again {
+  margin-top: 2vh;
+}
+.join__main__birth {
+  margin-top: 2vh;
+}
+.join__main__gender {
+  margin-top: 2vh;
+}
 .join__main__gender label {
   width: 10%;
   height: 2vh;
@@ -122,4 +131,9 @@
 .noticeWrongBirth {
   font-size: 0.8rem;
   margin-top: -2vh;
+}
+.joinError {
+  margin-top: 10vw;
+  margin: auto;
+  color: red;
 }

@@ -12,6 +12,9 @@ function printPass(){
   if(userPass.length < 8){
     $noticeWrongPass.innerText = "비밀번호 8자리 이상 입력해주세요";
   }
+  else{
+    $noticeWrongPass.innerText = "";
+  }
   userPassTP = true;
   console.log(userPass);
 }
@@ -52,18 +55,21 @@ let $fristCheck = document.getElementById('fristCheck')
 let fristCheck;
 $fristCheck.addEventListener('click',(e)=>{
   fristCheck = e.path[0].checked;
+  console.log(fristCheck)
 })
 
 let $secondCheck = document.getElementById('secondCheck')
 let secondCheck;
 $secondCheck.addEventListener('click',(e)=>{
   secondCheck = e.path[0].checked;
+  console.log(secondCheck)
 })
 
 let $thirdCheck = document.getElementById('thirdCheck')
 let thirdCheck;
 $thirdCheck.addEventListener('click',(e)=>{
   thirdCheck = e.path[0].checked;
+  console.log(thirdCheck)
 })
 
 
@@ -72,13 +78,19 @@ const $loginComplete = document.getElementById("userJoinButton");
 $loginComplete.addEventListener('click',()=>{
   console.log("AAAAA")
   if(userPassTP)
+  console.log("BBB")
   if(userSamePassTF)
+  console.log("CCC")
   if(userBirth)
+  console.log("DDD")
   if(userGender)
+  console.log("EEE")
   if(fristCheck)
+  console.log("FFF")
   if(secondCheck)
+  console.log("GGG")
   if(thirdCheck)
-  console.log("CCCCC");
+  console.log("WWWW")
 
   // let userInfo = {
   //   number: userNum,
@@ -92,20 +104,22 @@ $loginComplete.addEventListener('click',()=>{
 
 const $joinError = document.querySelector('.joinError');
 function postUserInfo(){
-  console.log();
-
+  
   axios({
     method: "POST",
     url: 'https://reqres.in/api/login',
     data: {
-      number: userNum,
-      password: userPass,
-      birth: userBirth,
-      gender: userGender
+      "email": "eve.holt@reqres.in",
+      "password": "cityslicka"
+      // "number": "userNum",
+      // "password": "userPass",
+      // "birth": "userBirth",
+      // "gender": "userGender"
     }
   }).then((res)=>{
     console.log(res);
   }).catch(error =>{
+    $joinError.textContent = "입력한 정보가 올바르지 않습니다";
     console.log(error);
 
   })

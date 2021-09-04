@@ -29,17 +29,17 @@
                         <input type="text" placeholder="인증번호를 입력해주세요"/>
                         <button>인증번호 확인</button>
                     </div>
-                    <div>
+                    <div class="join__main__pass">
                         <h3>비밀번호</h3>
                         <input type="password" placeholder="8자리 이상 입력해주세요" minlength="8" id="password" onchange="printPass()" />
                         <div class="noticeWrongPass"></div>
                     </div>
-                    <div>
+                    <div class="join__main__pass__again">
                         <h3>비밀번호 재입력</h3>
                         <input type="password" placeholder="비밀번호를 다시 입력해주세요" id="samePassword" onchange="printSamePass()"  />
                         <div class="noticeNotSamePass"></div>
                     </div>
-                    <div>
+                    <div class="join__main__birth">
                         <h3>생년월일</h3>
                         <input type="number" placeholder="생년월일 8자리를 입력해주세요" id="birth" onchange="printBirth()" />
                         <div class="noticeWrongBirth"></div>
@@ -73,14 +73,14 @@
                     </label>
                     <span>보기</span>
                 </div>
+                <div class="joinError"></div>
             </div>
-            <div class="joinError"></div>
             <div class="join__button">
                 <button id="userJoinButton">시작하기</button>
             </div>
 
         </div>
+    <script src="../login_js/join.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script type="module" src="../login_js/join.js"></script>
     </body>
 </html>

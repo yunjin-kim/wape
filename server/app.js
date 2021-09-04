@@ -13,7 +13,7 @@ const { sequelize } = require('./models')
 const app = express();
 app.set('port', process.env.PORT || 8880);
 
-
+//table 바꿀려면 force: true 데이터는 날아간다
 sequelize.sync({force: false})
   .then(()=>{
     console.log('데이터베이스 연결 성공');
@@ -22,8 +22,8 @@ sequelize.sync({force: false})
     console.error(err);
   })
 
-  app.use(morgan('dev'))
-  app.use(express.static(path.join(__dirname, 'static')));
+app.use(morgan('dev'))
+app.use(express.static(path.join(__dirname, 'static')));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(cookieParser(process.env.COOKIE_SECRET));
