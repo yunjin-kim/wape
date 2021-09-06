@@ -2,12 +2,14 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 const path = require('path');
+const cors = require('cors');
 const session = require('express-session');
 // const nunjucks = require('nunjucks');
 const dotenv = require('dotenv');
 
 dotenv.config();
-// const loginRouter = require('./routes/login');
+const loginRouter = require('./routes/login');
+const authRouter = require('./routes/auth');
 const { sequelize } = require('./models')
 
 const app = express();
@@ -37,23 +39,15 @@ app.use(session({
   },
 }));
 
-// app.use('/', loginRouter);
+app.use(cors({
+  origin: true,
+  credentials: true
+}))
 
-app.get('/', (req, res)=>{
-  res.sendFile(path.join(__dirname, 'static/login_html/login.html'))
-});
+app.use('/', loginRouter);
+app.use('/auth', authRouter);
 
-app.get('/', (req, res)=>{
-  res.sendFile(path.join(__dirname, 'static/login_html/join.html'))
-});
 
-app.get('/', (req, res)=>{
-  res.sendFile(path.join(__dirname, 'static/login_html/find.html'))
-});
-
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + 'static/mainpage_html/mainpage.html')
-});
 
 
 app.use((req, res, next) => {

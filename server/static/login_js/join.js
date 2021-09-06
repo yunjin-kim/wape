@@ -105,24 +105,39 @@ $loginComplete.addEventListener('click',()=>{
 const $joinError = document.querySelector('.joinError');
 function postUserInfo(){
   
-  axios({
-    method: "POST",
-    url: 'https://reqres.in/api/login',
-    data: {
-      "email": "eve.holt@reqres.in",
-      "password": "cityslicka"
-      // "number": "userNum",
-      // "password": "userPass",
-      // "birth": "userBirth",
-      // "gender": "userGender"
-    }
-  }).then((res)=>{
+  axios.post('../../routes/auth',
+  {number: userNum,
+    password: userPass,
+    birth: userBirth,
+    gender: userGender
+  },
+  {withCredentials: true}
+  ).then((res)=>{
     console.log(res);
   }).catch(error =>{
     $joinError.textContent = "입력한 정보가 올바르지 않습니다";
     console.log(error);
-
   })
+
+  // axios({
+  //   method: "POST",
+  //   // url: 'https://reqres.in/api/login',
+  //   url: '../../routes/auth',
+  //   data: {
+  //     // "email": "eve.holt@reqres.in",
+  //     // "password": "cityslicka"
+  //     "number": "userNum",
+  //     "password": "userPass",
+  //     "birth": "userBirth",
+  //     "gender": "userGender"
+  //   },
+  //   withCredentials: true
+  // }).then((res)=>{
+  //   console.log(res);
+  // }).catch(error =>{
+  //   $joinError.textContent = "입력한 정보가 올바르지 않습니다";
+  //   console.log(error);
+  // })
   
   // axios.post('../../models/user', JSON.parse(userInfo))
   //   .then(function (res){
