@@ -40,7 +40,7 @@ app.use(session({
 }));
 
 app.use(cors({
-  origin: true,
+  origin: 'http://localhost:8880/',
   credentials: true
 }))
 

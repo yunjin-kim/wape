@@ -2,10 +2,12 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const User = require('../models/user');
 const passport = require('../passport');
-
+// const cors = require('cors');
+// cors(),
 const router = express.Router();
-
+//cors({ origin: 허용 오리진 주소 }) 나중에 실제 도메인에 올릴 땐 이렇게
 router.post('/join', async(req, res, next)=>{
+  console.log("AAA")
   const { number, password, birth, gender } = req.body;
   try{
     const exUser = await User.findOne({where : {number}});
@@ -25,8 +27,10 @@ router.post('/join', async(req, res, next)=>{
     return next(error);
   }
 });
+
 //프론트에서 로그인요청 보내면 이 라우터에 걸린다
 router.post('/login', (req, res, next)=>{
+  //passport.authenticate('local',여기까지 실행되면 passport가 localstrategy를 찾는다
   passport.authenticate('local', (authError, user, info)=>{
     if(authError){
       console.error(authError);
