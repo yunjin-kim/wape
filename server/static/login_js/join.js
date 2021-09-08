@@ -104,11 +104,12 @@ $loginComplete.addEventListener('click',()=>{
 
 const $joinError = document.querySelector('.joinError');
 function postUserInfo(){
-//encodeURIComponent
+
   axios({
-    method: "POST",
     url: "localhost:8880/join",
-    data: JSON.stringify({
+    method: "POST",
+    // contentType: application/x-www-form-urlencoded, encodeURIComponent
+    data: ({
       number: "userNum",
       password: "userPass",
       birth: "userBirth",

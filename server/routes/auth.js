@@ -2,12 +2,12 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const User = require('../models/user');
 const passport = require('../passport');
-// const cors = require('cors');
-// cors(),
+const cors = require('cors');
+
 const router = express.Router();
 //cors({ origin: 허용 오리진 주소 }) 나중에 실제 도메인에 올릴 땐 이렇게
-router.post('/join', async(req, res, next)=>{
-  console.log("AAA")
+router.post('/join', cors({origin: "http://localhost:8880/"}), async(req, res, next)=>{
+  // res.writeHead(200, { 'Access-Control-Allow-Origin': '*' });
   const { number, password, birth, gender } = req.body;
   try{
     const exUser = await User.findOne({where : {number}});
