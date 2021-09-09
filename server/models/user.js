@@ -19,7 +19,7 @@ module.exports = class User extends Sequelize.Model {
       provider: {
         type: Sequelize.STRING(10),
         allowNull: false,
-        defaultVaue: 'local',
+        defaultValue: 'local',
       },
       gender: {
         type: Sequelize.TEXT(''),

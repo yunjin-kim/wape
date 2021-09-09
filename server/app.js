@@ -14,7 +14,6 @@ const { sequelize } = require('./models')
 
 const app = express();
 app.set('port', process.env.PORT || 8880);
-
 //table 바꿀려면 force: true 데이터는 날아간다
 sequelize.sync({force: false})
   .then(()=>{
@@ -46,9 +45,6 @@ app.use(session({
 
 app.use('/', loginRouter);
 app.use('/auth', authRouter);
-
-
-
 
 app.use((req, res, next) => {
   const error = new Error(`${req.method} ${req.url} 라우터가 없습니다`);
