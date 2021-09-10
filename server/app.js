@@ -2,9 +2,7 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 const path = require('path');
-// const cors = require('cors');
 const session = require('express-session');
-// const nunjucks = require('nunjucks');
 const dotenv = require('dotenv');
 
 dotenv.config();
@@ -23,6 +21,7 @@ sequelize.sync({force: false})
     console.error(err);
   })
 
+
 app.use(morgan('dev'))
 app.use(express.static(path.join(__dirname, 'static')));
 app.use(express.json());
@@ -38,14 +37,8 @@ app.use(session({
   },
 }));
 
-// app.use(cors({
-//   origin: 'localhost:8880/join',
-//   credentials: true
-// }))
-
 app.use('/', loginRouter);
 app.use('/auth', authRouter);
-
 app.use((req, res, next) => {
   const error = new Error(`${req.method} ${req.url} 라우터가 없습니다`);
   error.status = 404;

@@ -2,17 +2,16 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const User = require('../models/user');
 const passport = require('../passport');
-// const cors = require('cors');
 
 const router = express.Router();
-//cors({ origin: 허용 오리진 주소 }) 나중에 실제 도메인에 올릴 땐 이렇게
 router.post('/join', async(req, res, next)=>{
   console.log("AA")
   const { number, password, birth, gender } = req.body;
   try{
     const exUser = await User.findOne({where : {number}});
     if(exUser){
-      return res.redirect('/join?error=exist');
+      // return res.redirect('/join?error=exist');
+      return res.status(401).json({message: "Same ID"})
     }
     const hash = await bcrypt.hash(password, 12);
     await User.create({
