@@ -3,6 +3,7 @@ const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 const path = require('path');
 const session = require('express-session');
+
 const dotenv = require('dotenv');
 
 dotenv.config();
@@ -39,6 +40,11 @@ app.use(session({
 
 app.use('/', loginRouter);
 app.use('/auth', authRouter);
+
+app.use('/wrongpage?error',(req, res)=>{
+  res.sendFile(path.join(__dirname, 'static/error/errorpage.html'))
+})
+
 app.use((req, res, next) => {
   const error = new Error(`${req.method} ${req.url} 라우터가 없습니다`);
   error.status = 404;
@@ -48,7 +54,7 @@ app.use((req, res, next) => {
 app.use((err, req, res, next) => {
   res.error = process.env.NODE_ENV !== 'production' ? err : {};
   res.status(err.status || 500);
-  res.render('error');
+  res.redirect('/wrongpage?error');
 });
 
 app.listen(app.get('port'), ()=>{
