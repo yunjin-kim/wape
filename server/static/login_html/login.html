@@ -12,16 +12,19 @@
         <h2 class="login__title">워피</h2>
         <form class="login__form">
             <label for="phoneNum">휴대전화 번호를 입력해주세요</label>
-            <input type="text" placeholder="휴대전화 번호" id="phoneNum">
+            <input type="text" placeholder="휴대전화 번호" id="loginNum" onchange="loginNumber()">
             <label for="secret">비밀번호를 입력해주세요</label>
-            <input type="text" placeholder="비밀번호" id="secret">
+            <input type="password" placeholder="비밀번호" id="loginPass" onchange="loginPassword()">
         </form>
-        <button class="login__button" onclick="location.href='../mainpage_html/mainpage.html'">로그인</button>
+        <button class="login__button" id="loginBtn" >로그인</button>
+        <!-- onclick="location.href='../mainpage_html/mainpage.html'" -->
         <div class="login__new">
             <span  onclick="location.href='../login_html/join.html'">회원가입</span>
             <div></div>
             <span  onclick="location.href='../login_html/find.html'">비밀번호찾기</span>
         </div>
     </div>
+    <script src="../login_js/login.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </body>
 </html>

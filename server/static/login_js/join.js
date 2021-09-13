@@ -108,14 +108,12 @@ function postUserInfo(){
   axios({
     url: "http://localhost:8880/auth/join/",
     method: "POST",
-    // contentType: application/x-www-form-urlencoded, encodeURIComponent
     data: ({
       number: userNum,
       password: userPass,
       birth: userBirth,
       gender: userGender
     }),
-    // withCredentials: true
   }).then((res)=>{
     console.log(res);
   }).catch(error =>{

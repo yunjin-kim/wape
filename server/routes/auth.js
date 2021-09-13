@@ -2,16 +2,16 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const User = require('../models/user');
 const passport = require('../passport');
+const { isLoggedIn, isNotLoggedIn } = require('./middlewears');
 
 const router = express.Router();
-router.post('/join', async(req, res, next)=>{
+router.post('/join', isNotLoggedIn, async(req, res, next)=>{
   console.log("AA")
   const { number, password, birth, gender } = req.body;
   try{
     const exUser = await User.findOne({where : {number}});
     if(exUser){
       return res.redirect('/join?error=exist');
-      // return res.status(401).json({message: "Same ID"})
     }
     const hash = await bcrypt.hash(password, 12);
     await User.create({
@@ -28,24 +28,37 @@ router.post('/join', async(req, res, next)=>{
 });
 
 //프론트에서 로그인요청 보내면 이 라우터에 걸린다
-router.post('/login', (req, res, next)=>{
-  //passport.authenticate('local',여기까지 실행되면 passport가 localstrategy를 찾는다
+router.post('/login', isNotLoggedIn, (req, res, next)=>{
+  //(1)passport.authenticate('local',여기까지 실행되면 passport가 localstrategy를 찾는다
   passport.authenticate('local', (authError, user, info)=>{
+                                  //(3)
     if(authError){
       console.error(authError);
       return next(authError);
     }
     if(!user){
-      return res.redirect(`/>loginError=${info.message}`);
+      return res.redirect(`/?loginError=${info.message}`);
     }
+    //로그인 성공한 경우 passport/index 로 간다
     return req.login(user, (loginError)=> {
+      //(5) 최종적으로 로그인에러가 있나 확인한다
       if(loginError){
         console.error(loginError);
         return next(loginError);
       }
+      //여기서 세션쿠키를 브라우저로 보내준다
+      //그래서 그 다음 요청부터 세션 쿠키가 보내져서 서버가 요청을 누가 보냈는지 알 수 있게(로그인 상태)
+      //로그인 성공
       return res.redirect('/');
     })
-  })(req, res, next);
+  })(req, res, next);//미들웨어 확장
+})
+
+router.get('/logout', isLoggedIn, (req, res)=>{
+  //로그아웃하면 서버에서 세션쿠키를 지운다
+  req.logout();
+  req.session.destroy();
+  res.redirect('/');
 })
 
 module.exports = router;
