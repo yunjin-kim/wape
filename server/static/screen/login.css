@@ -53,3 +53,7 @@
   height: 20px;
   background-color: var(--sub-font);
 }
+#loginError {
+  margin-top: 1vh;
+  color: red;
+}

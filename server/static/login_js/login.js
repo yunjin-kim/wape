@@ -20,6 +20,7 @@ $loginBtn.addEventListener('click', ()=>{
   postLoginInfo();
 })
 
+const $loginError = document.getElementById('loginError');
 function postLoginInfo(){
   console.log("로그인가즈아")
   axios({
@@ -32,7 +33,7 @@ function postLoginInfo(){
   }).then((res)=>{
     console.log(res);
   }).catch(error =>{
-    $joinError.textContent = "입력한 정보가 올바르지 않습니다";
     console.log(error);
+    $loginError.textContent = "입력한 정보가 올바르지 않습니다";
   })
 }

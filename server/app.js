@@ -7,9 +7,10 @@ const passport = require('passport');
 const dotenv = require('dotenv');
 
 dotenv.config();
-const loginRouter = require('./routes/login');
+const pageRouter = require('./routes/page');
 const authRouter = require('./routes/auth');
 const { sequelize } = require('./models')
+const passportConfig = require('./passport');
 
 const app = express();
 app.set('port', process.env.PORT || 8880);
@@ -20,7 +21,9 @@ sequelize.sync({force: false})
   })
   .catch((err)=>{
     console.error(err);
-  })
+  });
+
+passportConfig();
 
 
 app.use(morgan('dev'))
@@ -44,12 +47,12 @@ app.use(passport.initialize());
 //로그인 후 그 다음요청부터 passport.session이 실행될때 deserializeUser가 실행된다
 app.use(passport.session());
 
-app.use('/', loginRouter);
+app.use('/', pageRouter);
 app.use('/auth', authRouter);
 
-app.use('/wrongpage?error',(req, res)=>{
-  res.sendFile(path.join(__dirname, 'static/error/errorpage.html'))
-})
+// app.use('/wrongpage?error',(req, res)=>{
+//   res.sendFile(path.join(__dirname, 'static/error/errorpage.html'))
+// })
 
 app.use((req, res, next) => {
   const error = new Error(`${req.method} ${req.url} 라우터가 없습니다`);
@@ -61,6 +64,7 @@ app.use((err, req, res, next) => {
   res.error = process.env.NODE_ENV !== 'production' ? err : {};
   res.status(err.status || 500);
   // res.redirect('/wrongpage?error');
+  res.sendFile(path.join(__dirname, 'static/error/errorpage.html'))
 });
 
 app.listen(app.get('port'), ()=>{
