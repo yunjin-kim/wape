@@ -6,12 +6,12 @@ const { isLoggedIn, isNotLoggedIn } = require('./middlewears');
 
 const router = express.Router();
 router.post('/join', isNotLoggedIn, async(req, res, next)=>{
-  console.log("AA")
   const { number, password, birth, gender } = req.body;
   try{
     const exUser = await User.findOne({where : {number}});
     if(exUser){
-      return res.redirect('/join?error=exist');
+      return res.sendStatus(444);
+      // return res.redirect('/join?error=exist');
     }
     const hash = await bcrypt.hash(password, 12);
     await User.create({

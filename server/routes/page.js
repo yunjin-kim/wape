@@ -20,14 +20,14 @@ router.get('/', (req, res)=>{
 });
 
 //이거 맞니?
-router.use((req, res, next)=>{
-  res.locals.user = user;
-  next();
-})
+// router.use((req, res, next)=>{
+//   res.locals.user = user;
+//   next();
+// })
 
-router.get('/', (req, res, next)=>{
-  res.sendFile(path.join(__dirname, 'static/mainpage_html/mainpage.html'))
-})
+// router.get('/', (req, res, next)=>{
+//   res.sendFile(path.join(__dirname, 'static/mainpage_html/mainpage.html'))
+// })
 
 // router.get('/', (req, res) => {
 //   res.sendFile(__dirname, 'static/mainpage_html/profile.html')
