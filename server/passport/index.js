@@ -4,6 +4,8 @@ const User = require('../models/user');
 
 module.exports = () => {
   //(4)
+
+  console.log("로그인네번째")
   passport.serializeUser((user, done)=>{
     //user id만 뽑아서 done 해준다
     done(null, user.id); //세션에 user의 id만 저장

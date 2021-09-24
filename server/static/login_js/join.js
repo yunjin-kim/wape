@@ -34,7 +34,7 @@ function printSamePass(){
     userPassTF = false;
   }
 }
-
+//생년월일 한번 틀리면 다시 입력해도 틀리게 출력
 const $noticeWrongBirth = document.querySelector('.noticeWrongBirth');
 let userBirth;
 function printBirth(){
@@ -91,13 +91,6 @@ $loginComplete.addEventListener('click',()=>{
   console.log("GGG")
   if(thirdCheck)
   console.log("WWWW")
-
-  // let userInfo = {
-  //   number: userNum,
-  //   password: userPass,
-  //   birth: userBirth,
-  //   gender: userGender
-  // }
 
   postUserInfo();
 })

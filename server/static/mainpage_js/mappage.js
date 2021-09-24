@@ -98,7 +98,7 @@ setTimeout(()=>{
       },1000)
     };
     rotateWhenFalse();
-}, 0)
+}, 10)
 
 
 const $backToMyLoc = document.querySelector('.mappage__location__btn');
@@ -113,8 +113,6 @@ $backToMyLoc.addEventListener('click', () => {
 const myLocArr = [];
 let currentMyLoc;
 function showMyLoc(myMapOption) {
-  console.log(dragged);
-  console.log(myLocArr)
   const myLocIconImg = '../img/mylocation.png';
   const myLocIconSize = new kakao.maps.Size(10, 10);
   const myLocIcon = new kakao.maps.MarkerImage(myLocIconImg, myLocIconSize);
@@ -147,7 +145,6 @@ const $courseName = document.querySelector('.mappage__walkload__course__name');
 const $courseLocation = document.querySelector('.mappage__walkload__course__location');
 const $courseDistance = document.querySelector('.mappage__walkload__course__distance');
 const $courseMoney = document.querySelector('.mappage__walkload__course__money');
-// const $courseLat = document.querySelector('.mappage__walkload__course__lat');
 const $selectCourse2 = document.querySelector('.mappage__walkload__course2');
 const $courseImage2 = document.querySelector('.mappage__walkload__course2__img__img');
 const $courseDesc2 = document.querySelector('.mappage__walkload__course2__desc');
@@ -214,13 +211,15 @@ function showMarker(pointArr) {
       polygonArr.push(polygon);
     }
     let courseStokeStyle;
+    console.log(polygon)
+
     setTimeout(()=>{
-      courseStokeStyle = (polygon.D.r.childNodes[1].style.cssText)
+      courseStokeStyle = (polygon.G.r.childNodes[1].style.cssText)
       for(let i = 1; i <= polygonArr.length; i++){
-        // console.log("AAA")
-        polygon.D.r.childNodes[i].style.cssText = ""
+        polygon.G.r.childNodes[i].style.cssText = ""
       }
     },10)
+    
     //$selectCourse 모든 부분에서 잘 동작하는지 체크 path[1,2,3,4]
     //event에서 클릭한 배너의 인덱스를 polygoncssText cssArr인덱스로 해서 다시 넣어준다
 
@@ -237,29 +236,29 @@ function showMarker(pointArr) {
   $selectCourse.addEventListener('click', (event) => {
     let couresFirstLat = Number(event.target.parentNode.offsetParent.childNodes[3].id);
 
-    map.panTo(new kakao.maps.LatLng(polygonArr[couresFirstLat].Rg[0].Ma, polygonArr[couresFirstLat].Rg[0].La));
+    map.panTo(new kakao.maps.LatLng(polygonArr[couresFirstLat].Sg[0].Ma, polygonArr[couresFirstLat].Sg[0].La));
     for(let i = 1; i <= polygonArr.length; i++){
-      if(polygon.D.r.childNodes[i].style.cssText){
-        polygon.D.r.childNodes[i].style.cssText = "";
+      if(polygon.G.r.childNodes[i].style.cssText){
+        polygon.G.r.childNodes[i].style.cssText = "";
       }
     } 
-    if(polygonArr[couresFirstLat].Rg[0].Ma === Number(event.path[2].parentElement.firstElementChild.id)){
-      polygon.D.r.childNodes[couresFirstLat+1].style.cssText = `${courseStokeStyle}`;
+    if(polygonArr[couresFirstLat].Sg[0].Ma === Number(event.path[2].parentElement.firstElementChild.id)){
+      polygon.G.r.childNodes[couresFirstLat+1].style.cssText = `${courseStokeStyle}`;
     }
   })
 
   //두번째 배너 클릭하면 배너의 코스 보여주고 코스 출발 지점으로 이동
   $selectCourse2.addEventListener('click', (event) => {
     let couresFirstLat = Number(event.target.parentNode.offsetParent.childNodes[3].id);
-    map.panTo(new kakao.maps.LatLng(polygonArr[couresFirstLat].Rg[0].Ma, polygonArr[couresFirstLat].Rg[0].La));
+    map.panTo(new kakao.maps.LatLng(polygonArr[couresFirstLat].Sg[0].Ma, polygonArr[couresFirstLat].Sg[0].La));
 
     for(let i = 1; i <= polygonArr.length; i++){
-      if(polygon.D.r.childNodes[i].style.cssText){
-        polygon.D.r.childNodes[i].style.cssText = "";
+      if(polygon.G.r.childNodes[i].style.cssText){
+        polygon.G.r.childNodes[i].style.cssText = "";
       }
     } 
-    if(polygonArr[couresFirstLat].Rg[0].Ma === Number(event.path[2].parentElement.lastElementChild.id)){
-      polygon.D.r.childNodes[couresFirstLat+1].style.cssText = `${courseStokeStyle}`;
+    if(polygonArr[couresFirstLat].Sg[0].Ma === Number(event.path[2].parentElement.lastElementChild.id)){
+      polygon.G.r.childNodes[couresFirstLat+1].style.cssText = `${courseStokeStyle}`;
     }
   })
   

@@ -2,6 +2,7 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 const path = require('path');
+const nunjucks = require('nunjucks');
 const session = require('express-session');
 const passport = require('passport');
 const dotenv = require('dotenv');
@@ -14,8 +15,9 @@ const passportConfig = require('./passport');
 
 const app = express();
 app.set('port', process.env.PORT || 8880);
+app.set('view engine', 'html');
 //table 바꿀려면 force: true 데이터는 날아간다
-sequelize.sync({force: true})
+sequelize.sync({force: false})
   .then(()=>{
     console.log('데이터베이스 연결 성공');
   })
@@ -25,6 +27,10 @@ sequelize.sync({force: true})
 
 passportConfig();
 
+nunjucks.configure('static', {
+  express: app,
+  watch: true
+})
 
 app.use(morgan('dev'))
 app.use(express.static(path.join(__dirname, 'static')));
@@ -47,7 +53,7 @@ app.use(passport.initialize());
 //로그인 후 그 다음요청부터 passport.session이 실행될때 deserializeUser가 실행된다
 app.use(passport.session());
 
-app.use('/', pageRouter);
+app.use('/page', pageRouter);
 app.use('/auth', authRouter);
 
 // app.use('/wrongpage?error',(req, res)=>{

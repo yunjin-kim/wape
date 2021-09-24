@@ -1,4 +1,5 @@
 const express = require('express');
+const { isLoggedIn, isNotLoggedIn } = require('./middlewears');
 
 const router = express.Router();
 
@@ -7,27 +8,23 @@ router.use((req, res, next)=>{
   next();
 })
 
-router.get('/', (req, res)=>{
+router.get('/login', isNotLoggedIn, (req, res)=>{
   res.sendFile(path.join(__dirname, 'static/login_html/login.html'))
 });
 
-router.get('/', (req, res)=>{
-  res.sendFile(path.join(__dirname, 'static/login_html/join.html'))
+router.get('/join', isNotLoggedIn, (req, res)=>{
+  res.sendFile(path.join('static/login_html/join.html'))
 });
 
-router.get('/', (req, res)=>{
-  res.sendFile(path.join(__dirname, 'static/login_html/find.html'))
+router.get('/find', isNotLoggedIn, (req, res)=>{
+  res.sendFile(path.join('static/login_html/find.html'))
 });
 
-//이거 맞니?
-// router.use((req, res, next)=>{
-//   res.locals.user = user;
-//   next();
-// })
 
-// router.get('/', (req, res, next)=>{
-//   res.sendFile(path.join(__dirname, 'static/mainpage_html/mainpage.html'))
-// })
+router.get('/done',isLoggedIn, (req, res, next)=>{ 
+  res.sendFile(path.join('static/mainpage_html/mainpage.html'))
+  
+})
 
 // router.get('/', (req, res) => {
 //   res.sendFile(__dirname, 'static/mainpage_html/profile.html')
