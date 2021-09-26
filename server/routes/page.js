@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const { isLoggedIn, isNotLoggedIn } = require('./middlewears');
 
 const router = express.Router();
@@ -9,20 +10,20 @@ router.use((req, res, next)=>{
 })
 
 router.get('/login', isNotLoggedIn, (req, res)=>{
-  res.sendFile(path.join(__dirname, 'static/login_html/login.html'))
+  res.render(path.join(__dirname,'..','/static','/login_html','/login.html'))
 });
 
 router.get('/join', isNotLoggedIn, (req, res)=>{
-  res.sendFile(path.join('static/login_html/join.html'))
+  res.sendFile(path.join(__dirname, '..','/static','/login_html','/join.html'))
 });
 
 router.get('/find', isNotLoggedIn, (req, res)=>{
-  res.sendFile(path.join('static/login_html/find.html'))
+  res.sendFile(path.join(__dirname, '..','/static','/login_html','/find.html'))
 });
 
 
-router.get('/done',isLoggedIn, (req, res, next)=>{ 
-  res.sendFile(path.join('static/mainpage_html/mainpage.html'))
+router.get('/main',isLoggedIn, (req, res, next)=>{ 
+  res.sendFile(path.join(__dirname, '..','/static','/mainpage_html','/mainpage.html'))
   
 })
 

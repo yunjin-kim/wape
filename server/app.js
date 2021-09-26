@@ -47,11 +47,16 @@ app.use(session({
   },
 }));
 
+const { isLoggedIn, isNotLoggedIn } = require('./routes/middlewears');
+
+
 app.use(passport.initialize());
 //passport.session의 역할은 브라우저에서 세션쿠키를 보내주면 
 //그것으로 id를 알아낸다 id를 deserializeUser 넘겨준다
 //로그인 후 그 다음요청부터 passport.session이 실행될때 deserializeUser가 실행된다
 app.use(passport.session());
+
+
 
 app.use('/page', pageRouter);
 app.use('/auth', authRouter);
