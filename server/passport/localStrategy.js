@@ -6,7 +6,7 @@ const User = require('../models/user');
 
 module.exports = () => {
   //(2)
-      console.log("로그인두번째")
+  console.log("로그인두번째")
   passport.use(new LocalStrategy({
     usernameField: 'number',  //req,body.number
     passwordField: 'password', //req,body.email
