@@ -23,7 +23,8 @@ router.post('/join', isNotLoggedIn, async(req, res, next)=>{
       password: hash,
     });
     console.log('회원가입 성공')
-    return res.redirect('/page/login');
+    let redir = { redirect: '/page/login' };
+    return res.json(redir);
   }catch(error){
     console.error(error);
     return next(error);
@@ -53,7 +54,8 @@ router.post('/login', isNotLoggedIn, (req, res, next)=>{
         return next(loginError);
       }
       console.log("로그인다섯번째")
-      return res.redirect('/page/main')
+      let redir = { redirect: '/page/main' };
+      return res.json(redir);
       //여기서 세션쿠키를 브라우저로 보내준다
       //그래서 그 다음 요청부터 세션 쿠키가 보내져서 서버가 요청을 누가 보냈는지 알 수 있게(로그인 상태)
       //로그인 성공

@@ -96,21 +96,17 @@ $loginComplete.addEventListener('click',()=>{
 })
 
 const $joinError = document.querySelector('.joinError');
-function postUserInfo(){
 
-  axios({
-    url: "http://localhost:8880/auth/join/",
-    method: "POST",
-    data: ({
-      number: userNum,
-      password: userPass,
-      birth: userBirth,
-      gender: userGender
-    }),
-  }).then((res)=>{
-    console.log(res);
-  }).catch(error =>{
-    $joinError.textContent = "입력한 정보가 올바르지 않습니다";
-    console.log(error);
-  })
+function postUserInfo(){
+  axios.post('/auth/join',{number: userNum, password: userPass, birth: userBirth, gender: userGender})
+    .then(function (res){
+      if(res.data.redirect == '/page/login'){
+        window.location = '/page/login'
+      }
+    }).then((res)=>{
+      console.log(res);
+    }).catch(error =>{
+      $joinError.textContent = "입력한 정보가 올바르지 않습니다";
+      console.log(error);
+    })
 }

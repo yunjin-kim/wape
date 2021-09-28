@@ -22,15 +22,12 @@ $loginBtn.addEventListener('click', ()=>{
 
 const $loginError = document.getElementById('loginError');
 function postLoginInfo(){
-  console.log("로그인가즈아")
-  axios({
-    url: "http://localhost:8880/auth/login/",
-    method: "POST",
-    data: ({
-      number: loginNum,
-      password: loginPass,
-    }),
-  }).then((res)=>{
+  axios.post('/auth/login', {number: loginNum,password: loginPass})
+    .then(function(res){
+      if(res.data.redirect == '/page/main'){
+        window.location = '/page/main'
+      }
+    }).then((res)=>{
     console.log(res);
   }).catch(error =>{
     console.log(error);
