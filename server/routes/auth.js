@@ -68,7 +68,9 @@ router.get('/logout', isLoggedIn, (req, res)=>{
   //로그아웃하면 서버에서 세션쿠키를 지운다
   req.logout();
   req.session.destroy();
-  // res.redirect('/');
+  res.clearCookie('connect.sid');
+  let redir = { redirect: '/page/login' };
+  return res.json(redir);
 })
 
 module.exports = router;

@@ -34,8 +34,12 @@ router.get('/map',isLoggedIn, (req, res, next)=>{
 });
 
 router.get('/anay',isLoggedIn, (req, res, next)=>{ 
-  res.sendFile(path.join(__dirname, '..','/static','/mainpage_html','/page.html'))
+  res.sendFile(path.join(__dirname, '..','/static','/mainpage_html','/anaypage.html'))
 });
+
+router.get('/profile',isLoggedIn,(req, res, next)=>{
+  res.sendFile(path.join(__dirname, '..','/static','/mainpage_html','/profilepage.html'))
+})
 
 router.get('/error',isLoggedIn, (req, res, next)=>{ 
   res.sendFile(path.join(__dirname, '..','/static','/error','/errorpage.html'))
