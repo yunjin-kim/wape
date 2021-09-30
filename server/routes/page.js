@@ -45,10 +45,6 @@ router.get('/error',isLoggedIn, (req, res, next)=>{
   res.sendFile(path.join(__dirname, '..','/static','/error','/errorpage.html'))
 });
 
-// router.get('/', (req, res) => {
-//   res.sendFile(__dirname, 'static/mainpage_html/profile.html')
-// });
-
 
 //로그인 페이지
 

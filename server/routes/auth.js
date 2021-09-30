@@ -1,10 +1,14 @@
 const express = require('express');
 const passport = require('passport');
 const bcrypt = require('bcrypt');
+const cookieParser = require('cookie-parser');
 const { isLoggedIn, isNotLoggedIn } = require('./middlewears');
 const User = require('../models/user');
 
+
 const router = express.Router();
+
+router.use(cookieParser());
 
 router.post('/join', isNotLoggedIn, async(req, res, next)=>{
   console.log(req)
@@ -37,7 +41,6 @@ router.post('/login', isNotLoggedIn, (req, res, next)=>{
   //(1)passport.authenticate('local',여기까지 실행되면 passport가 localstrategy를 찾는다
   passport.authenticate('local', (authError, user, info)=>{
                                   //(3)
-
   console.log("로그인세번째")
     if(authError){
       console.error(authError);
@@ -54,6 +57,7 @@ router.post('/login', isNotLoggedIn, (req, res, next)=>{
         return next(loginError);
       }
       console.log("로그인다섯번째")
+      res.cookie('id',user.id)
       let redir = { redirect: '/page/main' };
       return res.json(redir);
       //여기서 세션쿠키를 브라우저로 보내준다
@@ -69,6 +73,7 @@ router.get('/logout', isLoggedIn, (req, res)=>{
   req.logout();
   req.session.destroy();
   res.clearCookie('connect.sid');
+  res.clearCookie('id');
   let redir = { redirect: '/page/login' };
   return res.json(redir);
 })

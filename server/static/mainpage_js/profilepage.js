@@ -1,8 +1,6 @@
 const $logoutBtn = document.getElementById("logoutBtn");
 
 $logoutBtn.addEventListener('click', ()=>{
-  console.log("로그아웃 한다잉")
-  
   logout();
 })
 
