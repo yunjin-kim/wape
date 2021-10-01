@@ -20,15 +20,22 @@ $loginBtn.addEventListener('click', ()=>{
   postLoginInfo();
 })
 
+function getCookie(){
+  let cookie = document.cookie;
+  
+  return cookie;
+}
+
 const $loginError = document.getElementById('loginError');
+
 function postLoginInfo(){
   axios.post('/auth/login', {number: loginNum,password: loginPass})
     .then(function(res){
       if(res.data.redirect == '/page/main'){
         window.location = '/page/main'
       }
-    }).then((res)=>{
-    console.log(res);
+    }).then(()=>{
+      getCookie();
   }).catch(error =>{
     console.log(error);
     $loginError.textContent = "입력한 정보가 올바르지 않습니다";

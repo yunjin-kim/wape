@@ -9,7 +9,5 @@ const quotes = [
   "걷기 운동은 식욕조절 호르몬인 ‘그렐린’ 분비에 영향을 주어 공복감을 조절해주기도 합니다",
 ]
 
+export let quoteSentence = quotes[Math.floor(Math.random() * quotes.length)];
 
-const quote = document.querySelector('.quote');
-
-quote.innerText = quotes[Math.floor(Math.random() * quotes.length)];

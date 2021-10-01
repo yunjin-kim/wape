@@ -1,8 +1,8 @@
+export let weatherData;
+export let tempData;
+export let maxTempData;
+export let minTempData;
 const API_KEY = "3f681357220c8b5aada0c70d0d540eaf";
-const $atmosCon = document.querySelector('.mainpage__weather__weather');
-const $temp = document.querySelector('.mainpage__weather__temp');
-const $hightemp = document.querySelector('.mainpage__weather__hightemp');
-const $lowtemp = document.querySelector('.mainpage__weather__lowtemp');
 
 navigator.geolocation.getCurrentPosition(getGeo);
 
@@ -13,7 +13,6 @@ function getGeo(event){
   const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`;
   getWeather(url);
 }
-
 
 function getWeather(url){
   console.log(url)
@@ -26,12 +25,14 @@ function getWeather(url){
 }
 
 function goweather(data){
-  let weather = data.weather[0].id;
-  $atmosCon.innerText = `${weatherEngToKor(weather)}`;
-  $temp.innerText = `${Math.floor(data.main.temp)}°`;
-  $hightemp.innerText = `${Math.floor(data.main.temp_max)}°`;
-  $lowtemp.innerText = `${Math.floor(data.main.temp_min)}°`;
-}
+      let weather = data.weather[0].id;
+      weatherData = `${weatherEngToKor(weather)}`;
+      tempData = `${Math.floor(data.main.temp)}°`;
+      maxTempData = `${Math.floor(data.main.temp_max)}°`;
+      minTempData = `${Math.floor(data.main.temp_min)}°`;
+    
+      // return(weatherData, tempData, maxTempData, minTempData)
+    }
 
 function weatherEngToKor(weaId) {
   const weaArr = [201,200,202,210,211,212,221,230,231,232,
