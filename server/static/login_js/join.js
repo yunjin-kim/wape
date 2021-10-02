@@ -51,6 +51,12 @@ function printGender(event){
   console.log(userGender)
 }
 
+let userNick;
+function printNick(){
+  userNick = document.getElementById('nickName').value;
+  console.log(userNick);
+}
+
 let $fristCheck = document.getElementById('fristCheck')
 let fristCheck;
 $fristCheck.addEventListener('click',(e)=>{
@@ -76,29 +82,21 @@ $thirdCheck.addEventListener('click',(e)=>{
 const $loginComplete = document.getElementById("userJoinButton");
 
 $loginComplete.addEventListener('click',()=>{
-  console.log("AAAAA")
   if(userPassTP)
-  console.log("BBB")
   if(userSamePassTF)
-  console.log("CCC")
   if(userBirth)
-  console.log("DDD")
   if(userGender)
-  console.log("EEE")
+  if(userNick)
   if(fristCheck)
-  console.log("FFF")
   if(secondCheck)
-  console.log("GGG")
   if(thirdCheck)
-  console.log("WWWW")
-
   postUserInfo();
 })
 
 const $joinError = document.querySelector('.joinError');
 
 function postUserInfo(){
-  axios.post('/auth/join',{number: userNum, password: userPass, birth: userBirth, gender: userGender})
+  axios.post('/auth/join',{number: userNum, password: userPass, birth: userBirth, gender: userGender, nick: userNick})
     .then(function (res){
       if(res.data.redirect == '/page/login'){
         window.location = '/page/login'

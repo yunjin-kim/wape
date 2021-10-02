@@ -20,12 +20,6 @@ $loginBtn.addEventListener('click', ()=>{
   postLoginInfo();
 })
 
-function getCookie(){
-  let cookie = document.cookie;
-  
-  return cookie;
-}
-
 const $loginError = document.getElementById('loginError');
 
 function postLoginInfo(){
@@ -35,7 +29,6 @@ function postLoginInfo(){
         window.location = '/page/main'
       }
     }).then(()=>{
-      getCookie();
   }).catch(error =>{
     console.log(error);
     $loginError.textContent = "입력한 정보가 올바르지 않습니다";

@@ -76,8 +76,14 @@
 .join__main__birth {
   margin-top: 2vh;
 }
+.join__main__wrap {
+  display: flex;
+}
 .join__main__gender {
   margin-top: 2vh;
+}
+.join__main__gender__form {
+  width: 40vw;
 }
 .join__main__gender label {
   width: 10%;
@@ -86,6 +92,9 @@
 .join__main__gender input {
   width: 7%;
   height: 1.8vh;
+}
+.join__main__nick {
+  margin-top: 2vh;
 }
 .join__main__trem {
   position: relative;

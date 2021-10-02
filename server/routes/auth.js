@@ -12,7 +12,7 @@ router.use(cookieParser());
 
 router.post('/join', isNotLoggedIn, async(req, res, next)=>{
   console.log(req)
-  const { number, password, birth, gender } = req.body;
+  const { number, password, birth, gender, nick } = req.body;
   try{
     const exUser = await User.findOne({where : {number}});
     if(exUser){
@@ -24,6 +24,7 @@ router.post('/join', isNotLoggedIn, async(req, res, next)=>{
       number,
       birth,
       gender,
+      nick,
       password: hash,
     });
     console.log('회원가입 성공')
@@ -57,7 +58,7 @@ router.post('/login', isNotLoggedIn, (req, res, next)=>{
         return next(loginError);
       }
       console.log("로그인다섯번째")
-      res.cookie('id',user.id)
+      res.cookie('nick',user.nick)
       let redir = { redirect: '/page/main' };
       return res.json(redir);
       //여기서 세션쿠키를 브라우저로 보내준다
@@ -73,7 +74,7 @@ router.get('/logout', isLoggedIn, (req, res)=>{
   req.logout();
   req.session.destroy();
   res.clearCookie('connect.sid');
-  res.clearCookie('id');
+  res.clearCookie('nick');
   let redir = { redirect: '/page/login' };
   return res.json(redir);
 })

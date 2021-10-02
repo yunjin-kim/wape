@@ -24,7 +24,11 @@ module.exports = class User extends Sequelize.Model {
       gender: {
         type: Sequelize.TEXT(''),
         allowNull: false,
-      }
+      },
+      nick: {
+        type: Sequelize.TEXT(''),
+        allowNull: false,
+      },
     },{
       sequelize,
         timestamps: true,

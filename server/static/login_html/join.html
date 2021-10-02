@@ -47,16 +47,22 @@
                         <input type="number" placeholder="생년월일 8자리를 입력해주세요" id="birth" onchange="printBirth()" />
                         <div class="noticeWrongBirth"></div>
                     </div>
-                    <div class="join__main__gender">
-                        <h3>성별</h3>
-                        <form class="join__main__gender__form" onclick="printGender(event)">
-                                <input type="radio" id="women" name="gender" class="women" >
-                                여성
-                                <input type="radio" id="men" name="gender"  class="men" >
-                                남성
-                        </form>
-                        
+                    <div class="join__main__wrap">
+                        <div class="join__main__gender">
+                            <h3>성별</h3>
+                            <form class="join__main__gender__form" onclick="printGender(event)">
+                                    <input type="radio" id="women" name="gender" class="women" >
+                                    여성
+                                    <input type="radio" id="men" name="gender"  class="men" >
+                                    남성
+                            </form>
+                        </div>
+                        <div class="join__main__nick">
+                            <h3>별명</h3>
+                            <input type="text" placeholder="별명을 입력해주세요" id="nickName" onchange="printNick()"/>
+                        </div>
                     </div>
+                   
                 </div>
 
 
