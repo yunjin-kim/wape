@@ -4,14 +4,18 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Profile</title>
+  <link rel="stylesheet" href="../main.css">
 </head>
 <body>
-    <h1>마이 프로필</h1>
+  <div class="wrap">
+    <h1 class="profilepage__profile">프로필</h1>
+    <img class="profileBackBtn" src="../img/next.png" onclick="history.back()" />
+    <h3 class="profileNameWrap"><span class="profileName"></span>  님 </h3>
     <button id="logoutBtn">로그아웃</button>
-    <button onclick="history.back()">뒤로</button>
+  </div>
 
-    <script src="../mainpage_js/profilepage.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="module" src="../mainpage_js/profilepage.js"></script>
 </body>
 </html>

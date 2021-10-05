@@ -1,0 +1,24 @@
+.profilepage__profile {
+  font-size: 24px;
+  margin-top: 10vh;
+  text-align: center;
+}
+.profileBackBtn {
+  width: 14px;
+  height: 24px;
+}
+.wrap {
+  overflow: hidden;
+  border: 1px solid burlywood;
+  margin: 0px 6.4vw;
+}
+.profileNameWrap {
+  text-align: center;
+  margin-top: 5vh;
+}
+#logoutBtn {
+  margin-top: 5vh;
+  border: none;
+  background-color: #f8f8fa;
+  float: right;
+}

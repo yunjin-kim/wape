@@ -1,4 +1,9 @@
+import { getCookie } from "./mainpage_profile.js";
+
 const $logoutBtn = document.getElementById("logoutBtn");
+const $profilePageName = document.querySelector('.profileName');
+
+$profilePageName.innerText = getCookie();
 
 $logoutBtn.addEventListener('click', ()=>{
   logout();

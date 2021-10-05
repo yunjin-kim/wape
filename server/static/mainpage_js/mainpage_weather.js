@@ -2,15 +2,19 @@ export let weatherData;
 export let tempData;
 export let maxTempData;
 export let minTempData;
+export let lat;
+export let lon;
 const API_KEY = "3f681357220c8b5aada0c70d0d540eaf";
 
 navigator.geolocation.getCurrentPosition(getGeo);
 
 function getGeo(event){
-  const lat = event.coords.latitude;
-  const lon = event.coords.longitude;
-  const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`;
-  getWeather(url);
+  lat = event.coords.latitude;
+  lon = event.coords.longitude;
+  const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${API_KEY}`;
+  if(lat){
+    getWeather(url);
+  }
 }
 
 function getWeather(url){
@@ -28,8 +32,6 @@ function goweather(data){
       tempData = `${Math.floor(data.main.temp)}°`;
       maxTempData = `${Math.floor(data.main.temp_max)}°`;
       minTempData = `${Math.floor(data.main.temp_min)}°`;
-    
-      // return(weatherData, tempData, maxTempData, minTempData)
     }
 
 function weatherEngToKor(weaId) {
@@ -63,3 +65,5 @@ function weatherEngToKor(weaId) {
   }
   
   
+
+

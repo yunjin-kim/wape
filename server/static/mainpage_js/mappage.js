@@ -80,7 +80,7 @@ setTimeout(()=>{
         const lon1 = event.coords.longitude;
         console.log(lat1, lon1)
     
-        myMapOption = {
+        let myMapOption = {
           center: new kakao.maps.LatLng(lat1, lon1), // 지도의 중심좌표
           level: 2 // 지도의 확대 레벨
         };
@@ -289,6 +289,7 @@ function showWalkBanner() {
       }
     }
   })
+
   $selectCourse.setAttribute('id', firstNearMark.lat);
   $courseImage.setAttribute("src", firstNearMark.image)
   $courseDesc.setAttribute('id', firstNearMark.index);
@@ -312,7 +313,7 @@ function searchAddrFromCoords(coords, callback) {
   geocoder.coord2RegionCode(coords.getLng(), coords.getLat(), callback);
 }
 
-function searchDetailAddrFromCoords(coords, callback) {
+ function searchDetailAddrFromCoords(coords, callback) {
   // 좌표로 법정동 상세 주소 정보를 요청합니다
   geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
 }

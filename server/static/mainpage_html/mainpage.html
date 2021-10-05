@@ -122,11 +122,9 @@
             </div>
             <div class="mainpage__calendar">
                 <div class="mainpage__calendar__slide">
-                    <img src="../img/next4.png" alt="왼쪽슬라이드" class="left">
-                    <span>2021</span>
-                    <span>.</span>
-                    <span>04</span>
-                    <img src="../img/next3.png" alt="오른쪽슬라이드" class="right">
+                    <img src="../img/next4.png" alt="" class="calendar__left">
+                        <div class="thisYearMonth"></div>
+                    <img src="../img/next3.png" alt="" class="calendar__right">
                 </div>
                 <div class="mainpage__calendar__main">
                     <ul class="mainpage__calendar__week">
@@ -137,6 +135,8 @@
                         <li>목</li>
                         <li>금</li>
                         <li>토</li>
+                    </ul>
+                    <ul class="mainpage__calendar__day">
                     </ul>
                 </div>
             </div>
@@ -158,7 +158,7 @@
                     </div>
                     <div class="mainpage__weather__dust">
                         <h2 class="mainpage__weather__dust__gu">00구</h2>
-                        <h4 class="mainpage__weather__dust__value">미세먼지</h4>
+                        <!-- <h4 class="mainpage__weather__dust__value">미세먼지</h4> -->
                     </div>
                 </div>
             </div>
@@ -169,6 +169,7 @@
             <span onclick="location='/page/bank'"  class="mainpage__bar__bank"><img src="../img/bank.png" alt="통장아이콘"></span>
             <span onclick="location='/page/map'"  class="mainpage__bar__map"><img src="../img/mapicon.png" alt="지도아이콘"></span>
       </div>
+
       <script type="module" src="../mainpage_js/mainpage.js"></script>
   </body>
 </html>
