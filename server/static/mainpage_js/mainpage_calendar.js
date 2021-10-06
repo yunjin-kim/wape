@@ -1,4 +1,4 @@
-export const date = new Date();
+const date = new Date();
 export const thisYear = date.getFullYear();
 export const thisMonth = date.getMonth();
 export let daysArray = [];
