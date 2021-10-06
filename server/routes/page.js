@@ -21,7 +21,7 @@ router.get('/find', isNotLoggedIn, (req, res)=>{
   res.sendFile(path.join(__dirname, '..','/static','/login_html','/find.html'))
 });
 
-router.get('/main',isLoggedIn, (req, res, next)=>{ 
+router.get('/main',isNotLoggedIn, (req, res, next)=>{ 
   res.sendFile(path.join(__dirname, '..','/static','/mainpage_html','/mainpage.html'))
 });
 
