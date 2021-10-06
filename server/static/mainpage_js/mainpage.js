@@ -1,6 +1,7 @@
 import { quoteSentence } from "./mainpage_quote.js";
 import { getCookie } from "./mainpage_profile.js";
 import { renderCalendar, thisYear, thisMonth, daysArray } from "./mainpage_calendar.js";
+import { holeDayArr } from "./mainpage_reserve.js";
 
 const $quote = document.querySelector('.quote');
 $quote.innerText = quoteSentence;
@@ -49,12 +50,8 @@ console.log(date.getDay())
 const $bookDate = document.querySelector('.mainpage__book__date');
 
 const bookDays = $bookDate.children;
-console.log(bookDays)
-
-const dayday = ['월','화','수','목','금','토','일']
 
 for(let i = 0; i < 7; i++){
-  if(todoyDay >= 8) todoyDay = 1;
-  bookDays[i].children[0].textContent = dayday[todoyDay-1];
-  todoyDay++;
+  bookDays[i].children[0].textContent = holeDayArr[i];
+
 }
