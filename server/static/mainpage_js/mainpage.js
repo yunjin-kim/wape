@@ -1,7 +1,7 @@
 import { quoteSentence } from "./mainpage_quote.js";
 import { getCookie } from "./mainpage_profile.js";
 import { renderCalendar, thisYear, thisMonth, daysArray } from "./mainpage_calendar.js";
-import { holeDayArr } from "./mainpage_reserve.js";
+import { holeDayArr, holeDateArr } from "./mainpage_reserve.js";
 
 const $quote = document.querySelector('.quote');
 $quote.innerText = quoteSentence;
@@ -42,16 +42,18 @@ $calendarDays.innerHTML = daysArray.join(' ');
 renderCalendar()
 
 //이번달의 마지막날도 불러와서 예약할 날짜가 마지막 날짜를 넘어가면 1일로 바뀔 수 있게
-const date = new Date();
-let todoyDay = date.getDay()
-console.log(date.getDate())
-console.log(date.getDay())
+// const date = new Date();
+// let todoyDay = date.getDay()
+// const thisLast = new Date(thisYear, thisMonth+1, 0)
+// console.log(date.getDate())
+// console.log(date.getDay())
+// console.log(thisLast.getDate())
 
 const $bookDate = document.querySelector('.mainpage__book__date');
 
 const bookDays = $bookDate.children;
-
+console.log(holeDateArr)
 for(let i = 0; i < 7; i++){
   bookDays[i].children[0].textContent = holeDayArr[i];
-
+  bookDays[i].children[1].textContent = holeDateArr[i];
 }
