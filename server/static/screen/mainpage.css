@@ -238,6 +238,10 @@
   justify-content: center;
   align-items: center;
 }
+.backgroundGreen {
+  background-color: var(--main-color);
+  opacity: 0.8;
+}
 .mainpage__book__date span:nth-of-type(1) {
   color: var(--sub-font);
   font-size: 0.9rem;
