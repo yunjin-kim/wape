@@ -278,7 +278,7 @@
   justify-content: flex-end;
   align-items: flex-end;
 }
-.mainpage__book__btn input {
+.mainpage__book__btn button {
   width: 20vw;
   height: 5.5vh;
   border: none;

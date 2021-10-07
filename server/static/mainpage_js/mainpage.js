@@ -1,7 +1,7 @@
 import { quoteSentence } from "./mainpage_quote.js";
 import { getCookie } from "./mainpage_profile.js";
 import { renderCalendar, thisYear, thisMonth, daysArray } from "./mainpage_calendar.js";
-import { holeDayArr, holeDateArr, clickDate, hourArr, minuteArr } from "./mainpage_reserve.js";
+import { holeDayArr, holeDateArr, clickDate, hourArr, minuteArr, setClickDateArr,reserveArr } from "./mainpage_reserve.js";
 
 //걷기 효능
 const $quote = document.querySelector('.quote');
@@ -50,6 +50,7 @@ renderCalendar()
 const $bookDate = document.querySelector('.mainpage__book__date');
 const DATE_SPAN = 'dateSpan';
 const COLORED_BOX = 'coloredBox';
+const CLICK_GREEN = 'backgroundGreen';
 const bookDays = $bookDate.children;
 
 for(let i = 0; i < 7; i++){
@@ -59,19 +60,26 @@ for(let i = 0; i < 7; i++){
   bookDays[i].children[1].classList.add(DATE_SPAN);
   bookDays[i].classList.add(COLORED_BOX)
 }
-
+//언제 걸을까요 버튼들
+// const reserveArr = [];
 $bookDate.addEventListener('click', (e)=>{
+  setClickDateArr(e)
+  console.log(reserveArr)
   clickDate(e)
 })
 
-
+//몇시에 걸을까요 시
 const $selectHour = document.querySelector(".selectHour");
 for(let i = 0; i < hourArr.length; i++){
   $selectHour.append(hourArr[i])
 }
-
+//먗시에 걸을까요 분
 const $selectMinute = document.querySelector(".selectMinute");
 for(let i = 0; i < minuteArr.length; i++){
   $selectMinute.append(minuteArr[i])
 }
-
+//예약버튼
+const $reserveBtn = document.querySelector(".reserveBtn");
+$reserveBtn.addEventListener('click',(e)=>{
+  e.preventDefault();
+})
