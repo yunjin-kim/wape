@@ -49,10 +49,10 @@ export function renderCalendar() {
       daysArray[i] = `<div class="NotThisMonth">${date}</div>`
     }
     else if(i === thisDay + prevLastDay && thisMonth+1 === todayMonth ){
-      daysArray[i] = `<div class="today">${date}</div>`;
+      daysArray[i] = `<div class="today thisMonth">${date}</div>`;
     }
     else{
-      daysArray[i] = `<div>${date}</div>`;
+      daysArray[i] = `<div class="thisMonth">${date}</div>`;
     }
   })
 }

@@ -321,9 +321,11 @@
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   row-gap: 15px;
   column-gap: 36px;
-}
-.mainpage__calendar__day {
   text-align: center;
+}
+.mainpage__calendar__day > div {
+  /* width: 10px;
+  height: 10px; */
 }
 .mainpage__calendar__day > div:nth-child(7n + 1) {
   color: red;
@@ -425,4 +427,10 @@
 .mainpage__weather__dust__value {
   font-size: 0.6rem;
   color: var(--main-color);
+}
+.walkingDay {
+  background-image: url(../img/calendarWalk.png);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  z-index: 10;
 }

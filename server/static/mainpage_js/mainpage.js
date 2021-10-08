@@ -36,12 +36,36 @@ async function loadWeather(){
 //동적으로 모듈 가져오기
 loadWeather()
 
+
+
+
+
 //달력 
 //1일 되면 다음달로 넘어가는지 확인 필요
 const $thisYearMonth = document.querySelector('.thisYearMonth');
 const $calendarDays = document.querySelector('.mainpage__calendar__day');
 $thisYearMonth.textContent = `${thisYear}.${thisMonth+1}`;
 $calendarDays.innerHTML = daysArray.join(' ');
+console.log($calendarDays.children.length)
+
+//예약한것 로컬스토리지에서 불러와 달력이랑 비교해서 
+//로컬스토리지에 없는 경우 추가
+//다시 예약하면 로컬 스토리지 덮어써지는 문제
+//오늘 날짜에는 안 보임
+let getReserveDate = localStorage.getItem("RESERVE_DATE")
+let parseGetReserveDate = JSON.parse(getReserveDate);
+console.log(parseGetReserveDate);
+
+for(let i = 0; i < $calendarDays.children.length; i++){
+  if($calendarDays.children[i].classList.contains("thisMonth")){
+    parseGetReserveDate.forEach((reDate)=>{
+      if(reDate.date === $calendarDays.children[i].innerText){
+        $calendarDays.children[i].classList.add("walkingDay")
+      }
+    })
+  }
+}
+
 
 renderCalendar()
 
@@ -61,11 +85,10 @@ for(let i = 0; i < 7; i++){
   bookDays[i].classList.add(COLORED_BOX)
 }
 //언제 걸을까요 버튼들
-// const reserveArr = [];
 $bookDate.addEventListener('click', (e)=>{
   setClickDateArr(e)
-  console.log(reserveArr)
   clickDate(e)
+  console.log(reserveArr)
 })
 
 //몇시에 걸을까요 시
@@ -73,13 +96,34 @@ const $selectHour = document.querySelector(".selectHour");
 for(let i = 0; i < hourArr.length; i++){
   $selectHour.append(hourArr[i])
 }
+
 //먗시에 걸을까요 분
 const $selectMinute = document.querySelector(".selectMinute");
 for(let i = 0; i < minuteArr.length; i++){
   $selectMinute.append(minuteArr[i])
 }
+
 //예약버튼
 const $reserveBtn = document.querySelector(".reserveBtn");
 $reserveBtn.addEventListener('click',(e)=>{
   e.preventDefault();
+  const reserveObjArr = [];
+  
+  let reserveHour = $selectHour.options[$selectHour.selectedIndex].innerText;
+  let reserveMinute = $selectMinute.options[$selectMinute.selectedIndex].innerText;
+
+  for(let reserveDate of reserveArr){
+    let reserveObj = {
+      date: reserveDate,
+      hour: reserveHour,
+      minute: reserveMinute
+    }
+    reserveObjArr.push(reserveObj);
+  }
+  
+  localStorage.setItem("RESERVE_DATE",JSON.stringify(reserveObjArr));
+
 })
+
+const $test = document.querySelector(".test");
+

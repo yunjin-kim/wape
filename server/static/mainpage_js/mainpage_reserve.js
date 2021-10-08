@@ -50,7 +50,7 @@ export function clickDate(e){
   }
 }
 
-//몇시에 걸을까요 option값
+//몇시에 걸을까요 시 option값
 export const hourArr = [];
   for(let i = 1; i < 24; i++){
     if(i < 10){
@@ -58,9 +58,11 @@ export const hourArr = [];
     }
     let option = document.createElement('option');
     option.textContent = i;
+    // option.classList.add('hour');
     hourArr.push(option);
   }
 
+//몇시에 걸을까요 분 option값
 export const minuteArr = [];
   for(let i = 1; i < 60; i++){
     if(i < 10){
@@ -68,6 +70,7 @@ export const minuteArr = [];
     }
     let option = document.createElement('option');
     option.textContent = i;
+    // option.classList.add('minute');
     minuteArr.push(option);
   }
 
