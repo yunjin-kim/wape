@@ -119,3 +119,19 @@ export function setClickDateArr(e){
     }
   }
 }
+
+export function clickReserve(reserveHour, reserveMinute){
+  const reserveObjArr = [];
+
+  for(let reserveDate of reserveArr){
+    let reserveObj = {
+      date: reserveDate,
+      hour: reserveHour,
+      minute: reserveMinute
+    }
+    reserveObjArr.unshift(reserveObj);
+  }
+  
+  localStorage.setItem("RESERVE_DATE",JSON.stringify(reserveObjArr));
+}
+

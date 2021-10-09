@@ -1,7 +1,7 @@
 import { quoteSentence } from "./mainpage_quote.js";
 import { getCookie } from "./mainpage_profile.js";
 import { renderCalendar, thisYear, thisMonth, daysArray } from "./mainpage_calendar.js";
-import { holeDayArr, holeDateArr, clickDate, hourArr, minuteArr, setClickDateArr,reserveArr } from "./mainpage_reserve.js";
+import { holeDayArr, holeDateArr, clickDate, hourArr, minuteArr, setClickDateArr,reserveArr, clickReserve } from "./mainpage_reserve.js";
 
 //걷기 효능
 const $quote = document.querySelector('.quote');
@@ -36,36 +36,12 @@ async function loadWeather(){
 //동적으로 모듈 가져오기
 loadWeather()
 
-
-
-
-
 //달력 
 //1일 되면 다음달로 넘어가는지 확인 필요
 const $thisYearMonth = document.querySelector('.thisYearMonth');
 const $calendarDays = document.querySelector('.mainpage__calendar__day');
 $thisYearMonth.textContent = `${thisYear}.${thisMonth+1}`;
 $calendarDays.innerHTML = daysArray.join(' ');
-console.log($calendarDays.children.length)
-
-//예약한것 로컬스토리지에서 불러와 달력이랑 비교해서 
-//로컬스토리지에 없는 경우 추가
-//다시 예약하면 로컬 스토리지 덮어써지는 문제
-//오늘 날짜에는 안 보임
-let getReserveDate = localStorage.getItem("RESERVE_DATE")
-let parseGetReserveDate = JSON.parse(getReserveDate);
-console.log(parseGetReserveDate);
-
-for(let i = 0; i < $calendarDays.children.length; i++){
-  if($calendarDays.children[i].classList.contains("thisMonth")){
-    parseGetReserveDate.forEach((reDate)=>{
-      if(reDate.date === $calendarDays.children[i].innerText){
-        $calendarDays.children[i].classList.add("walkingDay")
-      }
-    })
-  }
-}
-
 
 renderCalendar()
 
@@ -82,7 +58,7 @@ for(let i = 0; i < 7; i++){
   bookDays[i].children[1].textContent = holeDateArr[i];
   bookDays[i].children[0].classList.add(DATE_SPAN);
   bookDays[i].children[1].classList.add(DATE_SPAN);
-  bookDays[i].classList.add(COLORED_BOX)
+  bookDays[i].classList.add(COLORED_BOX);
 }
 //언제 걸을까요 버튼들
 $bookDate.addEventListener('click', (e)=>{
@@ -107,23 +83,34 @@ for(let i = 0; i < minuteArr.length; i++){
 const $reserveBtn = document.querySelector(".reserveBtn");
 $reserveBtn.addEventListener('click',(e)=>{
   e.preventDefault();
-  const reserveObjArr = [];
-  
   let reserveHour = $selectHour.options[$selectHour.selectedIndex].innerText;
   let reserveMinute = $selectMinute.options[$selectMinute.selectedIndex].innerText;
 
-  for(let reserveDate of reserveArr){
-    let reserveObj = {
-      date: reserveDate,
-      hour: reserveHour,
-      minute: reserveMinute
-    }
-    reserveObjArr.push(reserveObj);
+  for(let i = 0; i < 7; i++){
+    bookDays[i].classList.remove(CLICK_GREEN);
   }
-  
-  localStorage.setItem("RESERVE_DATE",JSON.stringify(reserveObjArr));
 
+  clickReserve(reserveHour, reserveMinute);
+  getResreveDate()
 })
 
-const $test = document.querySelector(".test");
+//다시 예약하면 로컬 스토리지 덮어써지는 문제
+//로컬스토리지에서 예약한 날짜 가져오기
+function getResreveDate(){
+  let getReserveDate = localStorage.getItem("RESERVE_DATE")
+  let parseGetReserveDate = JSON.parse(getReserveDate);
 
+  if(parseGetReserveDate){
+    for(let i = 0; i < $calendarDays.children.length; i++){
+      if($calendarDays.children[i].classList.contains("thisMonth")){
+        parseGetReserveDate.forEach((reDate)=>{
+          if(reDate.date === $calendarDays.children[i].innerText){
+            $calendarDays.children[i].classList.add("walkingDay")
+          }
+        })
+      }
+    }
+  }
+};
+
+getResreveDate();
