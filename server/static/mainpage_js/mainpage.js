@@ -1,6 +1,6 @@
 import { quoteSentence } from "./mainpage_quote.js";
 import { getCookie } from "./mainpage_profile.js";
-import { renderCalendar, thisYear, thisMonth, daysArray } from "./mainpage_calendar.js";
+import { renderCalendar, thisYear, thisMonth, daysArray, clickReserveDate } from "./mainpage_calendar.js";
 import { holeDayArr, holeDateArr, clickDate, hourArr, minuteArr, setClickDateArr,reserveArr, clickReserve } from "./mainpage_reserve.js";
 
 //걷기 효능
@@ -37,11 +37,16 @@ async function loadWeather(){
 loadWeather()
 
 //달력 
-//1일 되면 다음달로 넘어가는지 확인 필요
 const $thisYearMonth = document.querySelector('.thisYearMonth');
 const $calendarDays = document.querySelector('.mainpage__calendar__day');
 $thisYearMonth.textContent = `${thisYear}.${thisMonth+1}`;
 $calendarDays.innerHTML = daysArray.join(' ');
+
+$calendarDays.addEventListener('click',(e)=>{
+  if(e.target.classList.contains("walkingDay")){
+    clickReserveDate(e);
+  }
+})
 
 renderCalendar()
 
@@ -89,26 +94,23 @@ $reserveBtn.addEventListener('click',(e)=>{
   for(let i = 0; i < 7; i++){
     bookDays[i].classList.remove(CLICK_GREEN);
   }
-
+  //같은 날 같은 시 같은 분일 때 겹치는 문제
   clickReserve(reserveHour, reserveMinute);
   getResreveDate()
 })
 
-//다시 예약하면 로컬 스토리지 덮어써지는 문제
 //로컬스토리지에서 예약한 날짜 가져오기
 function getResreveDate(){
   let getReserveDate = localStorage.getItem("RESERVE_DATE")
   let parseGetReserveDate = JSON.parse(getReserveDate);
-
+  //
   if(parseGetReserveDate){
     for(let i = 0; i < $calendarDays.children.length; i++){
-      if($calendarDays.children[i].classList.contains("thisMonth")){
         parseGetReserveDate.forEach((reDate)=>{
           if(reDate.date === $calendarDays.children[i].innerText){
             $calendarDays.children[i].classList.add("walkingDay")
           }
         })
-      }
     }
   }
 };

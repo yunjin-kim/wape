@@ -129,9 +129,18 @@ export function clickReserve(reserveHour, reserveMinute){
       hour: reserveHour,
       minute: reserveMinute
     }
-    reserveObjArr.unshift(reserveObj);
+    reserveObjArr.push(reserveObj);
+  }
+
+  let getReserveDate = localStorage.getItem("RESERVE_DATE")
+  let parseGetReserveDate = JSON.parse(getReserveDate);
+
+  if(parseGetReserveDate){
+    localStorage.setItem("RESERVE_DATE",JSON.stringify(parseGetReserveDate.concat(reserveObjArr)));
+  }
+  else{
+    localStorage.setItem("RESERVE_DATE",JSON.stringify(reserveObjArr));
   }
   
-  localStorage.setItem("RESERVE_DATE",JSON.stringify(reserveObjArr));
 }
 

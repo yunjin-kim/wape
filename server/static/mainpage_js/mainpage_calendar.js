@@ -58,3 +58,54 @@ export function renderCalendar() {
 }
 
 renderCalendar();
+
+//달력 걷기 이미지 클릭
+export function clickReserveDate(e){
+  let getReserveDate = localStorage.getItem("RESERVE_DATE")
+  let parseGetReserveDate = JSON.parse(getReserveDate);
+
+  const walkingArr = [];
+
+  //하루에 두번할 수 있기 때문에 배열에 map함수 결과를 담아서 함수 실행
+  parseGetReserveDate.map((reserveDate)=>{
+    if(reserveDate.date === e.target.innerText){
+      walkingArr.push(reserveDate);
+    }
+  })
+  showReserveModal(walkingArr,e)
+}
+
+//예약 모달
+function showReserveModal(walkingArr,e){
+  
+  let modalDiv = document.createElement('div');
+  modalDiv.classList.add("reserveModal")
+
+  let modalTitle = document.createElement('h2');
+  modalTitle.classList.add("reserveModalTitle")
+  modalTitle.innerText = "오늘 걷기 예약"
+  modalDiv.append(modalTitle);
+
+  let modalClose = document.createElement('button');
+  modalClose.innerText = "X";
+  modalClose.classList.add("reserveModalClose")
+  modalDiv.append(modalClose);
+  modalClose.addEventListener('click',()=>{
+    modalDiv.remove();
+  })
+
+  let modalDate = document.createElement('h3');
+  modalDate.innerText = (`${walkingArr[0].date}일`);
+  modalDate.classList.add("reserveModalDate")
+  modalDiv.append(modalDate);
+
+  for(let reserveTime of walkingArr){
+    let modalTime = document.createElement('p');
+    modalTime.innerText = (`${reserveTime.hour}시 ${reserveTime.minute}분`);
+    modalTime.classList.add("reserveModalTime")
+    modalDiv.append(modalTime);
+  }
+  
+
+  e.target.parentNode.parentNode.parentNode.parentNode.append(modalDiv)
+}
