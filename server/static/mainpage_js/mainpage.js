@@ -100,19 +100,75 @@ $reserveBtn.addEventListener('click',(e)=>{
 })
 
 //로컬스토리지에서 예약한 날짜 가져오기
+
 function getResreveDate(){
   let getReserveDate = localStorage.getItem("RESERVE_DATE")
   let parseGetReserveDate = JSON.parse(getReserveDate);
   //
+
   if(parseGetReserveDate){
     for(let i = 0; i < $calendarDays.children.length; i++){
-        parseGetReserveDate.forEach((reDate)=>{
-          if(reDate.date === $calendarDays.children[i].innerText){
-            $calendarDays.children[i].classList.add("walkingDay")
-          }
-        })
+      parseGetReserveDate.forEach((reDate)=>{
+        if(reDate.date === $calendarDays.children[i].innerText){
+          $calendarDays.children[i].classList.add("walkingDay")
+        }
+      })
     }
-  }
-};
-
+  };
+}
 getResreveDate();
+
+// let result = fetch('http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=BzZsuCgHXGI%2FYCjfzw%2FNkrz87G%2FhlhrZaMqZ%2FnWF1q3Vps0xav1YgYj3%2FprpYmYi%2BHjNVTBhtkXHMIQKAenR1g%3D%3D&pageNo=1&numOfRows=50&dataType=JSON&base_date=20211010&base_time=1700&nx=55&ny=127', {
+// 	method : 'get'
+// 	})
+//     result.then(function(response) {
+//       console.log('response', response)
+//       console.log('header', response.headers.get('Content-Type'))
+//       return response.text()
+//     }).then(function(text) {
+//       console.log('got text', text)
+//     }).catch(function(ex) {
+//       console.log('failed', ex)
+//     });
+
+
+// let response = await fetch('http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=BzZsuCgHXGI%2FYCjfzw%2FNkrz87G%2FhlhrZaMqZ%2FnWF1q3Vps0xav1YgYj3%2FprpYmYi%2BHjNVTBhtkXHMIQKAenR1g%3D%3D&pageNo=1&numOfRows=50&dataType=JSON&base_date=20211010&base_time=1700&nx=55&ny=127', {
+//   method: 'GET',
+//   headers: {
+//     'Content-Type': 'application/x-www-form-urlencoded',
+//     'Access-Control-Allow-Methods': 'GET',
+//     'Access-Control-Allow-Headers' : 'Content-Type',
+//     'Access-Control-Allow-Origin': 'http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=BzZsuCgHXGI%2FYCjfzw%2FNkrz87G%2FhlhrZaMqZ%2FnWF1q3Vps0xav1YgYj3%2FprpYmYi%2BHjNVTBhtkXHMIQKAenR1g%3D%3D&pageNo=1&numOfRows=50&dataType=JSON&base_date=20211010&base_time=1700&nx=55&ny=127'
+//   }
+// });
+
+// console.log(response)
+
+// navigator.geolocation.getCurrentPosition(getWeatherInfo);
+
+// function getWeatherInfo(event){
+//   let latt = parseInt(event.coords.latitude)
+//   let lonn = parseInt(event.coords.longitude)
+//   let url = `http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=BzZsuCgHXGI%2FYCjfzw%2FNkrz87G%2FhlhrZaMqZ%2FnWF1q3Vps0xav1YgYj3%2FprpYmYi%2BHjNVTBhtkXHMIQKAenR1g%3D%3D&pageNo=1&numOfRows=50&dataType=JSON&base_date=20211010&base_time=1700&nx=${latt}&ny=${lonn}`;
+
+//     getWeatherDetail(url);
+// }
+
+// function getWeatherDetail(url){
+//   fetch(url)
+//   .then(response => console.log(response))
+//   .catch(console.log)
+// }
+
+// let xhr = new XMLHttpRequest();
+// xhr.onreadystatechange = function() {
+//     if (xhr.readyState === xhr.DONE) {
+//         // if (xhr.status === 200 || xhr.status === 201) {
+//             console.log(xhr.response);
+//         // } else {
+//         //     console.error(xhr.responseText);
+//         // }
+//     }
+// };
+// xhr.open('GET', 'http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=BzZsuCgHXGI%2FYCjfzw%2FNkrz87G%2FhlhrZaMqZ%2FnWF1q3Vps0xav1YgYj3%2FprpYmYi%2BHjNVTBhtkXHMIQKAenR1g%3D%3D&pageNo=1&numOfRows=50&dataType=JSON&base_date=20211010&base_time=1700&nx=55&ny=127');
+// xhr.send();

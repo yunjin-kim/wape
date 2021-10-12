@@ -83,7 +83,7 @@ function showReserveModal(walkingArr,e){
 
   let modalTitle = document.createElement('h2');
   modalTitle.classList.add("reserveModalTitle")
-  modalTitle.innerText = "오늘 걷기 예약"
+  modalTitle.innerText = "걷기 예약"
   modalDiv.append(modalTitle);
 
   let modalClose = document.createElement('button');
