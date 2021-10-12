@@ -3,7 +3,7 @@ import { _filter, _map } from "../fx.js";
 //언제 걸을끼요 날짜
 const date = new Date();
 const todoayDate = new Date();
-const onToday = todoayDate.getDate();
+export const onToday = todoayDate.getDate();
 
 let todoyDay = date.getDay();
 const holeDay = ['월','화','수','목','금','토','일'];
@@ -140,16 +140,19 @@ export function clickReserve(reserveHour, reserveMinute){
   let parseGetReserveDate = JSON.parse(getReserveDate);
 
   if(parseGetReserveDate){
-    //어제 예약
+    //오늘 이전 예약
     let subLastReserve = _filter(
-      d => d.date < onToday, parseGetReserveDate)
+      d => d.date < onToday, parseGetReserveDate
+    )
     //오늘 이후 예약
     let afterReserve = _filter(
-      d => d.date >= onToday, parseGetReserveDate)
+      d => d.date >= onToday, parseGetReserveDate
+    )
 
-      if(subLastReserve){
+    if(subLastReserve){
         localStorage.setItem("RESERVE_DATE",JSON.stringify(afterReserve));
-      }
+    }
+
     localStorage.setItem("RESERVE_DATE",JSON.stringify(parseGetReserveDate.concat(reserveObjArr)));
   }
   else{
