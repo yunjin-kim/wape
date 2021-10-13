@@ -24,8 +24,9 @@ export function onStepData(){
       getGoogleStepCount(googleStepCountUrl);
     }
   
-    showStepChart(parseGetStepDate)
+    rangeStepData(parseGetStepDate)
   }
+  setStepDate()
 }
 
 function getGoogleStepCount(googleStepCountUrl){
@@ -43,12 +44,14 @@ function saveStepToLocal(json){
 
 //걸음 수 요일
 export const walkDayArr = [];
-let walkDataDay = todayDay;
+function setStepDate(){
+  let walkDataDay = todayDay;
 
-for(let i = 0; i < 7; i++){
-  if(walkDataDay >= 8) walkDataDay = 1;
-  walkDayArr.push(holeDay[walkDataDay-1]);
-  walkDataDay++;
+  for(let i = 0; i < 7; i++){
+    if(walkDataDay >= 8) walkDataDay = 1;
+    walkDayArr.push(holeDay[walkDataDay-1]);
+    walkDataDay++;
+  }
 }
 
 export const chartDateArr = [
@@ -56,8 +59,8 @@ export const chartDateArr = [
   [],
   []
 ]
-
-function showStepChart(parseGetStepDate){
+//배열에 걸음수 데이터 넣기
+function rangeStepData(parseGetStepDate){
   let reserveGetStepDate = parseGetStepDate.steps_count.reverse();
 
   for(let i = 0; i < chartDateArr.length; i++){
@@ -68,4 +71,5 @@ function showStepChart(parseGetStepDate){
     }
   }
 }
+
 
