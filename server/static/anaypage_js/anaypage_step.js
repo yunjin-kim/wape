@@ -36,12 +36,6 @@ function getGoogleStepCount(googleStepCountUrl){
   .catch(error => console.log('error', error));
 };
 
-// getGoogleStepCount(googleStepCountUrl)
-// .then(json => {
-//   saveStepToLocal(json)
-// })
-// .catch(error => console.log('error', error));
-
 //한달 주기로 데이터 저장하므로 concat은 하지 않는다
 function saveStepToLocal(json){
   localStorage.setItem("STEP_DATA", JSON.stringify(json));

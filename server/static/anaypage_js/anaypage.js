@@ -14,10 +14,7 @@ for(let i = 0; i < walkDayArr.length; i++){
   $walkDataDays.children[i].innerText = walkDayArr[i];
 }
 
-console.log(chartDateArr);
-
 const $walkDataGraph = document.querySelector(".anaypage__walk__graph__box");
-console.log($walkDataGraph.children)
 
 const chartBarArr = _filter(
   charBar => 
@@ -25,4 +22,8 @@ const chartBarArr = _filter(
       ,$walkDataGraph.children
 )
 
-console.log(chartBarArr.children)
+const num = 0;
+for(let i = chartBarArr.length-1; i >= 0; i--){
+  console.log(i)
+  chartBarArr[i].children[1].style.height = `${chartDateArr[num][6-i].value/100}px`;
+}

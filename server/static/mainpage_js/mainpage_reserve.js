@@ -1,5 +1,5 @@
 import { _filter, _map } from "../fx.js";
-
+//전역에 있는거 함수로 감싸주기
 //언제 걸을끼요 날짜
 const date = new Date();
 const todayDates = new Date();
