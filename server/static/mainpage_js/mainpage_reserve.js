@@ -2,11 +2,12 @@ import { _filter, _map } from "../fx.js";
 
 //언제 걸을끼요 날짜
 const date = new Date();
-const todoayDate = new Date();
-export const onToday = todoayDate.getDate();
+const todayDates = new Date();
+export const onToday = todayDates.getDate();
 
-let todoyDay = date.getDay();
-const holeDay = ['월','화','수','목','금','토','일'];
+export const todayDay = date.getDay();
+let todayDays = todayDay;
+export const holeDay = ['월','화','수','목','금','토','일'];
 let todayDate = date.getDate();
 const thisYear = date.getFullYear();
 const thisMonth = date.getMonth();
@@ -17,9 +18,9 @@ export const holeDayArr = [];
 export const holeDateArr = [];
 
 for(let i = 0; i < 7; i++){
-  if(todoyDay >= 8) todoyDay = 1;
-  holeDayArr.push(holeDay[todoyDay-1]);
-  todoyDay++;
+  if(todayDays >= 8) todayDays = 1;
+  holeDayArr.push(holeDay[todayDays-1]);
+  todayDays++;
 
   if(todayDate >= thisLastDate) todayDate = 1;
   holeDateArr.push(todayDate)
