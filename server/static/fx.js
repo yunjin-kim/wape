@@ -24,3 +24,5 @@ export const _reduce = (f, acc, iter) => {
   }
   return acc;
 } 
+
+export const _add = (a, b) => a + b;

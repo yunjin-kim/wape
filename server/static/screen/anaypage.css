@@ -65,7 +65,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
 }
 .anaypage__walk__graph__graph div {
   width: 1.4vw;
