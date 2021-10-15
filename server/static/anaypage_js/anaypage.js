@@ -1,14 +1,12 @@
 //한 시간마다의 걸음도 조회할 수 있어서 일정 이상의 걸음이 되면 오늘의 걷기에 운동했다고 할 수 있을 듯 근데 시간이 너무 차이나서 오늘의 걷기는 힘들 듯함?
 import { _filter } from '../fx.js';
-import { onStepData, walkDayArr, setStepChartHeight, setWeekPercent } from './anaypage_step.js';
+import { onStepData, walkDayArr, setStepChartHeight, percentData, setWeekPercent } from './anaypage_step.js';
 let weekNum = 0;
 
-//걸음수 주 평균
-//걸음 수 주 총합
+//걸음수 주 평균, 총합
 export function setWeekStepData(weekSumStep){
   const $weekStepAverage = document.querySelector(".anaypage__walk__weekAverage");
   const $wekkStepSum = document.querySelector(".anaypage__walk__accure__weekValue");
-
   $weekStepAverage.innerText = parseInt(weekSumStep/7);
   $wekkStepSum.innerText = weekSumStep;
 }
@@ -16,8 +14,8 @@ export function setWeekStepData(weekSumStep){
 (function hasStepData(){
   onStepData();
   setStepChartDate();
-  setStepChart(weekNum);
-  showWeekPercent()
+  setStepChart(weekNum)
+  setWeekPercent()
 })();
 
 //걸음 수 요일
@@ -47,7 +45,7 @@ $stepChartLeftBtn.addEventListener('click',()=>{
     weekNum++;
     setStepChartBtn();
     setStepChart(weekNum);
-    showWeekPercent()
+    setWeekPercent();
 })
 
 //걸음수 차트 오른쪽 버튼
@@ -56,7 +54,7 @@ $stepChartRightBtn.addEventListener('click',()=>{
     weekNum--;
     setStepChartBtn();
     setStepChart(weekNum);
-    showWeekPercent()
+    setWeekPercent();
 })
 
 //걸음수 차트 버튼 show/hidden
@@ -73,7 +71,24 @@ function setStepChartBtn(){
   }
 }
 
-function showWeekPercent(){
+export function showWeekPercent(){
+  const $weekDiffPercentWrap = document.querySelector(".anaypage__walk__accure__percent");
   const $weekDiffPercent = document.querySelector(".anaypage__walk__accure__weekPercent");
-  $weekDiffPercent.innerText = setWeekPercent();
+  const $stpPercentArrow = document.querySelector(".stepPercentArrow");
+  console.log(percentData)
+  if(percentData === ""){
+    $weekDiffPercentWrap.style ="opacity: 0";
+  }
+  else{
+    $weekDiffPercentWrap.style ="opacity: 1";
+    if(percentData < 0){
+      console.log("AAA")
+      $stpPercentArrow.style = "transform : rotate(180deg)";
+    }
+    else if(percentData > 0){
+      console.log("BBB")
+      $stpPercentArrow.style = "transform : rotate(0deg)";
+    }
+  }
+  $weekDiffPercent.innerText = percentData;
 }
