@@ -1,5 +1,6 @@
-import { stepGoal } from './mainpage.js';
+import { stepGoal, setGoalGraph } from './mainpage.js';
 
+//목표 겅음 모달
 export function showSetGoalModal(e){
   const modalDiv = document.createElement('div');
   modalDiv.classList.add("goalModal")
@@ -24,6 +25,7 @@ export function showSetGoalModal(e){
   goalInput.addEventListener('change', (e)=>{
     localStorage.setItem("STEP_GOAL", e.target.value);
     stepGoal();
+    setGoalGraph();
   })
 
   const goadlSubmitBtn = document.createElement('button');
@@ -35,4 +37,19 @@ export function showSetGoalModal(e){
   modalDiv.append(goadlSubmitBtn);
 
   e.target.parentNode.parentNode.parentNode.parentNode.append(modalDiv);
+}
+
+//오늘 걸음 데이터
+export function getTodayStep(){
+  const lastDateStepDataArr = localStorage.getItem("STEP_DATA");
+  let lastDateStepData = JSON.parse(lastDateStepDataArr).steps_count[JSON.parse(lastDateStepDataArr).steps_count.length-2].value;
+  return lastDateStepData;
+}
+
+//목표 걸음 수 그래프 
+export function setStepGragh(){
+  let myGoal = localStorage.getItem("STEP_GOAL");
+  let goalGraphPercent = getTodayStep()/myGoal;
+
+  return goalGraphPercent;
 }

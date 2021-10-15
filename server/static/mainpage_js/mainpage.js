@@ -2,7 +2,7 @@ import { quoteSentence } from "./mainpage_quote.js";
 import { getCookie } from "./mainpage_profile.js";
 import { renderCalendar, thisYear, thisMonth, daysArray, clickReserveDate } from "./mainpage_calendar.js";
 import { holeDayArr, holeDateArr, clickDate, hourArr, minuteArr, setClickDateArr,reserveArr, clickReserve } from "./mainpage_reserve.js";
-import { showSetGoalModal } from './mainpage_goal.js';
+import { showSetGoalModal, getTodayStep, setStepGragh } from './mainpage_goal.js';
 
 //걷기 효능
 const $quote = document.querySelector('.quote');
@@ -125,12 +125,30 @@ $walkIcon.addEventListener('click', (e)=>{
   showSetGoalModal(e);
 })
 
+//목표 걸음 데이터
 export function stepGoal(){
   const $stepGoal = document.querySelector(".setGoal");
   $stepGoal.innerText = localStorage.getItem("STEP_GOAL")
 }
 stepGoal();
 
+//오늘 걸음 데이터
+function setGoalTodayStep(){
+  const $todayStep = document.querySelector(".todayStep");
+  $todayStep.innerText = getTodayStep();
+}
+setGoalTodayStep();
+
+//목표 걸음 수 그래프 
+export function setGoalGraph(){
+  const $myStepDataGragh = document.querySelector(".mainpage__walk__graph__my");
+  let stepGragh = 230*setStepGragh();
+  if(stepGragh > 230){
+    stepGragh = 230;
+  }
+  $myStepDataGragh.style = `width: ${stepGragh}px`;
+}
+setGoalGraph();
 
 
 // let result = fetch('http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=BzZsuCgHXGI%2FYCjfzw%2FNkrz87G%2FhlhrZaMqZ%2FnWF1q3Vps0xav1YgYj3%2FprpYmYi%2BHjNVTBhtkXHMIQKAenR1g%3D%3D&pageNo=1&numOfRows=50&dataType=JSON&base_date=20211010&base_time=1700&nx=55&ny=127', {
