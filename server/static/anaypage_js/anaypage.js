@@ -1,7 +1,9 @@
 //한 시간마다의 걸음도 조회할 수 있어서 일정 이상의 걸음이 되면 오늘의 걷기에 운동했다고 할 수 있을 듯 근데 시간이 너무 차이나서 오늘의 걷기는 힘들 듯함?
+//날짜 세팅하고 버튼 클릭은 4개 다 같아서 나중에 다 구현하고 리펙토링해서 하나로
 import { _filter } from '../fx.js';
 import { onStepData, walkDayArr, setStepChartHeight, percentData, setWeekPercent } from './anaypage_step.js';
 let weekNum = 0;
+let goalWeekNum = 0
 
 //걸음수 주 평균, 총합
 export function setWeekStepData(weekSumStep){
@@ -14,6 +16,7 @@ export function setWeekStepData(weekSumStep){
 (function hasStepData(){
   onStepData();
   setStepChartDate();
+  setGoalDate();
   setStepChart(weekNum)
   setWeekPercent()
 })();
@@ -90,4 +93,39 @@ export function showWeekPercent(){
     }
   }
   $weekDiffPercent.innerText = percentData;
+}
+
+//목표 달성 요일
+function setGoalDate(){
+  const $goalDays = document.querySelector(".anaypage__goal__check__day__ul");
+
+  for(let i = 0; i < walkDayArr.length; i++){
+    $goalDays.children[i].innerText = walkDayArr[i];
+  }
+}
+
+const $goalLeftBtn = document.querySelector(".anaypage__goal__check__left");
+$goalLeftBtn.addEventListener('click', ()=>{
+  goalWeekNum++;
+  setGoaltBtn();
+})
+
+const $goalRightBtn = document.querySelector(".anaypage__goal__check__right");
+$goalRightBtn.addEventListener('click', ()=>{
+  goalWeekNum--;
+  setGoaltBtn();
+})
+
+//목표 버튼 show/hidden
+function setGoaltBtn(){
+  if(goalWeekNum == 2){
+    $goalLeftBtn.classList.add("hiddenButton");
+  }
+  else if(goalWeekNum == 0){
+    $goalRightBtn.classList.add("hiddenButton");
+  }
+  else{
+    $goalLeftBtn.classList.remove("hiddenButton");
+    $goalRightBtn.classList.remove("hiddenButton");
+  }
 }
