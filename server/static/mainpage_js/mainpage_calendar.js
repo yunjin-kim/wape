@@ -78,23 +78,23 @@ export function clickReserveDate(e){
 //예약 모달
 function showReserveModal(walkingArr,e){
   
-  let modalDiv = document.createElement('div');
+  const modalDiv = document.createElement('div');
   modalDiv.classList.add("reserveModal")
 
-  let modalTitle = document.createElement('h2');
+  const modalTitle = document.createElement('h2');
   modalTitle.classList.add("reserveModalTitle")
   modalTitle.innerText = "걷기 예약"
   modalDiv.append(modalTitle);
 
-  let modalClose = document.createElement('button');
+  const modalClose = document.createElement('button');
   modalClose.innerText = "X";
   modalClose.classList.add("reserveModalClose")
   modalDiv.append(modalClose);
   modalClose.addEventListener('click',()=>{
-    modalDiv.remove();
+  modalDiv.remove();
   })
 
-  let modalDate = document.createElement('h3');
+  const modalDate = document.createElement('h3');
   modalDate.innerText = (`${walkingArr[0].date}일`);
   modalDate.classList.add("reserveModalDate")
   modalDiv.append(modalDate);
@@ -105,7 +105,5 @@ function showReserveModal(walkingArr,e){
     modalTime.classList.add("reserveModalTime")
     modalDiv.append(modalTime);
   }
-  
-
   e.target.parentNode.parentNode.parentNode.parentNode.append(modalDiv)
 }

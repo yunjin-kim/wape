@@ -71,6 +71,7 @@ function setStepChartBtn(){
   }
 }
 
+//저번주 대비 퍼센트
 export function showWeekPercent(){
   const $weekDiffPercentWrap = document.querySelector(".anaypage__walk__accure__percent");
   const $weekDiffPercent = document.querySelector(".anaypage__walk__accure__weekPercent");
@@ -82,11 +83,9 @@ export function showWeekPercent(){
   else{
     $weekDiffPercentWrap.style ="opacity: 1";
     if(percentData < 0){
-      console.log("AAA")
       $stpPercentArrow.style = "transform : rotate(180deg)";
     }
     else if(percentData > 0){
-      console.log("BBB")
       $stpPercentArrow.style = "transform : rotate(0deg)";
     }
   }

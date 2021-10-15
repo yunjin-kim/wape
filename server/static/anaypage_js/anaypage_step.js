@@ -87,7 +87,7 @@ export function setStepChartHeight(chartBarArr, weekNum){
   setWeekStepData(weekSumStep)
 }
 
-
+//저번주 대비 퍼센트
 export let percentData = 0;
 export function setWeekPercent(){
   const dataSumArr = [];
