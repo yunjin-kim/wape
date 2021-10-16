@@ -128,7 +128,9 @@ $walkIcon.addEventListener('click', (e)=>{
 //목표 걸음 데이터
 export function stepGoal(){
   const $stepGoal = document.querySelector(".setGoal");
-  $stepGoal.innerText = localStorage.getItem("STEP_GOAL")
+  let myGoalStep = localStorage.getItem("STEP_GOAL");
+  if(!myGoalStep) myGoalStep = '목표를 설정해주세요'
+  $stepGoal.innerText = myGoalStep;
 }
 stepGoal();
 

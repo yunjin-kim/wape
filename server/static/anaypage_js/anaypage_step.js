@@ -57,7 +57,7 @@ function setStepDate(){
   }
 }
 
-const chartDateArr = [
+export const chartDateArr = [
   [],
   [],
   []

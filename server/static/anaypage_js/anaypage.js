@@ -2,6 +2,8 @@
 //날짜 세팅하고 버튼 클릭은 4개 다 같아서 나중에 다 구현하고 리펙토링해서 하나로
 import { _filter } from '../fx.js';
 import { onStepData, walkDayArr, setStepChartHeight, percentData, setWeekPercent } from './anaypage_step.js';
+import { chartDateArr } from './anaypage_step.js';
+
 let weekNum = 0;
 let goalWeekNum = 0
 
@@ -104,16 +106,20 @@ function setGoalDate(){
   }
 }
 
+//목표 왼쪽 버튼
 const $goalLeftBtn = document.querySelector(".anaypage__goal__check__left");
 $goalLeftBtn.addEventListener('click', ()=>{
   goalWeekNum++;
   setGoaltBtn();
+  setGoalAchieveBox(goalWeekNum);
 })
 
+//목표 왼쪽 버튼
 const $goalRightBtn = document.querySelector(".anaypage__goal__check__right");
 $goalRightBtn.addEventListener('click', ()=>{
   goalWeekNum--;
   setGoaltBtn();
+  setGoalAchieveBox(goalWeekNum);
 })
 
 //목표 버튼 show/hidden
@@ -128,4 +134,30 @@ function setGoaltBtn(){
     $goalLeftBtn.classList.remove("hiddenButton");
     $goalRightBtn.classList.remove("hiddenButton");
   }
+}
+
+let goalStep = localStorage.getItem("STEP_GOAL");
+
+const lastDateStepDataArr = localStorage.getItem("STEP_DATA");
+let walkStep = JSON.parse(lastDateStepDataArr).steps_count[JSON.parse(lastDateStepDataArr).steps_count.length-2].value;
+
+//목표 달성 우무
+function setGoalAchieveBox(goalWeekNum){
+  const $goalDataBox = document.querySelector(".anaypage__goal__check__main");
+
+  const goalBoxArr = _filter(
+    goal => 
+      !goal.classList.contains("anaypage__goal__check__wrap")
+        ,$goalDataBox.children
+  )
+  console.log(goalBoxArr)
+  console.log(goalWeekNum);
+  setGoalAchieve(goalBoxArr, goalWeekNum)
+}
+setGoalAchieve();
+
+console.log(chartDateArr);
+
+function setGoalAchieve(){
+
 }

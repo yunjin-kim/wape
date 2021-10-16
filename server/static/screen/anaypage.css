@@ -519,14 +519,11 @@
 .anaypage__goal__check__main img {
   width: 5vw;
 }
-.anaypage__goal__check__left__wrap {
+.anaypage__goal__check__wrap {
   width: 30px;
 }
 .anaypage__goal__check__left img {
   width: 5vw;
-}
-.anaypage__goal__check__right_wrap {
-  width: 30px;
 }
 .anaypage__goal__check__right img {
   width: 5vw;
@@ -545,4 +542,10 @@
 }
 .hiddenButton {
   display: none;
+}
+.acheiveGoal {
+  background-image: "./img/goalO.png";
+}
+.NotAcheiveGoal {
+  background-image: "./img/goalX.png";
 }
