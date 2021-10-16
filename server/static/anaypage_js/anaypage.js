@@ -2,7 +2,7 @@
 //날짜 세팅하고 버튼 클릭은 4개 다 같아서 나중에 다 구현하고 리펙토링해서 하나로
 import { _filter } from '../fx.js';
 import { onStepData, walkDayArr, setStepChartHeight, percentData, setWeekPercent } from './anaypage_step.js';
-import { setGoalAchieve } from './anaypage_goal.js';
+import { setGoalAchieve, goalStep } from './anaypage_goal.js';
 
 let weekNum = 0;
 let goalWeekNum = 0
@@ -19,8 +19,9 @@ export function setWeekStepData(weekSumStep){
   onStepData();
   setStepChartDate();
   setGoalDate();
-  setStepChart(weekNum)
-  setWeekPercent()
+  setStepChart(weekNum);
+  setWeekPercent();
+  ifNoGoal();
 })();
 
 //걸음 수 요일
@@ -106,21 +107,25 @@ function setGoalDate(){
   }
 }
 
-//목표 왼쪽 버튼
-const $goalLeftBtn = document.querySelector(".anaypage__goal__check__left");
-$goalLeftBtn.addEventListener('click', ()=>{
-  goalWeekNum++;
-  setGoaltBtn();
-  setGoalAchieveBox(goalWeekNum);
-})
+if(goalStep){
+  //목표 왼쪽 버튼
+  const $goalLeftBtn = document.querySelector(".anaypage__goal__check__left");
+  $goalLeftBtn.addEventListener('click', ()=>{
+    goalWeekNum++;
+    setGoaltBtn();
+    setGoalAchieveBox(goalWeekNum);
+  })
 
-//목표 왼쪽 버튼
-const $goalRightBtn = document.querySelector(".anaypage__goal__check__right");
-$goalRightBtn.addEventListener('click', ()=>{
-  goalWeekNum--;
-  setGoaltBtn();
-  setGoalAchieveBox(goalWeekNum);
-})
+  //목표 왼쪽 버튼
+  const $goalRightBtn = document.querySelector(".anaypage__goal__check__right");
+  $goalRightBtn.addEventListener('click', ()=>{
+    goalWeekNum--;
+    setGoaltBtn();
+    setGoalAchieveBox(goalWeekNum);
+  })
+
+}
+
 
 //목표 버튼 show/hidden
 function setGoaltBtn(){
@@ -136,9 +141,17 @@ function setGoaltBtn(){
   }
 }
 
+//목표 걸음수 없다면
+function ifNoGoal(){
+  if(!goalStep){
+    const $goalCheck = document.querySelector(".anaypage__goal__check");
+    $goalCheck.innerHTML = setGoalAchieve();
+  }
+  else{
+    setGoalAchieveBox();
+  }
+}
 
-const lastDateStepDataArr = localStorage.getItem("STEP_DATA");
-let walkStep = JSON.parse(lastDateStepDataArr).steps_count[JSON.parse(lastDateStepDataArr).steps_count.length-2].value;
 
 //목표 달성 유무
 function setGoalAchieveBox(goalWeekNum){
@@ -152,6 +165,5 @@ function setGoalAchieveBox(goalWeekNum){
 
   setGoalAchieve(goalBoxArr, goalWeekNum)
 }
-setGoalAchieveBox();
 
 
