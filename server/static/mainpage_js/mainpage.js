@@ -128,27 +128,33 @@ $walkIcon.addEventListener('click', (e)=>{
 //목표 걸음 데이터
 export function stepGoal(){
   const $stepGoal = document.querySelector(".setGoal");
+  const $setMoney = document.querySelector(".setMoney");
   let myGoalStep = localStorage.getItem("STEP_GOAL");
   if(!myGoalStep) myGoalStep = '목표를 설정해주세요'
   $stepGoal.innerText = myGoalStep;
+  $setMoney.innerText = myGoalStep*5;
 }
 stepGoal();
 
 //오늘 걸음 데이터
 function setGoalTodayStep(){
   const $todayStep = document.querySelector(".todayStep");
+  const $todayMoney = document.querySelector(".todayMoney");
   $todayStep.innerText = getTodayStep();
+  $todayMoney.innerText = getTodayStep()*5;
 }
 setGoalTodayStep();
 
 //목표 걸음 수 그래프 
 export function setGoalGraph(){
   const $myStepDataGragh = document.querySelector(".mainpage__walk__graph__my");
+  const $myMoneyDataGragph = document.querySelector(".mainpage__money__graph__my");
   let stepGragh = 230*setStepGragh();
   if(stepGragh > 230){
     stepGragh = 230;
   }
   $myStepDataGragh.style = `width: ${stepGragh}px`;
+  $myMoneyDataGragph.style = `width: ${stepGragh}px`;
 }
 setGoalGraph();
 
