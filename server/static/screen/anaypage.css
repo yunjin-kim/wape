@@ -522,8 +522,14 @@
 .anaypage__goal__check__wrap {
   width: 30px;
 }
+.anaypage__goal__check__left {
+  border: none;
+}
 .anaypage__goal__check__left img {
   width: 5vw;
+}
+.anaypage__goal__check__right {
+  border: none;
 }
 .anaypage__goal__check__right img {
   width: 5vw;
@@ -544,8 +550,12 @@
   display: none;
 }
 .acheiveGoal {
-  background-image: "./img/goalO.png";
+  background-size: 24px;
+  background-image: url(../img/goalO.png);
+  background-repeat: no-repeat;
 }
 .NotAcheiveGoal {
-  background-image: "./img/goalX.png";
+  background-size: 24px;
+  background-image: url(../img/goalX.png);
+  background-repeat: no-repeat;
 }

@@ -2,7 +2,7 @@
 //날짜 세팅하고 버튼 클릭은 4개 다 같아서 나중에 다 구현하고 리펙토링해서 하나로
 import { _filter } from '../fx.js';
 import { onStepData, walkDayArr, setStepChartHeight, percentData, setWeekPercent } from './anaypage_step.js';
-import { chartDateArr } from './anaypage_step.js';
+import { setGoalAchieve } from './anaypage_goal.js';
 
 let weekNum = 0;
 let goalWeekNum = 0
@@ -136,12 +136,11 @@ function setGoaltBtn(){
   }
 }
 
-let goalStep = localStorage.getItem("STEP_GOAL");
 
 const lastDateStepDataArr = localStorage.getItem("STEP_DATA");
 let walkStep = JSON.parse(lastDateStepDataArr).steps_count[JSON.parse(lastDateStepDataArr).steps_count.length-2].value;
 
-//목표 달성 우무
+//목표 달성 유무
 function setGoalAchieveBox(goalWeekNum){
   const $goalDataBox = document.querySelector(".anaypage__goal__check__main");
 
@@ -150,14 +149,9 @@ function setGoalAchieveBox(goalWeekNum){
       !goal.classList.contains("anaypage__goal__check__wrap")
         ,$goalDataBox.children
   )
-  console.log(goalBoxArr)
-  console.log(goalWeekNum);
+
   setGoalAchieve(goalBoxArr, goalWeekNum)
 }
-setGoalAchieve();
+setGoalAchieveBox();
 
-console.log(chartDateArr);
 
-function setGoalAchieve(){
-
-}
