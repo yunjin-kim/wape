@@ -2,6 +2,7 @@
   overflow: hidden;
   border: 1px solid burlywood;
   margin: 0px 6.4vw;
+  padding-bottom: 12vh;
 }
 .bankpage__asset {
   width: 100%;
@@ -144,6 +145,9 @@
   width: 100%;
   height: 40vh;
 }
+.bankpage__reposit__wrap {
+  margin-bottom: 4vh;
+}
 .bankpage__reposit__title {
   width: 100%;
   height: 6.8vh;
@@ -218,7 +222,6 @@
   position: absolute;
 }
 .bankpage__reposit__walk__my {
-  width: 10vw;
   height: 1vh;
   background-color: var(--main-color);
   border-radius: 4px;
