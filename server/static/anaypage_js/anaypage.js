@@ -65,7 +65,7 @@ $stepChartRightBtn.addEventListener('click',()=>{
 
 //걸음수 차트 버튼 show/hidden
 function setStepChartBtn(){
-  if(weekNum == 2){
+  if(weekNum == 3){
     $stepChartLeftBtn.classList.add("hiddenButton");
   }
   else if(weekNum == 0){
@@ -107,7 +107,6 @@ function setGoalDate(){
   }
 }
 
-if(goalStep){
   //목표 왼쪽 버튼
   const $goalLeftBtn = document.querySelector(".anaypage__goal__check__left");
   $goalLeftBtn.addEventListener('click', ()=>{
@@ -124,12 +123,9 @@ if(goalStep){
     setGoalAchieveBox(goalWeekNum);
   })
 
-}
-
-
 //목표 버튼 show/hidden
 function setGoaltBtn(){
-  if(goalWeekNum == 2){
+  if(goalWeekNum == 3){
     $goalLeftBtn.classList.add("hiddenButton");
   }
   else if(goalWeekNum == 0){
@@ -144,14 +140,13 @@ function setGoaltBtn(){
 //목표 걸음수 없다면
 function ifNoGoal(){
   if(!goalStep){
-    const $goalCheck = document.querySelector(".anaypage__goal__check");
+    const $goalCheck = document.querySelector(".anaypage__goal__check__noGoal");
     $goalCheck.innerHTML = setGoalAchieve();
   }
   else{
     setGoalAchieveBox();
   }
 }
-
 
 //목표 달성 유무
 function setGoalAchieveBox(goalWeekNum){

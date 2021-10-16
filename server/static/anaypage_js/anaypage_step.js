@@ -17,12 +17,11 @@ export function onStepData(){
   else if(getStepDate){
     let parseGetStepDate= JSON.parse(getStepDate);
     //시간대별로 데이터가 언제 불러와지는 것이 다르기 때문에 확인 필요
-    //20시 기준 전날 13시 데이터까지, 06시 기준 전날 12시 데이터, 13시 기준 전날 12시 데이터
+    //20시기준 당일 12시 데이터 구글 피트니스에 들어가야 api로 데이터가 들어온다
     //onToday 날짜랑 로컬 데이터의 endtime에 날짜랑 비교해서 onToday 날짜가 크면 데이터 새로 불러올 수 있게
     let localLastDate = parseGetStepDate.steps_count[parseGetStepDate.steps_count.length-1].endTime[0]+parseGetStepDate.steps_count[parseGetStepDate.steps_count.length-1].endTime[1];
-
     console.log(localLastDate, onToday)
-    if(localLastDate == onToday-2){
+    if(localLastDate <= onToday-2){
       console.log("다음날이 되었다")
       getGoogleStepCount(googleStepCountUrl);
     }
@@ -60,6 +59,7 @@ function setStepDate(){
 export const chartDateArr = [
   [],
   [],
+  [],
   []
 ]
 //배열에 걸음수 데이터 넣기
@@ -73,6 +73,7 @@ function rangeStepData(parseGetStepDate){
       reserveGetStepDate.shift()
     }
   }
+  console.log(chartDateArr)
 }
 
 //걸음수 관련 처리
@@ -110,6 +111,12 @@ export function setWeekPercent(){
       }
     }
     else if(dataSumArr[2] === weekSumStep){
+      percentData = parseInt(dataSumArr[2]/dataSumArr[3]*10);
+      if(dataSumArr[2] < dataSumArr[3]){
+        percentData = -percentData;
+      }
+    }
+    else if(dataSumArr[3] === weekSumStep){
       percentData="";
     }
     showWeekPercent()

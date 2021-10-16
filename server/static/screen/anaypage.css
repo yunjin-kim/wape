@@ -559,3 +559,10 @@
   background-image: url(../img/goalX.png);
   background-repeat: no-repeat;
 }
+.noGoalText {
+  position: absolute;
+  width: 80vw;
+  height: 6vh;
+  background-color: var(--sub-background);
+  z-index: 2;
+}
