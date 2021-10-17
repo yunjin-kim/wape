@@ -1,6 +1,7 @@
 import { onToday, holeDay, todayDay } from '../mainpage_js/mainpage_reserve.js';
 import { _filter, _map, _reduce, _add } from '../fx.js';
 import { setWeekStepData, showWeekPercent } from './anaypage.js';
+
 const googleStepCountUrl = 'https://v1.nocodeapi.com/kimyunjun/fit/lHneRLggDPetxSfn/aggregatesDatasets?dataTypeName=steps_count&timePeriod=30days';
 //처음에 데이터가 로컬에 없다면 로컬에 저장되는건 되지만 chart배열에 값이 들어가지는 않음 함수 다시 실행될 수 있게
 //12시쯤 구글 피트니스에 들어가 동기화를 하면 전달 12시부터 오늘 12시까지 정보를 새로 불러올 수 있다
@@ -27,7 +28,7 @@ export function onStepData(){
       getGoogleStepCount(googleStepCountUrl);
     }
   
-    rangeStepData(parseGetStepDate)
+    rangeStepData(parseGetStepDate);
   }
   setStepDate()
 }
@@ -49,7 +50,6 @@ function saveStepToLocal(json){
 export const walkDayArr = [];
 function setStepDate(){
   let walkDataDay = todayDay-1;
-  console.log(walkDataDay)
 
   for(let i = 0; i < 7; i++){
     if(walkDataDay === -1) walkDataDay = 6;
@@ -57,7 +57,6 @@ function setStepDate(){
     walkDataDay++;
     walkDayArr.push(holeDay[walkDataDay-1]);
   }
-  console.log(walkDayArr)
 }
 
 export const chartDateArr = [
@@ -77,7 +76,6 @@ function rangeStepData(parseGetStepDate){
       reserveGetStepDate.shift()
     }
   }
-  console.log(chartDateArr)
 }
 
 //걸음수 관련 처리
