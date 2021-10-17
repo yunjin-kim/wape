@@ -2,7 +2,8 @@ import { onToday, holeDay, todayDay } from '../mainpage_js/mainpage_reserve.js';
 import { _filter, _map, _reduce, _add } from '../fx.js';
 import { setWeekStepData, showWeekPercent } from './anaypage.js';
 const googleStepCountUrl = 'https://v1.nocodeapi.com/kimyunjun/fit/lHneRLggDPetxSfn/aggregatesDatasets?dataTypeName=steps_count&timePeriod=30days';
-//처음에 데이터가 로컬에 없다면 로컬에 저장되는건 되지만 chart배열에 값이 들어가지는 않음 함수 다시 실해오딜 수 있게
+//처음에 데이터가 로컬에 없다면 로컬에 저장되는건 되지만 chart배열에 값이 들어가지는 않음 함수 다시 실행될 수 있게
+//12시쯤 구글 피트니스에 들어가 동기화를 하면 전달 12시부터 오늘 12시까지 정보를 새로 불러올 수 있다
 
 //걸음수 api
 //로컬스토리지에 걸음수를 저장해놯으니까 오늘 날짜랑 로컬스토리에 있는 데이터 날짜 값이랑 비교해서 오늘 날짜의 데이터가 없다면 그 때 url을 통해 불어올 수 있도록
@@ -21,7 +22,7 @@ export function onStepData(){
     //onToday 날짜랑 로컬 데이터의 endtime에 날짜랑 비교해서 onToday 날짜가 크면 데이터 새로 불러올 수 있게
     let localLastDate = parseGetStepDate.steps_count[parseGetStepDate.steps_count.length-1].endTime[0]+parseGetStepDate.steps_count[parseGetStepDate.steps_count.length-1].endTime[1];
     console.log(localLastDate, onToday)
-    if(localLastDate <= onToday-2){
+    if(localLastDate <= onToday-1){
       console.log("다음날이 되었다")
       getGoogleStepCount(googleStepCountUrl);
     }
@@ -47,13 +48,16 @@ function saveStepToLocal(json){
 //걸음 수 요일
 export const walkDayArr = [];
 function setStepDate(){
-  let walkDataDay = todayDay;
+  let walkDataDay = todayDay-1;
+  console.log(walkDataDay)
 
   for(let i = 0; i < 7; i++){
-    if(walkDataDay >= 8) walkDataDay = 1;
-    walkDayArr.push(holeDay[walkDataDay-1]);
+    if(walkDataDay === -1) walkDataDay = 6;
+    if(walkDataDay >= 7) walkDataDay = 0;
     walkDataDay++;
+    walkDayArr.push(holeDay[walkDataDay-1]);
   }
+  console.log(walkDayArr)
 }
 
 export const chartDateArr = [

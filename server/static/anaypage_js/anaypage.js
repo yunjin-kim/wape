@@ -29,6 +29,7 @@ function setStepChartDate(){
   const $walkDataDays = document.querySelector(".anaypage__walk__graph__day__ul");
 
   for(let i = 0; i < walkDayArr.length; i++){
+    // console.log(walkDayArr)
     $walkDataDays.children[i].innerText = walkDayArr[i];
   }
 }

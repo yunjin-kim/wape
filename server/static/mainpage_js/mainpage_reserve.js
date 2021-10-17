@@ -18,9 +18,9 @@ export const holeDayArr = [];
 export const holeDateArr = [];
 
 for(let i = 0; i < 7; i++){
-  if(todayDays >= 8) todayDays = 1;
+  todayDays--;
+  if(todayDays === -1) todayDays = 7;
   holeDayArr.push(holeDay[todayDays-1]);
-  todayDays++;
 
   if(todayDate >= thisLastDate) todayDate = 1;
   holeDateArr.push(todayDate)
