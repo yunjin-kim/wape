@@ -82,21 +82,15 @@ $thirdCheck.addEventListener('click',(e)=>{
 const $loginComplete = document.getElementById("userJoinButton");
 
 $loginComplete.addEventListener('click',()=>{
-  if(userPassTP)
-  if(userSamePassTF)
-  if(userBirth)
-  if(userGender)
-  if(userNick)
-  if(fristCheck)
-  if(secondCheck)
-  if(thirdCheck)
+  if(userPassTP && userSamePassTF && userBirth && userGender && userNick && fristCheck && secondCheck &&thirdCheck)
+  console.log("회원가입")
   postUserInfo();
 })
 
 const $joinError = document.querySelector('.joinError');
 
 function postUserInfo(){
-  axios.post('/auth/join',{number: userNum, password: userPass, birth: userBirth, gender: userGender, nick: userNick})
+  axios.post('/auth/join',{number: userNum, password: userPass, birth: userBirth, gender: userGender, nick: userNick })
     .then(function (res){
       if(res.data.redirect == '/page/login'){
         window.location = '/page/login'

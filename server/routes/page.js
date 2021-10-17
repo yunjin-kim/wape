@@ -37,11 +37,11 @@ router.get('/anay',isNotLoggedIn, (req, res, next)=>{
   res.sendFile(path.join(__dirname, '..','/static','/mainpage_html','/anaypage.html'))
 });
 
-router.get('/profile',isLoggedIn,(req, res, next)=>{
+router.get('/profile',isNotLoggedIn,(req, res, next)=>{
   res.sendFile(path.join(__dirname, '..','/static','/mainpage_html','/profilepage.html'))
 })
 
-router.get('/error',isNotLoggedIn, (req, res, next)=>{ 
+router.get('/error',isLoggedIn, (req, res, next)=>{ 
   res.sendFile(path.join(__dirname, '..','/static','/error','/errorpage.html'))
 });
 
