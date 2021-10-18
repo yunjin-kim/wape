@@ -1,6 +1,5 @@
 .wrap {
   overflow: hidden;
-  border: 1px solid burlywood;
   margin: 0px 6.4vw;
   padding-bottom: 12vh;
 }
@@ -46,12 +45,14 @@
   height: 1.3vh;
   font-size: 0.5rem;
   color: var(--sub-font);
+  margin-top: 1vh;
 }
 .bankpage__asset__all {
   width: 20vw;
   height: 1.3vh;
   font-size: 0.5rem;
   color: var(--sub-font);
+  margin-top: 1vh;
 }
 .bankpage__asset__all img {
   width: 2vw;

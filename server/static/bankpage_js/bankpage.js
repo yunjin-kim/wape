@@ -1,36 +1,53 @@
-import { _add, _go, _reduce, _map } from '../fx.js';
 import { setStepHistory } from './bankpage_history.js';
+import { getBankStepData } from './bankpage_total.js';
 
-const $stepHistory = document.querySelector(".bankpage__reposit");
-$stepHistory.innerHTML = setStepHistory().join('');
+(function enterBankPage(){
+  setWalkData()
+  getBankStepData();
+})();
 
-function getBankStepData(){
-  let getTotalStepData = localStorage.getItem("STEP_DATA");
-  let parseTotalStepData = JSON.parse(getTotalStepData);
-
-  let totlaStepData = _go(
-    parseTotalStepData.steps_count,
-    _map(data => data.value),
-    _reduce(_add)
-  )
-
-  setBankTotalData(totlaStepData);
+//이제까지 걸은 데이터 
+function setWalkData(){
+  const $stepHistory = document.querySelector(".bankpage__reposit");
+  $stepHistory.innerHTML = setStepHistory().join('');
 }
-getBankStepData()
 
-function setBankTotalData(totlaStepData){
+//총 걷기 데이터
+export function setBankTotalData(totalStepData){
   const $bankTotalStep = document.querySelector(".bankTotalStep");
   const $bankTotalDistance = document.querySelector(".bankTotalDistance");
   const $bankEarth = document.querySelector(".bankEarth");
   const $bankMaraton = document.querySelector(".bankMaraton");
   const $bankSeoulToBusan = document.querySelector(".bankSeoulToBusan");
 
-  let totalDistance = totlaStepData*70/100000;
+  let totalDistance = totalStepData*70/100000;
 
-  $bankTotalStep.innerText = totlaStepData;
+  $bankTotalStep.innerText = totalStepData;
   $bankTotalDistance.innerText = totalDistance.toFixed(3);
   $bankEarth.innerText = (totalDistance/400000).toFixed(5);
   $bankMaraton.innerText = (totalDistance/42).toFixed(1);
   $bankSeoulToBusan.innerText = (totalDistance/325).toFixed(2);
 }
 
+//총 자산 그래프
+export function setBankMoneyGraph(bankTotalPrice, bankTotalMoneyGraphText){
+  const $bankTotalMoney = document.querySelector(".bankTotalMoney");
+  const $bankMyMoneyGraphText = document.querySelector(".bankMyMoneyGraphText");
+  const $bankTotalMoneyGraphText = document.querySelector(".bankTotalMoneyGraphText");
+  const $bankMyMoneyGraph = document.querySelector(".bankpage__asset__graph__my");
+
+  $bankTotalMoneyGraphText.innerText = bankTotalMoneyGraphText;
+  $bankMyMoneyGraph.style = `width: ${bankTotalPrice/bankTotalMoneyGraphText*230}px`;
+
+  $bankTotalMoney.innerText = bankTotalPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+  $bankMyMoneyGraphText.innerText = bankTotalPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+}
+
+export function setTitle(currentTitleNum){
+  const allTitles = ["a", "b", "c", "d", "e", ""];
+  const $currentTitle = document.querySelector(".currentTitle");
+  const $nextTitle = document.querySelector(".nextTitle");
+
+  $currentTitle.innerText = allTitles[currentTitleNum-1];
+  $nextTitle.innerText = allTitles[currentTitleNum];
+}
