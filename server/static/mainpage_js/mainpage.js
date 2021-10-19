@@ -101,7 +101,6 @@ $reserveBtn.addEventListener('click',(e)=>{
 })
 
 //로컬스토리지에서 예약한 날짜 가져오기
-
 function getResreveDate(){
   let getReserveDate = localStorage.getItem("RESERVE_DATE")
   let parseGetReserveDate = JSON.parse(getReserveDate);

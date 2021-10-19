@@ -19,7 +19,7 @@ export function onStepData(){
   else if(getStepDate){
     let parseGetStepDate= JSON.parse(getStepDate);
     //시간대별로 데이터가 언제 불러와지는 것이 다르기 때문에 확인 필요
-    //20시기준 당일 12시 데이터 구글 피트니스에 들어가야 api로 데이터가 들어온다
+    //13시기준 당일 12시 데이터 구글 피트니스에 들어가야 api로 데이터가 들어온다
     //onToday 날짜랑 로컬 데이터의 endtime에 날짜랑 비교해서 onToday 날짜가 크면 데이터 새로 불러올 수 있게
     let localLastDate = parseGetStepDate.steps_count[parseGetStepDate.steps_count.length-1].endTime[0]+parseGetStepDate.steps_count[parseGetStepDate.steps_count.length-1].endTime[1];
     console.log(localLastDate, onToday)

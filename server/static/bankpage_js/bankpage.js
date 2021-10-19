@@ -1,5 +1,5 @@
 import { setStepHistory } from './bankpage_history.js';
-import { getBankStepData } from './bankpage_total.js';
+import { getBankStepData, titleModal } from './bankpage_total.js';
 
 (function enterBankPage(){
   setWalkData()
@@ -43,11 +43,17 @@ export function setBankMoneyGraph(bankTotalPrice, bankTotalMoneyGraphText){
   $bankMyMoneyGraphText.innerText = bankTotalPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 }
 
-export function setTitle(currentTitleNum){
-  const allTitles = ["a", "b", "c", "d", "e", ""];
+//칭호
+export function setTitle(currentTitleNum, allTitles){
   const $currentTitle = document.querySelector(".currentTitle");
   const $nextTitle = document.querySelector(".nextTitle");
 
   $currentTitle.innerText = allTitles[currentTitleNum-1];
   $nextTitle.innerText = allTitles[currentTitleNum];
 }
+
+//모든 칭호 보기
+const $showAllTitle = document.querySelector(".bankpage__asset__all");
+$showAllTitle.addEventListener('click', (e)=>{
+  titleModal(e)
+})

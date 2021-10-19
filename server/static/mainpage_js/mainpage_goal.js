@@ -42,7 +42,7 @@ export function showSetGoalModal(e){
 //오늘 걸음 데이터
 export function getTodayStep(){
   const lastDateStepDataArr = localStorage.getItem("STEP_DATA");
-  let lastDateStepData = JSON.parse(lastDateStepDataArr).steps_count[JSON.parse(lastDateStepDataArr).steps_count.length-1].value;
+  let lastDateStepData = JSON.parse(lastDateStepDataArr).steps_count[JSON.parse(lastDateStepDataArr).steps_count.length-2].value;
   return lastDateStepData;
 }
 
