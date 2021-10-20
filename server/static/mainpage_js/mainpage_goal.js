@@ -28,13 +28,13 @@ export function showSetGoalModal(e){
     setGoalGraph();
   })
 
-  const goadlSubmitBtn = document.createElement('button');
-  goadlSubmitBtn.classList.add("goalSubmitBtn");
-  goadlSubmitBtn.innerText = "목표 설정";
-  goadlSubmitBtn.addEventListener('click', ()=>{
+  const goallSubmitBtn = document.createElement('button');
+  goallSubmitBtn.classList.add("goalSubmitBtn");
+  goallSubmitBtn.innerText = "목표 설정";
+  goallSubmitBtn.addEventListener('click', ()=>{
     modalDiv.remove();
   });
-  modalDiv.append(goadlSubmitBtn);
+  modalDiv.append(goallSubmitBtn);
 
   e.target.parentNode.parentNode.parentNode.parentNode.append(modalDiv);
 }
