@@ -21,7 +21,6 @@ for(let i = 0; i < 7; i++){
   todayDays--;
   if(todayDays === -1) todayDays = 6;
   holeDayArr.push(holeDay[todayDays]);
-  console.log(todayDays)
 
   if(todayDate >= thisLastDate) todayDate = 1;
   holeDateArr.push(todayDate)
@@ -129,7 +128,6 @@ export function setClickDateArr(e){
 //예약 기능
 export function clickReserve(reserveHour, reserveMinute){
   const reserveObjArr = [];
-  console.log(reserveArr)
 
   for(let reserveDate of reserveArr){
     let reserveObj = {
@@ -140,13 +138,13 @@ export function clickReserve(reserveHour, reserveMinute){
     reserveObjArr.push(reserveObj);
   }
   reserveArr = [];
-  console.log(reserveArr)
 
   let getReserveDate = localStorage.getItem("RESERVE_DATE")
   let parseGetReserveDate = JSON.parse(getReserveDate);
-
+  console.log("AA")
+  console.log(parseGetReserveDate);
   if(parseGetReserveDate){
-    //오늘 이전 예약
+    //오늘 이전 예약 
     let subLastReserve = _filter(
       d => d.date < onToday, parseGetReserveDate
     )

@@ -201,8 +201,13 @@
   height: 12vh;
   display: flex;
   align-items: center;
-  border: 1px solid red;
   justify-content: space-between;
+}
+.anaypage__weight__graph__left__wrap {
+  width: 30px;
+}
+.anaypage__weight__graph__left {
+  border: none;
 }
 .anaypage__weight__graph__left img {
   width: 5vw;
@@ -210,7 +215,6 @@
 .anaypage__weight__graph__graph {
   width: 7vw;
   height: 12vh;
-  border: 1px solid blue;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -224,6 +228,12 @@
 }
 .anaypage__weight__graph__graph span {
   font-size: 1px;
+}
+.anaypage__weight__graph__right__wrap {
+  width: 30px;
+}
+.anaypage__weight__graph__right {
+  border: none;
 }
 .anaypage__weight__graph__right img {
   width: 5vw;

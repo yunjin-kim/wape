@@ -6,6 +6,7 @@ import { setGoalAchieve, goalStep } from './anaypage_goal.js';
 
 let weekNum = 0;
 let goalWeekNum = 0
+let weightWeekNum = 0;
 
 //걸음수 주 평균, 총합
 export function setWeekStepData(weekSumStep){
@@ -17,20 +18,22 @@ export function setWeekStepData(weekSumStep){
 
 (function hasStepData(){
   onStepData();
-  setStepChartDate();
-  setGoalDate();
+  setGraphDate();
   setStepChart(weekNum);
   setWeekPercent();
   ifNoGoal();
 })();
 
-//걸음 수 요일
-function setStepChartDate(){
+//그래프 요일 
+function setGraphDate(){
   const $walkDataDays = document.querySelector(".anaypage__walk__graph__day__ul");
+  const $goalDays = document.querySelector(".anaypage__goal__check__day__ul");
+  const $weightDays = document.querySelector(".anaypage__weight__graph__day__ul");
 
   for(let i = 0; i < walkDayArr.length; i++){
-    // console.log(walkDayArr)
     $walkDataDays.children[i].innerText = walkDayArr[i];
+    $goalDays.children[i].innerText = walkDayArr[i];
+    $weightDays.children[i].innerText = walkDayArr[i];
   }
 }
 
@@ -49,19 +52,19 @@ function setStepChart(weekNum){
 //걸음수 차트 왼쪽 버튼
 const $stepChartLeftBtn = document.querySelector(".anaypage__walk__graph__left");
 $stepChartLeftBtn.addEventListener('click',()=>{
-    weekNum++;
-    setStepChartBtn();
-    setStepChart(weekNum);
-    setWeekPercent();
+  weekNum++;
+  setStepChartBtn();
+  setStepChart(weekNum);
+  setWeekPercent();
 })
 
 //걸음수 차트 오른쪽 버튼
 const $stepChartRightBtn = document.querySelector(".anaypage__walk__graph__right");
 $stepChartRightBtn.addEventListener('click',()=>{
-    weekNum--;
-    setStepChartBtn();
-    setStepChart(weekNum);
-    setWeekPercent();
+  weekNum--;
+  setStepChartBtn();
+  setStepChart(weekNum);
+  setWeekPercent();
 })
 
 //걸음수 차트 버튼 show/hidden
@@ -99,16 +102,7 @@ export function showWeekPercent(){
   $weekDiffPercent.innerText = percentData;
 }
 
-//목표 달성 요일
-function setGoalDate(){
-  const $goalDays = document.querySelector(".anaypage__goal__check__day__ul");
-
-  for(let i = 0; i < walkDayArr.length; i++){
-    $goalDays.children[i].innerText = walkDayArr[i];
-  }
-}
-
-  //목표 왼쪽 버튼
+//목표 왼쪽 버튼
 const $goalLeftBtn = document.querySelector(".anaypage__goal__check__left");
 $goalLeftBtn.addEventListener('click', ()=>{
   goalWeekNum++;
@@ -116,13 +110,13 @@ $goalLeftBtn.addEventListener('click', ()=>{
   setGoalAchieveBox(goalWeekNum);
 })
 
-  //목표 왼쪽 버튼
-  const $goalRightBtn = document.querySelector(".anaypage__goal__check__right");
-  $goalRightBtn.addEventListener('click', ()=>{
-    goalWeekNum--;
-    setGoaltBtn();
-    setGoalAchieveBox(goalWeekNum);
-  })
+  //목표 오른쪽 버튼
+const $goalRightBtn = document.querySelector(".anaypage__goal__check__right");
+$goalRightBtn.addEventListener('click', ()=>{
+  goalWeekNum--;
+  setGoaltBtn();
+  setGoalAchieveBox(goalWeekNum);
+})
 
 //목표 버튼 show/hidden
 function setGoaltBtn(){
@@ -162,4 +156,30 @@ function setGoalAchieveBox(goalWeekNum){
   setGoalAchieve(goalBoxArr, goalWeekNum)
 }
 
+//체중 왼쪽 버튼
+const $weightLeftBtn = document.querySelector(".anaypage__weight__graph__left");
+$weightLeftBtn.addEventListener('click', ()=>{
+  weightWeekNum++;
+  setWeighttBtn();
+})
 
+  //체중 오른쪽 버튼
+const $weightRightBtn = document.querySelector(".anaypage__weight__graph__right");
+$weightRightBtn.addEventListener('click', ()=>{
+  weightWeekNum--;
+  setWeighttBtn();
+})
+
+//체중 버튼 show/hidden
+function setWeighttBtn(){
+  if(weightWeekNum == 3){
+    $weightLeftBtn.classList.add("hiddenButton");
+  }
+  else if(weightWeekNum == 0){
+    $weightRightBtn.classList.add("hiddenButton");
+  }
+  else{
+    $weightLeftBtn.classList.remove("hiddenButton");
+    $weightRightBtn.classList.remove("hiddenButton");
+  }
+}
