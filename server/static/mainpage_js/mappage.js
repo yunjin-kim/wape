@@ -13,6 +13,7 @@ else {
 function getLocation() {
   navigator.geolocation.getCurrentPosition(getGeo);
 }
+
 function getGeo(event) {
   const lat = event.coords.latitude;
   const lon = event.coords.longitude;
@@ -152,7 +153,6 @@ const $courseName2 = document.querySelector('.mappage__walkload__course2__name')
 const $courseLocation2 = document.querySelector('.mappage__walkload__course2__location');
 const $courseDistance2 = document.querySelector('.mappage__walkload__course2__distance');
 const $courseMoney2 = document.querySelector('.mappage__walkload__course2__money');
-
 
 let polygon;
 //걷기 포인트 표시

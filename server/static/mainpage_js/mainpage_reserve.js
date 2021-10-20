@@ -79,7 +79,8 @@ export const minuteArr = [];
     minuteArr.push(option);
   }
 
-export const reserveArr = []; 
+//걷기 알림 날짜 클릭
+let reserveArr = []; 
 export function setClickDateArr(e){
   if(e.target.classList.contains(COLORED_BOX)){
     //박스가 초록색이라면
@@ -128,6 +129,7 @@ export function setClickDateArr(e){
 //예약 기능
 export function clickReserve(reserveHour, reserveMinute){
   const reserveObjArr = [];
+  console.log(reserveArr)
 
   for(let reserveDate of reserveArr){
     let reserveObj = {
@@ -137,6 +139,8 @@ export function clickReserve(reserveHour, reserveMinute){
     }
     reserveObjArr.push(reserveObj);
   }
+  reserveArr = [];
+  console.log(reserveArr)
 
   let getReserveDate = localStorage.getItem("RESERVE_DATE")
   let parseGetReserveDate = JSON.parse(getReserveDate);

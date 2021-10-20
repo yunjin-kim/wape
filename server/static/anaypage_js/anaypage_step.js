@@ -49,7 +49,7 @@ function saveStepToLocal(json){
 //걸음 수 요일
 export const walkDayArr = [];
 function setStepDate(){
-  let walkDataDay = todayDay-1;
+  let walkDataDay = todayDay;
 
   for(let i = 0; i < 7; i++){
     if(walkDataDay === -1) walkDataDay = 6;

@@ -57,7 +57,6 @@ export function renderCalendar() {
   })
 }
 
-renderCalendar();
 
 //달력 걷기 이미지 클릭
 export function clickReserveDate(e){

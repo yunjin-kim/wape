@@ -1,25 +1,47 @@
 import { quoteSentence } from "./mainpage_quote.js";
 import { getCookie } from "./mainpage_profile.js";
 import { renderCalendar, thisYear, thisMonth, daysArray, clickReserveDate } from "./mainpage_calendar.js";
-import { holeDayArr, holeDateArr, clickDate, hourArr, minuteArr, setClickDateArr,reserveArr, clickReserve } from "./mainpage_reserve.js";
+import { holeDayArr, holeDateArr, clickDate, hourArr, minuteArr, setClickDateArr, clickReserve } from "./mainpage_reserve.js";
 import { showSetGoalModal, getTodayStep, setStepGragh } from './mainpage_goal.js';
 
+const $thisYearMonth = document.querySelector('.thisYearMonth');
+const $calendarDays = document.querySelector('.mainpage__calendar__day');
+const $bookDate = document.querySelector('.mainpage__book__date');
+const $bookDays = $bookDate.children;
+
+(function enterMainpage(){
+  loadWeather();
+  renderCalendar();
+  stepGoal();
+  setGoalTodayStep();
+  setGoalGraph();
+  setQuote();
+  setProfile();
+  setBookDate();
+})();
+
 //걷기 효능
-const $quote = document.querySelector('.quote');
-$quote.innerText = quoteSentence;
+function setQuote(){
+  const $quote = document.querySelector('.quote');
+  $quote.innerText = quoteSentence;
+}
+
 
 //프로필
-const $profileName = document.getElementById('profileName');
-$profileName.innerText = getCookie();
+function setProfile(){
+  const $profileName = document.getElementById('profileName');
+  $profileName.innerText = getCookie();
+}
+
 
 //오늘 날씨
-const $atmosCon = document.querySelector('.mainpage__weather__weather');
-const $temp = document.querySelector('.mainpage__weather__temp');
-const $hightemp = document.querySelector('.mainpage__weather__hightemp');
-const $lowtemp = document.querySelector('.mainpage__weather__lowtemp');
-const $weatherLocation = document.querySelector('.mainpage__weather__dust__gu');
-
 async function loadWeather(){
+  const $atmosCon = document.querySelector('.mainpage__weather__weather');
+  const $temp = document.querySelector('.mainpage__weather__temp');
+  const $hightemp = document.querySelector('.mainpage__weather__hightemp');
+  const $lowtemp = document.querySelector('.mainpage__weather__lowtemp');
+  const $weatherLocation = document.querySelector('.mainpage__weather__dust__gu');
+
   let {weatherData, tempData, maxTempData, minTempData, lat, lon } = await import('./mainpage_weather.js');
   console.log(lat, lon)
   if(weatherData){
@@ -29,17 +51,14 @@ async function loadWeather(){
     $lowtemp.innerText = minTempData;
   }
   else{
+    //동적으로 모듈 가져오기
     setTimeout(()=>{
       loadWeather()
     },10000)
   }
 }
-//동적으로 모듈 가져오기
-loadWeather()
 
 //달력 
-const $thisYearMonth = document.querySelector('.thisYearMonth');
-const $calendarDays = document.querySelector('.mainpage__calendar__day');
 $thisYearMonth.textContent = `${thisYear}.${thisMonth+1}`;
 $calendarDays.innerHTML = daysArray.join(' ');
 
@@ -49,28 +68,25 @@ $calendarDays.addEventListener('click',(e)=>{
   }
 })
 
-renderCalendar()
 
 //걷기 알림
 //이번달의 마지막날도 불러와서 예약할 날짜가 마지막 날짜를 넘어가면 1일로 바뀔 수 있게 되는지 확인 필요
-const $bookDate = document.querySelector('.mainpage__book__date');
-const DATE_SPAN = 'dateSpan';
-const COLORED_BOX = 'coloredBox';
-const CLICK_GREEN = 'backgroundGreen';
-const bookDays = $bookDate.children;
+function setBookDate(){
 
-for(let i = 0; i < 7; i++){
-  bookDays[i].children[0].textContent = holeDayArr[i];
-  bookDays[i].children[1].textContent = holeDateArr[i];
-  bookDays[i].children[0].classList.add(DATE_SPAN);
-  bookDays[i].children[1].classList.add(DATE_SPAN);
-  bookDays[i].classList.add(COLORED_BOX);
+  for(let i = 0; i < 7; i++){
+    $bookDays[i].children[0].textContent = holeDayArr[i];
+    $bookDays[i].children[1].textContent = holeDateArr[i];
+    $bookDays[i].children[0].classList.add("dateSpan");
+    $bookDays[i].children[1].classList.add("dateSpan");
+    $bookDays[i].classList.add("coloredBox");
+  }
 }
+
+
 //언제 걸을까요 버튼들
 $bookDate.addEventListener('click', (e)=>{
   setClickDateArr(e)
   clickDate(e)
-  console.log(reserveArr)
 })
 
 //몇시에 걸을까요 시
@@ -93,7 +109,7 @@ $reserveBtn.addEventListener('click',(e)=>{
   let reserveMinute = $selectMinute.options[$selectMinute.selectedIndex].innerText;
 
   for(let i = 0; i < 7; i++){
-    bookDays[i].classList.remove(CLICK_GREEN);
+    $bookDays[i].classList.remove("backgroundGreen");
   }
   //같은 날 같은 시 같은 분일 때 겹치는 문제
   clickReserve(reserveHour, reserveMinute);
@@ -104,7 +120,6 @@ $reserveBtn.addEventListener('click',(e)=>{
 function getResreveDate(){
   let getReserveDate = localStorage.getItem("RESERVE_DATE")
   let parseGetReserveDate = JSON.parse(getReserveDate);
-  //
 
   if(parseGetReserveDate){
     for(let i = 0; i < $calendarDays.children.length; i++){
@@ -116,6 +131,7 @@ function getResreveDate(){
     }
   };
 }
+
 getResreveDate();
 
 //목표 걸음 모달
@@ -133,7 +149,6 @@ export function stepGoal(){
   $stepGoal.innerText = myGoalStep;
   $setMoney.innerText = myGoalStep*5;
 }
-stepGoal();
 
 //오늘 걸음 데이터
 function setGoalTodayStep(){
@@ -142,7 +157,6 @@ function setGoalTodayStep(){
   $todayStep.innerText = getTodayStep();
   $todayMoney.innerText = getTodayStep()*5;
 }
-setGoalTodayStep();
 
 //목표 걸음 수 그래프 
 export function setGoalGraph(){
@@ -155,7 +169,6 @@ export function setGoalGraph(){
   $myStepDataGragh.style = `width: ${stepGragh}px`;
   $myMoneyDataGragph.style = `width: ${stepGragh}px`;
 }
-setGoalGraph();
 
 
 // let result = fetch('http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=BzZsuCgHXGI%2FYCjfzw%2FNkrz87G%2FhlhrZaMqZ%2FnWF1q3Vps0xav1YgYj3%2FprpYmYi%2BHjNVTBhtkXHMIQKAenR1g%3D%3D&pageNo=1&numOfRows=50&dataType=JSON&base_date=20211010&base_time=1700&nx=55&ny=127', {

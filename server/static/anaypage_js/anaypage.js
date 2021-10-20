@@ -109,12 +109,12 @@ function setGoalDate(){
 }
 
   //목표 왼쪽 버튼
-  const $goalLeftBtn = document.querySelector(".anaypage__goal__check__left");
-  $goalLeftBtn.addEventListener('click', ()=>{
-    goalWeekNum++;
-    setGoaltBtn();
-    setGoalAchieveBox(goalWeekNum);
-  })
+const $goalLeftBtn = document.querySelector(".anaypage__goal__check__left");
+$goalLeftBtn.addEventListener('click', ()=>{
+  goalWeekNum++;
+  setGoaltBtn();
+  setGoalAchieveBox(goalWeekNum);
+})
 
   //목표 왼쪽 버튼
   const $goalRightBtn = document.querySelector(".anaypage__goal__check__right");
@@ -144,7 +144,7 @@ function ifNoGoal(){
     const $goalCheck = document.querySelector(".anaypage__goal__check__noGoal");
     $goalCheck.innerHTML = setGoalAchieve();
   }
-  else{
+  else{ 
     setGoalAchieveBox();
   }
 }
