@@ -36,7 +36,7 @@ export function setStepHistory(){
             </div>
             <div class="bankpage__reposit__value">
                 <h3>
-                    <span>${(daysValue[i]*0.7).toFixed(1)}</span>km 걷고<br>
+                    <span>${(daysValue[i]*0.07).toFixed(1)}</span>km 걷고<br>
                     <span></span>원 벌었어요
                 </h3>
             </div>
