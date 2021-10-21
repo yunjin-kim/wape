@@ -145,9 +145,13 @@ export function stepGoal(){
   const $stepGoal = document.querySelector(".setGoal");
   const $setMoney = document.querySelector(".setMoney");
   let myGoalStep = localStorage.getItem("STEP_GOAL");
-  if(!myGoalStep) myGoalStep = '목표를 설정해주세요'
+  let myGoalMoney = myGoalStep*5;
+  if(!myGoalStep) {
+    myGoalStep = '목표를 설정해주세요';
+    myGoalMoney ='목표를 설정해주세요';
+  }
   $stepGoal.innerText = myGoalStep;
-  $setMoney.innerText = myGoalStep*5;
+  $setMoney.innerText = myGoalMoney;
 }
 
 //오늘 걸음 데이터
