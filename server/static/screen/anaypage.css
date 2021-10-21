@@ -253,7 +253,7 @@
   display: flex;
   justify-content: space-between;
 }
-.anaypage__weight__average {
+.anaypage__weight__current {
   width: 42vw;
   height: 8.4vh;
   box-shadow: 2px 6px 6px 3px rgba(0, 0, 0, 0.2);
@@ -264,28 +264,28 @@
   display: flex;
   justify-content: space-between;
 }
-.anaypage__weight__average div {
+.anaypage__weight__current div {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-around;
 }
-.anaypage__weight__average div:last-child {
+.anaypage__weight__current div:last-child {
   display: flex;
   align-items: flex-start;
   justify-content: flex-end;
   font-size: 0.9rem;
 }
-.anaypage__weight__average h4 {
+.anaypage__weight__current h4 {
   font-size: 0.8rem;
 }
-.anaypage__weight__average p {
+.anaypage__weight__current p {
   font-weight: 700;
 }
-.anaypage__weight__average span {
+.anaypage__weight__current span {
   margin-left: 1vw;
 }
-.anaypage__weight__average div:last-child {
+.anaypage__weight__current div:last-child {
   color: var(--sub-font);
 }
 .anaypage__weight__accure {
@@ -587,7 +587,7 @@
   z-index: 10;
   border-radius: 20px;
 }
-.weightModalTitle {
+.goalWeightModalTitle {
   text-align: center;
   margin-top: 10px;
 }
@@ -615,7 +615,7 @@
   margin-top: 20px;
   margin-left: 88px;
 }
-.NoWeightGoal {
+.noWeightGoal {
   font-size: 0.7rem;
 }
 .anaypage__noweight__accure {
@@ -631,4 +631,56 @@
 }
 .hiddenDiv {
   display: none;
+}
+.anaypage__noweight__current {
+  width: 42vw;
+  height: 8.4vh;
+  box-shadow: 2px 6px 6px 3px rgba(0, 0, 0, 0.2);
+  background-color: var(--sub-background);
+  border-radius: 14px;
+  box-sizing: border-box;
+  padding: 1.4vh 6vw 1.6vh 2.2vw;
+}
+
+.weightModal {
+  width: 250px;
+  height: 160px;
+  background-color: white;
+  border: 1px solid black;
+  position: absolute;
+  top: 640px;
+  left: 20px;
+  z-index: 10;
+  border-radius: 20px;
+}
+.weightModalTitle {
+  text-align: center;
+  margin-top: 10px;
+}
+.weightModalClose {
+  float: right;
+  margin-top: -10px;
+  margin-right: 10px;
+  background-color: white;
+  border: none;
+  font-size: 20px;
+}
+.weightInput {
+  width: 40px;
+  margin-top: 30px;
+  margin-left: 100px;
+  border: none;
+  border-bottom: 2px solid black;
+}
+.weightSubmitBtn {
+  width: 70px;
+  height: 25px;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 10px;
+  margin-top: 20px;
+  margin-left: 88px;
+}
+.noWeight {
+  font-size: 0.7rem;
 }

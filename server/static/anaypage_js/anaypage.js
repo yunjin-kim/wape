@@ -3,7 +3,7 @@
 import { _filter } from '../fx.js';
 import { onStepData, walkDayArr, setStepChartHeight, percentData, setWeekPercent } from './anaypage_step.js';
 import { setGoalAchieve, goalStep } from './anaypage_goal.js';
-import { showGoalWeihgtModal, setGoalWeight } from './anaypage_weight.js';
+import { showGoalWeihgtModal, setGoalWeight, showWeihgtModal, setCurrentWeight } from './anaypage_weight.js';
 
 let weekNum = 0;
 let goalWeekNum = 0
@@ -24,6 +24,7 @@ export function setWeekStepData(weekSumStep){
   setWeekPercent();
   ifNoGoal();
   setGoalWeight();
+  setCurrentWeight();
 })();
 
 //그래프 요일 
@@ -195,4 +196,15 @@ $setGoalWeight.addEventListener('click', (e)=> {
 const $noWeightGoalDiv = document.querySelector(".anaypage__noweight__accure");
 $noWeightGoalDiv.addEventListener('click', (e)=> {
   showGoalWeihgtModal(e);
+})
+
+//현재 체중 설정
+const $currentWeight = document.querySelector(".anaypage__weight__current");
+$currentWeight.addEventListener('click', (e)=>{
+  showWeihgtModal(e);
+})
+
+const $noCurrentWeight = document.querySelector(".anaypage__noweight__current");
+$noCurrentWeight.addEventListener('click', (e)=>{
+  showWeihgtModal(e);
 })
