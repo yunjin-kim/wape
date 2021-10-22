@@ -18,18 +18,20 @@ export function showGoalWeihgtModal(e){
     goalWeightModalDiv.remove();
   })
 
+  let goalWeight;
   const goalWeightInput = document.createElement('input');
   goalWeightInput.classList.add("goalWeightInput");
   goalWeightInput.setAttribute('type','number');
   goalWeightModalDiv.append(goalWeightInput);
   goalWeightInput.addEventListener('change', (e)=>{
-    localStorage.setItem("STEP_GOAL_WEIGHT", e.target.value);
+    goalWeight = e.target.value;
   })
 
   const goalWeightSubmitBtn = document.createElement('button');
   goalWeightSubmitBtn.classList.add("goalWeightSubmitBtn");
   goalWeightSubmitBtn.innerText = "목표 설정";
   goalWeightSubmitBtn.addEventListener('click', ()=>{
+    localStorage.setItem("STEP_GOAL_WEIGHT", goalWeight);
     goalWeightModalDiv.remove();
     $noWeightGoalDiv.classList.add("hiddenDiv");
     setGoalWeight();
@@ -61,7 +63,7 @@ export function setGoalWeight(){
 const $noWeightDiv = document.querySelector(".anaypage__noweight__current");
 
 export function showWeihgtModal(e){
-  const todayWeight = new Date().getDate();
+  const measureDay = new Date().getDate();
 
   const weightModalDiv = document.createElement('div');
   weightModalDiv.classList.add("weightModal")
@@ -79,18 +81,31 @@ export function showWeihgtModal(e){
     weightModalDiv.remove();
   })
 
+  let currnetWeight
   const weightInput = document.createElement('input');
   weightInput.classList.add("weightInput");
   weightInput.setAttribute('type','number');
   weightModalDiv.append(weightInput);
   weightInput.addEventListener('change', (e)=>{
-    localStorage.setItem("STEP_CURRENT_WEIGHT", JSON.stringify([todayWeight, e.target.value]));
+    currnetWeight = e.target.value;
   })
 
   const weightSubmitBtn = document.createElement('button');
   weightSubmitBtn.classList.add("weightSubmitBtn");
   weightSubmitBtn.innerText = "현재 체중";
   weightSubmitBtn.addEventListener('click', ()=>{
+    let getTotalWeightData = localStorage.getItem("STEP_CURRENT_WEIGHT");
+    let parseTotalWeightData = JSON.parse(getTotalWeightData);
+
+    if(parseTotalWeightData){
+      parseTotalWeightData.map((weight)=>{
+        weight[0] === measureDay ? parseTotalWeightData.shift() : parseTotalWeightData
+      })
+      localStorage.setItem("STEP_CURRENT_WEIGHT", JSON.stringify(parseTotalWeightData.unshift([measureDay, currnetWeight])));
+    }
+    console.log(parseTotalWeightData)
+
+    localStorage.setItem("STEP_CURRENT_WEIGHT", JSON.stringify([measureDay, currnetWeight]));
     weightModalDiv.remove();
     $noWeightDiv.classList.add("hiddenDiv");
     setCurrentWeight();

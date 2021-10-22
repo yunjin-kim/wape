@@ -1,10 +1,19 @@
 import { setStepHistory } from './bankpage_history.js';
 import { getBankStepData, titleModal } from './bankpage_total.js';
 
-(function enterBankPage(){
+(function hasStepData(){
+  let getStepDate = localStorage.getItem("STEP_DATA");
+  let parseGetStepDate= JSON.parse(getStepDate);
+
+  if(parseGetStepDate){
+    enterBankPage();
+  }
+})()
+
+function enterBankPage(){
   setWalkData()
   getBankStepData();
-})();
+};
 
 //이제까지 걸은 데이터 
 function setWalkData(){
