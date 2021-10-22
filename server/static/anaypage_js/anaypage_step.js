@@ -28,9 +28,9 @@ export function onStepData(){
       getGoogleStepCount(googleStepCountUrl);
     }
   
-    rangeStepData(parseGetStepDate);
-    hadStepData()
     setStepDate()
+    rangeStepData();
+    hadStepData()
   }
 }
 
@@ -45,8 +45,8 @@ function getGoogleStepCount(googleStepCountUrl){
 //한달 주기로 데이터 저장하므로 concat은 하지 않는다
 function saveStepToLocal(json){
   localStorage.setItem("STEP_DATA", JSON.stringify(json));
-  rangeStepData();
   setStepDate()
+  rangeStepData();
   hadStepData();
 }
 

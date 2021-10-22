@@ -9,16 +9,25 @@ const $calendarDays = document.querySelector('.mainpage__calendar__day');
 const $bookDate = document.querySelector('.mainpage__book__date');
 const $bookDays = $bookDate.children;
 
-(function enterMainpage(){
-  loadWeather();
+(function hasStepData(){
+  let getStepDate = localStorage.getItem("STEP_DATA");
+  let parseGetStepDate= JSON.parse(getStepDate);
+
+  if(parseGetStepDate){
+    enterMainpage()
+  }
   renderCalendar();
+  loadWeather();
+  setProfile();
+  setQuote();
+})()
+
+function enterMainpage(){
   stepGoal();
   setGoalTodayStep();
   setGoalGraph();
-  setQuote();
-  setProfile();
   setBookDate();
-})();
+};
 
 //걷기 효능
 function setQuote(){
