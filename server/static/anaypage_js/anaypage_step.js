@@ -1,6 +1,6 @@
 import { onToday, holeDay, todayDay } from '../mainpage_js/mainpage_reserve.js';
 import { _filter, _map, _reduce, _add } from '../fx.js';
-import { setWeekStepData, showWeekPercent } from './anaypage.js';
+import { setWeekStepData, showWeekPercent, hadStepData } from './anaypage.js';
 
 const googleStepCountUrl = 'https://v1.nocodeapi.com/kimyunjun/fit/lHneRLggDPetxSfn/aggregatesDatasets?dataTypeName=steps_count&timePeriod=30days';
 //처음에 데이터가 로컬에 없다면 로컬에 저장되는건 되지만 chart배열에 값이 들어가지는 않음 함수 다시 실행될 수 있게
@@ -29,8 +29,9 @@ export function onStepData(){
     }
   
     rangeStepData(parseGetStepDate);
+    hadStepData()
+    setStepDate()
   }
-  setStepDate()
 }
 
 function getGoogleStepCount(googleStepCountUrl){
@@ -44,6 +45,9 @@ function getGoogleStepCount(googleStepCountUrl){
 //한달 주기로 데이터 저장하므로 concat은 하지 않는다
 function saveStepToLocal(json){
   localStorage.setItem("STEP_DATA", JSON.stringify(json));
+  rangeStepData();
+  setStepDate()
+  hadStepData();
 }
 
 //걸음 수 요일
@@ -65,8 +69,11 @@ export const chartDateArr = [
   [],
   []
 ]
+
 //배열에 걸음수 데이터 넣기
-function rangeStepData(parseGetStepDate){
+function rangeStepData(){
+  let getStepDate = localStorage.getItem("STEP_DATA");
+  let parseGetStepDate= JSON.parse(getStepDate);
   let reserveGetStepDate = parseGetStepDate.steps_count.reverse();
 
   for(let i = 0; i < chartDateArr.length; i++){
@@ -82,6 +89,7 @@ function rangeStepData(parseGetStepDate){
 export let weekSumStep = 0;
 export function setStepChartHeight(chartBarArr, weekNum){
   weekSumStep = 0;
+  console.log(chartDateArr)
   for(let i = chartBarArr.length-1; i >= 0; i--){
     weekSumStep += chartDateArr[weekNum][i].value;
     chartBarArr[i].children[1].style.height = `${chartDateArr[weekNum][6-i].value/100}px`;

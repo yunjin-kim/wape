@@ -19,13 +19,16 @@ export function setWeekStepData(weekSumStep){
 
 (function hasStepData(){
   onStepData();
+})();
+
+export function hadStepData(){
   setGraphDate();
   setStepChart(weekNum);
   setWeekPercent();
   ifNoGoal();
   setGoalWeight();
   setCurrentWeight();
-})();
+}
 
 //그래프 요일 
 function setGraphDate(){
@@ -41,7 +44,7 @@ function setGraphDate(){
 }
 
 //걸음수 차트
-function setStepChart(weekNum){
+export function setStepChart(weekNum){
   const $walkDataGraph = document.querySelector(".anaypage__walk__graph__box");
 
   const chartBarArr = _filter(
@@ -208,3 +211,14 @@ const $noCurrentWeight = document.querySelector(".anaypage__noweight__current");
 $noCurrentWeight.addEventListener('click', (e)=>{
   showWeihgtModal(e);
 })
+
+
+const $weightBox = document.querySelector(".anaypage__weight__graph__box");
+
+const weightBoxArr = _filter(
+  weight => 
+    weight.classList.contains("anaypage__weight__graph__graph")
+      ,$weightBox.children
+)
+
+console.log(weightBoxArr)
