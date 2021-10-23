@@ -51,7 +51,6 @@ function saveStepToLocal(json){
 }
 
 //걸음 수 요일
-export const walkDayArr = [];
 function setStepDate(){
   let walkDataDay = todayDay;
 
@@ -62,6 +61,7 @@ function setStepDate(){
     walkDayArr.push(holeDay[walkDataDay-1]);
   }
 }
+export const walkDayArr = [];
 
 export const chartDateArr = [
   [],

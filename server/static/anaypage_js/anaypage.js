@@ -222,3 +222,11 @@ const weightBoxArr = _filter(
 )
 
 console.log(weightBoxArr)
+
+let getTotalWeightData = localStorage.getItem("STEP_CURRENT_WEIGHT");
+let parseTotalWeightData = JSON.parse(getTotalWeightData);
+console.log(parseTotalWeightData)
+
+// weightBoxArr._go(
+//   _map
+// )

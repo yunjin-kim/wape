@@ -103,7 +103,6 @@ export function showWeihgtModal(e){
       })
       localStorage.setItem("STEP_CURRENT_WEIGHT", JSON.stringify(parseTotalWeightData.unshift([measureDay, currnetWeight])));
     }
-    console.log(parseTotalWeightData)
 
     localStorage.setItem("STEP_CURRENT_WEIGHT", JSON.stringify([measureDay, currnetWeight]));
     weightModalDiv.remove();
