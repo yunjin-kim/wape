@@ -61,7 +61,6 @@ export function setGoalWeight(){
 
 //현재 체중 모달
 const $noWeightDiv = document.querySelector(".anaypage__noweight__current");
-
 export function showWeihgtModal(e){
   const measureDay = new Date().getDate();
 
@@ -97,14 +96,19 @@ export function showWeihgtModal(e){
     let getTotalWeightData = localStorage.getItem("STEP_CURRENT_WEIGHT");
     let parseTotalWeightData = JSON.parse(getTotalWeightData);
 
-    if(parseTotalWeightData){
-      parseTotalWeightData.map((weight)=>{
-        weight[0] === measureDay ? parseTotalWeightData.shift() : parseTotalWeightData
-      })
-      localStorage.setItem("STEP_CURRENT_WEIGHT", JSON.stringify(parseTotalWeightData.unshift([measureDay, currnetWeight])));
+  if(parseTotalWeightData){
+    if(parseTotalWeightData[parseTotalWeightData.length - 2] === measureDay){
+      parseTotalWeightData.pop()
+      parseTotalWeightData.pop()
+      localStorage.setItem("STEP_CURRENT_WEIGHT", JSON.stringify(parseTotalWeightData.concat([measureDay, currnetWeight])));
     }
-
+    else{
+      localStorage.setItem("STEP_CURRENT_WEIGHT", JSON.stringify(parseTotalWeightData.concat([measureDay, currnetWeight])));
+    }
+  }
+  else{
     localStorage.setItem("STEP_CURRENT_WEIGHT", JSON.stringify([measureDay, currnetWeight]));
+  }
     weightModalDiv.remove();
     $noWeightDiv.classList.add("hiddenDiv");
     setCurrentWeight();
@@ -120,11 +124,12 @@ export function setCurrentWeight(){
   const $weightDiv = document.querySelector(".anaypage__weight__current");
   let getWeight = localStorage.getItem("STEP_CURRENT_WEIGHT");
   let parseWeight = JSON.parse(getWeight);
-  console.log(parseWeight)
+
+  console.log(parseWeight.length)
 
   if(parseWeight){
     $weightDiv.classList.remove("hiddenDiv");
-    $currnetWeight.textContent = `${parseWeight[1]}kg`;
+    $currnetWeight.textContent = `${parseWeight[parseWeight.length-1]}kg`;
   }
   else{
     $noWeightDiv.classList.remove("hiddenDiv");
