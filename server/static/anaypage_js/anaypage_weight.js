@@ -92,6 +92,7 @@ export function showWeihgtModal(e){
   const weightSubmitBtn = document.createElement('button');
   weightSubmitBtn.classList.add("weightSubmitBtn");
   weightSubmitBtn.innerText = "현재 체중";
+
   weightSubmitBtn.addEventListener('click', ()=>{
     let getTotalWeightData = localStorage.getItem("STEP_CURRENT_WEIGHT");
     let parseTotalWeightData = JSON.parse(getTotalWeightData);
@@ -109,10 +110,11 @@ export function showWeihgtModal(e){
   else{
     localStorage.setItem("STEP_CURRENT_WEIGHT", JSON.stringify([measureDay, currnetWeight]));
   }
-    weightModalDiv.remove();
-    $noWeightDiv.classList.add("hiddenDiv");
-    setCurrentWeight();
+  weightModalDiv.remove();
+  $noWeightDiv.classList.add("hiddenDiv");
+  setCurrentWeight();
   });
+
   weightModalDiv.append(weightSubmitBtn);
 
   e.target.parentNode.parentNode.parentNode.parentNode.append(weightModalDiv);
@@ -125,8 +127,6 @@ export function setCurrentWeight(){
   let getWeight = localStorage.getItem("STEP_CURRENT_WEIGHT");
   let parseWeight = JSON.parse(getWeight);
 
-  console.log(parseWeight.length)
-
   if(parseWeight){
     $weightDiv.classList.remove("hiddenDiv");
     $currnetWeight.textContent = `${parseWeight[parseWeight.length-1]}kg`;
@@ -136,4 +136,13 @@ export function setCurrentWeight(){
     $weightDiv.classList.add("hiddenDiv");
     $noWeightDiv.innerHTML = `<span class="noWeight">현재 체중을 적어주세요</span>`;
   }
+}
+
+export function setuntilGoalWeight(){
+  let getWeight = localStorage.getItem("STEP_GOAL_WEIGHT");
+  let parseWeight = JSON.parse(getWeight);
+  let getTotalWeightData = localStorage.getItem("STEP_CURRENT_WEIGHT");
+  let parseTotalWeightData = JSON.parse(getTotalWeightData);
+
+  return parseTotalWeightData[parseTotalWeightData.length-1]-parseWeight;
 }

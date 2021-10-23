@@ -3,7 +3,7 @@
 import { _filter } from '../fx.js';
 import { onStepData, walkDayArr, setStepChartHeight, percentData, setWeekPercent } from './anaypage_step.js';
 import { setGoalAchieve, goalStep } from './anaypage_goal.js';
-import { showGoalWeihgtModal, setGoalWeight, showWeihgtModal, setCurrentWeight } from './anaypage_weight.js';
+import { showGoalWeihgtModal, setGoalWeight, showWeihgtModal, setCurrentWeight, setuntilGoalWeight } from './anaypage_weight.js';
 
 let weekNum = 0;
 let goalWeekNum = 0
@@ -28,6 +28,8 @@ export function hadStepData(){
   ifNoGoal();
   setGoalWeight();
   setCurrentWeight();
+  setWeightChart()
+  untilGoalWeight()
 }
 
 //그래프 요일 
@@ -212,21 +214,39 @@ $noCurrentWeight.addEventListener('click', (e)=>{
   showWeihgtModal(e);
 })
 
+//목표 체중 차트  버튼 누르면 바뀌는거 해야함
+function setWeightChart(){
+  const $weightBox = document.querySelector(".anaypage__weight__graph__box");
 
-const $weightBox = document.querySelector(".anaypage__weight__graph__box");
+  const weightBoxArr = _filter(
+    weight => 
+      weight.classList.contains("anaypage__weight__graph__graph")
+        ,$weightBox.children
+  )
 
-const weightBoxArr = _filter(
-  weight => 
-    weight.classList.contains("anaypage__weight__graph__graph")
-      ,$weightBox.children
-)
+  let getTotalWeightData = localStorage.getItem("STEP_CURRENT_WEIGHT");
+  let parseTotalWeightData = JSON.parse(getTotalWeightData);
 
-console.log(weightBoxArr)
+  if((parseTotalWeightData.length/2) <= 7){
 
-let getTotalWeightData = localStorage.getItem("STEP_CURRENT_WEIGHT");
-let parseTotalWeightData = JSON.parse(getTotalWeightData);
-console.log(parseTotalWeightData)
+    for(let i = 0; i < (parseTotalWeightData.length/2); i++){
+      weightBoxArr[6-i].children[1].style.height = `${parseTotalWeightData[parseTotalWeightData.length-(i*2+1)]}px`;
+      weightBoxArr[6-i].children[0].innerText = parseTotalWeightData[parseTotalWeightData.length-(i*2+1)];
+    }
+  }
+  else if((parseTotalWeightData.length/2) > 7){
+    
+    for(let i = 0; i < weightBoxArr.length; i++){
+      weightBoxArr[6-i].children[1].style.height = `${parseTotalWeightData[parseTotalWeightData.length-(i*2+1)]}px`;
+      weightBoxArr[6-i].children[0].innerText = parseTotalWeightData[parseTotalWeightData.length-(i*2+1)];
+    }
+  }
+}
 
-// weightBoxArr._go(
-//   _map
-// )
+//목표 체중까지
+function untilGoalWeight(){
+  const $untilGoalWeight = document.querySelector(".untilGoalWeight");
+  $untilGoalWeight.textContent = setuntilGoalWeight();
+}
+
+
