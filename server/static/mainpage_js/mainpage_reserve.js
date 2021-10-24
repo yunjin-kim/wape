@@ -12,6 +12,7 @@ let todayDate = date.getDate();
 const thisYear = date.getFullYear();
 const thisMonth = date.getMonth();
 const thisLast = new Date(thisYear, thisMonth+1, 0)
+export const lastMonthDate = new Date(thisYear, thisMonth, 0).getDate()
 const thisLastDate = thisLast.getDate();
 
 export const holeDayArr = [];

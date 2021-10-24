@@ -4,6 +4,7 @@ import { _filter } from '../fx.js';
 import { onStepData, walkDayArr, setStepChartHeight, percentData, setWeekPercent } from './anaypage_step.js';
 import { setGoalAchieve, goalStep } from './anaypage_goal.js';
 import { showGoalWeihgtModal, setGoalWeight, showWeihgtModal, setCurrentWeight, setuntilGoalWeight } from './anaypage_weight.js';
+import { lastMonthDate, onToday } from '../mainpage_js/mainpage_reserve.js'
 
 let weekNum = 0;
 let goalWeekNum = 0
@@ -36,7 +37,7 @@ export function hadStepData(){
 function setGraphDate(){
   const $walkDataDays = document.querySelector(".anaypage__walk__graph__day__ul");
   const $goalDays = document.querySelector(".anaypage__goal__check__day__ul");
-  const $weightDays = document.querySelector(".anaypage__weight__graph__day__ul");
+  const $weightDays = document.querySelector(".anaypage__weight__graph__day__ul")
 
   for(let i = 0; i < walkDayArr.length; i++){
     $walkDataDays.children[i].textContent = walkDayArr[i];
@@ -217,6 +218,8 @@ $noCurrentWeight.addEventListener('click', (e)=>{
 //목표 체중 차트  버튼 누르면 바뀌는거 해야함
 function setWeightChart(){
   const $weightBox = document.querySelector(".anaypage__weight__graph__box");
+  let getTotalWeightData = localStorage.getItem("STEP_CURRENT_WEIGHT");
+  let parseTotalWeightData = JSON.parse(getTotalWeightData);
 
   const weightBoxArr = _filter(
     weight => 
@@ -224,23 +227,52 @@ function setWeightChart(){
         ,$weightBox.children
   )
 
-  let getTotalWeightData = localStorage.getItem("STEP_CURRENT_WEIGHT");
-  let parseTotalWeightData = JSON.parse(getTotalWeightData);
+  console.log(weightBoxArr)
 
-  if((parseTotalWeightData.length/2) <= 7){
-
-    for(let i = 0; i < (parseTotalWeightData.length/2); i++){
-      weightBoxArr[6-i].children[1].style.height = `${parseTotalWeightData[parseTotalWeightData.length-(i*2+1)]}px`;
-      weightBoxArr[6-i].children[0].textContent = parseTotalWeightData[parseTotalWeightData.length-(i*2+1)];
+  console.log(onToday)//오늘
+console.log(lastMonthDate)//지난달 마지막날
+let oneMonthDateArr = [];
+let todayDate = onToday;
+for(let i = 0; i <= 29; i++){
+  let date = todayDate - i;
+  if(date === 0){
+    for(let j = 0; j <= 30 - oneMonthDateArr.length; j++){
+      oneMonthDateArr.push(lastMonthDate - j);
     }
-  }
-  else if((parseTotalWeightData.length/2) > 7){
+    break;
+  } 
+  oneMonthDateArr.push(date);
+}
+console.log(oneMonthDateArr)
+
+for(let i = 0; i < 7; i++){
+  weightBoxArr[6-i].id = oneMonthDateArr[i];
+}
+
+console.log(weightBoxArr)
+
+console.log(parseTotalWeightData)
+
+console.log(typeof(parseTotalWeightData[0]))
+console.log(typeof(parseTotalWeightData[1]))
+
+  // let getTotalWeightData = localStorage.getItem("STEP_CURRENT_WEIGHT");
+  // let parseTotalWeightData = JSON.parse(getTotalWeightData);
+
+  // if((parseTotalWeightData.length/2) <= 7){
+
+  //   for(let i = 0; i < (parseTotalWeightData.length/2); i++){
+  //     weightBoxArr[6-i].children[1].style.height = `${parseTotalWeightData[parseTotalWeightData.length-(i*2+1)]}px`;
+  //     weightBoxArr[6-i].children[0].textContent = parseTotalWeightData[parseTotalWeightData.length-(i*2+1)];
+  //   }
+  // }
+  // else if((parseTotalWeightData.length/2) > 7){
     
-    for(let i = 0; i < weightBoxArr.length; i++){
-      weightBoxArr[6-i].children[1].style.height = `${parseTotalWeightData[parseTotalWeightData.length-(i*2+1)]}px`;
-      weightBoxArr[6-i].children[0].textContent = parseTotalWeightData[parseTotalWeightData.length-(i*2+1)];
-    }
-  }
+  //   for(let i = 0; i < weightBoxArr.length; i++){
+  //     weightBoxArr[6-i].children[1].style.height = `${parseTotalWeightData[parseTotalWeightData.length-(i*2+1)]}px`;
+  //     weightBoxArr[6-i].children[0].textContent = parseTotalWeightData[parseTotalWeightData.length-(i*2+1)];
+  //   }
+  // }
 }
 
 //목표 체중까지
@@ -248,5 +280,27 @@ function untilGoalWeight(){
   const $untilGoalWeight = document.querySelector(".untilGoalWeight");
   $untilGoalWeight.textContent = setuntilGoalWeight();
 }
+//체중은 버튼 클릭하면 날짜에 id가 바뀌아사 local에서 불러온거랑 비교해서 데이터 넣을 수 있게
+//만약 로컬의 길이가 28이상이면 로컬에서 제일 오래된 삭제
+//체중은 일력하지 않으면 빈칸으로;
 
+console.log(onToday)//오늘
+console.log(lastMonthDate)//지난달 마지막날
+let oneMonthDateArr = [];
+let todayDate = onToday;
+for(let i = 0; i <= 29; i++){
+  let date = todayDate - i;
+  if(date === 0){
+    for(let j = 0; j <= 30 - oneMonthDateArr.length; j++){
+      oneMonthDateArr.push(lastMonthDate - j);
+    }
+    break;
+  } 
+  oneMonthDateArr.push(date);
+}
+console.log(oneMonthDateArr)
 
+let getTotalWeightData = localStorage.getItem("STEP_CURRENT_WEIGHT");
+let parseTotalWeightData = JSON.parse(getTotalWeightData);
+
+console.log(parseTotalWeightData)
