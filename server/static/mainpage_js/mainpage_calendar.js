@@ -67,7 +67,7 @@ export function clickReserveDate(e){
 
   //하루에 두번할 수 있기 때문에 배열에 map함수 결과를 담아서 함수 실행
   parseGetReserveDate.map((reserveDate)=>{
-    if(reserveDate.date === e.target.innerText){
+    if(reserveDate.date === e.target.textContent){
       walkingArr.push(reserveDate);
     }
   })
@@ -82,11 +82,11 @@ function showReserveModal(walkingArr,e){
 
   const modalTitle = document.createElement('h2');
   modalTitle.classList.add("reserveModalTitle")
-  modalTitle.innerText = "걷기 예약"
+  modalTitle.textContent = "걷기 예약"
   modalDiv.append(modalTitle);
 
   const modalClose = document.createElement('button');
-  modalClose.innerText = "X";
+  modalClose.textContent = "X";
   modalClose.classList.add("reserveModalClose")
   modalDiv.append(modalClose);
   modalClose.addEventListener('click',()=>{
@@ -94,13 +94,13 @@ function showReserveModal(walkingArr,e){
   })
 
   const modalDate = document.createElement('h3');
-  modalDate.innerText = (`${walkingArr[0].date}일`);
+  modalDate.textContent = (`${walkingArr[0].date}일`);
   modalDate.classList.add("reserveModalDate")
   modalDiv.append(modalDate);
 
   for(let reserveTime of walkingArr){
     let modalTime = document.createElement('p');
-    modalTime.innerText = (`${reserveTime.hour}시 ${reserveTime.minute}분`);
+    modalTime.textContent = (`${reserveTime.hour}시 ${reserveTime.minute}분`);
     modalTime.classList.add("reserveModalTime")
     modalDiv.append(modalTime);
   }

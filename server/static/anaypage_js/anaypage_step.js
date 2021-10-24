@@ -92,7 +92,7 @@ export function setStepChartHeight(chartBarArr, weekNum){
   for(let i = chartBarArr.length-1; i >= 0; i--){
     weekSumStep += chartDateArr[weekNum][i].value;
     chartBarArr[i].children[1].style.height = `${chartDateArr[weekNum][6-i].value/100}px`;
-    chartBarArr[i].children[0].innerText = chartDateArr[weekNum][6-i].value;
+    chartBarArr[i].children[0].textContent = chartDateArr[weekNum][6-i].value;
   }
   setWeekStepData(weekSumStep)
 }

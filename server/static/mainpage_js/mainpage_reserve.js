@@ -85,12 +85,12 @@ export function setClickDateArr(e){
     //박스가 초록색이라면
     if(e.target.classList.contains(CLICK_GREEN)){
       reserveArr.filter((date, idx)=>{
-        date === e.target.children[1].innerText ? reserveArr.splice(idx, 1) : " ";
+        date === e.target.children[1].textContent ? reserveArr.splice(idx, 1) : " ";
       })
     }
     //박스가 초록색이 아닐마면
     else{
-      reserveArr.push(e.target.children[1].innerText)
+      reserveArr.push(e.target.children[1].textContent)
     }
   }
     // span 클릭하면 
@@ -99,15 +99,15 @@ export function setClickDateArr(e){
     if(e.target.parentNode.classList.contains(CLICK_GREEN)){
       //요일 클릭
       if(e.target.parentNode.children[0]){
-        e.target.parentNode.children[1].innerText
+        e.target.parentNode.children[1].textContent
         reserveArr.filter((date, idx)=>{
-          date === e.target.parentNode.children[1].innerText ? reserveArr.splice(idx, 1) : " ";
+          date === e.target.parentNode.children[1].textContent ? reserveArr.splice(idx, 1) : " ";
         });
       }
       //날짜 클릭
       else{
         reserveArr.filter((date, idx)=>{
-          date === e.target.innerText ? reserveArr.splice(idx, 1) : " ";
+          date === e.target.textContent ? reserveArr.splice(idx, 1) : " ";
         });
       }
     }
@@ -115,11 +115,11 @@ export function setClickDateArr(e){
     else{
       //요일 클릭
       if(e.target.parentNode.children[0]){
-        reserveArr.push(e.target.parentNode.children[1].innerText)
+        reserveArr.push(e.target.parentNode.children[1].textContent)
       }
       //날짜 클릭
       else{
-        reserveArr.push(e.target.innerText)
+        reserveArr.push(e.target.textContent)
       }
     }
   }

@@ -7,11 +7,11 @@ export function showSetGoalModal(e){
 
   const goalTitle = document.createElement('h3');
   goalTitle.classList.add("goalModalTitle");
-  goalTitle.innerText = "목표 걸음 수"
+  goalTitle.textContent = "목표 걸음 수"
   modalDiv.append(goalTitle);
 
   const modalClose = document.createElement('button');
-  modalClose.innerText = "X";
+  modalClose.textContent = "X";
   modalClose.classList.add("goalModalClose")
   modalDiv.append(modalClose);
   modalClose.addEventListener('click',()=>{
@@ -30,7 +30,7 @@ export function showSetGoalModal(e){
 
   const goallSubmitBtn = document.createElement('button');
   goallSubmitBtn.classList.add("goalSubmitBtn");
-  goallSubmitBtn.innerText = "목표 설정";
+  goallSubmitBtn.textContent = "목표 설정";
   goallSubmitBtn.addEventListener('click', ()=>{
     modalDiv.remove();
   });

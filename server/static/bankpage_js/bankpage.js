@@ -31,11 +31,11 @@ export function setBankTotalData(totalStepData){
 
   let totalDistance = totalStepData*70/100000;
 
-  $bankTotalStep.innerText = totalStepData;
-  $bankTotalDistance.innerText = totalDistance.toFixed(3);
-  $bankEarth.innerText = (totalDistance/400000).toFixed(5);
-  $bankMaraton.innerText = (totalDistance/42).toFixed(1);
-  $bankSeoulToBusan.innerText = (totalDistance/325).toFixed(2);
+  $bankTotalStep.textContent = totalStepData;
+  $bankTotalDistance.textContent = totalDistance.toFixed(3);
+  $bankEarth.textContent = (totalDistance/400000).toFixed(5);
+  $bankMaraton.textContent = (totalDistance/42).toFixed(1);
+  $bankSeoulToBusan.textContent = (totalDistance/325).toFixed(2);
 }
 
 //총 자산 그래프
@@ -45,11 +45,11 @@ export function setBankMoneyGraph(bankTotalPrice, bankTotalMoneyGraphText){
   const $bankTotalMoneyGraphText = document.querySelector(".bankTotalMoneyGraphText");
   const $bankMyMoneyGraph = document.querySelector(".bankpage__asset__graph__my");
 
-  $bankTotalMoneyGraphText.innerText = bankTotalMoneyGraphText;
+  $bankTotalMoneyGraphText.textContent = bankTotalMoneyGraphText;
   $bankMyMoneyGraph.style = `width: ${bankTotalPrice/bankTotalMoneyGraphText*230}px`;
 
-  $bankTotalMoney.innerText = bankTotalPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-  $bankMyMoneyGraphText.innerText = bankTotalPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+  $bankTotalMoney.textContent = bankTotalPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+  $bankMyMoneyGraphText.textContent = bankTotalPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 }
 
 //칭호
@@ -57,8 +57,8 @@ export function setTitle(currentTitleNum, allTitles){
   const $currentTitle = document.querySelector(".currentTitle");
   const $nextTitle = document.querySelector(".nextTitle");
 
-  $currentTitle.innerText = allTitles[currentTitleNum-1];
-  $nextTitle.innerText = allTitles[currentTitleNum];
+  $currentTitle.textContent = allTitles[currentTitleNum-1];
+  $nextTitle.textContent = allTitles[currentTitleNum];
 }
 
 //모든 칭호 보기

@@ -32,14 +32,14 @@ function enterMainpage(){
 //걷기 효능
 function setQuote(){
   const $quote = document.querySelector('.quote');
-  $quote.innerText = quoteSentence;
+  $quote.textContent = quoteSentence;
 }
 
 
 //프로필
 function setProfile(){
   const $profileName = document.getElementById('profileName');
-  $profileName.innerText = getCookie();
+  $profileName.textContent = getCookie();
 }
 
 
@@ -54,10 +54,10 @@ async function loadWeather(){
   let {weatherData, tempData, maxTempData, minTempData, lat, lon } = await import('./mainpage_weather.js');
   console.log(lat, lon)
   if(weatherData){
-    $atmosCon.innerText = weatherData;
-    $temp.innerText = tempData;
-    $hightemp.innerText = maxTempData;
-    $lowtemp.innerText = minTempData;
+    $atmosCon.textContent = weatherData;
+    $temp.textContent = tempData;
+    $hightemp.textContent = maxTempData;
+    $lowtemp.textContent = minTempData;
   }
   else{
     //동적으로 모듈 가져오기
@@ -114,8 +114,8 @@ for(let i = 0; i < minuteArr.length; i++){
 const $reserveBtn = document.querySelector(".reserveBtn");
 $reserveBtn.addEventListener('click',(e)=>{
   e.preventDefault();
-  let reserveHour = $selectHour.options[$selectHour.selectedIndex].innerText;
-  let reserveMinute = $selectMinute.options[$selectMinute.selectedIndex].innerText;
+  let reserveHour = $selectHour.options[$selectHour.selectedIndex].textContent;
+  let reserveMinute = $selectMinute.options[$selectMinute.selectedIndex].textContent;
 
   for(let i = 0; i < 7; i++){
     $bookDays[i].classList.remove("backgroundGreen");
@@ -133,7 +133,7 @@ function getResreveDate(){
   if(parseGetReserveDate){
     for(let i = 0; i < $calendarDays.children.length; i++){
       parseGetReserveDate.forEach((reDate)=>{
-        if(reDate.date === $calendarDays.children[i].innerText){
+        if(reDate.date === $calendarDays.children[i].textContent){
           $calendarDays.children[i].classList.add("walkingDay")
         }
       })
@@ -159,16 +159,16 @@ export function stepGoal(){
     myGoalStep = '목표를 설정해주세요';
     myGoalMoney ='목표를 설정해주세요';
   }
-  $stepGoal.innerText = myGoalStep;
-  $setMoney.innerText = myGoalMoney;
+  $stepGoal.textContent = myGoalStep;
+  $setMoney.textContent = myGoalMoney;
 }
 
 //오늘 걸음 데이터
 function setGoalTodayStep(){
   const $todayStep = document.querySelector(".todayStep");
   const $todayMoney = document.querySelector(".todayMoney");
-  $todayStep.innerText = getTodayStep();
-  $todayMoney.innerText = getTodayStep()*5;
+  $todayStep.textContent = getTodayStep();
+  $todayMoney.textContent = getTodayStep()*5;
 }
 
 //목표 걸음 수 그래프 

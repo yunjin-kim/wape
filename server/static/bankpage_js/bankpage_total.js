@@ -54,7 +54,7 @@ export function titleModal(e){
   titleModaleBox.classList.add("titleModal");
 
   const titleModalClose = document.createElement('button');
-  titleModalClose.innerText = "X";
+  titleModalClose.textContent = "X";
   titleModalClose.classList.add("titleModalClose");
   titleModalClose.addEventListener('click', ()=>{
     titleModaleBox.remove();

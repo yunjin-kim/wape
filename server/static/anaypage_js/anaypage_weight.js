@@ -7,11 +7,11 @@ export function showGoalWeihgtModal(e){
 
   const goalWeightTitle = document.createElement('h3');
   goalWeightTitle.classList.add("goalWeightModalTitle");
-  goalWeightTitle.innerText = "목표 체중"
+  goalWeightTitle.textContent = "목표 체중"
   goalWeightModalDiv.append(goalWeightTitle);
 
   const goalWeightModalClose = document.createElement('button');
-  goalWeightModalClose.innerText = "X";
+  goalWeightModalClose.textContent = "X";
   goalWeightModalClose.classList.add("goalWeightModalClose")
   goalWeightModalDiv.append(goalWeightModalClose);
   goalWeightModalClose.addEventListener('click',()=>{
@@ -29,7 +29,7 @@ export function showGoalWeihgtModal(e){
 
   const goalWeightSubmitBtn = document.createElement('button');
   goalWeightSubmitBtn.classList.add("goalWeightSubmitBtn");
-  goalWeightSubmitBtn.innerText = "목표 설정";
+  goalWeightSubmitBtn.textContent = "목표 설정";
   goalWeightSubmitBtn.addEventListener('click', ()=>{
     localStorage.setItem("STEP_GOAL_WEIGHT", goalWeight);
     goalWeightModalDiv.remove();
@@ -69,11 +69,11 @@ export function showWeihgtModal(e){
 
   const weightTitle = document.createElement('h3');
   weightTitle.classList.add("weightModalTitle");
-  weightTitle.innerText = "현재 체중"
+  weightTitle.textContent = "현재 체중"
   weightModalDiv.append(weightTitle);
 
   const weightModalClose = document.createElement('button');
-  weightModalClose.innerText = "X";
+  weightModalClose.textContent = "X";
   weightModalClose.classList.add("weightModalClose")
   weightModalDiv.append(weightModalClose);
   weightModalClose.addEventListener('click',()=>{
@@ -91,7 +91,7 @@ export function showWeihgtModal(e){
 
   const weightSubmitBtn = document.createElement('button');
   weightSubmitBtn.classList.add("weightSubmitBtn");
-  weightSubmitBtn.innerText = "현재 체중";
+  weightSubmitBtn.textContent = "현재 체중";
 
   weightSubmitBtn.addEventListener('click', ()=>{
     let getTotalWeightData = localStorage.getItem("STEP_CURRENT_WEIGHT");

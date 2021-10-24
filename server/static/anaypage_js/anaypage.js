@@ -13,8 +13,8 @@ let weightWeekNum = 0;
 export function setWeekStepData(weekSumStep){
   const $weekStepAverage = document.querySelector(".anaypage__walk__weekAverage");
   const $wekkStepSum = document.querySelector(".anaypage__walk__accure__weekValue");
-  $weekStepAverage.innerText = parseInt(weekSumStep/7);
-  $wekkStepSum.innerText = weekSumStep;
+  $weekStepAverage.textContent = parseInt(weekSumStep/7);
+  $wekkStepSum.textContent = weekSumStep;
 }
 
 (function hasStepData(){
@@ -39,9 +39,9 @@ function setGraphDate(){
   const $weightDays = document.querySelector(".anaypage__weight__graph__day__ul");
 
   for(let i = 0; i < walkDayArr.length; i++){
-    $walkDataDays.children[i].innerText = walkDayArr[i];
-    $goalDays.children[i].innerText = walkDayArr[i];
-    $weightDays.children[i].innerText = walkDayArr[i];
+    $walkDataDays.children[i].textContent = walkDayArr[i];
+    $goalDays.children[i].textContent = walkDayArr[i];
+    $weightDays.children[i].textContent = walkDayArr[i];
   }
 }
 
@@ -107,7 +107,7 @@ export function showWeekPercent(){
       $stpPercentArrow.style = "transform : rotate(0deg)";
     }
   }
-  $weekDiffPercent.innerText = percentData;
+  $weekDiffPercent.textContent = percentData;
 }
 
 //목표 왼쪽 버튼
@@ -231,14 +231,14 @@ function setWeightChart(){
 
     for(let i = 0; i < (parseTotalWeightData.length/2); i++){
       weightBoxArr[6-i].children[1].style.height = `${parseTotalWeightData[parseTotalWeightData.length-(i*2+1)]}px`;
-      weightBoxArr[6-i].children[0].innerText = parseTotalWeightData[parseTotalWeightData.length-(i*2+1)];
+      weightBoxArr[6-i].children[0].textContent = parseTotalWeightData[parseTotalWeightData.length-(i*2+1)];
     }
   }
   else if((parseTotalWeightData.length/2) > 7){
     
     for(let i = 0; i < weightBoxArr.length; i++){
       weightBoxArr[6-i].children[1].style.height = `${parseTotalWeightData[parseTotalWeightData.length-(i*2+1)]}px`;
-      weightBoxArr[6-i].children[0].innerText = parseTotalWeightData[parseTotalWeightData.length-(i*2+1)];
+      weightBoxArr[6-i].children[0].textContent = parseTotalWeightData[parseTotalWeightData.length-(i*2+1)];
     }
   }
 }
