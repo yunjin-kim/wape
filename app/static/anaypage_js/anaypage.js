@@ -244,17 +244,37 @@ for(let i = 0; i <= 29; i++){
   oneMonthDateArr.push(date);
 }
 console.log(oneMonthDateArr)
+console.log(oneMonthDateArr[0])
 
 for(let i = 0; i < 7; i++){
   weightBoxArr[6-i].id = oneMonthDateArr[i];
 }
 
+let reverseWeightData = parseTotalWeightData.reverse();
+console.log(reverseWeightData)
 console.log(weightBoxArr)
+weightBoxArr.reverse()
+let divPoint = 0;
+let dataPoint = 0;
+while(divPoint !== weightBoxArr.length){
+  if(Number(weightBoxArr[divPoint].id) === reverseWeightData[dataPoint]){
+    weightBoxArr[divPoint].children[1].style.height = `${reverseWeightData[dataPoint-1]}px`;
+    weightBoxArr[divPoint].children[0].textContent = reverseWeightData[dataPoint-1];
+    divPoint++;
+    dataPoint++;
+  }
+  else{
+    //입력한 데이터가 없다면 건너 뛰기
+    if(reverseWeightData[dataPoint] < 30){
+      divPoint++
+    }
+    else{
+      dataPoint++;
+    }
+  }
+}
 
-console.log(parseTotalWeightData)
 
-console.log(typeof(parseTotalWeightData[0]))
-console.log(typeof(parseTotalWeightData[1]))
 
   // let getTotalWeightData = localStorage.getItem("STEP_CURRENT_WEIGHT");
   // let parseTotalWeightData = JSON.parse(getTotalWeightData);
@@ -283,24 +303,3 @@ function untilGoalWeight(){
 //체중은 버튼 클릭하면 날짜에 id가 바뀌아사 local에서 불러온거랑 비교해서 데이터 넣을 수 있게
 //만약 로컬의 길이가 28이상이면 로컬에서 제일 오래된 삭제
 //체중은 일력하지 않으면 빈칸으로;
-
-console.log(onToday)//오늘
-console.log(lastMonthDate)//지난달 마지막날
-let oneMonthDateArr = [];
-let todayDate = onToday;
-for(let i = 0; i <= 29; i++){
-  let date = todayDate - i;
-  if(date === 0){
-    for(let j = 0; j <= 30 - oneMonthDateArr.length; j++){
-      oneMonthDateArr.push(lastMonthDate - j);
-    }
-    break;
-  } 
-  oneMonthDateArr.push(date);
-}
-console.log(oneMonthDateArr)
-
-let getTotalWeightData = localStorage.getItem("STEP_CURRENT_WEIGHT");
-let parseTotalWeightData = JSON.parse(getTotalWeightData);
-
-console.log(parseTotalWeightData)
