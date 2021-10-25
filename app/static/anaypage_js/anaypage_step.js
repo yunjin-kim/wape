@@ -61,14 +61,9 @@ function setStepDate(){
     walkDayArr.push(holeDay[walkDataDay-1]);
   }
 }
-export const walkDayArr = [];
 
-export const chartDateArr = [
-  [],
-  [],
-  [],
-  []
-]
+export const walkDayArr = [];
+export const chartDateArr = [[], [], [], []]
 
 //배열에 걸음수 데이터 넣기
 function rangeStepData(){

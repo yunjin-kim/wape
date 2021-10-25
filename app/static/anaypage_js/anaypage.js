@@ -218,81 +218,71 @@ $noCurrentWeight.addEventListener('click', (e)=>{
 //목표 체중 차트  버튼 누르면 바뀌는거 해야함
 function setWeightChart(){
   const $weightBox = document.querySelector(".anaypage__weight__graph__box");
-  let getTotalWeightData = localStorage.getItem("STEP_CURRENT_WEIGHT");
-  let parseTotalWeightData = JSON.parse(getTotalWeightData);
 
   const weightBoxArr = _filter(
     weight => 
       weight.classList.contains("anaypage__weight__graph__graph")
         ,$weightBox.children
   )
+  setWeightDate(weightBoxArr)
+  setWeightChartHeight(weightBoxArr)
+}
 
-  console.log(weightBoxArr)
-
+//체중 날짜 세팅 
+function setWeightDate(weightBoxArr){
   console.log(onToday)//오늘
-console.log(lastMonthDate)//지난달 마지막날
-let oneMonthDateArr = [];
-let todayDate = onToday;
-for(let i = 0; i <= 29; i++){
-  let date = todayDate - i;
-  if(date === 0){
-    for(let j = 0; j <= 30 - oneMonthDateArr.length; j++){
-      oneMonthDateArr.push(lastMonthDate - j);
-    }
-    break;
-  } 
-  oneMonthDateArr.push(date);
-}
-console.log(oneMonthDateArr)
-console.log(oneMonthDateArr[0])
-
-for(let i = 0; i < 7; i++){
-  weightBoxArr[6-i].id = oneMonthDateArr[i];
-}
-
-let reverseWeightData = parseTotalWeightData.reverse();
-console.log(reverseWeightData)
-console.log(weightBoxArr)
-weightBoxArr.reverse()
-let divPoint = 0;
-let dataPoint = 0;
-while(divPoint !== weightBoxArr.length){
-  if(Number(weightBoxArr[divPoint].id) === reverseWeightData[dataPoint]){
-    weightBoxArr[divPoint].children[1].style.height = `${reverseWeightData[dataPoint-1]}px`;
-    weightBoxArr[divPoint].children[0].textContent = reverseWeightData[dataPoint-1];
-    divPoint++;
-    dataPoint++;
+  console.log(lastMonthDate)//지난달 마지막날
+  let oneMonthDateArr = [];
+  let todayDate = onToday;
+  for(let i = 0; i <= 29; i++){
+    let date = todayDate - i;
+    if(date === 0){
+      for(let j = 0; j <= 30 - oneMonthDateArr.length; j++){
+        oneMonthDateArr.push(lastMonthDate - j);
+      }
+      break;
+    } 
+    oneMonthDateArr.push(date);
   }
-  else{
-    //입력한 데이터가 없다면 건너 뛰기
-    if(reverseWeightData[dataPoint] < 30){
-      divPoint++
-    }
-    else{
+  console.log(oneMonthDateArr)
+
+  for(let i = 0; i < 7; i++){
+    weightBoxArr[6-i].id = oneMonthDateArr[i];
+  }
+}
+
+//체중 차트 값 넣어주기
+function setWeightChartHeight(weightBoxArr){
+  let getTotalWeightData = localStorage.getItem("STEP_CURRENT_WEIGHT");
+  let parseTotalWeightData = JSON.parse(getTotalWeightData);
+  let reverseWeightData = parseTotalWeightData.reverse();
+
+//한 배열당 14개씩 '몸무게', 날짜
+  const weightDataArr = [[], [], [], []]
+
+  console.log(reverseWeightData)
+  console.log(weightBoxArr)
+  weightBoxArr.reverse()
+  let divPoint = 0;
+  let dataPoint = 0;
+
+  while(divPoint !== weightBoxArr.length){
+    if(Number(weightBoxArr[divPoint].id) === reverseWeightData[dataPoint]){
+      weightBoxArr[divPoint].children[1].style.height = `${reverseWeightData[dataPoint-1]}px`;
+      weightBoxArr[divPoint].children[0].textContent = reverseWeightData[dataPoint-1];
+      divPoint++;
       dataPoint++;
     }
+    else{
+      //입력한 데이터가 없다면 건너 뛰기, 체중은 string
+      if(reverseWeightData[dataPoint] < 32){
+        divPoint++
+      }
+      else{
+        dataPoint++;
+      }
+    }
   }
-}
-
-
-
-  // let getTotalWeightData = localStorage.getItem("STEP_CURRENT_WEIGHT");
-  // let parseTotalWeightData = JSON.parse(getTotalWeightData);
-
-  // if((parseTotalWeightData.length/2) <= 7){
-
-  //   for(let i = 0; i < (parseTotalWeightData.length/2); i++){
-  //     weightBoxArr[6-i].children[1].style.height = `${parseTotalWeightData[parseTotalWeightData.length-(i*2+1)]}px`;
-  //     weightBoxArr[6-i].children[0].textContent = parseTotalWeightData[parseTotalWeightData.length-(i*2+1)];
-  //   }
-  // }
-  // else if((parseTotalWeightData.length/2) > 7){
-    
-  //   for(let i = 0; i < weightBoxArr.length; i++){
-  //     weightBoxArr[6-i].children[1].style.height = `${parseTotalWeightData[parseTotalWeightData.length-(i*2+1)]}px`;
-  //     weightBoxArr[6-i].children[0].textContent = parseTotalWeightData[parseTotalWeightData.length-(i*2+1)];
-  //   }
-  // }
 }
 
 //목표 체중까지
