@@ -146,3 +146,23 @@ export function setuntilGoalWeight(){
 
   return parseTotalWeightData[parseTotalWeightData.length-1]-parseWeight;
 }
+//데이터에 해당날짜가 없다면 해당날짷고 빈 무게 값 넣어주기
+export const weightDataArr = [[], [], [], []]
+
+function rangeWeightData(){
+  let getTotalWeightData = localStorage.getItem("STEP_CURRENT_WEIGHT");
+  let parseTotalWeightData = JSON.parse(getTotalWeightData);
+  let reverseWeightData = parseTotalWeightData.reverse();
+
+//한 배열당 14개씩 '몸무게', 날짜
+
+
+  let weightDataArrNum = 0;
+  for(let i = 0; i < 56; i++){
+    if(!reverseWeightData[i]) reverseWeightData[i] = "";
+      weightDataArr[weightDataArrNum].push(reverseWeightData[i]);
+      if(weightDataArr[weightDataArrNum].length > 13) weightDataArrNum++;
+      if(weightDataArrNum === 4) break;
+  }
+}
+rangeWeightData()

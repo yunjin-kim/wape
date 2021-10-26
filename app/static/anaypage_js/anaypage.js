@@ -3,7 +3,7 @@
 import { _filter } from '../fx.js';
 import { onStepData, walkDayArr, setStepChartHeight, percentData, setWeekPercent } from './anaypage_step.js';
 import { setGoalAchieve, goalStep } from './anaypage_goal.js';
-import { showGoalWeihgtModal, setGoalWeight, showWeihgtModal, setCurrentWeight, setuntilGoalWeight } from './anaypage_weight.js';
+import { showGoalWeihgtModal, setGoalWeight, showWeihgtModal, setCurrentWeight, setuntilGoalWeight, weightDataArr } from './anaypage_weight.js';
 import { lastMonthDate, onToday } from '../mainpage_js/mainpage_reserve.js'
 
 let weekNum = 0;
@@ -23,13 +23,13 @@ export function setWeekStepData(weekSumStep){
 })();
 
 export function hadStepData(){
-  setGraphDate();
   setStepChart(weekNum);
+  setGraphDate();
   setWeekPercent();
   ifNoGoal();
   setGoalWeight();
   setCurrentWeight();
-  setWeightChart()
+  setWeightChart(weightWeekNum);
   untilGoalWeight()
 }
 
@@ -170,6 +170,7 @@ const $weightLeftBtn = document.querySelector(".anaypage__weight__graph__left");
 $weightLeftBtn.addEventListener('click', ()=>{
   weightWeekNum++;
   setWeighttBtn();
+  setWeightChart(weightWeekNum);
 })
 
 //체중 오른쪽 버튼
@@ -177,6 +178,7 @@ const $weightRightBtn = document.querySelector(".anaypage__weight__graph__right"
 $weightRightBtn.addEventListener('click', ()=>{
   weightWeekNum--;
   setWeighttBtn();
+  setWeightChart(weightWeekNum);
 })
 
 //체중 버튼 show/hidden
@@ -216,7 +218,7 @@ $noCurrentWeight.addEventListener('click', (e)=>{
 })
 
 //목표 체중 차트  버튼 누르면 바뀌는거 해야함
-function setWeightChart(){
+function setWeightChart(weightWeekNum){
   const $weightBox = document.querySelector(".anaypage__weight__graph__box");
 
   const weightBoxArr = _filter(
@@ -224,16 +226,18 @@ function setWeightChart(){
       weight.classList.contains("anaypage__weight__graph__graph")
         ,$weightBox.children
   )
-  setWeightDate(weightBoxArr)
-  setWeightChartHeight(weightBoxArr)
+  
+  setWeightDate(weightBoxArr, weightWeekNum)
+  setWeightChartHeight(weightBoxArr, weightWeekNum)
 }
 
 //체중 날짜 세팅 
-function setWeightDate(weightBoxArr){
-  console.log(onToday)//오늘
-  console.log(lastMonthDate)//지난달 마지막날
+function setWeightDate(weightBoxArr, weightWeekNum){
+  console.log(weightWeekNum)
+  
   let oneMonthDateArr = [];
   let todayDate = onToday;
+  todayDate -= weightWeekNum*7;
   for(let i = 0; i <= 29; i++){
     let date = todayDate - i;
     if(date === 0){
@@ -244,7 +248,6 @@ function setWeightDate(weightBoxArr){
     } 
     oneMonthDateArr.push(date);
   }
-  console.log(oneMonthDateArr)
 
   for(let i = 0; i < 7; i++){
     weightBoxArr[6-i].id = oneMonthDateArr[i];
@@ -252,30 +255,27 @@ function setWeightDate(weightBoxArr){
 }
 
 //체중 차트 값 넣어주기
-function setWeightChartHeight(weightBoxArr){
-  let getTotalWeightData = localStorage.getItem("STEP_CURRENT_WEIGHT");
-  let parseTotalWeightData = JSON.parse(getTotalWeightData);
-  let reverseWeightData = parseTotalWeightData.reverse();
+function setWeightChartHeight(weightBoxArr ,weightWeekNum){
 
-//한 배열당 14개씩 '몸무게', 날짜
-  const weightDataArr = [[], [], [], []]
-
-  console.log(reverseWeightData)
-  console.log(weightBoxArr)
-  weightBoxArr.reverse()
+  let reverseWeightBoxArr = weightBoxArr.slice().reverse()
   let divPoint = 0;
   let dataPoint = 0;
+  console.log(weightDataArr)
 
-  while(divPoint !== weightBoxArr.length){
-    if(Number(weightBoxArr[divPoint].id) === reverseWeightData[dataPoint]){
-      weightBoxArr[divPoint].children[1].style.height = `${reverseWeightData[dataPoint-1]}px`;
-      weightBoxArr[divPoint].children[0].textContent = reverseWeightData[dataPoint-1];
+  console.log(weightBoxArr, weightWeekNum)
+  //일주일 배열 값 그래프에 보여주기 
+  while(divPoint !== reverseWeightBoxArr.length){
+    if(Number(reverseWeightBoxArr[divPoint].id) === weightDataArr[weightWeekNum][dataPoint]){
+      reverseWeightBoxArr[divPoint].children[1].style.height = `${weightDataArr[weightWeekNum][dataPoint-1]}px`;
+      reverseWeightBoxArr[divPoint].children[0].textContent = weightDataArr[weightWeekNum][dataPoint-1];
       divPoint++;
       dataPoint++;
     }
     else{
+      reverseWeightBoxArr[divPoint].children[1].style.height = `10px`;
+      reverseWeightBoxArr[divPoint].children[0].textContent = "";
       //입력한 데이터가 없다면 건너 뛰기, 체중은 string
-      if(reverseWeightData[dataPoint] < 32){
+      if(weightDataArr[weightWeekNum][dataPoint] < 32){
         divPoint++
       }
       else{
