@@ -27,10 +27,11 @@ export function onStepData(){
       console.log("다음날이 되었다")
       getGoogleStepCount(googleStepCountUrl);
     }
-  
-    setStepDate()
-    rangeStepData();
-    hadStepData()
+    else{ //anaypage 42번줄 오류 해결됬는지 확인 필요
+      setStepDate()
+      rangeStepData();
+      hadStepData()
+    }
   }
 }
 

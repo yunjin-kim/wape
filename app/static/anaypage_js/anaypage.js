@@ -39,7 +39,7 @@ function setGraphDate(){
   const $goalDays = document.querySelector(".anaypage__goal__check__day__ul");
   const $weightDays = document.querySelector(".anaypage__weight__graph__day__ul")
 
-  for(let i = 0; i < walkDayArr.length; i++){
+  for(let i = 0; i < walkDayArr.length; i++){//하루 데이터 다시 들어올 때 오류
     $walkDataDays.children[i].textContent = walkDayArr[i];
     $goalDays.children[i].textContent = walkDayArr[i];
     $weightDays.children[i].textContent = walkDayArr[i];
