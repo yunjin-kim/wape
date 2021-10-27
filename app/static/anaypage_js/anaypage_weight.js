@@ -1,3 +1,4 @@
+import { lastMonthDate, onToday } from '../mainpage_js/mainpage_reserve.js'
 //목표 체중 모달
 const $noWeightGoalDiv = document.querySelector(".anaypage__noweight__accure");
 
@@ -93,7 +94,7 @@ export function showWeihgtModal(e){
   weightSubmitBtn.classList.add("weightSubmitBtn");
   weightSubmitBtn.textContent = "현재 체중";
 
-  weightSubmitBtn.addEventListener('click', ()=>{
+  weightSubmitBtn.addEventListener('click', ()=>{ 
     let getTotalWeightData = localStorage.getItem("STEP_CURRENT_WEIGHT");
     let parseTotalWeightData = JSON.parse(getTotalWeightData);
 
@@ -146,23 +147,36 @@ export function setuntilGoalWeight(){
 
   return parseTotalWeightData[parseTotalWeightData.length-1]-parseWeight;
 }
-//데이터에 해당날짜가 없다면 해당날짷고 빈 무게 값 넣어주기
-export const weightDataArr = [[], [], [], []]
 
-function rangeWeightData(){
+export const weightDataArr = [[], [], [], []];
+// 들어왔는데 체중을 입력하지 않으면 그래프에서 해당 날짜가 밀리기 때문에 입력하지 않으면 빈값으로 넣어주기
+//그러나 앱 자체를 들어오지 않는다면?
+export function rangeWeightData(){
   let getTotalWeightData = localStorage.getItem("STEP_CURRENT_WEIGHT");
   let parseTotalWeightData = JSON.parse(getTotalWeightData);
-  let reverseWeightData = parseTotalWeightData.reverse();
 
-//한 배열당 14개씩 '몸무게', 날짜
-
-
-  let weightDataArrNum = 0;
-  for(let i = 0; i < 56; i++){
-    if(!reverseWeightData[i]) reverseWeightData[i] = "";
-      weightDataArr[weightDataArrNum].push(reverseWeightData[i]);
-      if(weightDataArr[weightDataArrNum].length > 13) weightDataArrNum++;
-      if(weightDataArrNum === 4) break;
+  if(!parseTotalWeightData ){
+    localStorage.setItem("STEP_CURRENT_WEIGHT", JSON.stringify([onToday, ""]));
   }
+
+  if(parseTotalWeightData){
+    let isWeightToday =parseTotalWeightData.find((date)=> date === onToday)
+
+    if(!isWeightToday){
+      localStorage.setItem("STEP_CURRENT_WEIGHT", JSON.stringify(parseTotalWeightData.concat([onToday, ""])));
+    }
+    let reverseWeightData = parseTotalWeightData.reverse();
+
+    let weightDataArrNum = 0;
+    for(let i = 0; i < 56; i++){
+      if(!reverseWeightData[i]) reverseWeightData[i] = "";
+        weightDataArr[weightDataArrNum].push(reverseWeightData[i]);
+        if(weightDataArr[weightDataArrNum].length > 13) weightDataArrNum++;
+        if(weightDataArrNum === 4) break;
+    }
+  }
+  else{
+    console.log("데이터 없다")
+  }
+
 }
-rangeWeightData()

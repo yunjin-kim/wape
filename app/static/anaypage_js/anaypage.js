@@ -3,7 +3,7 @@
 import { _filter } from '../fx.js';
 import { onStepData, walkDayArr, setStepChartHeight, percentData, setWeekPercent } from './anaypage_step.js';
 import { setGoalAchieve, goalStep } from './anaypage_goal.js';
-import { showGoalWeihgtModal, setGoalWeight, showWeihgtModal, setCurrentWeight, setuntilGoalWeight, weightDataArr } from './anaypage_weight.js';
+import { showGoalWeihgtModal, setGoalWeight, showWeihgtModal, setCurrentWeight, setuntilGoalWeight, weightDataArr, rangeWeightData } from './anaypage_weight.js';
 import { lastMonthDate, onToday } from '../mainpage_js/mainpage_reserve.js'
 
 let weekNum = 0;
@@ -29,6 +29,7 @@ export function hadStepData(){
   ifNoGoal();
   setGoalWeight();
   setCurrentWeight();
+  rangeWeightData()
   setWeightChart(weightWeekNum);
   untilGoalWeight()
 }
@@ -253,7 +254,8 @@ function setWeightDate(weightBoxArr, weightWeekNum){
     weightBoxArr[6-i].id = oneMonthDateArr[i];
   }
 }
-
+//체중 로컬 데이터에서 오늘 날짜에 해당하는 값이 없을 때 처음에 빈값을 넣어준다
+//그래야 데이터가 밀리지 않음
 //체중 차트 값 넣어주기
 function setWeightChartHeight(weightBoxArr ,weightWeekNum){
 
@@ -264,31 +266,40 @@ function setWeightChartHeight(weightBoxArr ,weightWeekNum){
 
   console.log(weightBoxArr, weightWeekNum)
   //일주일 배열 값 그래프에 보여주기 
-  while(divPoint !== reverseWeightBoxArr.length){
-    if(Number(reverseWeightBoxArr[divPoint].id) === weightDataArr[weightWeekNum][dataPoint]){
-      reverseWeightBoxArr[divPoint].children[1].style.height = `${weightDataArr[weightWeekNum][dataPoint-1]}px`;
-      reverseWeightBoxArr[divPoint].children[0].textContent = weightDataArr[weightWeekNum][dataPoint-1];
-      divPoint++;
-      dataPoint++;
-    }
-    else{
-      reverseWeightBoxArr[divPoint].children[1].style.height = `10px`;
-      reverseWeightBoxArr[divPoint].children[0].textContent = "";
-      //입력한 데이터가 없다면 건너 뛰기, 체중은 string
-      if(weightDataArr[weightWeekNum][dataPoint] < 32){
-        divPoint++
+  if(weightDataArr[0].length > 0){
+
+    while(divPoint !== reverseWeightBoxArr.length){
+      if(Number(reverseWeightBoxArr[divPoint].id) === weightDataArr[weightWeekNum][dataPoint]){
+        reverseWeightBoxArr[divPoint].children[1].style.height = `${weightDataArr[weightWeekNum][dataPoint-1]}px`;
+        reverseWeightBoxArr[divPoint].children[0].textContent = weightDataArr[weightWeekNum][dataPoint-1];
+        divPoint++;
+        dataPoint++;
       }
       else{
-        dataPoint++;
+        reverseWeightBoxArr[divPoint].children[1].style.height = `10px`;
+        reverseWeightBoxArr[divPoint].children[0].textContent = "";
+        //입력한 데이터가 없다면 건너 뛰기, 체중은 string
+        if(weightDataArr[weightWeekNum][dataPoint] < 32){
+          divPoint++
+        }
+        else{
+          dataPoint++;
+        }
       }
     }
   }
+  else{
+    console.log("데이터 없다")
+  }
+
 }
 
 //목표 체중까지
 function untilGoalWeight(){
-  const $untilGoalWeight = document.querySelector(".untilGoalWeight");
-  $untilGoalWeight.textContent = setuntilGoalWeight();
+  if(weightDataArr[0].length > 0){
+    const $untilGoalWeight = document.querySelector(".untilGoalWeight");
+    $untilGoalWeight.textContent = setuntilGoalWeight();
+  }
 }
 //체중은 버튼 클릭하면 날짜에 id가 바뀌아사 local에서 불러온거랑 비교해서 데이터 넣을 수 있게
 //만약 로컬의 길이가 28이상이면 로컬에서 제일 오래된 삭제
