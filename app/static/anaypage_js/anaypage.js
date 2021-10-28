@@ -258,6 +258,7 @@ function setWeightDate(weightBoxArr, weightWeekNum){
 //체중 로컬 데이터에서 오늘 날짜에 해당하는 값이 없을 때 처음에 빈값을 넣어준다
 //그래야 데이터가 밀리지 않음
 //체중 차트 값 넣어주기
+// 이 로직은 체중값은 ""라도 날짜 값은 있어야 돌아 가는 로직이여서 날짜값도 ""라면 오류
 function setWeightChartHeight(weightBoxArr ,weightWeekNum){
 //체중 입력하면 그래프 바로 바뀔 수 있게
   let reverseWeightBoxArr = weightBoxArr.slice().reverse()
@@ -269,9 +270,9 @@ function setWeightChartHeight(weightBoxArr ,weightWeekNum){
   //일주일 배열 값 그래프에 보여주기 
   if(weightDataArr[0].length > 0){
 
-    while(divPoint !== reverseWeightBoxArr.length || dataPoint !== weightDataArr[weightWeekNum].length){
-      // console.log((`reverseWeightBoxArr: ${reverseWeightBoxArr[divPoint].id} , ${divPoint}`))
-      // console.log(((`weightDataArr: ${weightDataArr[weightWeekNum][dataPoint]}, ${dataPoint}`)))
+    while(divPoint !== reverseWeightBoxArr.length){
+      console.log((`reverseWeightBoxArr: ${reverseWeightBoxArr[divPoint].id} , ${divPoint}`))
+      console.log(((`weightDataArr: ${weightDataArr[weightWeekNum][dataPoint]}, ${dataPoint}`)))
       if(Number(reverseWeightBoxArr[divPoint].id) === (weightDataArr[weightWeekNum][dataPoint])){
         console.log("AAA")
         reverseWeightBoxArr[divPoint].children[1].style.height = `${weightDataArr[weightWeekNum][dataPoint-1]}px`;
@@ -280,12 +281,20 @@ function setWeightChartHeight(weightBoxArr ,weightWeekNum){
         dataPoint++;
       }
       else{
+        console.log(reverseWeightBoxArr[divPoint])
         reverseWeightBoxArr[divPoint].children[1].style.height = `7px`;
         reverseWeightBoxArr[divPoint].children[0].textContent = "";
         if(weightDataArr[weightWeekNum][dataPoint] === ""){
-          dataPoint++;
+          if(weightDataArr[weightWeekNum][dataPoint-1] === ""){//날짜값도 ""고 체중값도 ""라면 초기에 데이터 넣을 떄
+            divPoint++;
+          }
+          else{
+            dataPoint++;
+          }
+          console.log("여긴 뭐지")
         }
         else if(weightDataArr[weightWeekNum][dataPoint] < 32){
+          console.log("여긴가?")
           divPoint++
         }
         else{
