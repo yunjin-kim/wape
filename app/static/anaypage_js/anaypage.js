@@ -8,7 +8,7 @@ import { lastMonthDate, onToday } from '../mainpage_js/mainpage_reserve.js'
 
 let weekNum = 0;
 let goalWeekNum = 0
-let weightWeekNum = 0;
+export let weightWeekNum = 0;
 
 //걸음수 주 평균, 총합
 export function setWeekStepData(weekSumStep){
@@ -172,6 +172,7 @@ $weightLeftBtn.addEventListener('click', ()=>{
   weightWeekNum++;
   setWeighttBtn();
   setWeightChart(weightWeekNum);
+  // setWeightChartHeight(weightBoxArr ,weightWeekNum)
 })
 
 //체중 오른쪽 버튼
@@ -180,6 +181,7 @@ $weightRightBtn.addEventListener('click', ()=>{
   weightWeekNum--;
   setWeighttBtn();
   setWeightChart(weightWeekNum);
+  // setWeightChartHeight(weightBoxArr ,weightWeekNum)
 })
 
 //체중 버튼 show/hidden
@@ -219,7 +221,7 @@ $noCurrentWeight.addEventListener('click', (e)=>{
 })
 
 //목표 체중 차트  버튼 누르면 바뀌는거 해야함
-function setWeightChart(weightWeekNum){
+export function setWeightChart(weightWeekNum){
   const $weightBox = document.querySelector(".anaypage__weight__graph__box");
 
   const weightBoxArr = _filter(
@@ -227,7 +229,6 @@ function setWeightChart(weightWeekNum){
       weight.classList.contains("anaypage__weight__graph__graph")
         ,$weightBox.children
   )
-  
   setWeightDate(weightBoxArr, weightWeekNum)
   setWeightChartHeight(weightBoxArr, weightWeekNum)
 }
@@ -258,7 +259,7 @@ function setWeightDate(weightBoxArr, weightWeekNum){
 //그래야 데이터가 밀리지 않음
 //체중 차트 값 넣어주기
 function setWeightChartHeight(weightBoxArr ,weightWeekNum){
-
+//체중 입력하면 그래프 바로 바뀔 수 있게
   let reverseWeightBoxArr = weightBoxArr.slice().reverse()
   let divPoint = 0;
   let dataPoint = 0;
@@ -268,23 +269,33 @@ function setWeightChartHeight(weightBoxArr ,weightWeekNum){
   //일주일 배열 값 그래프에 보여주기 
   if(weightDataArr[0].length > 0){
 
-    while(divPoint !== reverseWeightBoxArr.length){
-      if(Number(reverseWeightBoxArr[divPoint].id) === weightDataArr[weightWeekNum][dataPoint]){
+    while(divPoint !== reverseWeightBoxArr.length || dataPoint !== weightDataArr[weightWeekNum].length){
+      // console.log((`reverseWeightBoxArr: ${reverseWeightBoxArr[divPoint].id} , ${divPoint}`))
+      // console.log(((`weightDataArr: ${weightDataArr[weightWeekNum][dataPoint]}, ${dataPoint}`)))
+      if(Number(reverseWeightBoxArr[divPoint].id) === (weightDataArr[weightWeekNum][dataPoint])){
+        console.log("AAA")
         reverseWeightBoxArr[divPoint].children[1].style.height = `${weightDataArr[weightWeekNum][dataPoint-1]}px`;
         reverseWeightBoxArr[divPoint].children[0].textContent = weightDataArr[weightWeekNum][dataPoint-1];
         divPoint++;
         dataPoint++;
       }
       else{
-        reverseWeightBoxArr[divPoint].children[1].style.height = `10px`;
+        reverseWeightBoxArr[divPoint].children[1].style.height = `7px`;
         reverseWeightBoxArr[divPoint].children[0].textContent = "";
-        //입력한 데이터가 없다면 건너 뛰기, 체중은 string
-        if(weightDataArr[weightWeekNum][dataPoint] < 32){
+        if(weightDataArr[weightWeekNum][dataPoint] === ""){
+          dataPoint++;
+        }
+        else if(weightDataArr[weightWeekNum][dataPoint] < 32){
           divPoint++
         }
         else{
-          dataPoint++;
+          console.log("제 세상으로")
+          dataPoint++
         }
+      }
+      if(divPoint > 30 || dataPoint > 30){
+        console.log("무한으로 즐겨요")
+        break;
       }
     }
   }

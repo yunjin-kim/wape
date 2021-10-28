@@ -1,4 +1,5 @@
-import { lastMonthDate, onToday } from '../mainpage_js/mainpage_reserve.js'
+import { onToday } from '../mainpage_js/mainpage_reserve.js';
+import { setWeightChart, weightWeekNum } from './anaypage.js';
 //목표 체중 모달
 const $noWeightGoalDiv = document.querySelector(".anaypage__noweight__accure");
 
@@ -98,6 +99,7 @@ export function showWeihgtModal(e){
     let getTotalWeightData = localStorage.getItem("STEP_CURRENT_WEIGHT");
     let parseTotalWeightData = JSON.parse(getTotalWeightData);
 
+
   if(parseTotalWeightData){
     if(parseTotalWeightData[parseTotalWeightData.length - 2] === measureDay){
       parseTotalWeightData.pop()
@@ -113,6 +115,7 @@ export function showWeihgtModal(e){
   }
   weightModalDiv.remove();
   $noWeightDiv.classList.add("hiddenDiv");
+
   setCurrentWeight();
   });
 
@@ -123,7 +126,8 @@ export function showWeihgtModal(e){
 
 //현재 체중 설정
 export function setCurrentWeight(){
-  const $currnetWeight= document.querySelector(".currnetWeight");
+  console.log("실행실행")
+  const $currnetWeight = document.querySelector(".currnetWeight");
   const $weightDiv = document.querySelector(".anaypage__weight__current");
   let getWeight = localStorage.getItem("STEP_CURRENT_WEIGHT");
   let parseWeight = JSON.parse(getWeight);
@@ -160,7 +164,7 @@ export function rangeWeightData(){
   }
 
   if(parseTotalWeightData){
-    let isWeightToday =parseTotalWeightData.find((date)=> date === onToday)
+    let isWeightToday = parseTotalWeightData.find((date)=> date === onToday)
 
     if(!isWeightToday){
       localStorage.setItem("STEP_CURRENT_WEIGHT", JSON.stringify(parseTotalWeightData.concat([onToday, ""])));
