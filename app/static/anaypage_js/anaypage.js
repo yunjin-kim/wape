@@ -3,8 +3,7 @@
 import { _filter } from '../fx.js';
 import { onStepData, walkDayArr, setStepChartHeight, percentData, setWeekPercent } from './anaypage_step.js';
 import { setGoalAchieve, goalStep } from './anaypage_goal.js';
-import { showGoalWeihgtModal, setGoalWeight, showWeihgtModal, setCurrentWeight, setuntilGoalWeight, weightDataArr, rangeWeightData } from './anaypage_weight.js';
-import { lastMonthDate, onToday } from '../mainpage_js/mainpage_reserve.js'
+import { showGoalWeihgtModal, setGoalWeight, showWeihgtModal, setCurrentWeight, setuntilGoalWeight, weightDataArr, rangeWeightData, setWeightChartHeight, setWeightDate } from './anaypage_weight.js';
 
 let weekNum = 0;
 let goalWeekNum = 0
@@ -233,86 +232,7 @@ export function setWeightChart(weightWeekNum){
   setWeightChartHeight(weightBoxArr, weightWeekNum)
 }
 
-//체중 날짜 세팅 
-function setWeightDate(weightBoxArr, weightWeekNum){
-  console.log(weightWeekNum)
-  
-  let oneMonthDateArr = [];
-  let todayDate = onToday;
-  todayDate -= weightWeekNum*7;
-  for(let i = 0; i <= 29; i++){
-    let date = todayDate - i;
-    if(date === 0){
-      for(let j = 0; j <= 30 - oneMonthDateArr.length; j++){
-        oneMonthDateArr.push(lastMonthDate - j);
-      }
-      break;
-    } 
-    oneMonthDateArr.push(date);
-  }
 
-  for(let i = 0; i < 7; i++){
-    weightBoxArr[6-i].id = oneMonthDateArr[i];
-  }
-}
-//체중 로컬 데이터에서 오늘 날짜에 해당하는 값이 없을 때 처음에 빈값을 넣어준다
-//그래야 데이터가 밀리지 않음
-//체중 차트 값 넣어주기
-// 이 로직은 체중값은 ""라도 날짜 값은 있어야 돌아 가는 로직이여서 날짜값도 ""라면 오류
-function setWeightChartHeight(weightBoxArr ,weightWeekNum){
-//체중 입력하면 그래프 바로 바뀔 수 있게
-  let reverseWeightBoxArr = weightBoxArr.slice().reverse()
-  let divPoint = 0;
-  let dataPoint = 0;
-  console.log(weightDataArr)
-
-  console.log(weightBoxArr, weightWeekNum)
-  //일주일 배열 값 그래프에 보여주기 
-  if(weightDataArr[0].length > 0){
-
-    while(divPoint !== reverseWeightBoxArr.length){
-      console.log((`reverseWeightBoxArr: ${reverseWeightBoxArr[divPoint].id} , ${divPoint}`))
-      console.log(((`weightDataArr: ${weightDataArr[weightWeekNum][dataPoint]}, ${dataPoint}`)))
-      if(Number(reverseWeightBoxArr[divPoint].id) === (weightDataArr[weightWeekNum][dataPoint])){
-        console.log("AAA")
-        reverseWeightBoxArr[divPoint].children[1].style.height = `${weightDataArr[weightWeekNum][dataPoint-1]}px`;
-        reverseWeightBoxArr[divPoint].children[0].textContent = weightDataArr[weightWeekNum][dataPoint-1];
-        divPoint++;
-        dataPoint++;
-      }
-      else{
-        console.log(reverseWeightBoxArr[divPoint])
-        reverseWeightBoxArr[divPoint].children[1].style.height = `7px`;
-        reverseWeightBoxArr[divPoint].children[0].textContent = "";
-        if(weightDataArr[weightWeekNum][dataPoint] === ""){
-          if(weightDataArr[weightWeekNum][dataPoint-1] === ""){//날짜값도 ""고 체중값도 ""라면 초기에 데이터 넣을 떄
-            divPoint++;
-          }
-          else{
-            dataPoint++;
-          }
-          console.log("여긴 뭐지")
-        }
-        else if(weightDataArr[weightWeekNum][dataPoint] < 32){
-          console.log("여긴가?")
-          divPoint++
-        }
-        else{
-          console.log("제 세상으로")
-          dataPoint++
-        }
-      }
-      if(divPoint > 30 || dataPoint > 30){
-        console.log("무한으로 즐겨요")
-        break;
-      }
-    }
-  }
-  else{
-    console.log("데이터 없다")
-  }
-
-}
 
 //목표 체중까지
 function untilGoalWeight(){
@@ -321,6 +241,4 @@ function untilGoalWeight(){
     $untilGoalWeight.textContent = setuntilGoalWeight();
   }
 }
-//체중은 버튼 클릭하면 날짜에 id가 바뀌아사 local에서 불러온거랑 비교해서 데이터 넣을 수 있게
 //만약 로컬의 길이가 28이상이면 로컬에서 제일 오래된 삭제
-//체중은 일력하지 않으면 빈칸으로;

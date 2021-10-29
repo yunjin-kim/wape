@@ -1,5 +1,5 @@
-import { onToday } from '../mainpage_js/mainpage_reserve.js';
-import { setWeightChart, weightWeekNum } from './anaypage.js';
+import { onToday, lastMonthDate } from '../mainpage_js/mainpage_reserve.js';
+
 //목표 체중 모달
 const $noWeightGoalDiv = document.querySelector(".anaypage__noweight__accure");
 
@@ -126,15 +126,22 @@ export function showWeihgtModal(e){
 
 //현재 체중 설정
 export function setCurrentWeight(){
-  console.log("실행실행")
   const $currnetWeight = document.querySelector(".currnetWeight");
   const $weightDiv = document.querySelector(".anaypage__weight__current");
   let getWeight = localStorage.getItem("STEP_CURRENT_WEIGHT");
   let parseWeight = JSON.parse(getWeight);
 
   if(parseWeight){
-    $weightDiv.classList.remove("hiddenDiv");
-    $currnetWeight.textContent = `${parseWeight[parseWeight.length-1]}kg`;
+    if(parseWeight[parseWeight.length - 1] === ""){
+      $noWeightDiv.classList.remove("hiddenDiv");
+      $weightDiv.classList.add("hiddenDiv");
+      $noWeightDiv.innerHTML = `<span class="noWeight">현재 체중을 적어주세요</span>`;
+    }
+    else{
+      $weightDiv.classList.remove("hiddenDiv");
+      $currnetWeight.textContent = `${parseWeight[parseWeight.length-1]}kg`;
+    }
+
   }
   else{
     $noWeightDiv.classList.remove("hiddenDiv");
@@ -182,5 +189,70 @@ export function rangeWeightData(){
   else{
     console.log("데이터 없다")
   }
+}
 
+//체중 날짜 세팅 
+export function setWeightDate(weightBoxArr, weightWeekNum){
+  
+  let oneMonthDateArr = [];
+  let todayDate = onToday;
+  todayDate -= weightWeekNum*7;
+  for(let i = 0; i <= 29; i++){
+    let date = todayDate - i;
+    if(date === 0){
+      for(let j = 0; j <= 30 - oneMonthDateArr.length; j++){
+        oneMonthDateArr.push(lastMonthDate - j);
+      }
+      break;
+    } 
+    oneMonthDateArr.push(date);
+  }
+
+  for(let i = 0; i < 7; i++){
+    weightBoxArr[6-i].id = oneMonthDateArr[i];
+  }
+}
+
+//체중 차트 값 넣어주기
+export function setWeightChartHeight(weightBoxArr ,weightWeekNum){
+  let reverseWeightBoxArr = weightBoxArr.slice().reverse()
+  let divPoint = 0;
+  let dataPoint = 0;
+  
+  if(weightDataArr[0].length > 0){
+
+    while(divPoint !== reverseWeightBoxArr.length){
+      if(Number(reverseWeightBoxArr[divPoint].id) === (weightDataArr[weightWeekNum][dataPoint])){
+        reverseWeightBoxArr[divPoint].children[1].style.height = `${weightDataArr[weightWeekNum][dataPoint-1]}px`;
+        reverseWeightBoxArr[divPoint].children[0].textContent = weightDataArr[weightWeekNum][dataPoint-1];
+        divPoint++;
+        dataPoint++;
+      }
+      else{
+        reverseWeightBoxArr[divPoint].children[1].style.height = `7px`;
+        reverseWeightBoxArr[divPoint].children[0].textContent = "";
+
+        if(weightDataArr[weightWeekNum][dataPoint] === ""){
+          if(weightDataArr[weightWeekNum][dataPoint-1] === ""){//날짜값도 ""고 체중값도 ""라면 초기에 데이터 없을 때
+            divPoint++;
+          }
+          else{
+            dataPoint++;
+          }
+        }
+        else if(weightDataArr[weightWeekNum][dataPoint] < 32){
+          divPoint++
+        }
+        else{
+          dataPoint++
+        }
+      }
+      if(divPoint > 30 || dataPoint > 30){
+        break;
+      }
+    }
+  }
+  else{
+    console.log("데이터 없다")
+  }
 }
