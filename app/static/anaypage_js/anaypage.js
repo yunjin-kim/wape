@@ -171,7 +171,6 @@ $weightLeftBtn.addEventListener('click', ()=>{
   weightWeekNum++;
   setWeighttBtn();
   setWeightChart(weightWeekNum);
-  // setWeightChartHeight(weightBoxArr ,weightWeekNum)
 })
 
 //체중 오른쪽 버튼
@@ -180,7 +179,6 @@ $weightRightBtn.addEventListener('click', ()=>{
   weightWeekNum--;
   setWeighttBtn();
   setWeightChart(weightWeekNum);
-  // setWeightChartHeight(weightBoxArr ,weightWeekNum)
 })
 
 //체중 버튼 show/hidden
@@ -197,29 +195,31 @@ function setWeighttBtn(){
   }
 }
 
-//목표 체중 설정
+//목표 체중 입력되있는 상태에서 재입력
 const $setGoalWeight = document.querySelector(".anaypage__weight__accure");
 $setGoalWeight.addEventListener('click', (e)=> {
   showGoalWeihgtModal(e);
 })
 
+//목표 체중이 입력되지 않은 상태에서 입력
 const $noWeightGoalDiv = document.querySelector(".anaypage__noweight__accure");
 $noWeightGoalDiv.addEventListener('click', (e)=> {
   showGoalWeihgtModal(e);
 })
 
-//현재 체중 설정
+//현재 체중 입력되있는 상태에서 재입력
 const $currentWeight = document.querySelector(".anaypage__weight__current");
 $currentWeight.addEventListener('click', (e)=>{
   showWeihgtModal(e);
 })
 
+//현재 체중이 입력되지 않은 상태에서 입력
 const $noCurrentWeight = document.querySelector(".anaypage__noweight__current");
 $noCurrentWeight.addEventListener('click', (e)=>{
   showWeihgtModal(e);
 })
 
-//목표 체중 차트  버튼 누르면 바뀌는거 해야함
+//목표 체중 차트  
 export function setWeightChart(weightWeekNum){
   const $weightBox = document.querySelector(".anaypage__weight__graph__box");
 

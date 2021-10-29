@@ -1,4 +1,5 @@
 import { onToday, lastMonthDate } from '../mainpage_js/mainpage_reserve.js';
+import { setWeightChart, weightWeekNum } from './anaypage.js';
 
 //목표 체중 모달
 const $noWeightGoalDiv = document.querySelector(".anaypage__noweight__accure");
@@ -95,18 +96,17 @@ export function showWeihgtModal(e){
   weightSubmitBtn.classList.add("weightSubmitBtn");
   weightSubmitBtn.textContent = "현재 체중";
 
-  weightSubmitBtn.addEventListener('click', ()=>{ 
+  weightSubmitBtn.addEventListener('click', ()=>{
     let getTotalWeightData = localStorage.getItem("STEP_CURRENT_WEIGHT");
     let parseTotalWeightData = JSON.parse(getTotalWeightData);
 
-
   if(parseTotalWeightData){
     if(parseTotalWeightData[parseTotalWeightData.length - 2] === measureDay){
-      parseTotalWeightData.pop()
-      parseTotalWeightData.pop()
-      localStorage.setItem("STEP_CURRENT_WEIGHT", JSON.stringify(parseTotalWeightData.concat([measureDay, currnetWeight])));
-    }
-    else{
+      console.log(parseTotalWeightData)
+      parseTotalWeightData.pop();
+      parseTotalWeightData.pop();
+      console.log(parseTotalWeightData)
+      console.log(parseTotalWeightData.concat([measureDay, currnetWeight]))
       localStorage.setItem("STEP_CURRENT_WEIGHT", JSON.stringify(parseTotalWeightData.concat([measureDay, currnetWeight])));
     }
   }
@@ -116,11 +116,12 @@ export function showWeihgtModal(e){
   weightModalDiv.remove();
   $noWeightDiv.classList.add("hiddenDiv");
 
+  rangeWeightData();
   setCurrentWeight();
+  setWeightChart(weightWeekNum);
   });
-
+  
   weightModalDiv.append(weightSubmitBtn);
-
   e.target.parentNode.parentNode.parentNode.parentNode.append(weightModalDiv);
 }
 
@@ -159,7 +160,7 @@ export function setuntilGoalWeight(){
   return parseTotalWeightData[parseTotalWeightData.length-1]-parseWeight;
 }
 
-export const weightDataArr = [[], [], [], []];
+export let weightDataArr = [[], [], [], []];
 // 들어왔는데 체중을 입력하지 않으면 그래프에서 해당 날짜가 밀리기 때문에 입력하지 않으면 빈값으로 넣어주기
 //그러나 앱 자체를 들어오지 않는다면?
 // 오랜만에 들어온다? -> 로컬에 있는 데이터 로칼 길이 -2 값을 찾는다 -> 찾은 값 +1 부터 오늘 날짜까지 -> 날짜,"" 이렇게 넣어준다
@@ -179,8 +180,9 @@ export function rangeWeightData(){
       localStorage.setItem("STEP_CURRENT_WEIGHT", JSON.stringify(parseTotalWeightData.concat([onToday, ""])));
     }
     let reverseWeightData = parseTotalWeightData.reverse();
-
+    
     let weightDataArrNum = 0;
+    weightDataArr = [[], [], [], []];
     for(let i = 0; i < 56; i++){
       if(!reverseWeightData[i]) reverseWeightData[i] = "";
         weightDataArr[weightDataArrNum].push(reverseWeightData[i]);
