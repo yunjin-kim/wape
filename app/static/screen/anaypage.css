@@ -370,7 +370,6 @@
   height: 12vh;
   display: flex;
   align-items: center;
-  border: 1px solid red;
   justify-content: space-between;
 }
 .anaypage__sleep__graph__left img {
@@ -379,7 +378,6 @@
 .anaypage__sleep__graph__graph {
   width: 7vw;
   height: 12vh;
-  border: 1px solid blue;
   display: flex;
   flex-direction: column;
   align-items: center;

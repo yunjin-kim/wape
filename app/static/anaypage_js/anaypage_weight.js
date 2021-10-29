@@ -162,6 +162,8 @@ export function setuntilGoalWeight(){
 export const weightDataArr = [[], [], [], []];
 // 들어왔는데 체중을 입력하지 않으면 그래프에서 해당 날짜가 밀리기 때문에 입력하지 않으면 빈값으로 넣어주기
 //그러나 앱 자체를 들어오지 않는다면?
+// 오랜만에 들어온다? -> 로컬에 있는 데이터 로칼 길이 -2 값을 찾는다 -> 찾은 값 +1 부터 오늘 날짜까지 -> 날짜,"" 이렇게 넣어준다
+//근데 만약에 안 들어온 날짜가 29일이고 다시 들어온 날짜가 2일 이라면 -> 로컬 -2 데이터가 오늘 날짜 보다 크다면 -> 로컬 -2에서 저번달 마지막 날짜까지하고 1일부터 오늘 날짜까지 넣어준다
 export function rangeWeightData(){
   let getTotalWeightData = localStorage.getItem("STEP_CURRENT_WEIGHT");
   let parseTotalWeightData = JSON.parse(getTotalWeightData);
@@ -240,8 +242,9 @@ export function setWeightChartHeight(weightBoxArr ,weightWeekNum){
             dataPoint++;
           }
         }
-        else if(weightDataArr[weightWeekNum][dataPoint] < 32){
-          divPoint++
+        else if(weightDataArr[weightWeekNum][dataPoint] < 32 && weightDataArr[weightWeekNum][dataPoint] === "string"){
+          console.log(typeof(weightDataArr[weightWeekNum][dataPoint]))
+            divPoint++
         }
         else{
           dataPoint++
