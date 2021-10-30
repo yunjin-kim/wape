@@ -94,7 +94,7 @@ export function showWeihgtModal(e){
 
   const weightSubmitBtn = document.createElement('button');
   weightSubmitBtn.classList.add("weightSubmitBtn");
-  weightSubmitBtn.textContent = "현재 체중";
+  weightSubmitBtn.textContent = "체중 입력";
 
   weightSubmitBtn.addEventListener('click', ()=>{
     let getTotalWeightData = localStorage.getItem("STEP_CURRENT_WEIGHT");
