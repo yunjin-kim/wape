@@ -34,7 +34,7 @@ export function showSleepModal(e){
 
   const sleepSubmitBtn = document.createElement('button');
   sleepSubmitBtn.classList.add("sleepSubmitBtn");
-  sleepSubmitBtn.textContent = "입력";
+  sleepSubmitBtn.textContent = "시간 입력";
 
   sleepSubmitBtn.addEventListener('click', ()=>{
     let getTotalSleepData = localStorage.getItem("CURRENT_SLEEP");
@@ -164,7 +164,7 @@ export function setSleepChartHeight(sleepBoxArr ,sleepWeekNum){
         dataPoint++;
       }
       else{
-        reverseSleepBoxArr[divPoint].children[1].style.height = `7px`;
+        reverseSleepBoxArr[divPoint].children[1].style.height = "7px";
         reverseSleepBoxArr[divPoint].children[0].textContent = "";
 
         if(sleepDataArr[sleepWeekNum][dataPoint] === ""){

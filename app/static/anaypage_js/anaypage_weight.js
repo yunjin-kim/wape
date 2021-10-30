@@ -34,7 +34,7 @@ export function showGoalWeihgtModal(e){
   goalWeightSubmitBtn.classList.add("goalWeightSubmitBtn");
   goalWeightSubmitBtn.textContent = "목표 설정";
   goalWeightSubmitBtn.addEventListener('click', ()=>{
-    localStorage.setItem("STEP_GOAL_WEIGHT", goalWeight);
+    localStorage.setItem("GOAL_WEIGHT", goalWeight);
     goalWeightModalDiv.remove();
     $noWeightGoalDiv.classList.add("hiddenDiv");
     setGoalWeight();
@@ -48,7 +48,7 @@ export function showGoalWeihgtModal(e){
 export function setGoalWeight(){
   const $goalWeight = document.querySelector(".goalWeight");
   const $goalWeihgtDiv = document.querySelector(".anaypage__weight__accure");
-  let getGoalWeight = localStorage.getItem("STEP_GOAL_WEIGHT");
+  let getGoalWeight = localStorage.getItem("GOAL_WEIGHT");
   let parseGoalWeight = JSON.parse(getGoalWeight);
 
   if(parseGoalWeight){
@@ -97,7 +97,7 @@ export function showWeihgtModal(e){
   weightSubmitBtn.textContent = "체중 입력";
 
   weightSubmitBtn.addEventListener('click', ()=>{
-    let getTotalWeightData = localStorage.getItem("STEP_CURRENT_WEIGHT");
+    let getTotalWeightData = localStorage.getItem("CURRENT_WEIGHT");
     let parseTotalWeightData = JSON.parse(getTotalWeightData);
 
   if(parseTotalWeightData){
@@ -107,11 +107,11 @@ export function showWeihgtModal(e){
       parseTotalWeightData.pop();
       console.log(parseTotalWeightData)
       console.log(parseTotalWeightData.concat([measureDay, currnetWeight]))
-      localStorage.setItem("STEP_CURRENT_WEIGHT", JSON.stringify(parseTotalWeightData.concat([measureDay, currnetWeight])));
+      localStorage.setItem("CURRENT_WEIGHT", JSON.stringify(parseTotalWeightData.concat([measureDay, currnetWeight])));
     }
   }
   else{
-    localStorage.setItem("STEP_CURRENT_WEIGHT", JSON.stringify([measureDay, currnetWeight]));
+    localStorage.setItem("CURRENT_WEIGHT", JSON.stringify([measureDay, currnetWeight]));
   }
   weightModalDiv.remove();
   $noWeightDiv.classList.add("hiddenDiv");
@@ -129,7 +129,7 @@ export function showWeihgtModal(e){
 export function setCurrentWeight(){
   const $currnetWeight = document.querySelector(".currnetWeight");
   const $weightDiv = document.querySelector(".anaypage__weight__current");
-  let getWeight = localStorage.getItem("STEP_CURRENT_WEIGHT");
+  let getWeight = localStorage.getItem("CURRENT_WEIGHT");
   let parseWeight = JSON.parse(getWeight);
 
   if(parseWeight){
@@ -152,9 +152,9 @@ export function setCurrentWeight(){
 }
 
 export function setuntilGoalWeight(){
-  let getWeight = localStorage.getItem("STEP_GOAL_WEIGHT");
+  let getWeight = localStorage.getItem("GOAL_WEIGHT");
   let parseWeight = JSON.parse(getWeight);
-  let getTotalWeightData = localStorage.getItem("STEP_CURRENT_WEIGHT");
+  let getTotalWeightData = localStorage.getItem("CURRENT_WEIGHT");
   let parseTotalWeightData = JSON.parse(getTotalWeightData);
 
   return parseTotalWeightData[parseTotalWeightData.length-1]-parseWeight;
@@ -166,18 +166,18 @@ export let weightDataArr = [[], [], [], []];
 // 오랜만에 들어온다? -> 로컬에 있는 데이터 로칼 길이 -2 값을 찾는다 -> 찾은 값 +1 부터 오늘 날짜까지 -> 날짜,"" 이렇게 넣어준다
 //근데 만약에 안 들어온 날짜가 29일이고 다시 들어온 날짜가 2일 이라면 -> 로컬 -2 데이터가 오늘 날짜 보다 크다면 -> 로컬 -2에서 저번달 마지막 날짜까지하고 1일부터 오늘 날짜까지 넣어준다
 export function rangeWeightData(){
-  let getTotalWeightData = localStorage.getItem("STEP_CURRENT_WEIGHT");
+  let getTotalWeightData = localStorage.getItem("CURRENT_WEIGHT");
   let parseTotalWeightData = JSON.parse(getTotalWeightData);
 
   if(!parseTotalWeightData ){
-    localStorage.setItem("STEP_CURRENT_WEIGHT", JSON.stringify([onToday, ""]));
+    localStorage.setItem("CURRENT_WEIGHT", JSON.stringify([onToday, ""]));
   }
 
   if(parseTotalWeightData){
     let isWeightToday = parseTotalWeightData.find((date)=> date === onToday)
 
     if(!isWeightToday){
-      localStorage.setItem("STEP_CURRENT_WEIGHT", JSON.stringify(parseTotalWeightData.concat([onToday, ""])));
+      localStorage.setItem("CURRENT_WEIGHT", JSON.stringify(parseTotalWeightData.concat([onToday, ""])));
     }
     let reverseWeightData = parseTotalWeightData.reverse();
     
