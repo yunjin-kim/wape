@@ -4,10 +4,12 @@ import { _filter } from '../fx.js';
 import { onStepData, walkDayArr, setStepChartHeight, percentData, setWeekPercent } from './anaypage_step.js';
 import { setGoalAchieve, goalStep } from './anaypage_goal.js';
 import { showGoalWeihgtModal, setGoalWeight, showWeihgtModal, setCurrentWeight, setuntilGoalWeight, weightDataArr, rangeWeightData, setWeightChartHeight, setWeightDate } from './anaypage_weight.js';
+import { showSleepModal, rangeSleepData, setCurrentSleep, setSleepChartHeight } from './anaypage_sleep.js';
 
 let weekNum = 0;
 let goalWeekNum = 0
 export let weightWeekNum = 0;
+export let sleepWeekNum = 0;
 
 //걸음수 주 평균, 총합
 export function setWeekStepData(weekSumStep){
@@ -30,7 +32,10 @@ export function hadStepData(){
   setCurrentWeight();
   rangeWeightData()
   setWeightChart(weightWeekNum);
-  untilGoalWeight()
+  untilGoalWeight();
+  setCurrentSleep();
+  rangeSleepData();
+  setSleepChart(sleepWeekNum);
 }
 
 //그래프 요일 
@@ -232,8 +237,6 @@ export function setWeightChart(weightWeekNum){
   setWeightChartHeight(weightBoxArr, weightWeekNum)
 }
 
-
-
 //목표 체중까지
 function untilGoalWeight(){
   if(weightDataArr[0].length > 0){
@@ -242,3 +245,59 @@ function untilGoalWeight(){
   }
 }
 //만약 로컬의 길이가 28이상이면 로컬에서 제일 오래된 삭제
+
+
+//수면 왼쪽 버튼
+const $sleppLeftBtn = document.querySelector(".anaypage__sleep__graph__left");
+$sleppLeftBtn.addEventListener('click', ()=>{
+  sleepWeekNum++;
+  setSleepBtn();
+  setSleepChart(sleepWeekNum);
+})
+
+//수면 오른쪽 버튼
+const $sleepRightBtn = document.querySelector(".anaypage__sleep__graph__right");
+$sleepRightBtn.addEventListener('click', ()=>{
+  sleepWeekNum--;
+  setSleepBtn();
+  setSleepChart(sleepWeekNum);
+})
+
+//수면 버튼 show/hidden
+function setSleepBtn(){
+  if(sleepWeekNum == 3){
+    $sleppLeftBtn.classList.add("hiddenButton");
+  }
+  else if(sleepWeekNum == 0){
+    $sleepRightBtn.classList.add("hiddenButton");
+  }
+  else{
+    $sleppLeftBtn.classList.remove("hiddenButton");
+    $sleepRightBtn.classList.remove("hiddenButton");
+  }
+}
+
+//현재 수면 입력되있는 상태에서 재입력
+const $currentSleep = document.querySelector(".anaypage__sleep__current");
+$currentSleep.addEventListener('click', (e)=>{
+  showSleepModal(e);
+})
+
+//현재 수면이 입력되지 않은 상태에서 입력
+const $noCurrentSleep = document.querySelector(".anaypage__nosleep__current");
+$noCurrentSleep.addEventListener('click', (e)=>{
+  showSleepModal(e);
+})
+
+//수면 차트  
+export function setSleepChart(sleepWeekNum){
+  const $sleepBox = document.querySelector(".anaypage__sleep__graph__box");
+
+  const sleepBoxArr = _filter(
+    sleep => 
+      sleep.classList.contains("anaypage__sleep__graph__graph")
+        ,$sleepBox.children
+  )
+  setWeightDate(sleepBoxArr, sleepWeekNum)
+  setSleepChartHeight(sleepBoxArr, sleepWeekNum)
+}

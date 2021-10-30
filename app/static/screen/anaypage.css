@@ -372,6 +372,12 @@
   align-items: center;
   justify-content: space-between;
 }
+.anaypage__sleep__graph__left {
+  border: none;
+}
+.anaypage__sleep__graph__left__wrap {
+  width: 30px;
+}
 .anaypage__sleep__graph__left img {
   width: 5vw;
 }
@@ -381,16 +387,22 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
 }
 .anaypage__sleep__graph__graph div {
   width: 1.4vw;
-  height: 10vh;
+  height: 7px;
   background-color: var(--main-color);
   border-radius: 6px 6px 0px 0px;
 }
 .anaypage__sleep__graph__graph span {
   font-size: 1px;
+}
+.anaypage__sleep__graph__right__wrap {
+  width: 30px;
+}
+.anaypage__sleep__graph__right {
+  border: none;
 }
 .anaypage__sleep__graph__right img {
   width: 5vw;
@@ -410,7 +422,7 @@
   display: flex;
   justify-content: space-between;
 }
-.anaypage__sleep__average {
+.anaypage__sleep__current {
   width: 42vw;
   height: 8.4vh;
   box-shadow: 2px 6px 6px 3px rgba(0, 0, 0, 0.2);
@@ -421,22 +433,22 @@
   display: flex;
   justify-content: space-between;
 }
-.anaypage__sleep__average div {
+.anaypage__sleep__current div {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-around;
 }
-.anaypage__sleep__average h4 {
+.anaypage__sleep__current h4 {
   font-size: 0.8rem;
 }
-.anaypage__sleep__average p {
+.anaypage__sleep__current p {
   font-weight: 700;
 }
-.anaypage__sleep__average span {
+.anaypage__sleep__current span {
   margin-left: 1vw;
 }
-.anaypage__sleep__average div:last-child {
+.anaypage__sleep__current div:last-child {
   color: var(--sub-font);
 }
 .anaypage__sleep__accure {
@@ -681,4 +693,53 @@
 }
 .noWeight {
   font-size: 0.7rem;
+}
+
+.sleepModal {
+  width: 250px;
+  height: 160px;
+  background-color: white;
+  border: 1px solid black;
+  position: absolute;
+  top: 940px;
+  left: 20px;
+  z-index: 10;
+  border-radius: 20px;
+}
+.sleepTitle {
+  text-align: center;
+  margin-top: 10px;
+}
+.sleepModalClose {
+  float: right;
+  margin-top: -10px;
+  margin-right: 10px;
+  background-color: white;
+  border: none;
+  font-size: 20px;
+}
+.sleepInput {
+  width: 120px;
+  margin-top: 30px;
+  margin-left: 60px;
+  border: none;
+  border-bottom: 2px solid black;
+}
+.sleepSubmitBtn {
+  width: 70px;
+  height: 25px;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 10px;
+  margin-top: 20px;
+  margin-left: 88px;
+}
+.anaypage__nosleep__current {
+  width: 42vw;
+  height: 8.4vh;
+  box-shadow: 2px 6px 6px 3px rgba(0, 0, 0, 0.2);
+  background-color: var(--sub-background);
+  border-radius: 14px;
+  box-sizing: border-box;
+  padding: 1.4vh 6vw 1.6vh 2.2vw;
 }
