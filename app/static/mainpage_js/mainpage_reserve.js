@@ -23,7 +23,7 @@ for(let i = 0; i < 7; i++){
   if(todayDays === -1) todayDays = 6;
   holeDayArr.push(holeDay[todayDays]);
 
-  if(todayDate >= thisLastDate) todayDate = 1;
+  if(todayDate > thisLastDate) todayDate = 1;
   holeDateArr.push(todayDate)
   todayDate++;
 }
@@ -63,7 +63,6 @@ export const hourArr = [];
     }
     let option = document.createElement('option');
     option.textContent = i;
-    // option.classList.add('hour');
     hourArr.push(option);
   }
 
@@ -75,7 +74,6 @@ export const minuteArr = [];
     }
     let option = document.createElement('option');
     option.textContent = i;
-    // option.classList.add('minute');
     minuteArr.push(option);
   }
 

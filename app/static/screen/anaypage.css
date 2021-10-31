@@ -136,15 +136,26 @@
   display: flex;
   justify-content: space-between;
 }
-.anaypage__walk__accure__value {
+.anaypage__walk__accure__dateAver {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
 }
-.anaypage__walk__accure__value h4 {
+.anaypage__walk__accure__dateAver h4 {
   font-size: 0.8rem;
 }
-.anaypage__walk__accure__value span {
+.anaypage__walk__accure__dateAver span {
+  font-weight: 700;
+}
+.anaypage__walk__accure__weekTotal {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.anaypage__walk__accure__weekTotal h4 {
+  font-size: 0.8rem;
+}
+.anaypage__walk__accure__weekTotal span {
   font-weight: 700;
 }
 .anaypage__walk__accure__percent {
@@ -476,25 +487,7 @@
 .anaypage__walk__accure__value span {
   margin-left: 1vw;
 }
-.anaypage__sleep__accure__percent {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-}
-.anaypage__sleep__accure__percent div {
-  display: flex;
-}
-.anaypage__sleep__accure__percent h5 {
-  font-size: 0.6rem;
-}
-.anaypage__sleep__accure__percent img {
-  width: 3vw;
-  margin-right: 1vw;
-}
-.anaypage__sleep__accure__percent h6 {
-  font-size: 0.8rem;
-  color: var(--sub-color);
-}
+
 .anaypage__goal {
   width: 100%;
   height: 16vh;
