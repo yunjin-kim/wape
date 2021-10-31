@@ -235,7 +235,7 @@ export function setWeightChartHeight(weightBoxArr ,weightWeekNum){
       else{
         reverseWeightBoxArr[divPoint].children[1].style.height = `7px`;
         reverseWeightBoxArr[divPoint].children[0].textContent = "";
-
+        
         if(weightDataArr[weightWeekNum][dataPoint] === ""){
           if(weightDataArr[weightWeekNum][dataPoint-1] === ""){//날짜값도 ""고 체중값도 ""라면 초기에 데이터 없을 때
             divPoint++;
@@ -245,7 +245,6 @@ export function setWeightChartHeight(weightBoxArr ,weightWeekNum){
           }
         }
         else if(weightDataArr[weightWeekNum][dataPoint] < 32 && weightDataArr[weightWeekNum][dataPoint] === "string"){
-          console.log(typeof(weightDataArr[weightWeekNum][dataPoint]))
             divPoint++
         }
         else{

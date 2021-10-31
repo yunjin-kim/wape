@@ -743,3 +743,28 @@
   box-sizing: border-box;
   padding: 1.4vh 6vw 1.6vh 2.2vw;
 }
+
+.updateDataModal {
+  width: 250px;
+  height: 160px;
+  background-color: white;
+  border: 1px solid black;
+  position: absolute;
+  top: 140px;
+  left: 60px;
+  z-index: 10;
+  border-radius: 20px;
+}
+.updateDataModalTitle {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 14px;
+}
+.updateDataModalClose {
+  float: right;
+  margin-top: 4px;
+  margin-right: 10px;
+  background-color: white;
+  border: none;
+  font-size: 20px;
+}

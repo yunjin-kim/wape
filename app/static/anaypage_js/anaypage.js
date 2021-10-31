@@ -20,6 +20,7 @@ export function setWeekStepData(weekSumStep){
 }
 
 (function hasStepData(){
+  console.log("BBB")
   onStepData();
 })();
 
@@ -31,6 +32,7 @@ export function hadStepData(){
   setGoalWeight();
   setCurrentWeight();
   rangeWeightData()
+  console.log("AAAA")
   setWeightChart(weightWeekNum);
   untilGoalWeight();
   setCurrentSleep();

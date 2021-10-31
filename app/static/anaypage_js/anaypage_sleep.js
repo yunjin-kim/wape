@@ -176,7 +176,6 @@ export function setSleepChartHeight(sleepBoxArr ,sleepWeekNum){
           }
         }
         else if(sleepDataArr[sleepWeekNum][dataPoint] < 32 && sleepDataArr[sleepWeekNum][dataPoint] === "string"){
-          console.log(typeof(sleepDataArr[sleepWeekNum][dataPoint]))
             divPoint++
         }
         else{
