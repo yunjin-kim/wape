@@ -20,7 +20,6 @@ export function setWeekStepData(weekSumStep){
 }
 
 (function hasStepData(){
-  console.log("BBB")
   onStepData();
 })();
 
@@ -32,7 +31,6 @@ export function hadStepData(){
   setGoalWeight();
   setCurrentWeight();
   rangeWeightData()
-  console.log("AAAA")
   setWeightChart(weightWeekNum);
   untilGoalWeight();
   setCurrentSleep();
@@ -240,7 +238,7 @@ export function setWeightChart(weightWeekNum){
 }
 
 //목표 체중까지
-function untilGoalWeight(){
+export function untilGoalWeight(){
   if(weightDataArr[0].length > 0){
     const $untilGoalWeight = document.querySelector(".untilGoalWeight");
     $untilGoalWeight.textContent = setuntilGoalWeight();

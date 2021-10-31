@@ -44,10 +44,10 @@ function saveStepToLocal(json){
   if(json.steps_count[json.steps_count.length - 1].endTime[0] + json.steps_count[json.steps_count.length - 1].endTime[1] !== onToday){
     showUpdateDataModal()
   }
-    localStorage.setItem("STEP_DATA", JSON.stringify(json));
-    setStepDate()
-    rangeStepData();
-    hadStepData();
+  localStorage.setItem("STEP_DATA", JSON.stringify(json));
+  setStepDate()
+  rangeStepData();
+  hadStepData();
 }
 
 //걸음 데이터가 동기화 되지 않음에 대한 모달

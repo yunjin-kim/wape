@@ -1,5 +1,5 @@
 import { onToday, lastMonthDate } from '../mainpage_js/mainpage_reserve.js';
-import { setWeightChart, weightWeekNum } from './anaypage.js';
+import { setWeightChart, weightWeekNum, untilGoalWeight } from './anaypage.js';
 
 //목표 체중 모달
 const $noWeightGoalDiv = document.querySelector(".anaypage__noweight__accure");
@@ -119,6 +119,7 @@ export function showWeihgtModal(e){
   rangeWeightData();
   setCurrentWeight();
   setWeightChart(weightWeekNum);
+  untilGoalWeight();
   });
   
   weightModalDiv.append(weightSubmitBtn);
