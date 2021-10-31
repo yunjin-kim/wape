@@ -1,5 +1,5 @@
 import { onToday, lastMonthDate } from '../mainpage_js/mainpage_reserve.js';
-import { setSleepChart, sleepWeekNum } from './anaypage.js';
+import { setSleepChart, sleepWeekNum, setSleepDataAverage } from './anaypage.js';
 
 //현재 수면 모달
 const $noSleepDiv = document.querySelector(".anaypage__nosleep__current");
@@ -120,6 +120,7 @@ export function rangeSleepData(){
         if(sleepDataArr[sleepDataArrNum].length > 13) sleepDataArrNum++;
         if(sleepDataArrNum === 4) break;
     }
+    setSleepDataAverage(sleepDataArr, sleepWeekNum);
   }
   else{
     console.log("데이터 없다")

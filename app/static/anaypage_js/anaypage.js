@@ -1,10 +1,10 @@
 //한 시간마다의 걸음도 조회할 수 있어서 일정 이상의 걸음이 되면 오늘의 걷기에 운동했다고 할 수 있을 듯 근데 시간이 너무 차이나서 오늘의 걷기는 힘들 듯함?
 //날짜 세팅하고 버튼 클릭은 4개 다 같아서 나중에 다 구현하고 리펙토링해서 하나로
-import { _filter } from '../fx.js';
+import { _filter, _reduce } from '../fx.js';
 import { onStepData, walkDayArr, setStepChartHeight, percentData, setWeekPercent } from './anaypage_step.js';
 import { setGoalAchieve, goalStep } from './anaypage_goal.js';
 import { showGoalWeihgtModal, setGoalWeight, showWeihgtModal, setCurrentWeight, setuntilGoalWeight, weightDataArr, rangeWeightData, setWeightChartHeight, setWeightDate } from './anaypage_weight.js';
-import { showSleepModal, rangeSleepData, setCurrentSleep, setSleepChartHeight } from './anaypage_sleep.js';
+import { showSleepModal, rangeSleepData, setCurrentSleep, setSleepChartHeight, sleepDataArr } from './anaypage_sleep.js';
 
 let weekNum = 0;
 let goalWeekNum = 0
@@ -253,6 +253,7 @@ $sleppLeftBtn.addEventListener('click', ()=>{
   sleepWeekNum++;
   setSleepBtn();
   setSleepChart(sleepWeekNum);
+  setSleepDataAverage(sleepDataArr, sleepWeekNum)
 })
 
 //수면 오른쪽 버튼
@@ -261,6 +262,7 @@ $sleepRightBtn.addEventListener('click', ()=>{
   sleepWeekNum--;
   setSleepBtn();
   setSleepChart(sleepWeekNum);
+  setSleepDataAverage(sleepDataArr, sleepWeekNum)
 })
 
 //수면 버튼 show/hidden
@@ -298,6 +300,32 @@ export function setSleepChart(sleepWeekNum){
       sleep.classList.contains("anaypage__sleep__graph__graph")
         ,$sleepBox.children
   )
-  setWeightDate(sleepBoxArr, sleepWeekNum)
-  setSleepChartHeight(sleepBoxArr, sleepWeekNum)
+  setWeightDate(sleepBoxArr, sleepWeekNum);
+  setSleepChartHeight(sleepBoxArr, sleepWeekNum);
+}
+
+//수면 일평균 주간 누적
+export function setSleepDataAverage(sleepDataArr, sleepWeekNum){
+  const $sleepDateAverage = document.querySelector(".sleepDateAverage");
+  const $sleepDataWeekTotal = document.querySelector(".sleepDataWeekTotal");
+
+  let weekSleepData = [];
+  let totalSleepData = 0;
+
+  sleepDataArr[sleepWeekNum].map((data)=>{
+    typeof(data) === "string" && data !== "" ? weekSleepData.push(data) : null
+  })
+
+  for(let data of weekSleepData){
+    totalSleepData += Number(data);
+  }
+  totalSleepData = totalSleepData/weekSleepData.length;
+  if(totalSleepData){
+    $sleepDataWeekTotal.textContent = totalSleepData;
+    $sleepDateAverage.textContent = totalSleepData.toFixed(1);
+  }
+  else{
+    $sleepDataWeekTotal.textContent = "0";
+    $sleepDateAverage.textContent = "0";
+  }
 }
