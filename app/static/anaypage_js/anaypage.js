@@ -319,10 +319,10 @@ export function setSleepDataAverage(sleepDataArr, sleepWeekNum){
   for(let data of weekSleepData){
     totalSleepData += Number(data);
   }
-  totalSleepData = totalSleepData/weekSleepData.length;
+  let averageSleepData = totalSleepData/weekSleepData.length;
   if(totalSleepData){
     $sleepDataWeekTotal.textContent = totalSleepData;
-    $sleepDateAverage.textContent = totalSleepData.toFixed(1);
+    $sleepDateAverage.textContent = averageSleepData.toFixed(1);
   }
   else{
     $sleepDataWeekTotal.textContent = "0";
