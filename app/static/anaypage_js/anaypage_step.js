@@ -23,6 +23,10 @@ export function onStepData(){
       console.log("다음날이 되었다")
       getGoogleStepCount(googleStepCountUrl);
     }
+    if(onToday === 1 && onToday < localLastDate){
+      console.log("다음달이 되었다")
+      getGoogleStepCount(googleStepCountUrl);
+    }
     else{ //anaypage 42번줄 오류 해결됬는지 확인 필요
       setStepDate()
       rangeStepData();
@@ -42,7 +46,7 @@ function getGoogleStepCount(googleStepCountUrl){
 //받아온 JSON 데이터의 마지막 데이터의 endTime의 날짜가 오늘 날짜보다 작다면 밑에 함수를 실행하지 않고 모달을 띄운다
 function saveStepToLocal(json){
   if(json.steps_count[json.steps_count.length - 1].endTime[0] + json.steps_count[json.steps_count.length - 1].endTime[1] !== onToday){
-    showUpdateDataModal()
+    showUpdateDataModal();
   }
   localStorage.setItem("STEP_DATA", JSON.stringify(json));
   setStepDate()

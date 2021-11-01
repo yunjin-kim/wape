@@ -87,7 +87,7 @@ export function setCurrentSleep(){
   else{
     $noSleepDiv.classList.remove("hiddenDiv");
     $sleepDiv.classList.add("hiddenDiv");
-    $noSleepDiv.innerHTML = `<span class="noWeight">현재 체중을 적어주세요</span>`;
+    $noSleepDiv.innerHTML = `<span class="noWeight">수면시간을 적어주세요</span>`;
   }
 }
 
