@@ -233,7 +233,7 @@ export function setWeightChartHeight(weightBoxArr ,weightWeekNum){
         dataPoint++;
       }
       else{
-        reverseWeightBoxArr[divPoint].children[1].style.height = `0px`;
+        reverseWeightBoxArr[divPoint].children[1].style.height = "0px";
         reverseWeightBoxArr[divPoint].children[0].textContent = "";
         
         if(weightDataArr[weightWeekNum][dataPoint] === ""){

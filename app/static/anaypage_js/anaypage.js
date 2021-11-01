@@ -239,9 +239,15 @@ export function setWeightChart(weightWeekNum){
 
 //목표 체중까지
 export function untilGoalWeight(){
+  const $untilGoalWeight = document.querySelector(".untilGoalWeight");
   if(weightDataArr[0].length > 0){
-    const $untilGoalWeight = document.querySelector(".untilGoalWeight");
-    $untilGoalWeight.textContent = setuntilGoalWeight();
+    if(weightDataArr[0][0] === ""){
+      $untilGoalWeight.parentNode.parentNode.parentNode.classList.add("hiddenDiv")
+    }
+    else{
+      $untilGoalWeight.parentNode.parentNode.parentNode.classList.remove("hiddenDiv")
+      $untilGoalWeight.textContent = setuntilGoalWeight();
+    }
   }
 }
 //만약 로컬의 길이가 28이상이면 로컬에서 제일 오래된 삭제
