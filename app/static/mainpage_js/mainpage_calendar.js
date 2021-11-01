@@ -57,7 +57,6 @@ export function renderCalendar() {
   })
 }
 
-
 //달력 걷기 이미지 클릭
 export function clickReserveDate(e){
   let getReserveDate = localStorage.getItem("RESERVE_DATE")
@@ -76,7 +75,6 @@ export function clickReserveDate(e){
 
 //예약 모달
 function showReserveModal(walkingArr,e){
-  
   const modalDiv = document.createElement('div');
   modalDiv.classList.add("reserveModal")
 

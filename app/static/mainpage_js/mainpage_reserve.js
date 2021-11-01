@@ -18,14 +18,17 @@ const thisLastDate = thisLast.getDate();
 export const holeDayArr = [];
 export const holeDateArr = [];
 
-for(let i = 0; i < 7; i++){
-  todayDays--;
-  if(todayDays === -1) todayDays = 6;
-  holeDayArr.push(holeDay[todayDays]);
-
-  if(todayDate > thisLastDate) todayDate = 1;
-  holeDateArr.push(todayDate)
-  todayDate++;
+// function set
+export function setDateDay(){
+  for(let i = 0; i < 7; i++){
+    todayDays--;
+    if(todayDays === -1) todayDays = 6;
+    holeDayArr.push(holeDay[todayDays]);
+  
+    if(todayDate > thisLastDate) todayDate = 1;
+    holeDateArr.push(todayDate)
+    todayDate++;
+  }
 }
 
 //언제 걸을까요 클릭하면 background색
@@ -138,11 +141,10 @@ export function clickReserve(reserveHour, reserveMinute){
   }
   reserveArr = [];
 
-  let getReserveDate = localStorage.getItem("RESERVE_DATE")
+  let getReserveDate = localStorage.getItem("RESERVE_DATE");
   let parseGetReserveDate = JSON.parse(getReserveDate);
-  console.log("AA")
-  console.log(parseGetReserveDate);
   if(parseGetReserveDate){
+    console.log(parseGetReserveDate)
     //오늘 이전 예약 
     let subLastReserve = _filter(
       d => d.date < onToday, parseGetReserveDate
@@ -152,11 +154,16 @@ export function clickReserve(reserveHour, reserveMinute){
       d => d.date >= onToday, parseGetReserveDate
     )
 
+    console.log(subLastReserve)
+    console.log(afterReserve)
+
     if(subLastReserve){
         localStorage.setItem("RESERVE_DATE",JSON.stringify(afterReserve));
     }
+    else{
+      localStorage.setItem("RESERVE_DATE",JSON.stringify(parseGetReserveDate.concat(reserveObjArr)));
+    }
 
-    localStorage.setItem("RESERVE_DATE",JSON.stringify(parseGetReserveDate.concat(reserveObjArr)));
   }
   else{
     localStorage.setItem("RESERVE_DATE",JSON.stringify(reserveObjArr));
