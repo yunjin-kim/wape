@@ -143,7 +143,6 @@ export function setCurrentWeight(){
       $weightDiv.classList.remove("hiddenDiv");
       $currnetWeight.textContent = `${parseWeight[parseWeight.length-1]}kg`;
     }
-
   }
   else{
     $noWeightDiv.classList.remove("hiddenDiv");
@@ -234,7 +233,7 @@ export function setWeightChartHeight(weightBoxArr ,weightWeekNum){
         dataPoint++;
       }
       else{
-        reverseWeightBoxArr[divPoint].children[1].style.height = `7px`;
+        reverseWeightBoxArr[divPoint].children[1].style.height = `0px`;
         reverseWeightBoxArr[divPoint].children[0].textContent = "";
         
         if(weightDataArr[weightWeekNum][dataPoint] === ""){

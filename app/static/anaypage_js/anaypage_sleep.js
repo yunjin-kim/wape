@@ -117,8 +117,8 @@ export function rangeSleepData(){
     for(let i = 0; i < 56; i++){
       if(!reverseSleepData[i]) reverseSleepData[i] = "";
       sleepDataArr[sleepDataArrNum].push(reverseSleepData[i]);
-        if(sleepDataArr[sleepDataArrNum].length > 13) sleepDataArrNum++;
-        if(sleepDataArrNum === 4) break;
+      if(sleepDataArr[sleepDataArrNum].length > 13) sleepDataArrNum++;
+      if(sleepDataArrNum === 4) break;
     }
     setSleepDataAverage(sleepDataArr, sleepWeekNum);
   }
@@ -127,7 +127,7 @@ export function rangeSleepData(){
   }
 }
 
-//체중 날짜 세팅 
+//수면 날짜 세팅
 export function setWeightDate(sleepBoxArr, sleepWeekNum){
   
   let oneMonthDateArr = [];
@@ -149,7 +149,7 @@ export function setWeightDate(sleepBoxArr, sleepWeekNum){
   }
 }
 
-//체중 차트 값 넣어주기
+//수면 차트 값 넣어주기
 export function setSleepChartHeight(sleepBoxArr ,sleepWeekNum){
   let reverseSleepBoxArr = sleepBoxArr.slice().reverse()
   let divPoint = 0;
@@ -165,9 +165,9 @@ export function setSleepChartHeight(sleepBoxArr ,sleepWeekNum){
         dataPoint++;
       }
       else{
-        reverseSleepBoxArr[divPoint].children[1].style.height = "7px";
-        reverseSleepBoxArr[divPoint].children[0].textContent = "";
-
+          reverseSleepBoxArr[divPoint].children[1].style.height = "0px";
+          reverseSleepBoxArr[divPoint].children[0].textContent = "";
+          
         if(sleepDataArr[sleepWeekNum][dataPoint] === ""){
           if(sleepDataArr[sleepWeekNum][dataPoint-1] === ""){//날짜값도 ""고 체중값도 ""라면 초기에 데이터 없을 때
             divPoint++;
