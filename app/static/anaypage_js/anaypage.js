@@ -12,8 +12,8 @@ export let weightWeekNum = 0;
 export let sleepWeekNum = 0;
 
 (function hasStepData(){
-  setGraphDate();
   onStepData();
+  setGraphDate();
 })();
 
 export function hadStepData(){
@@ -34,12 +34,14 @@ export function hadStepData(){
 function setGraphDate(){
   const $walkDataDays = document.querySelector(".anaypage__walk__graph__day__ul");
   const $goalDays = document.querySelector(".anaypage__goal__check__day__ul");
-  const $weightDays = document.querySelector(".anaypage__weight__graph__day__ul")
+  const $weightDays = document.querySelector(".anaypage__weight__graph__day__ul");
+  const $sleepDays = document.querySelector(".anaypage__sleep__graph__day__ul");
 
   for(let i = 0; i < walkDayArr.length; i++){//하루 데이터 다시 들어올 때 오류
     $walkDataDays.children[i].textContent = walkDayArr[i];
     $goalDays.children[i].textContent = walkDayArr[i];
     $weightDays.children[i].textContent = walkDayArr[i];
+    $sleepDays.children[i].textContent = walkDayArr[i];
   }
 }
 
@@ -166,6 +168,8 @@ function setGoalAchieveBox(goalWeekNum){
       !goal.classList.contains("anaypage__goal__check__wrap")
         ,$goalDataBox.children
   )
+
+  goalBoxArr.reverse()
 
   setGoalAchieve(goalBoxArr, goalWeekNum)
 }
