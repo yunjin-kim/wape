@@ -21,23 +21,23 @@ router.get('/find', isNotLoggedIn, (req, res)=>{
   res.sendFile(path.join(__dirname, '..','/static','/login_html','/find.html'))
 });
 
-router.get('/main',isNotLoggedIn, (req, res, next)=>{ 
+router.get('/main',isLoggedIn, (req, res, next)=>{ 
   res.sendFile(path.join(__dirname, '..','/static','/mainpage_html','/mainpage.html'))
 });
 
-router.get('/bank',isNotLoggedIn, (req, res, next)=>{ 
+router.get('/bank',isLoggedIn, (req, res, next)=>{ 
   res.sendFile(path.join(__dirname, '..','/static','/mainpage_html','/bankpage.html'))
 });
 
-router.get('/map',isNotLoggedIn, (req, res, next)=>{ 
+router.get('/map',isLoggedIn, (req, res, next)=>{ 
   res.sendFile(path.join(__dirname, '..','/static','/mainpage_html','/mappage.html'))
 });
 
-router.get('/anay',isNotLoggedIn, (req, res, next)=>{ 
+router.get('/anay',isLoggedIn, (req, res, next)=>{ 
   res.sendFile(path.join(__dirname, '..','/static','/mainpage_html','/anaypage.html'))
 });
 
-router.get('/profile',isNotLoggedIn,(req, res, next)=>{
+router.get('/profile',isLoggedIn,(req, res, next)=>{
   res.sendFile(path.join(__dirname, '..','/static','/mainpage_html','/profilepage.html'))
 })
 
