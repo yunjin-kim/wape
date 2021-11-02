@@ -143,8 +143,8 @@ export function clickReserve(reserveHour, reserveMinute){
 
   let getReserveDate = localStorage.getItem("RESERVE_DATE");
   let parseGetReserveDate = JSON.parse(getReserveDate);
-  if(parseGetReserveDate){
-    console.log(parseGetReserveDate)
+  console.log(parseGetReserveDate)
+  if(parseGetReserveDate.length > 0){
     //오늘 이전 예약 
     let subLastReserve = _filter(
       d => d.date < onToday, parseGetReserveDate
@@ -157,7 +157,7 @@ export function clickReserve(reserveHour, reserveMinute){
     console.log(subLastReserve)
     console.log(afterReserve)
 
-    if(subLastReserve){
+    if(subLastReserve.length > 0){
         localStorage.setItem("RESERVE_DATE",JSON.stringify(afterReserve));
     }
     else{
