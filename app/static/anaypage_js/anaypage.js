@@ -11,21 +11,13 @@ let goalWeekNum = 0
 export let weightWeekNum = 0;
 export let sleepWeekNum = 0;
 
-//걸음수 주 평균, 총합
-export function setWeekStepData(weekSumStep){
-  const $weekStepAverage = document.querySelector(".anaypage__walk__weekAverage");
-  const $wekkStepSum = document.querySelector(".anaypage__walk__accure__weekValue");
-  $weekStepAverage.textContent = parseInt(weekSumStep/7);
-  $wekkStepSum.textContent = weekSumStep;
-}
-
 (function hasStepData(){
+  setGraphDate();
   onStepData();
 })();
 
 export function hadStepData(){
   setStepChart(weekNum);
-  setGraphDate();
   setWeekPercent();
   ifNoGoal();
   setGoalWeight();
@@ -49,6 +41,14 @@ function setGraphDate(){
     $goalDays.children[i].textContent = walkDayArr[i];
     $weightDays.children[i].textContent = walkDayArr[i];
   }
+}
+
+//걸음수 주 평균, 총합
+export function setWeekStepData(weekSumStep){
+  const $weekStepAverage = document.querySelector(".anaypage__walk__weekAverage");
+  const $wekkStepSum = document.querySelector(".anaypage__walk__accure__weekValue");
+  $weekStepAverage.textContent = parseInt(weekSumStep/7);
+  $wekkStepSum.textContent = weekSumStep;
 }
 
 //걸음수 차트
