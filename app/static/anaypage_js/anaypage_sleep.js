@@ -128,12 +128,13 @@ export function rangeSleepData(){
 }
 
 //수면 날짜 세팅
-export function setWeightDate(sleepBoxArr, sleepWeekNum){
+export function setSleepDate(sleepBoxArr, sleepWeekNum){
   
   let oneMonthDateArr = [];
   let todayDate = onToday;
   todayDate -= sleepWeekNum*7;
-  for(let i = 0; i <= 29; i++){
+  if(todayDate < 0) todayDate = lastMonthDate + todayDate;
+  for(let i = 0; i <= 7; i++){
     let date = todayDate - i;
     if(date === 0){
       for(let j = 0; j <= 30 - oneMonthDateArr.length; j++){
@@ -147,6 +148,7 @@ export function setWeightDate(sleepBoxArr, sleepWeekNum){
   for(let i = 0; i < 7; i++){
     sleepBoxArr[6-i].id = oneMonthDateArr[i];
   }
+  console.log(sleepBoxArr)
 }
 
 //수면 차트 값 넣어주기

@@ -195,12 +195,13 @@ export function rangeWeightData(){
   }
 }
 
-//체중 날짜 세팅 
+//체중 날짜 세팅 다시
 export function setWeightDate(weightBoxArr, weightWeekNum){
   
   let oneMonthDateArr = [];
   let todayDate = onToday;
   todayDate -= weightWeekNum*7;
+  if(todayDate < 0) todayDate = lastMonthDate + todayDate;
   for(let i = 0; i <= 29; i++){
     let date = todayDate - i;
     if(date === 0){
@@ -215,6 +216,8 @@ export function setWeightDate(weightBoxArr, weightWeekNum){
   for(let i = 0; i < 7; i++){
     weightBoxArr[6-i].id = oneMonthDateArr[i];
   }
+
+  console.log(weightBoxArr)
 }
 
 //체중 차트 값 넣어주기

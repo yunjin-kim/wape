@@ -4,7 +4,7 @@ import { _filter, _reduce } from '../fx.js';
 import { onStepData, walkDayArr, setStepChartHeight, percentData, setWeekPercent } from './anaypage_step.js';
 import { setGoalAchieve, goalStep } from './anaypage_goal.js';
 import { showGoalWeihgtModal, setGoalWeight, showWeihgtModal, setCurrentWeight, setuntilGoalWeight, weightDataArr, rangeWeightData, setWeightChartHeight, setWeightDate } from './anaypage_weight.js';
-import { showSleepModal, rangeSleepData, setCurrentSleep, setSleepChartHeight, sleepDataArr } from './anaypage_sleep.js';
+import { showSleepModal, rangeSleepData, setCurrentSleep, setSleepChartHeight, sleepDataArr, setSleepDate } from './anaypage_sleep.js';
 
 let weekNum = 0;
 let goalWeekNum = 0
@@ -310,7 +310,7 @@ export function setSleepChart(sleepWeekNum){
       sleep.classList.contains("anaypage__sleep__graph__graph")
         ,$sleepBox.children
   )
-  setWeightDate(sleepBoxArr, sleepWeekNum);
+  setSleepDate(sleepBoxArr, sleepWeekNum);
   setSleepChartHeight(sleepBoxArr, sleepWeekNum);
 }
 

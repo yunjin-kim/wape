@@ -46,6 +46,7 @@ function getGoogleStepCount(googleStepCountUrl){
 //받아온 JSON 데이터의 마지막 데이터의 endTime의 날짜가 오늘 날짜보다 작다면 밑에 함수를 실행하지 않고 모달을 띄운다
 function saveStepToLocal(json){
   console.log(json)
+  console.log(json.steps_count[json.steps_count.length - 1].endTime[0] + json.steps_count[json.steps_count.length - 1].endTime[1])
   if(json.steps_count[json.steps_count.length - 1].endTime[0] + json.steps_count[json.steps_count.length - 1].endTime[1] !== onToday){
     showUpdateDataModal();
   }
