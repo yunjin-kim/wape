@@ -167,5 +167,8 @@ export function clickReserve(reserveHour, reserveMinute){
   if(parseGetReserveDate){
     localStorage.setItem("RESERVE_DATE",JSON.stringify(parseGetReserveDate.concat(reserveObjArr)));
   }
+  else{
+    localStorage.setItem("RESERVE_DATE",JSON.stringify(reserveObjArr));
+  }
 }
 

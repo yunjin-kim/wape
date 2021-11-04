@@ -3,21 +3,19 @@ import { getCookie } from "./mainpage_profile.js";
 import { renderCalendar, thisYear, thisMonth, daysArray, clickReserveDate } from "./mainpage_calendar.js";
 import { holeDayArr, holeDateArr, clickDate, hourArr, minuteArr, setClickDateArr, clickReserve, setDateDay, beforeReseveDelete } from "./mainpage_reserve.js";
 import { showSetGoalModal, getTodayStep, setStepGragh } from './mainpage_goal.js';
-// import { getData } from './mainpage_todayWalk.js';
-// getData();
 
 const $thisYearMonth = document.querySelector('.thisYearMonth');
 const $calendarDays = document.querySelector('.mainpage__calendar__day');
 const $bookDate = document.querySelector('.mainpage__book__date');
 const $bookDays = $bookDate.children;
 
-(function hasStepData(){
+(function hasStepData() {
   let getStepDate = localStorage.getItem("STEP_DATA");
   let parseGetStepDate= JSON.parse(getStepDate);
   setDateDay();
   beforeReseveDelete();
 
-  if(parseGetStepDate){
+  if(parseGetStepDate) {
     enterMainpage();
   }
   renderCalendar();
@@ -26,7 +24,7 @@ const $bookDays = $bookDate.children;
   setQuote();
 })()
 
-function enterMainpage(){
+function enterMainpage() {
   stepGoal();
   setGoalTodayStep();
   setGoalGraph();
@@ -34,21 +32,20 @@ function enterMainpage(){
 };
 
 //걷기 효능
-function setQuote(){
+function setQuote() {
   const $quote = document.querySelector('.quote');
   $quote.textContent = quoteSentence;
 }
 
-
 //프로필
-function setProfile(){
+function setProfile() {
   const $profileName = document.getElementById('profileName');
   $profileName.textContent = getCookie();
 }
 
 
 //오늘 날씨
-async function loadWeather(){
+async function loadWeather() {
   const $atmosCon = document.querySelector('.mainpage__weather__weather');
   const $temp = document.querySelector('.mainpage__weather__temp');
   const $hightemp = document.querySelector('.mainpage__weather__hightemp');
@@ -57,7 +54,7 @@ async function loadWeather(){
 
   let {weatherData, tempData, maxTempData, minTempData, lat, lon } = await import('./mainpage_weather.js');
   console.log(lat, lon)
-  if(weatherData){
+  if(weatherData) {
     $atmosCon.textContent = weatherData;
     $temp.textContent = tempData;
     $hightemp.textContent = maxTempData;
@@ -65,7 +62,7 @@ async function loadWeather(){
   }
   else{
     //동적으로 모듈 가져오기
-    setTimeout(()=>{
+    setTimeout(() => {
       loadWeather()
     },10000)
   }
@@ -75,8 +72,8 @@ async function loadWeather(){
 $thisYearMonth.textContent = `${thisYear}.${thisMonth+1}`;
 $calendarDays.innerHTML = daysArray.join(' ');
 
-$calendarDays.addEventListener('click',(e)=>{
-  if(e.target.classList.contains("walkingDay")){
+$calendarDays.addEventListener('click', (e) => {
+  if(e.target.classList.contains("walkingDay")) {
     clickReserveDate(e);
   }
 })
@@ -84,9 +81,8 @@ $calendarDays.addEventListener('click',(e)=>{
 
 //걷기 알림
 //이번달의 마지막날도 불러와서 예약할 날짜가 마지막 날짜를 넘어가면 1일로 바뀔 수 있게 되는지 확인 필요
-function setBookDate(){
-
-  for(let i = 0; i < 7; i++){
+function setBookDate() {
+  for(let i = 0; i < 7; i++) {
     $bookDays[i].children[0].textContent = holeDayArr[i];
     $bookDays[i].children[1].textContent = holeDateArr[i];
     $bookDays[i].children[0].classList.add("dateSpan");
@@ -95,33 +91,32 @@ function setBookDate(){
   }
 }
 
-
 //언제 걸을까요 버튼들
-$bookDate.addEventListener('click', (e)=>{
+$bookDate.addEventListener('click', (e) => {
   setClickDateArr(e)
   clickDate(e)
 })
 
 //몇시에 걸을까요 시
 const $selectHour = document.querySelector(".selectHour");
-for(let i = 0; i < hourArr.length; i++){
+for(let i = 0; i < hourArr.length; i++) {
   $selectHour.append(hourArr[i])
 }
 
 //먗시에 걸을까요 분
 const $selectMinute = document.querySelector(".selectMinute");
-for(let i = 0; i < minuteArr.length; i++){
+for(let i = 0; i < minuteArr.length; i++) {
   $selectMinute.append(minuteArr[i])
 }
 
 //예약버튼
 const $reserveBtn = document.querySelector(".reserveBtn");
-$reserveBtn.addEventListener('click',(e)=>{
+$reserveBtn.addEventListener('click', (e) => {
   e.preventDefault();
   let reserveHour = $selectHour.options[$selectHour.selectedIndex].textContent;
   let reserveMinute = $selectMinute.options[$selectMinute.selectedIndex].textContent;
 
-  for(let i = 0; i < 7; i++){
+  for(let i = 0; i < 7; i++) {
     $bookDays[i].classList.remove("backgroundGreen");
   }
   //같은 날 같은 시 같은 분일 때 겹치는 문제
@@ -130,15 +125,15 @@ $reserveBtn.addEventListener('click',(e)=>{
 })
 
 //로컬스토리지에서 예약한 날짜 가져오기
-function getResreveDate(){
+function getResreveDate() {
   let getReserveDate = localStorage.getItem("RESERVE_DATE")
   let parseGetReserveDate = JSON.parse(getReserveDate);
 
-  if(parseGetReserveDate){
-    for(let i = 0; i < $calendarDays.children.length; i++){
-      parseGetReserveDate.forEach((reDate)=>{
-        if(reDate.date === $calendarDays.children[i].textContent){
-          $calendarDays.children[i].classList.add("walkingDay")
+  if(parseGetReserveDate) {
+    for(let i = 0; i < $calendarDays.children.length; i++) {
+      parseGetReserveDate.forEach((reDate) => {
+        if(reDate.date === $calendarDays.children[i].textContent) {
+          $calendarDays.children[i].classList.add("walkingDay");
         }
       })
     }
@@ -149,12 +144,12 @@ getResreveDate();
 
 //목표 걸음 모달
 const $walkIcon = document.querySelector(".mainpage__walk__icon");
-$walkIcon.addEventListener('click', (e)=>{
+$walkIcon.addEventListener('click', (e) => {
   showSetGoalModal(e);
 })
 
 //목표 걸음 데이터
-export function stepGoal(){
+export function stepGoal() {
   const $stepGoal = document.querySelector(".setGoal");
   const $setMoney = document.querySelector(".setMoney");
   let myGoalStep = localStorage.getItem("STEP_GOAL");
@@ -168,7 +163,7 @@ export function stepGoal(){
 }
 
 //오늘 걸음 데이터
-function setGoalTodayStep(){
+function setGoalTodayStep() {
   const $todayStep = document.querySelector(".todayStep");
   const $todayMoney = document.querySelector(".todayMoney");
   $todayStep.textContent = getTodayStep();
@@ -176,11 +171,11 @@ function setGoalTodayStep(){
 }
 
 //목표 걸음 수 그래프 
-export function setGoalGraph(){
+export function setGoalGraph() {
   const $myStepDataGragh = document.querySelector(".mainpage__walk__graph__my");
   const $myMoneyDataGragph = document.querySelector(".mainpage__money__graph__my");
   let stepGragh = 230*setStepGragh();
-  if(stepGragh > 230){
+  if(stepGragh > 230) {
     stepGragh = 230;
   }
   $myStepDataGragh.style = `width: ${stepGragh}px`;

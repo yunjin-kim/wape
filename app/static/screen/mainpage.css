@@ -450,13 +450,22 @@
   border: none;
   font-size: 20px;
 }
+.modalTimeDiv{
+  display: flex;
+}
 .reserveModalDate {
   margin-left: 30px;
   margin-top: 10px;
 }
 .reserveModalTime {
   margin-left: 30px;
-  margin-top: 10px;
+  /* margin-top: 10px; */
+}
+.reserveDelete{
+  width: 20px;
+  height: 20px;
+  border: none;
+  background-color: white;
 }
 .goalModal {
   width: 250px;
