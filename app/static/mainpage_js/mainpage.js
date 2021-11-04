@@ -1,7 +1,7 @@
 import { quoteSentence } from "./mainpage_quote.js";
 import { getCookie } from "./mainpage_profile.js";
 import { renderCalendar, thisYear, thisMonth, daysArray, clickReserveDate } from "./mainpage_calendar.js";
-import { holeDayArr, holeDateArr, clickDate, hourArr, minuteArr, setClickDateArr, clickReserve, setDateDay } from "./mainpage_reserve.js";
+import { holeDayArr, holeDateArr, clickDate, hourArr, minuteArr, setClickDateArr, clickReserve, setDateDay, beforeReseveDelete } from "./mainpage_reserve.js";
 import { showSetGoalModal, getTodayStep, setStepGragh } from './mainpage_goal.js';
 // import { getData } from './mainpage_todayWalk.js';
 // getData();
@@ -15,6 +15,7 @@ const $bookDays = $bookDate.children;
   let getStepDate = localStorage.getItem("STEP_DATA");
   let parseGetStepDate= JSON.parse(getStepDate);
   setDateDay();
+  beforeReseveDelete();
 
   if(parseGetStepDate){
     enterMainpage();

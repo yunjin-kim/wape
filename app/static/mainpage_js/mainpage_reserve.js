@@ -4,17 +4,15 @@ import { _filter, _map } from "../fx.js";
 const date = new Date();
 const todayDates = new Date();
 export const onToday = todayDates.getDate();
-
 export const todayDay = date.getDay();
-let todayDays = todayDay;
 export const holeDay = ['월','화','수','목','금','토','일'];
+let todayDays = todayDay;
 let todayDate = date.getDate();
 const thisYear = date.getFullYear();
 const thisMonth = date.getMonth();
 const thisLast = new Date(thisYear, thisMonth+1, 0)
 export const lastMonthDate = new Date(thisYear, thisMonth, 0).getDate()
 const thisLastDate = thisLast.getDate();
-
 export const holeDayArr = [];
 export const holeDateArr = [];
 
@@ -127,6 +125,28 @@ export function setClickDateArr(e){
   }
 }
 
+//이전 걷기 예약 제거
+export function beforeReseveDelete(){
+  let getReserveDate = localStorage.getItem("RESERVE_DATE");
+  let parseGetReserveDate = JSON.parse(getReserveDate);
+
+  if(parseGetReserveDate){
+    //오늘 이전 예약 
+    let subLastReserve = _filter(
+      d => d.date < onToday, parseGetReserveDate
+    )
+    if(subLastReserve){
+      //오늘 포함 이후 예약
+      let afterReserve = _filter(
+        d => d.date >= onToday, parseGetReserveDate
+      )
+      if(subLastReserve.length > 0){
+          localStorage.setItem("RESERVE_DATE",JSON.stringify(afterReserve));
+      }
+    }
+  }
+}
+
 //예약 기능
 export function clickReserve(reserveHour, reserveMinute){
   const reserveObjArr = [];
@@ -145,29 +165,7 @@ export function clickReserve(reserveHour, reserveMinute){
   let parseGetReserveDate = JSON.parse(getReserveDate);
   console.log(parseGetReserveDate)
   if(parseGetReserveDate){
-    //오늘 이전 예약 
-    let subLastReserve = _filter(
-      d => d.date < onToday, parseGetReserveDate
-    )
-    //오늘 이후 예약
-    let afterReserve = _filter(
-      d => d.date >= onToday, parseGetReserveDate
-    )
-
-    console.log(subLastReserve)
-    console.log(afterReserve)
-
-    if(subLastReserve.length > 0){
-        localStorage.setItem("RESERVE_DATE",JSON.stringify(afterReserve));
-    }
-    else{
-      localStorage.setItem("RESERVE_DATE",JSON.stringify(parseGetReserveDate.concat(reserveObjArr)));
-    }
-
+    localStorage.setItem("RESERVE_DATE",JSON.stringify(parseGetReserveDate.concat(reserveObjArr)));
   }
-  else{
-    localStorage.setItem("RESERVE_DATE",JSON.stringify(reserveObjArr));
-  }
-  
 }
 
