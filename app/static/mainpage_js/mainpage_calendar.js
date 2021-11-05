@@ -1,7 +1,10 @@
+import { getResreveDate } from "./mainpage.js";
+
 const date = new Date();
 export const thisYear = date.getFullYear();
 export const thisMonth = date.getMonth();
 export let daysArray = [];
+
 export function renderCalendar() {
   const thisDay = date.getDate();
 
@@ -99,7 +102,7 @@ function showReserveModal(walkingArr, reserveIconClickEvent) {
   const modalTimeDiv = document.createElement('div');
   modalTimeDiv.classList.add("modalTimeDiv")
 
-  for(let reserveTime of walkingArr){
+  for(let reserveTime of walkingArr) {
     let modalTime = document.createElement('p');
     modalTime.textContent = (`${reserveTime.hour}시 ${reserveTime.minute}분`);
     modalTime.classList.add("reserveModalTime")
@@ -109,17 +112,14 @@ function showReserveModal(walkingArr, reserveIconClickEvent) {
     modalTimeDelete.textContent = "X";
     modalTimeDelete.classList.add("reserveDelete");
     modalTimeDelete.addEventListener('click', (e) => {
-
-      for(let i = 0; i < parseGetReserveDate.length; i++){
+      for(let i = 0; i < parseGetReserveDate.length; i++) {
         if(parseGetReserveDate[i].date === e.target.parentNode.previousSibling.textContent.match(/[^일,시,분, ]/gm).join(''))
         if((parseGetReserveDate[i].hour + parseGetReserveDate[i].minute) === e.target.previousSibling.textContent.match(/[^일,시,분, ]/gm).join(''))
         parseGetReserveDate.splice(i, 1);
       }
-
-      console.log(e.target.parentNode.previousSibling.textContent.match(/[^일,시,분, ]/gm).join(''))
-      console.log(e.target.previousSibling.textContent.match(/[^일,시,분, ]/gm).join(''))
-      //배열값 다시 로컬로 넣어주기
-      console.log(parseGetReserveDate)
+      localStorage.setItem("RESERVE_DATE", JSON.stringify(parseGetReserveDate));
+      modalDiv.remove();
+      getResreveDate();
     })
     modalTimeDiv.append(modalTimeDelete);
   }

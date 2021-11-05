@@ -14,7 +14,7 @@ const $bookDays = $bookDate.children;
   let parseGetStepDate= JSON.parse(getStepDate);
   setDateDay();
   beforeReseveDelete();
-
+  
   if(parseGetStepDate) {
     enterMainpage();
   }
@@ -42,7 +42,6 @@ function setProfile() {
   const $profileName = document.getElementById('profileName');
   $profileName.textContent = getCookie();
 }
-
 
 //오늘 날씨
 async function loadWeather() {
@@ -121,25 +120,32 @@ $reserveBtn.addEventListener('click', (e) => {
   }
   //같은 날 같은 시 같은 분일 때 겹치는 문제
   clickReserve(reserveHour, reserveMinute);
-  getResreveDate()
+  getResreveDate();
 })
 
 //로컬스토리지에서 예약한 날짜 가져오기
-function getResreveDate() {
+export function getResreveDate() {
+  console.log("실행")
   let getReserveDate = localStorage.getItem("RESERVE_DATE")
   let parseGetReserveDate = JSON.parse(getReserveDate);
 
+  console.log(parseGetReserveDate)
+
   if(parseGetReserveDate) {
+    console.log($calendarDays.children)
     for(let i = 0; i < $calendarDays.children.length; i++) {
-      parseGetReserveDate.forEach((reDate) => {
-        if(reDate.date === $calendarDays.children[i].textContent) {
-          $calendarDays.children[i].classList.add("walkingDay");
-        }
-      })
+      if($calendarDays.children[i].classList.contains("thisMonth")){
+
+        parseGetReserveDate.forEach((reDate) => {
+          if(reDate.date === $calendarDays.children[i].textContent) {
+            $calendarDays.children[i].classList.add("walkingDay");
+          }
+  
+        })
+      }
     }
   };
 }
-
 getResreveDate();
 
 //목표 걸음 모달
