@@ -22,7 +22,7 @@ https://notefolio.net/sion11290805/250934
 - Node.js 의 express를 활용하여 서버, 로그인, 회원가입을 구현했고 MySQL에 회원 정보를 저장합니다
 
 ## 메인 페이지
-![screencapture-localhost-8880-page-main-2021-11-07-07_17_26](https://user-images.githubusercontent.com/79692272/140625349-0f6d0fc4-7b6a-4854-a033-4f861e7eb119.png)
+<img src="https://user-images.githubusercontent.com/79692272/140625349-0f6d0fc4-7b6a-4854-a033-4f861e7eb119.png" width="350">
 
 - 유저가 목표 걸음 수를 정할 수 있습니다
 - 유저가 걷고 싶은 시간대에 걷기를 계획할 수 있습니다
