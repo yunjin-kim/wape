@@ -15,9 +15,9 @@ https://notefolio.net/sion11290805/250934
 
 ## 로그인 회원가입 페이지
 
-![screencapture-localhost-8880-page-login-2021-11-02-21_16_45](https://user-images.githubusercontent.com/79692272/140051090-6b7de78c-4b02-4e23-877b-d1fea70863da.png)
+<img src="https://user-images.githubusercontent.com/79692272/140051090-6b7de78c-4b02-4e23-877b-d1fea70863da.png" width="350">
 
-![screencapture-localhost-8880-page-join-2021-11-02-21_16_59](https://user-images.githubusercontent.com/79692272/140051127-7abf0f74-a619-4929-a1e2-c003f00c41a5.png)
+<img src="https://user-images.githubusercontent.com/79692272/140051127-7abf0f74-a619-4929-a1e2-c003f00c41a5.png" width="350">
 
 - Node.js 의 express를 활용하여 서버, 로그인, 회원가입을 구현했고 MySQL에 회원 정보를 저장합니다
 
@@ -31,7 +31,7 @@ https://notefolio.net/sion11290805/250934
 - 유저가 입력한 정보를 화면에 바로 볼 수 있게 설계하였습니다
 
 ## 분석 페이지
-![screencapture-localhost-8880-page-anay-2021-11-02-21_12_57](https://user-images.githubusercontent.com/79692272/140052178-7f922754-3181-4678-b619-b751c476b4a7.png)
+<img src="https://user-images.githubusercontent.com/79692272/140052178-7f922754-3181-4678-b619-b751c476b4a7.png" width="350">
 
 - 구글 fitness를 통해 유저의 장보를 불러올려고 했으나 현재는 noCodeApi를 활용하여 제 데이터만 가져와서 활용하고 있습니다
 - 유저의 걸음수에 대한 다양한 통계치를 제공합니다
@@ -40,12 +40,12 @@ https://notefolio.net/sion11290805/250934
 - 데이터로 화면을 구성하므로 데이터에 대한 예외처리를 신경써서 설계하였습니다
 
 ## 은행 페이지
-![screencapture-localhost-8880-page-bank-2021-11-02-21_13_13](https://user-images.githubusercontent.com/79692272/140052758-2ea6e9ea-c9d0-4b4c-ad05-911f29957fc0.png)
+<img src="https://user-images.githubusercontent.com/79692272/140052758-2ea6e9ea-c9d0-4b4c-ad05-911f29957fc0.png" width="350">
 
 - 유저의 한달동안의 데이터를 활용하여 다양한 정보를 제공합니다
 
 ## 지도 페이지
-![screencapture-localhost-8880-page-map-2021-11-02-21_14_11](https://user-images.githubusercontent.com/79692272/140052917-14051626-abc8-4f9e-b4ad-4e04d488d030.png)
+<img src="https://user-images.githubusercontent.com/79692272/140052917-14051626-abc8-4f9e-b4ad-4e04d488d030.png" width="350">
 
 - 카카오 지도 API를 활용하였습니다
 - 유저에게 다양한 걷기 코스를 제공합니다
