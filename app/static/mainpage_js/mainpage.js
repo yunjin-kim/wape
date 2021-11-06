@@ -123,24 +123,19 @@ $reserveBtn.addEventListener('click', (e) => {
   getResreveDate();
 })
 
-//로컬스토리지에서 예약한 날짜 가져오기
+//달력에 예약한 날짜 아이콘으로 표시
 export function getResreveDate() {
-  console.log("실행")
-  let getReserveDate = localStorage.getItem("RESERVE_DATE")
+  let getReserveDate = localStorage.getItem("RESERVE_DATE");
   let parseGetReserveDate = JSON.parse(getReserveDate);
 
-  console.log(parseGetReserveDate)
-
   if(parseGetReserveDate) {
-    console.log($calendarDays.children)
     for(let i = 0; i < $calendarDays.children.length; i++) {
-      if($calendarDays.children[i].classList.contains("thisMonth")){
-
+      $calendarDays.children[i].classList.remove("walkingDay");
+      if($calendarDays.children[i].classList.contains("thisMonth")) {
         parseGetReserveDate.forEach((reDate) => {
           if(reDate.date === $calendarDays.children[i].textContent) {
             $calendarDays.children[i].classList.add("walkingDay");
           }
-  
         })
       }
     }
