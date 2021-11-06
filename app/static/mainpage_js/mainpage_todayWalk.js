@@ -50,6 +50,6 @@ function showTodayStepData(stepData) {
     dottStartTimeText.style.left = `${i*90}px`;
     dottEndTimeText.style.left = `${i*90}px`;
     console.log(dottStepText)
-    $noTodayStepDataText.append(stepDataDott, dottStepText, dottStartTimeText, dottEndTimeText);
+    $noTodayStepDataText.append(stepDataDott, dottStepText);
   }
 }
