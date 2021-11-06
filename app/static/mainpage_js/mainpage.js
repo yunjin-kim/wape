@@ -3,6 +3,8 @@ import { getCookie } from "./mainpage_profile.js";
 import { renderCalendar, thisYear, thisMonth, daysArray, clickReserveDate } from "./mainpage_calendar.js";
 import { holeDayArr, holeDateArr, clickDate, hourArr, minuteArr, setClickDateArr, clickReserve, setDateDay, beforeReseveDelete } from "./mainpage_reserve.js";
 import { showSetGoalModal, getTodayStep, setStepGragh } from './mainpage_goal.js';
+import { getTodayStepData } from './mainpage_todayWalk.js';
+
 
 const $thisYearMonth = document.querySelector('.thisYearMonth');
 const $calendarDays = document.querySelector('.mainpage__calendar__day');
@@ -12,6 +14,7 @@ const $bookDays = $bookDate.children;
 (function hasStepData() {
   let getStepDate = localStorage.getItem("STEP_DATA");
   let parseGetStepDate= JSON.parse(getStepDate);
+  getTodayStepData()
   setDateDay();
   beforeReseveDelete();
   

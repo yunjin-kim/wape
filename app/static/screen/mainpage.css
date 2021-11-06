@@ -196,6 +196,7 @@
   height: 18vh;
   background-color: var(--sub-background);
   border-radius: 20px;
+  position: relative;
 }
 .mainpage__book {
   width: 100%;
@@ -375,7 +376,6 @@
   border-radius: 14px;
   box-sizing: border-box;
   padding: 1vh 3.2vw 1vh 3.2vw;
-  border: 1px solid black;
   display: flex;
   justify-content: space-between;
 }
@@ -408,7 +408,6 @@
 .mainpage__weather__dust {
   width: 24vw;
   height: 5vh;
-  border: 1px solid red;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -505,4 +504,19 @@
   border-radius: 10px;
   margin-top: 20px;
   margin-left: 88px;
+}
+.stepDataDott{
+  width: 7px;
+  height: 7px;
+  background-color: var(--main-color);
+  border-radius: 5px;
+  position: absolute;
+  margin-left: 20px;
+}
+.dottStepText,
+.dottEndTimeText,
+.dottStartTimeText{
+  position: absolute;
+  font-size: 10px;
+  margin-left: 10px;
 }
