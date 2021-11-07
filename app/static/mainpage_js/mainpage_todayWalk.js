@@ -1,5 +1,6 @@
 const googleTodayStepCountUrl = "https://v1.nocodeapi.com/kimyunjun/fit/lHneRLggDPetxSfn/aggregatesDatasets?dataTypeName=steps_count&timePeriod=today&durationTime=hourly";
 const $noTodayStepDataText = document.querySelector(".mainpage__today__main");
+const $todayWalkWrap = document.querySelector(".mainpage__today__main");
 
 async function getTodayStepApi() {
   const response = await fetch(googleTodayStepCountUrl);
@@ -21,6 +22,7 @@ export async function getTodayStepData() {
 
 function showTodayStepData(stepData) {
   console.log(stepData)
+  $todayWalkWrap.style.width = `${stepData.length*90}px`;
   for(let i = 0; i < stepData.length; i++) {
     let stepDataDott = document.createElement('div');
     let dottStepText = document.createElement('span')
@@ -49,7 +51,6 @@ function showTodayStepData(stepData) {
     dottStepText.style.left = `${i*90}px`;
     dottStartTimeText.style.left = `${i*90}px`;
     dottEndTimeText.style.left = `${i*90}px`;
-    console.log(dottStepText)
     $noTodayStepDataText.append(stepDataDott, dottStepText);
   }
 }
