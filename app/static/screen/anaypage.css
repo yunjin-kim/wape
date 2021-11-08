@@ -44,7 +44,7 @@
 }
 .anaypage__walk__graph__box {
   width: 100%;
-  height: 12vh;
+  height: 18vh;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -60,7 +60,7 @@
 }
 .anaypage__walk__graph__graph {
   width: 7vw;
-  height: 12vh;
+  height: 14vh;
   display: flex;
   flex-direction: column;
   align-items: center;

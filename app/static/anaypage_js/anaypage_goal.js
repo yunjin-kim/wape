@@ -1,4 +1,4 @@
-import { chartDateArr } from './anaypage_step.js';
+import { chartDataArr } from './anaypage_step.js';
 export let goalStep = localStorage.getItem("STEP_GOAL");
 
 //목표 달성 유무
@@ -10,10 +10,10 @@ export function setGoalAchieve(goalBoxArr, goalWeekNum){
       goalBoxArr[i].classList.remove("acheiveGoal", "NotAcheiveGoal");
     }
     for(let i = 0; i < goalBoxArr.length; i++){
-      if(chartDateArr[goalWeekNum][i].value >= goalStep){
+      if(chartDataArr[goalWeekNum][i].value >= goalStep){
         goalBoxArr[i].classList.add("acheiveGoal")
       }
-      else if(chartDateArr[goalWeekNum][i].value < goalStep){
+      else if(chartDataArr[goalWeekNum][i].value < goalStep){
         goalBoxArr[i].classList.add("NotAcheiveGoal")
       }
     }

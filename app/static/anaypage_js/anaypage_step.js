@@ -6,84 +6,84 @@ const googleStepCountUrl = 'https://v1.nocodeapi.com/kimyunjun/fit/lHneRLggDPetx
 //처음에 데이터가 로컬에 없다면 로컬에 저장되는건 되지만 chart배열에 값이 들어가지는 않음 함수 다시 실행될 수 있게
 
 //걸음수 api
-export function onStepData(){
+export function onStepData() {
   let getStepDate = localStorage.getItem("STEP_DATA");
 
   //로컬에 저장된 데이터가 없다면
-  if(!getStepDate){
-    console.log("로컬에 데이터 없다")
+  if(!getStepDate) {
+    console.log("로컬에 데이터 없다");
     getGoogleStepCount(googleStepCountUrl);
   }
-  else if(getStepDate){
+  else if(getStepDate) {
     let parseGetStepDate= JSON.parse(getStepDate);
     //onToday 날짜랑 로컬 데이터의 endtime에 날짜랑 비교해서 onToday 날짜가 크면 데이터 새로 불러올 수 있게
     let localLastDate = parseGetStepDate.steps_count[parseGetStepDate.steps_count.length-1].endTime[0]+parseGetStepDate.steps_count[parseGetStepDate.steps_count.length-1].endTime[1];
-    console.log(localLastDate, onToday)
-    if(localLastDate <= onToday-1){
-      console.log("다음날이 되었다")
+    console.log(localLastDate, onToday);
+    if(localLastDate <= onToday-1) {
+      console.log("다음날이 되었다");
       getGoogleStepCount(googleStepCountUrl);
     }
-    if(onToday === 1 && onToday < localLastDate){
-      console.log("다음달이 되었다")
+    if(onToday === 1 && onToday < localLastDate) {
+      console.log("다음달이 되었다");
       getGoogleStepCount(googleStepCountUrl);
     }
-    else{ //anaypage 42번줄 오류 해결됬는지 확인 필요
-      setStepDate()
+    else { //anaypage 42번줄 오류 해결됬는지 확인 필요
+      setStepDate();
       rangeStepData();
-      hadStepData()
+      hadStepData();
     }
   }
 }
 
-function getGoogleStepCount(googleStepCountUrl){
-  console.log("API 호출")
+function getGoogleStepCount(googleStepCountUrl) {
+  console.log("API 호출");
   return fetch(googleStepCountUrl)
   .then(response => response.json())
   .then(json => saveStepToLocal(json))
-  .catch(error => console.log('error', error));
+  .catch(error => console.log('error', error))
 };
 
 //받아온 JSON 데이터의 마지막 데이터의 endTime의 날짜가 오늘 날짜보다 작다면 밑에 함수를 실행하지 않고 모달을 띄운다
-function saveStepToLocal(json){
+function saveStepToLocal(json) {
   console.log(json)
-  console.log(json.steps_count[json.steps_count.length - 1].endTime[0] + json.steps_count[json.steps_count.length - 1].endTime[1])
-  if(json.steps_count[json.steps_count.length - 1].endTime[0] + json.steps_count[json.steps_count.length - 1].endTime[1] !== onToday){
+  console.log(json.steps_count[json.steps_count.length - 1].endTime[0] + json.steps_count[json.steps_count.length - 1].endTime[1]);
+  if(json.steps_count[json.steps_count.length - 1].endTime[0] + json.steps_count[json.steps_count.length - 1].endTime[1] !== onToday) {
     showUpdateDataModal();
   }
   localStorage.setItem("STEP_DATA", JSON.stringify(json));
-  setStepDate()
+  setStepDate();
   rangeStepData();
   hadStepData();
 }
 
 //걸음 데이터가 동기화 되지 않음에 대한 모달
-function showUpdateDataModal(){
+function showUpdateDataModal() {
   const $anaypageWalkTitle = document.querySelector(".anaypage__walk__title");
   const updateDataModalDiv = document.createElement('div');
-  updateDataModalDiv.classList.add("updateDataModal")
+  updateDataModalDiv.classList.add("updateDataModal");
 
   const updateDataModalClose = document.createElement('button');
   updateDataModalClose.textContent = "X";
   updateDataModalClose.classList.add("updateDataModalClose")
   updateDataModalDiv.append(updateDataModalClose);
-  updateDataModalDiv.addEventListener('click',()=>{
+  updateDataModalDiv.addEventListener('click', () => {
     updateDataModalDiv.remove();
   })
   updateDataModalDiv.append(updateDataModalClose);
 
   const updateDataTitle = document.createElement('h3');
   updateDataTitle.classList.add("updateDataModalTitle");
-  updateDataTitle.innerHTML = "<p>걸음 데이터가 <br/>동기화 되지 않았습니다</p><br/><p>구글 피트니스 앱에서<br/>동기화 해주세요</p>"
+  updateDataTitle.innerHTML = "<p>걸음 데이터가 <br/>동기화 되지 않았습니다</p><br/><p>구글 피트니스 앱에서<br/>동기화 해주세요</p>";
   updateDataModalDiv.append(updateDataTitle);
 
   $anaypageWalkTitle.append(updateDataModalDiv)
 }
 
 //걸음 수 요일
-function setStepDate(){
+function setStepDate() {
   let walkDataDay = todayDay;
 
-  for(let i = 0; i < 7; i++){
+  for(let i = 0; i < 7; i++) {
     if(walkDataDay === -1) walkDataDay = 6;
     if(walkDataDay >= 7) walkDataDay = 0;
     walkDataDay++;
@@ -92,31 +92,38 @@ function setStepDate(){
 }
 
 export const walkDayArr = [];
-export const chartDateArr = [[], [], [], []]
+export const chartDataArr = [[], [], [], []]
 
 //배열에 걸음수 데이터 넣기
-function rangeStepData(){
+function rangeStepData() {
   let getStepDate = localStorage.getItem("STEP_DATA");
   let parseGetStepDate= JSON.parse(getStepDate);
   let reserveGetStepDate = parseGetStepDate.steps_count.reverse();
 
-  for(let i = 0; i < chartDateArr.length; i++){
-    while(reserveGetStepDate.length){
-      if(chartDateArr[i].length >= 7) break;
-      chartDateArr[i].push(reserveGetStepDate[0]);
-      reserveGetStepDate.shift()
+  for(let i = 0; i < chartDataArr.length; i++) {
+    while(reserveGetStepDate.length) {
+      if(chartDataArr[i].length >= 7) break;
+      chartDataArr[i].push(reserveGetStepDate[0]);
+      reserveGetStepDate.shift();
     }
   }
 }
 
 //걸음수 관련 처리
 export let weekSumStep = 0;
-export function setStepChartHeight(chartBarArr, weekNum){
+export function setStepChartHeight(chartBarArr, weekNum) {
   weekSumStep = 0;
-  for(let i = chartBarArr.length-1; i >= 0; i--){
-    weekSumStep += chartDateArr[weekNum][i].value;
-    chartBarArr[i].children[1].style.height = `${chartDateArr[weekNum][6-i].value/100}px`;
-    chartBarArr[i].children[0].textContent = chartDateArr[weekNum][6-i].value;
+  let chartDataArrFlat = chartDataArr.flat();
+  let monthSumStep = 0;
+  for(let i = 0; i < chartDataArrFlat.length; i++) {
+    monthSumStep += chartDataArrFlat[i].value;
+  }
+  let charBarHeightDivide = parseInt(monthSumStep/1200);
+  
+  for(let i = chartBarArr.length-1; i >= 0; i--) {
+    weekSumStep += chartDataArr[weekNum][i].value;
+    chartBarArr[i].children[1].style.height = `${chartDataArr[weekNum][6-i].value/charBarHeightDivide}px`;
+    chartBarArr[i].children[0].textContent = chartDataArr[weekNum][6-i].value;
   }
   setWeekStepData(weekSumStep)
 }
@@ -126,10 +133,10 @@ export let percentData = 0;
 export function setWeekPercent(){
   const dataSumArr = [];
 
-  for(let i = 0; i < chartDateArr.length; i++){
+  for(let i = 0; i < chartDataArr.length; i++){
     dataSumArr.push(
       _reduce(_add,
-        _map(data => data.value, chartDateArr[i])))
+        _map(data => data.value, chartDataArr[i])))
   }
     if(dataSumArr[0] === weekSumStep){
       percentData = parseInt(dataSumArr[0]/dataSumArr[1]*10);
