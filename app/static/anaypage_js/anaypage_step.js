@@ -115,49 +115,50 @@ export function setStepChartHeight(chartBarArr, weekNum) {
   weekSumStep = 0;
   let chartDataArrFlat = chartDataArr.flat();
   let monthSumStep = 0;
+
   for(let i = 0; i < chartDataArrFlat.length; i++) {
     monthSumStep += chartDataArrFlat[i].value;
   }
   let charBarHeightDivide = parseInt(monthSumStep/1200);
-  
+
   for(let i = chartBarArr.length-1; i >= 0; i--) {
     weekSumStep += chartDataArr[weekNum][i].value;
     chartBarArr[i].children[1].style.height = `${chartDataArr[weekNum][6-i].value/charBarHeightDivide}px`;
     chartBarArr[i].children[0].textContent = chartDataArr[weekNum][6-i].value;
   }
-  setWeekStepData(weekSumStep)
+  setWeekStepData(weekSumStep);
 }
 
 //저번주 대비 퍼센트
 export let percentData = 0;
-export function setWeekPercent(){
+export function setWeekPercent() {
   const dataSumArr = [];
 
-  for(let i = 0; i < chartDataArr.length; i++){
+  for(let i = 0; i < chartDataArr.length; i++) {
     dataSumArr.push(
       _reduce(_add,
         _map(data => data.value, chartDataArr[i])))
   }
-    if(dataSumArr[0] === weekSumStep){
+    if(dataSumArr[0] === weekSumStep) {
       percentData = parseInt(dataSumArr[0]/dataSumArr[1]*10);
-      if(dataSumArr[0] < dataSumArr[1]){
+      if(dataSumArr[0] < dataSumArr[1]) {
         percentData = -percentData;
       }
     }
-    else if(dataSumArr[1] === weekSumStep){
+    else if(dataSumArr[1] === weekSumStep) {
       percentData = parseInt(dataSumArr[1]/dataSumArr[2]*10);
-      if(dataSumArr[1] < dataSumArr[2]){
+      if(dataSumArr[1] < dataSumArr[2]) {
         percentData = -percentData;
       }
     }
-    else if(dataSumArr[2] === weekSumStep){
+    else if(dataSumArr[2] === weekSumStep) {
       percentData = parseInt(dataSumArr[2]/dataSumArr[3]*10);
-      if(dataSumArr[2] < dataSumArr[3]){
+      if(dataSumArr[2] < dataSumArr[3]) {
         percentData = -percentData;
       }
     }
-    else if(dataSumArr[3] === weekSumStep){
-      percentData="";
+    else if(dataSumArr[3] === weekSumStep) {
+      percentData = "";
     }
-    showWeekPercent()
+    showWeekPercent();
 }

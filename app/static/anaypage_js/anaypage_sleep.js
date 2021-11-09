@@ -148,7 +148,6 @@ export function setSleepDate(sleepBoxArr, sleepWeekNum){
   for(let i = 0; i < 7; i++){
     sleepBoxArr[6-i].id = oneMonthDateArr[i];
   }
-  console.log(sleepBoxArr)
 }
 
 //수면 차트 값 넣어주기
