@@ -21,30 +21,36 @@ export function getBankStepData(){
 function setBankData(totalStepData){
   let currentTitleNum;
   let bankTotalPrice = totalStepData*5;
-  let bankTotalMoneyGraphText;
+  let bankMoneyGraghMax;
+  let bankMoneyGraghMin;
 
   if(bankTotalPrice >= 0 &&  bankTotalPrice <= 100000){
-    bankTotalMoneyGraphText = 100000;
+    bankMoneyGraghMax = 100000;
+    bankMoneyGraghMin = 0;
     currentTitleNum = 0;
   }
   else if(bankTotalPrice > 100000 &&  bankTotalPrice <= 500000){
-    bankTotalMoneyGraphText = 500000;
+    bankMoneyGraghMax = 500000;
+    bankMoneyGraghMin = 100000;
     currentTitleNum = 1;
   }
   else if(bankTotalPrice > 500000 &&  bankTotalPrice <= 1000000){
-    bankTotalMoneyGraphText = 1000000;
+    bankMoneyGraghMax = 1000000;
+    bankMoneyGraghMin = 500000;
     currentTitleNum = 2;
   }
   else if(bankTotalPrice > 1000000 &&  bankTotalPrice <= 3000000){
-    bankTotalMoneyGraphText = 3000000;
+    bankMoneyGraghMax = 3000000;
+    bankMoneyGraghMin = 1000000;
     currentTitleNum = 3;
   }
   else if(bankTotalPrice > 3000000 &&  bankTotalPrice <= 10000000){
-    bankTotalMoneyGraphText= 10000000;
+    bankMoneyGraghMax= 10000000;
+    bankMoneyGraghMin = 3000000;
     currentTitleNum = 4;
   }
   
-  setBankMoneyGraph(bankTotalPrice, bankTotalMoneyGraphText);
+  setBankMoneyGraph(bankTotalPrice, bankMoneyGraghMax, bankMoneyGraghMin);
   setTitle(currentTitleNum, allTitles)
 }
 

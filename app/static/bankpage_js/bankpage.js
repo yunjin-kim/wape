@@ -39,17 +39,16 @@ export function setBankTotalData(totalStepData){
 }
 
 //총 자산 그래프
-export function setBankMoneyGraph(bankTotalPrice, bankTotalMoneyGraphText){
+export function setBankMoneyGraph(bankTotalPrice, bankMoneyGraghMax, bankMoneyGraghMin){
   const $bankTotalMoney = document.querySelector(".bankTotalMoney");
-  const $bankMyMoneyGraphText = document.querySelector(".bankMyMoneyGraphText");
-  const $bankTotalMoneyGraphText = document.querySelector(".bankTotalMoneyGraphText");
+  const $bankMoneyGraghMin = document.querySelector(".bankMoneyGraghMin");
+  const $bankMoneyGraghMax = document.querySelector(".bankMoneyGraghMax");
   const $bankMyMoneyGraph = document.querySelector(".bankpage__asset__graph__my");
 
-  $bankTotalMoneyGraphText.textContent = bankTotalMoneyGraphText;
-  $bankMyMoneyGraph.style = `width: ${bankTotalPrice/bankTotalMoneyGraphText*230}px`;
-
+  $bankMoneyGraghMax.textContent = bankMoneyGraghMax;
+  $bankMoneyGraghMin.textContent = bankMoneyGraghMin;
+  $bankMyMoneyGraph.style = `width: ${bankTotalPrice/bankMoneyGraghMax*230}px`;
   $bankTotalMoney.textContent = bankTotalPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-  $bankMyMoneyGraphText.textContent = bankTotalPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 }
 
 //칭호
