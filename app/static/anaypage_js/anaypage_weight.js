@@ -99,9 +99,7 @@ export function showWeihgtModal(e) {
     let getTotalWeightData = localStorage.getItem("CURRENT_WEIGHT");
     let parseTotalWeightData = JSON.parse(getTotalWeightData);
 
-    console.log(parseTotalWeightData);
     parseTotalWeightData[0][0][2] = currnetWeight;
-    console.log(parseTotalWeightData)
     localStorage.setItem("CURRENT_WEIGHT", JSON.stringify(parseTotalWeightData))
   
     weightModalDiv.remove();
@@ -153,6 +151,7 @@ export function setuntilGoalWeight() {
 
 // 체중 데이터 로직
 export function rangeWeightData() {
+  const weightDataArr = [[], [], [], []];
   const date = new Date();
   const thisYear = date.getFullYear();
   const lastMonth = date.getMonth();
@@ -161,11 +160,9 @@ export function rangeWeightData() {
   const prevLastDate = prevLast.getDate();
   let dateNum  = onToday+1;
   let monthNum = thisMonth;
-  let weightDataArr = [[], [], [], []];
   let weightDataArrNum = 0;
   let getTotalWeightData = localStorage.getItem("CURRENT_WEIGHT");
   let parseTotalWeightData = JSON.parse(getTotalWeightData);
-  
   
   if(parseTotalWeightData) { //로컬에 데이터가 있다면
     if(parseTotalWeightData[0][0][1] !== onToday) { //오늘 날짜와 다르다면

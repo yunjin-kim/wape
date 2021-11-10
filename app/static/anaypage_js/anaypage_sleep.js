@@ -36,29 +36,21 @@ export function showSleepModal(e){
   sleepSubmitBtn.classList.add("sleepSubmitBtn");
   sleepSubmitBtn.textContent = "시간 입력";
 
-  sleepSubmitBtn.addEventListener('click', ()=>{
+  sleepSubmitBtn.addEventListener('click', ()=> {
     let getTotalSleepData = localStorage.getItem("CURRENT_SLEEP");
     let parseTotalSleepData = JSON.parse(getTotalSleepData);
 
-  if(parseTotalSleepData){
-    if(parseTotalSleepData[parseTotalSleepData.length - 2] === measureDay){
-      console.log(parseTotalSleepData)
-      parseTotalSleepData.pop();
-      parseTotalSleepData.pop();
-      console.log(parseTotalSleepData)
-      console.log(parseTotalSleepData.concat([measureDay, currnetSleep]))
-      localStorage.setItem("CURRENT_SLEEP", JSON.stringify(parseTotalSleepData.concat([measureDay, currnetSleep])));
-    }
-  }
-  else{
-    localStorage.setItem("CURRENT_SLEEP", JSON.stringify([measureDay, currnetSleep]));
-  }
-  sleepModalDiv.remove();
-  $noSleepDiv.classList.add("hiddenDiv");
+    parseTotalSleepData[0][0][2] = currnetSleep;
+    localStorage.setItem("CURRENT_SLEEP", JSON.stringify(parseTotalSleepData));
 
-  rangeSleepData();
-  setCurrentSleep();
-  setSleepChart(sleepWeekNum);
+
+    sleepModalDiv.remove();
+    $noSleepDiv.classList.add("hiddenDiv");
+    
+    rangeSleepData();
+    setCurrentSleep();
+    setSleepChart(sleepWeekNum);
+    setSleepDataAverage(sleepWeekNum);
   });
   
   sleepModalDiv.append(sleepSubmitBtn);
@@ -69,20 +61,19 @@ export function showSleepModal(e){
 export function setCurrentSleep(){
   const $currnetSleep = document.querySelector(".currnetSleep");
   const $sleepDiv = document.querySelector(".anaypage__sleep__current");
-  let getSleep = localStorage.getItem("CURRENT_SLEEP");
-  let parseSleep = JSON.parse(getSleep);
+  let getTotalSleepData = localStorage.getItem("CURRENT_SLEEP");
+  let parseTotalSleepData = JSON.parse(getTotalSleepData);
 
-  if(parseSleep){
-    if(parseSleep[parseSleep.length - 1] === ""){
+  if(parseTotalSleepData){
+    if(parseTotalSleepData[0][0][2] === ""){
       $noSleepDiv.classList.remove("hiddenDiv");
       $sleepDiv.classList.add("hiddenDiv");
       $noSleepDiv.innerHTML = `<span class="noWeight">수면 시간을 적어주세요</span>`;
     }
     else{
       $sleepDiv.classList.remove("hiddenDiv");
-      $currnetSleep.textContent = `${parseSleep[parseSleep.length-1]}`;
+      $currnetSleep.textContent = `${parseTotalSleepData[0][0][2]}`;
     }
-
   }
   else{
     $noSleepDiv.classList.remove("hiddenDiv");
@@ -91,39 +82,69 @@ export function setCurrentSleep(){
   }
 }
 
-export let sleepDataArr = [[], [], [], []];
-// 들어왔는데 체중을 입력하지 않으면 그래프에서 해당 날짜가 밀리기 때문에 입력하지 않으면 빈값으로 넣어주기
-//그러나 앱 자체를 들어오지 않는다면?
-// 오랜만에 들어온다? -> 로컬에 있는 데이터 로칼 길이 -2 값을 찾는다 -> 찾은 값 +1 부터 오늘 날짜까지 -> 날짜,"" 이렇게 넣어준다
-//근데 만약에 안 들어온 날짜가 29일이고 다시 들어온 날짜가 2일 이라면 -> 로컬 -2 데이터가 오늘 날짜 보다 크다면 -> 로컬 -2에서 저번달 마지막 날짜까지하고 1일부터 오늘 날짜까지 넣어준다
-export function rangeSleepData(){
+export function rangeSleepData() {
+  const sleepDataArr = [[], [], [], []];
+  const date = new Date();
+  const thisYear = date.getFullYear();
+  const lastMonth = date.getMonth();
+  const thisMonth = lastMonth + 1;
+  const prevLast = new Date(thisYear, lastMonth, 0)
+  const prevLastDate = prevLast.getDate();
+  let dateNum  = onToday+1;
+  let monthNum = thisMonth;
+  let sleepDataArrNum = 0;
   let getTotalSleepData = localStorage.getItem("CURRENT_SLEEP");
   let parseTotalSleepData = JSON.parse(getTotalSleepData);
+  
+  if(parseTotalSleepData) { //로컬에 데이터가 있다면
+    if(parseTotalSleepData[0][0][1] !== onToday) { //오늘 날짜와 다르다면
+      console.log("다음날이 되었다")
+      for(let i = 0; i < 28; i++) {
+        dateNum -= 1;
+        if(dateNum === 0) {
+          dateNum = prevLastDate;
+          monthNum = lastMonth;
+        }
+        sleepDataArr[sleepDataArrNum].push([monthNum, dateNum, ""]);
+        if(sleepDataArr[sleepDataArrNum].length === 7) {
+          sleepDataArrNum++;
+        }
+      }
+      let sleepDataArrFlat = sleepDataArr.flat();
+      let parseTotalSleepDataFlat = parseTotalSleepData.flat();
 
-  if(!parseTotalSleepData ){
-    localStorage.setItem("CURRENT_SLEEP", JSON.stringify([onToday, ""]));
-  }
-
-  if(parseTotalSleepData){
-    let isSleepToday = parseTotalSleepData.find((date)=> date === onToday)
-
-    if(!isSleepToday){
-      localStorage.setItem("CURRENT_SLEEP", JSON.stringify(parseTotalSleepData.concat([onToday, ""])));
+      let localPoint = 0;
+      let dataPoint = 0;
+      while(localPoint < 27 || dataPoint < 27) {
+        if(parseTotalSleepDataFlat[0][0] < sleepDataArrFlat[dataPoint][0]) { //로컬 첫번재 값의 달보다 새로만든 배열의 달이 더 크다
+          dataPoint++;
+        }
+        else if(parseTotalSleepDataFlat[localPoint][0] === sleepDataArrFlat[dataPoint][0] && parseTotalSleepDataFlat[localPoint][1] !== sleepDataArrFlat[dataPoint][1] ) {
+          //달은 같으나 날짜가 다르다
+          dataPoint++;
+        }
+        else if(parseTotalSleepDataFlat[localPoint][0] === sleepDataArrFlat[dataPoint][0] && parseTotalSleepDataFlat[localPoint][1] === sleepDataArrFlat[dataPoint][1]) {
+          sleepDataArrFlat[dataPoint][2] = parseTotalSleepDataFlat[localPoint][2];
+          dataPoint++;
+          localPoint++;
+        }
+      }
+      localStorage.setItem("CURRENT_SLEEP", JSON.stringify(sleepDataArr));
     }
-    let reverseSleepData = parseTotalSleepData.reverse();
-    
-    let sleepDataArrNum = 0;
-    sleepDataArr = [[], [], [], []];
-    for(let i = 0; i < 56; i++){
-      if(!reverseSleepData[i]) reverseSleepData[i] = "";
-      sleepDataArr[sleepDataArrNum].push(reverseSleepData[i]);
-      if(sleepDataArr[sleepDataArrNum].length > 13) sleepDataArrNum++;
-      if(sleepDataArrNum === 4) break;
-    }
-    setSleepDataAverage(sleepDataArr, sleepWeekNum);
   }
-  else{
-    console.log("데이터 없다")
+  else if(!parseTotalSleepData) { //로컬에 데이터 없다면 초기 상태
+    for(let i = 0; i < 28; i++) {
+      dateNum -= 1;
+      if(dateNum === 0) {
+        dateNum = prevLastDate;
+        monthNum = lastMonth;
+      }
+      sleepDataArr[sleepDataArrNum].push([monthNum, dateNum, ""]);
+      if(sleepDataArr[sleepDataArrNum].length === 7) {
+        sleepDataArrNum++;
+      }
+    }
+    localStorage.setItem("CURRENT_SLEEP", JSON.stringify(sleepDataArr));
   }
 }
 
@@ -151,45 +172,20 @@ export function setSleepDate(sleepBoxArr, sleepWeekNum){
 }
 
 //수면 차트 값 넣어주기
-export function setSleepChartHeight(sleepBoxArr ,sleepWeekNum){
-  let reverseSleepBoxArr = sleepBoxArr.slice().reverse()
-  let divPoint = 0;
-  let dataPoint = 0;
-  
-  if(sleepDataArr[0].length > 0){
+export function setSleepChartHeight(sleepBoxArr ,sleepWeekNum) {
+  let reverseSleepBoxArr = sleepBoxArr.slice().reverse();
 
-    while(divPoint !== reverseSleepBoxArr.length){
-      if(Number(reverseSleepBoxArr[divPoint].id) === (sleepDataArr[sleepWeekNum][dataPoint])){
-        reverseSleepBoxArr[divPoint].children[1].style.height = `${sleepDataArr[sleepWeekNum][dataPoint-1]*10}px`;
-        reverseSleepBoxArr[divPoint].children[0].textContent = sleepDataArr[sleepWeekNum][dataPoint-1];
-        divPoint++;
-        dataPoint++;
-      }
-      else{
-          reverseSleepBoxArr[divPoint].children[1].style.height = "0px";
-          reverseSleepBoxArr[divPoint].children[0].textContent = "";
-          
-        if(sleepDataArr[sleepWeekNum][dataPoint] === ""){
-          if(sleepDataArr[sleepWeekNum][dataPoint-1] === ""){//날짜값도 ""고 체중값도 ""라면 초기에 데이터 없을 때
-            divPoint++;
-          }
-          else{
-            dataPoint++;
-          }
-        }
-        else if(sleepDataArr[sleepWeekNum][dataPoint] < 32 && sleepDataArr[sleepWeekNum][dataPoint] === "string"){
-            divPoint++
-        }
-        else{
-          dataPoint++
-        }
-      }
-      if(divPoint > 30 || dataPoint > 30){
-        break;
-      }
+  let getTotalSleepData = localStorage.getItem("CURRENT_SLEEP");
+  let parseTotalSleepData = JSON.parse(getTotalSleepData);
+
+  for(let i = 0; i < parseTotalSleepData[sleepWeekNum].length; i++) {
+    if(parseTotalSleepData[sleepWeekNum][i][2] > 0) {
+      reverseSleepBoxArr[i].children[1].style.height = `${parseTotalSleepData[sleepWeekNum][i][2]*10}px`;
+      reverseSleepBoxArr[i].children[0].textContent = `${parseTotalSleepData[sleepWeekNum][i][2]}`;
     }
-  }
-  else{
-    console.log("데이터 없다")
+    else {
+      reverseSleepBoxArr[i].children[1].style.height = "0px";
+      reverseSleepBoxArr[i].children[0].textContent = "";
+    }
   }
 }

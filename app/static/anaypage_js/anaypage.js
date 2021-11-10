@@ -4,7 +4,7 @@ import { _filter, _reduce } from '../fx.js';
 import { onStepData, walkDayArr, setStepChartHeight, percentData, setWeekPercent } from './anaypage_step.js';
 import { setGoalAchieve, goalStep } from './anaypage_goal.js';
 import { showGoalWeihgtModal, setGoalWeight, showWeihgtModal, setCurrentWeight, setuntilGoalWeight, rangeWeightData, setWeightChartHeight, setWeightDate } from './anaypage_weight.js';
-import { showSleepModal, rangeSleepData, setCurrentSleep, setSleepChartHeight, sleepDataArr, setSleepDate } from './anaypage_sleep.js';
+import { showSleepModal, rangeSleepData, setCurrentSleep, setSleepChartHeight, setSleepDate } from './anaypage_sleep.js';
 
 let weekNum = 0;
 let goalWeekNum = 0
@@ -28,6 +28,7 @@ export function hadStepData(){
   setCurrentSleep();
   rangeSleepData();
   setSleepChart(sleepWeekNum);
+  setSleepDataAverage(sleepWeekNum);
 }
 
 //그래프 요일 
@@ -267,7 +268,7 @@ $sleppLeftBtn.addEventListener('click', ()=>{
   sleepWeekNum++;
   setSleepBtn();
   setSleepChart(sleepWeekNum);
-  setSleepDataAverage(sleepDataArr, sleepWeekNum)
+  setSleepDataAverage(sleepWeekNum)
 })
 
 //수면 오른쪽 버튼
@@ -276,7 +277,7 @@ $sleepRightBtn.addEventListener('click', ()=>{
   sleepWeekNum--;
   setSleepBtn();
   setSleepChart(sleepWeekNum);
-  setSleepDataAverage(sleepDataArr, sleepWeekNum)
+  setSleepDataAverage(sleepWeekNum)
 })
 
 //수면 버튼 show/hidden
@@ -319,15 +320,18 @@ export function setSleepChart(sleepWeekNum){
 }
 
 //수면 일평균 주간 누적
-export function setSleepDataAverage(sleepDataArr, sleepWeekNum){
+export function setSleepDataAverage(sleepWeekNum){
   const $sleepDateAverage = document.querySelector(".sleepDateAverage");
   const $sleepDataWeekTotal = document.querySelector(".sleepDataWeekTotal");
+
+  let getTotalSleepData = localStorage.getItem("CURRENT_SLEEP");
+  let parseTotalSleepData = JSON.parse(getTotalSleepData);
 
   let weekSleepData = [];
   let totalSleepData = 0;
 
-  sleepDataArr[sleepWeekNum].map((data)=>{
-    typeof(data) === "string" && data !== "" ? weekSleepData.push(data) : null
+  parseTotalSleepData[sleepWeekNum].map((data)=>{
+    data[2] === "" ? "" : weekSleepData.push(data[2]);
   })
 
   for(let data of weekSleepData){

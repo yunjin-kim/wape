@@ -1,6 +1,6 @@
 import { quoteSentence } from "./mainpage_quote.js";
 import { getCookie } from "./mainpage_profile.js";
-import { renderCalendar, thisYear, thisMonth, daysArray, clickReserveDate } from "./mainpage_calendar.js";
+import { renderCalendar, thisYear, prevMonth, daysArray, clickReserveDate } from "./mainpage_calendar.js";
 import { holeDayArr, holeDateArr, clickDate, hourArr, minuteArr, setClickDateArr, clickReserve, setDateDay, beforeReseveDelete } from "./mainpage_reserve.js";
 import { showSetGoalModal, getTodayStep, setStepGragh } from './mainpage_goal.js';
 import { getTodayStepData } from './mainpage_todayWalk.js';
@@ -71,7 +71,7 @@ async function loadWeather() {
 }
 
 //달력 
-$thisYearMonth.textContent = `${thisYear}.${thisMonth+1}`;
+$thisYearMonth.textContent = `${thisYear}.${prevMonth+1}`;
 $calendarDays.innerHTML = daysArray.join(' ');
 
 $calendarDays.addEventListener('click', (e) => {
