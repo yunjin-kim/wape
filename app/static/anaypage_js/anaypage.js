@@ -3,7 +3,7 @@
 import { _filter, _reduce } from '../fx.js';
 import { onStepData, walkDayArr, setStepChartHeight, percentData, setWeekPercent } from './anaypage_step.js';
 import { setGoalAchieve, goalStep } from './anaypage_goal.js';
-import { showGoalWeihgtModal, setGoalWeight, showWeihgtModal, setCurrentWeight, setuntilGoalWeight, weightDataArr, rangeWeightData, setWeightChartHeight, setWeightDate } from './anaypage_weight.js';
+import { showGoalWeihgtModal, setGoalWeight, showWeihgtModal, setCurrentWeight, setuntilGoalWeight, rangeWeightData, setWeightChartHeight, setWeightDate } from './anaypage_weight.js';
 import { showSleepModal, rangeSleepData, setCurrentSleep, setSleepChartHeight, sleepDataArr, setSleepDate } from './anaypage_sleep.js';
 
 let weekNum = 0;
@@ -21,8 +21,8 @@ export function hadStepData(){
   setWeekPercent();
   ifNoGoal();
   setGoalWeight();
-  setCurrentWeight();
   rangeWeightData()
+  setCurrentWeight();
   setWeightChart(weightWeekNum);
   untilGoalWeight();
   setCurrentSleep();
@@ -243,9 +243,13 @@ export function setWeightChart(weightWeekNum){
 
 //목표 체중까지
 export function untilGoalWeight(){
+
+  let getTotalWeightData = localStorage.getItem("CURRENT_WEIGHT");
+  let parseTotalWeightData = JSON.parse(getTotalWeightData);
+
   const $untilGoalWeight = document.querySelector(".untilGoalWeight");
-  if(weightDataArr[0].length > 0){
-    if(weightDataArr[0][0] === ""){
+  if(parseTotalWeightData[0].length > 0){
+    if(parseTotalWeightData[0][0][2] === ""){
       $untilGoalWeight.parentNode.parentNode.parentNode.classList.add("hiddenDiv")
     }
     else{
