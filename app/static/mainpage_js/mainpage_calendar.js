@@ -1,45 +1,26 @@
 import { getResreveDate } from "./mainpage.js";
 
-const date = new Date();
-export const thisYear = date.getFullYear();
-export const prevMonth = date.getMonth();
+export const date = new Date();
+
 export let daysArray = [];
-export const prevLast = new Date(thisYear, prevMonth, 0)
+const thisYear = date.getFullYear();
+const prevMonth = date.getMonth();
+const prevLast = new Date(thisYear, prevMonth, 0)
 
 export function renderCalendar() {
   const thisDay = date.getDate();
-
-  let thisLast = new Date(thisYear, prevMonth+1, 0)
-
-  //저번달 마지막날
-  const prevLastDate = prevLast.getDate();
-  //저번달 마지막 요일
-  const prevLastDay = prevLast.getDay();
-
-  //이번달 마지막날
-  const thisLastDate = thisLast.getDate();
-  //이번달 마지막 요일
-  const thisLastDay = thisLast.getDay();
-
-  // let daysArray = [];
-
-  //달력 첫번째 칸에 들어갈 숫자
-  const firstDayCalc = prevLastDate - prevLastDay;
-  //달력 마지막 칸에 들어갈 숫자
-  const lastDayCalc = 6 - thisLastDay;
-
-  //자반달이 달력에 들어가는 수
-  for(let i = firstDayCalc;  i <= prevLastDate; i++ ) {
+  const thisLast = new Date(thisYear, prevMonth+1, 0)
+  for(let i = prevLast.getDate() -  prevLast.getDay();  i <= prevLast.getDate(); i++ ) {
     daysArray.push(i);
   }
 
   //이번달이 달력에 들아가는 수
-  for(let i = 1; i <= thisLastDate; i++ ) {
+  for(let i = 1; i <= thisLast.getDate(); i++ ) {
     daysArray.push(i);
   }
 
   //다음달이 달력에 들어가는 수 
-  for(let i = 1; i <= lastDayCalc; i++) {
+  for(let i = 1; i <= 6 - thisLast.getDay(); i++) {
     daysArray.push(i);
   }
   
@@ -47,10 +28,10 @@ export function renderCalendar() {
   const todayMonth = today.getMonth()+1;
 
   daysArray.forEach((date, i) => {
-    if(i >= 0 && i <= prevLastDay || i >= daysArray.length - lastDayCalc) {
+    if(i >= 0 && i <=  prevLast.getDay() || i >= daysArray.length - (6 - thisLast.getDay())) {
       daysArray[i] = `<div class="NotThisMonth">${date}</div>`
     }
-    else if(i === thisDay + prevLastDay && prevMonth+1 === todayMonth ) {
+    else if(i === thisDay +  prevLast.getDay() && prevMonth+1 === todayMonth ) {
       daysArray[i] = `<div class="today thisMonth">${date}</div>`;
     }
     else{
@@ -61,10 +42,10 @@ export function renderCalendar() {
 
 //달력 걷기 이미지 클릭
 export function clickReserveDate(reserveIconClickEvent) {
-  let getReserveDate = localStorage.getItem("RESERVE_DATE")
-  let parseGetReserveDate = JSON.parse(getReserveDate);
+  const getReserveDate = localStorage.getItem("RESERVE_DATE")
+  const parseGetReserveDate = JSON.parse(getReserveDate);
   const walkingArr = [];
-  //하루에 두번할 수 있기 때문에 배열에 map함수 결과를 담아서 함수 실행
+  
   parseGetReserveDate.map((reserveDate) => {
     if(reserveDate.date === reserveIconClickEvent.target.textContent) {
       walkingArr.push(reserveDate);
@@ -75,8 +56,8 @@ export function clickReserveDate(reserveIconClickEvent) {
 
 //예약한 모달
 function showReserveModal(walkingArr, reserveIconClickEvent) {
-  let getReserveDate = localStorage.getItem("RESERVE_DATE")
-  let parseGetReserveDate = JSON.parse(getReserveDate);
+  const getReserveDate = localStorage.getItem("RESERVE_DATE")
+  const parseGetReserveDate = JSON.parse(getReserveDate);
 
   const modalDiv = document.createElement('div');
   modalDiv.classList.add("reserveModal")

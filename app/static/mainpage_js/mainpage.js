@@ -1,9 +1,9 @@
 import { quoteSentence } from "./mainpage_quote.js";
 import { getCookie } from "./mainpage_profile.js";
-import { renderCalendar, thisYear, prevMonth, daysArray, clickReserveDate } from "./mainpage_calendar.js";
+import { renderCalendar, date, daysArray, clickReserveDate } from "./mainpage_calendar.js";
 import { holeDayArr, holeDateArr, clickDate, hourArr, minuteArr, setClickDateArr, clickReserve, setDateDay, beforeReseveDelete } from "./mainpage_reserve.js";
 import { showSetGoalModal, getTodayStep, setStepGragh } from './mainpage_goal.js';
-import { getTodayStepData } from './mainpage_todayWalk.js';
+import { getTodayStepData, showTodayWalkDate } from './mainpage_todayWalk.js';
 
 
 const $thisYearMonth = document.querySelector('.thisYearMonth');
@@ -17,6 +17,7 @@ const $bookDays = $bookDate.children;
   getTodayStepData()
   setDateDay();
   beforeReseveDelete();
+  showTodayWalkDate();
   
   if(parseGetStepDate) {
     enterMainpage();
@@ -71,7 +72,7 @@ async function loadWeather() {
 }
 
 //달력 
-$thisYearMonth.textContent = `${thisYear}.${prevMonth+1}`;
+$thisYearMonth.textContent = `${date.getFullYear()}.${date.getMonth()+1}`;
 $calendarDays.innerHTML = daysArray.join(' ');
 
 $calendarDays.addEventListener('click', (e) => {
