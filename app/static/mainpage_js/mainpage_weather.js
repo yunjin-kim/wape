@@ -1,38 +1,36 @@
-export let weatherData;
-export let tempData;
-export let maxTempData;
-export let minTempData;
-export let lat;
-export let lon;
+import { loadWeather } from './mainpage.js';
+
 const API_KEY = "3f681357220c8b5aada0c70d0d540eaf";
 
-navigator.geolocation.getCurrentPosition(getGeo);
+export function getCurrentLoaction() {
+  navigator.geolocation.getCurrentPosition(getGeo);
+}
 
-function getGeo(event){
-  lat = event.coords.latitude;
-  lon = event.coords.longitude;
+function getGeo(event) {
+  let lat = event.coords.latitude;
+  let lon = event.coords.longitude;
   const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${API_KEY}`;
-  if(lat){
+  if(lat) {
     getWeather(url);
   }
 }
 
-function getWeather(url){
+function getWeather(url) {
   fetch(url)
   .then(response => response.json())
-  .then(data=> {
-    goweather(data)
-  })
+  .then(data=> goweather(data))
   .catch(console.log)
 }
 
-function goweather(data){
-      let weather = data.weather[0].id;
-      weatherData = `${weatherEngToKor(weather)}`;
-      tempData = `${Math.floor(data.main.temp)}°`;
-      maxTempData = `${Math.floor(data.main.temp_max)}°`;
-      minTempData = `${Math.floor(data.main.temp_min)}°`;
-    }
+function goweather(data) {
+  let weather = data.weather[0].id;
+  let weatherData = `${weatherEngToKor(weather)}`;
+  let tempData = `${Math.floor(data.main.temp)}°`;
+  let maxTempData = `${Math.floor(data.main.temp_max)}°`;
+  let minTempData = `${Math.floor(data.main.temp_min)}°`;
+
+  loadWeather(weatherData, tempData, maxTempData, minTempData)
+}
 
 function weatherEngToKor(weaId) {
   const weaArr = [201,200,202,210,211,212,221,230,231,232,

@@ -4,6 +4,7 @@ import { renderCalendar, date, daysArray, clickReserveDate } from "./mainpage_ca
 import { clickDate, holeDay, setTimeOptionAtReserve, setClickDateArr, clickReserve, beforeReseveDelete } from "./mainpage_reserve.js";
 import { showSetGoalModal, getTodayStep, setStepGragh } from './mainpage_goal.js';
 import { getTodayStepData, showTodayWalkDate } from './mainpage_todayWalk.js';
+import { getCurrentLoaction } from './mainpage_weather.js'
 
 const $thisYearMonth = document.querySelector('.thisYearMonth');
 const $calendarDays = document.querySelector('.mainpage__calendar__day');
@@ -15,6 +16,7 @@ const $selectMinute = document.querySelector(".selectMinute");
 (function hasStepData() {
   let getStepDate = localStorage.getItem("STEP_DATA");
   let parseGetStepDate= JSON.parse(getStepDate);
+  getCurrentLoaction();
   getTodayStepData()
   setDateAtReserve();
   setTimeOptionAtReserve()
@@ -25,7 +27,6 @@ const $selectMinute = document.querySelector(".selectMinute");
     enterMainpage();
   }
   renderCalendar();
-  loadWeather();
   setProfile();
   setQuote();
 })()
@@ -49,26 +50,18 @@ function setProfile() {
 }
 
 //오늘 날씨
-async function loadWeather() {
+export function loadWeather(weatherData, tempData, maxTempData, minTempData) {
   const $atmosCon = document.querySelector('.mainpage__weather__weather');
   const $temp = document.querySelector('.mainpage__weather__temp');
   const $hightemp = document.querySelector('.mainpage__weather__hightemp');
   const $lowtemp = document.querySelector('.mainpage__weather__lowtemp');
   const $weatherLocation = document.querySelector('.mainpage__weather__dust__gu');
 
-  let {weatherData, tempData, maxTempData, minTempData, lat, lon } = await import('./mainpage_weather.js');
-  console.log(lat, lon)
   if(weatherData) {
     $atmosCon.textContent = weatherData;
     $temp.textContent = tempData;
     $hightemp.textContent = maxTempData;
     $lowtemp.textContent = minTempData;
-  }
-  else{
-    //동적으로 모듈 가져오기
-    setTimeout(() => {
-      loadWeather()
-    },10000)
   }
 }
 
