@@ -1,4 +1,4 @@
-import { onToday, holeDay, todayDay } from '../mainpage_js/mainpage_reserve.js';
+import { date, onToday, holeDay } from '../mainpage_js/mainpage_reserve.js';
 import { _filter, _map, _reduce, _add } from '../fx.js';
 import { setWeekStepData, showWeekPercent, hadStepData } from './anaypage.js';
 //걸음 데이터가 30개 미만으로 들어오는 것에 대한 예외처리 확인 필요!
@@ -81,7 +81,7 @@ function showUpdateDataModal() {
 
 //걸음 수 요일
 function setStepDate() {
-  let walkDataDay = todayDay;
+  let walkDataDay = date.getDay();
 
   for(let i = 0; i < 7; i++) {
     if(walkDataDay === -1) walkDataDay = 6;

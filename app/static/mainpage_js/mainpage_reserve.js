@@ -1,33 +1,10 @@
 import { _filter, _map } from "../fx.js";
 //전역에 있는거 함수로 감싸주기
 //언제 걸을끼요 날짜
-const date = new Date();
-const todayDates = new Date();
-export const onToday = todayDates.getDate();
-export const todayDay = date.getDay();
+export const date = new Date();
+export const onToday = date.getDate();
 export const holeDay = ['월','화','수','목','금','토','일'];
-let todayDays = todayDay;
-let todayDate = date.getDate();
-const thisYear = date.getFullYear();
-const thisMonth = date.getMonth();
-const thisLast = new Date(thisYear, thisMonth+1, 0)
-export const lastMonthDate = new Date(thisYear, thisMonth, 0).getDate()
-const thisLastDate = thisLast.getDate();
-export const holeDayArr = [];
-export const holeDateArr = [];
-
-// function set
-export function setDateDay(){
-  for(let i = 0; i < 7; i++){
-    todayDays--;
-    if(todayDays === -1) todayDays = 6;
-    holeDayArr.push(holeDay[todayDays]);
-  
-    if(todayDate > thisLastDate) todayDate = 1;
-    holeDateArr.push(todayDate)
-    todayDate++;
-  }
-}
+export const lastMonthDate = new Date(date.getFullYear(), date.getMonth(), 0).getDate()
 
 //언제 걸을까요 클릭하면 background색
 const CLICK_GREEN = 'backgroundGreen';

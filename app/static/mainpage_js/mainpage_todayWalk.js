@@ -61,7 +61,7 @@ function showTodayStepData(stepData) {
       dottStepText.style.top = `${40}px`;
       dottStartTimeText.style.top = `${60}px`;
       dottEndTimeText.style.top = `${70}px`;
-      walkLine.quadraticCurveTo(i*90, i*20, i*90, 55);
+      walkLine.quadraticCurveTo(i*80, i*20, i*90, 55);
     } 
     stepDataDott.style.left = `${i*90}px`;
     dottStepText.style.left = `${i*90}px`;

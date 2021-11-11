@@ -1,10 +1,9 @@
 import { quoteSentence } from "./mainpage_quote.js";
 import { getCookie } from "./mainpage_profile.js";
 import { renderCalendar, date, daysArray, clickReserveDate } from "./mainpage_calendar.js";
-import { holeDayArr, holeDateArr, clickDate, hourArr, minuteArr, setClickDateArr, clickReserve, setDateDay, beforeReseveDelete } from "./mainpage_reserve.js";
+import { clickDate, holeDay,hourArr, minuteArr, setClickDateArr, clickReserve, beforeReseveDelete } from "./mainpage_reserve.js";
 import { showSetGoalModal, getTodayStep, setStepGragh } from './mainpage_goal.js';
 import { getTodayStepData, showTodayWalkDate } from './mainpage_todayWalk.js';
-
 
 const $thisYearMonth = document.querySelector('.thisYearMonth');
 const $calendarDays = document.querySelector('.mainpage__calendar__day');
@@ -15,7 +14,7 @@ const $bookDays = $bookDate.children;
   let getStepDate = localStorage.getItem("STEP_DATA");
   let parseGetStepDate= JSON.parse(getStepDate);
   getTodayStepData()
-  setDateDay();
+  setDateAtReserve();
   beforeReseveDelete();
   showTodayWalkDate();
   
@@ -32,7 +31,6 @@ function enterMainpage() {
   stepGoal();
   setGoalTodayStep();
   setGoalGraph();
-  setBookDate();
 };
 
 //걷기 효능
@@ -81,10 +79,27 @@ $calendarDays.addEventListener('click', (e) => {
   }
 })
 
+function setDateAtReserve(){
+  const holeDayArr = [];
+  const holeDateArr = [];
+  const thisLast = new Date(date.getFullYear(), date.getMonth()+1, 0);
+  let todayDay = date.getDay();
+  let todayDate = date.getDate();
+  
+  for(let i = 0; i < 7; i++){
+    todayDay--;
+    if(todayDay === -1) todayDay = 6;
+    holeDayArr.push(holeDay[todayDay]);
+  
+    if(todayDate > thisLast.getDate()) todayDate = 1;
+    holeDateArr.push(todayDate)
+    todayDate++;
+  }
+  setBookDate(holeDayArr, holeDateArr);
+}
 
 //걷기 알림
-//이번달의 마지막날도 불러와서 예약할 날짜가 마지막 날짜를 넘어가면 1일로 바뀔 수 있게 되는지 확인 필요
-function setBookDate() {
+function setBookDate(holeDayArr, holeDateArr) {
   for(let i = 0; i < 7; i++) {
     $bookDays[i].children[0].textContent = holeDayArr[i];
     $bookDays[i].children[1].textContent = holeDateArr[i];
