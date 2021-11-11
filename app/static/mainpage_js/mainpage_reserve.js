@@ -1,10 +1,11 @@
 import { _filter, _map } from "../fx.js";
-//전역에 있는거 함수로 감싸주기
+import { showTimeOptionAtReserve } from './mainpage.js';
+
 //언제 걸을끼요 날짜
 export const date = new Date();
 export const onToday = date.getDate();
 export const holeDay = ['월','화','수','목','금','토','일'];
-export const lastMonthDate = new Date(date.getFullYear(), date.getMonth(), 0).getDate()
+export const lastMonthDate = new Date(date.getFullYear(), date.getMonth(), 0).getDate();
 
 //언제 걸을까요 클릭하면 background색
 const CLICK_GREEN = 'backgroundGreen';
@@ -12,48 +13,51 @@ const DATE_SPAN = 'dateSpan';
 const COLORED_BOX = 'coloredBox';
 
 export function clickDate(e){
-  if(e.target.classList.contains(COLORED_BOX)){
-
-    if(e.target.classList.contains(CLICK_GREEN)){
-      e.target.classList.remove(CLICK_GREEN)
+  if(e.target.classList.contains(COLORED_BOX)) {
+    if(e.target.classList.contains(CLICK_GREEN)) {
+      e.target.classList.remove(CLICK_GREEN);
     }
-    else{
-      e.target.classList.add(CLICK_GREEN)
+    else {
+      e.target.classList.add(CLICK_GREEN);
     }
   }
 
-  else if(e.target.classList.contains(DATE_SPAN)){
-    
-    if(e.target.parentNode.classList.contains(CLICK_GREEN)){
-      e.target.parentNode.classList.remove(CLICK_GREEN)
+  else if(e.target.classList.contains(DATE_SPAN)) {
+    if(e.target.parentNode.classList.contains(CLICK_GREEN)) {
+      e.target.parentNode.classList.remove(CLICK_GREEN);
     }
-    else{
-      e.target.parentNode.classList.add(CLICK_GREEN)
+    else {
+      e.target.parentNode.classList.add(CLICK_GREEN);
     }
   }
 }
 
-//몇시에 걸을까요 시 option값
-export const hourArr = [];
-  for(let i = 1; i < 24; i++){
-    if(i < 10){
-      i = "0"+i;
+export function setTimeOptionAtReserve() {
+  const hourArr = [];
+  const minuteArr = [];
+  
+  //몇시에 걸을까요 시 option값
+    for(let i = 1; i < 24; i++) {
+      if(i < 10){
+        i = "0"+i;
+      }
+      let option = document.createElement('option');
+      option.textContent = i;
+      hourArr.push(option);
     }
-    let option = document.createElement('option');
-    option.textContent = i;
-    hourArr.push(option);
-  }
+  
+  //몇시에 걸을까요 분 option값
+    for(let i = 1; i < 60; i++){
+      if(i < 10){
+        i = "0"+i;
+      }
+      let option = document.createElement('option');
+      option.textContent = i;
+      minuteArr.push(option);
+    }
+    showTimeOptionAtReserve(hourArr, minuteArr)
+}
 
-//몇시에 걸을까요 분 option값
-export const minuteArr = [];
-  for(let i = 1; i < 60; i++){
-    if(i < 10){
-      i = "0"+i;
-    }
-    let option = document.createElement('option');
-    option.textContent = i;
-    minuteArr.push(option);
-  }
 
 //걷기 알림 날짜 클릭
 let reserveArr = []; 

@@ -1,7 +1,7 @@
 import { quoteSentence } from "./mainpage_quote.js";
 import { getCookie } from "./mainpage_profile.js";
 import { renderCalendar, date, daysArray, clickReserveDate } from "./mainpage_calendar.js";
-import { clickDate, holeDay,hourArr, minuteArr, setClickDateArr, clickReserve, beforeReseveDelete } from "./mainpage_reserve.js";
+import { clickDate, holeDay, setTimeOptionAtReserve, setClickDateArr, clickReserve, beforeReseveDelete } from "./mainpage_reserve.js";
 import { showSetGoalModal, getTodayStep, setStepGragh } from './mainpage_goal.js';
 import { getTodayStepData, showTodayWalkDate } from './mainpage_todayWalk.js';
 
@@ -9,12 +9,15 @@ const $thisYearMonth = document.querySelector('.thisYearMonth');
 const $calendarDays = document.querySelector('.mainpage__calendar__day');
 const $bookDate = document.querySelector('.mainpage__book__date');
 const $bookDays = $bookDate.children;
+const $selectHour = document.querySelector(".selectHour");
+const $selectMinute = document.querySelector(".selectMinute");
 
 (function hasStepData() {
   let getStepDate = localStorage.getItem("STEP_DATA");
   let parseGetStepDate= JSON.parse(getStepDate);
   getTodayStepData()
   setDateAtReserve();
+  setTimeOptionAtReserve()
   beforeReseveDelete();
   showTodayWalkDate();
   
@@ -79,14 +82,14 @@ $calendarDays.addEventListener('click', (e) => {
   }
 })
 
-function setDateAtReserve(){
+function setDateAtReserve() {
   const holeDayArr = [];
   const holeDateArr = [];
   const thisLast = new Date(date.getFullYear(), date.getMonth()+1, 0);
   let todayDay = date.getDay();
   let todayDate = date.getDate();
   
-  for(let i = 0; i < 7; i++){
+  for(let i = 0; i < 7; i++) {
     todayDay--;
     if(todayDay === -1) todayDay = 6;
     holeDayArr.push(holeDay[todayDay]);
@@ -95,11 +98,11 @@ function setDateAtReserve(){
     holeDateArr.push(todayDate)
     todayDate++;
   }
-  setBookDate(holeDayArr, holeDateArr);
+  setReserveDate(holeDayArr, holeDateArr);
 }
 
 //걷기 알림
-function setBookDate(holeDayArr, holeDateArr) {
+function setReserveDate(holeDayArr, holeDateArr) {
   for(let i = 0; i < 7; i++) {
     $bookDays[i].children[0].textContent = holeDayArr[i];
     $bookDays[i].children[1].textContent = holeDateArr[i];
@@ -116,16 +119,17 @@ $bookDate.addEventListener('click', (e) => {
 })
 
 //몇시에 걸을까요 시
-const $selectHour = document.querySelector(".selectHour");
-for(let i = 0; i < hourArr.length; i++) {
-  $selectHour.append(hourArr[i])
+export function showTimeOptionAtReserve(hourArr, minuteArr) {
+  for(let i = 0; i < hourArr.length; i++) {
+    $selectHour.append(hourArr[i])
+  }
+
+  //먗시에 걸을까요 분
+  for(let i = 0; i < minuteArr.length; i++) {
+    $selectMinute.append(minuteArr[i])
+  }
 }
 
-//먗시에 걸을까요 분
-const $selectMinute = document.querySelector(".selectMinute");
-for(let i = 0; i < minuteArr.length; i++) {
-  $selectMinute.append(minuteArr[i])
-}
 
 //예약버튼
 const $reserveBtn = document.querySelector(".reserveBtn");
