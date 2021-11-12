@@ -1,14 +1,14 @@
 import { quoteSentence } from "./mainpage_quote.js";
 import { getCookie } from "./mainpage_profile.js";
 import { renderCalendar, date, daysArray, clickReserveDate } from "./mainpage_calendar.js";
-import { clickDate, holeDay, setTimeOptionAtReserve, setClickDateArr, clickReserve, beforeReseveDelete } from "./mainpage_reserve.js";
+import { clickDate, setTimeOptionAtReserve, setClickDateArr, clickReserve, beforeReseveDelete } from "./mainpage_reserve.js";
 import { showSetGoalModal, getTodayStep, setStepGragh } from './mainpage_goal.js';
 import { getTodayStepData, showTodayWalkDate } from './mainpage_todayWalk.js';
 import { getCurrentLoaction } from './mainpage_weather.js'
 
-const $thisYearMonth = document.querySelector('.thisYearMonth');
-const $calendarDays = document.querySelector('.mainpage__calendar__day');
-const $bookDate = document.querySelector('.mainpage__book__date');
+const $thisYearMonth = document.querySelector(".thisYearMonth");
+const $calendarDays = document.querySelector(".mainpage__calendar__day");
+const $bookDate = document.querySelector(".mainpage__book__date");
 const $bookDays = $bookDate.children;
 const $selectHour = document.querySelector(".selectHour");
 const $selectMinute = document.querySelector(".selectMinute");
@@ -78,6 +78,7 @@ $calendarDays.addEventListener('click', (e) => {
 function setDateAtReserve() {
   const holeDayArr = [];
   const holeDateArr = [];
+  const holeDay = ['월','화','수','목','금','토','일'];
   const thisLast = new Date(date.getFullYear(), date.getMonth()+1, 0);
   let todayDay = date.getDay();
   let todayDate = date.getDate();

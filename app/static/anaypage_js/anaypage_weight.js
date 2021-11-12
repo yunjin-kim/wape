@@ -1,4 +1,3 @@
-import { onToday, lastMonthDate } from '../mainpage_js/mainpage_reserve.js';
 import { setWeightChart, weightWeekNum, untilGoalWeight } from './anaypage.js';
 
 //목표 체중 모달
@@ -158,14 +157,14 @@ export function rangeWeightData() {
   const thisMonth = lastMonth + 1;
   const prevLast = new Date(thisYear, lastMonth, 0)
   const prevLastDate = prevLast.getDate();
-  let dateNum  = onToday+1;
+  let dateNum  = date.getDate()+1;
   let monthNum = thisMonth;
   let weightDataArrNum = 0;
   let getTotalWeightData = localStorage.getItem("CURRENT_WEIGHT");
   let parseTotalWeightData = JSON.parse(getTotalWeightData);
   
   if(parseTotalWeightData) { //로컬에 데이터가 있다면
-    if(parseTotalWeightData[0][0][1] !== onToday) { //오늘 날짜와 다르다면
+    if(parseTotalWeightData[0][0][1] !== date.getDate()) { //오늘 날짜와 다르다면
       console.log("다음날이 되었다")
       for(let i = 0; i < 28; i++) {
         dateNum -= 1;
@@ -218,8 +217,10 @@ export function rangeWeightData() {
 
 //체중 날짜
 export function setWeightDate(weightBoxArr, weightWeekNum) {
+  const date = new Date();
   let oneMonthDateArr = [];
-  let todayDate = onToday;
+  let todayDate = date.getDate();
+  const lastMonthDate = new Date(date.getFullYear(), date.getMonth(), 0).getDate();
   todayDate -= weightWeekNum*7;
   
   if(todayDate < 0) todayDate = lastMonthDate + todayDate;

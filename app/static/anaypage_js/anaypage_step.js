@@ -1,9 +1,11 @@
-import { date, onToday, holeDay } from '../mainpage_js/mainpage_reserve.js';
 import { _filter, _map, _reduce, _add } from '../fx.js';
 import { setWeekStepData, showWeekPercent, hadStepData } from './anaypage.js';
 //걸음 데이터가 30개 미만으로 들어오는 것에 대한 예외처리 확인 필요!
 const googleStepCountUrl = 'https://v1.nocodeapi.com/kimyunjun/fit/lHneRLggDPetxSfn/aggregatesDatasets?dataTypeName=steps_count&timePeriod=30days';
 //처음에 데이터가 로컬에 없다면 로컬에 저장되는건 되지만 chart배열에 값이 들어가지는 않음 함수 다시 실행될 수 있게
+
+export const date = new Date();
+let onToday = date.getDate();
 
 //걸음수 api
 export function onStepData() {
@@ -19,7 +21,7 @@ export function onStepData() {
     //onToday 날짜랑 로컬 데이터의 endtime에 날짜랑 비교해서 onToday 날짜가 크면 데이터 새로 불러올 수 있게
     let localLastDate = parseGetStepDate.steps_count[parseGetStepDate.steps_count.length-1].endTime[0]+parseGetStepDate.steps_count[parseGetStepDate.steps_count.length-1].endTime[1];
     console.log(localLastDate, onToday);
-    if(localLastDate <= onToday-1) {
+    if(localLastDate <= onToday -1) {
       console.log("다음날이 되었다");
       getGoogleStepCount(googleStepCountUrl);
     }
@@ -81,6 +83,7 @@ function showUpdateDataModal() {
 
 //걸음 수 요일
 function setStepDate() {
+  const holeDay = ['월','화','수','목','금','토','일'];
   let walkDataDay = date.getDay();
 
   for(let i = 0; i < 7; i++) {

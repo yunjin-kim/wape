@@ -1,18 +1,13 @@
 import { _filter, _map } from "../fx.js";
 import { showTimeOptionAtReserve } from './mainpage.js';
-
-//언제 걸을끼요 날짜
-export const date = new Date();
-export const onToday = date.getDate();
-export const holeDay = ['월','화','수','목','금','토','일'];
-export const lastMonthDate = new Date(date.getFullYear(), date.getMonth(), 0).getDate();
+import { date } from './mainpage_calendar.js';
 
 //언제 걸을까요 클릭하면 background색
 const CLICK_GREEN = 'backgroundGreen';
 const DATE_SPAN = 'dateSpan';
 const COLORED_BOX = 'coloredBox';
 
-export function clickDate(e){
+export function clickDate(e) {
   if(e.target.classList.contains(COLORED_BOX)) {
     if(e.target.classList.contains(CLICK_GREEN)) {
       e.target.classList.remove(CLICK_GREEN);
@@ -113,12 +108,12 @@ export function beforeReseveDelete() {
   if(parseGetReserveDate) {
     //오늘 이전 예약 
     let subLastReserve = _filter(
-      d => d.date < onToday, parseGetReserveDate
+      d => d.date < date.getDate(), parseGetReserveDate
     )
     if(subLastReserve) {
       //오늘 포함 이후 예약
       let afterReserve = _filter(
-        d => d.date >= onToday, parseGetReserveDate
+        d => d.date >= date.getDate(), parseGetReserveDate
       )
       if(subLastReserve.length > 0) {
           localStorage.setItem("RESERVE_DATE",JSON.stringify(afterReserve));

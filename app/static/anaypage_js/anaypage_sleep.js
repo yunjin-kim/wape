@@ -1,5 +1,7 @@
-import { onToday, lastMonthDate } from '../mainpage_js/mainpage_reserve.js';
 import { setSleepChart, sleepWeekNum, setSleepDataAverage } from './anaypage.js';
+import { date } from './anaypage_step.js';
+
+let onToday = date.getDate();
 
 //현재 수면 모달
 const $noSleepDiv = document.querySelector(".anaypage__nosleep__current");
@@ -90,7 +92,7 @@ export function rangeSleepData() {
   const thisMonth = lastMonth + 1;
   const prevLast = new Date(thisYear, lastMonth, 0)
   const prevLastDate = prevLast.getDate();
-  let dateNum  = onToday+1;
+  let dateNum  = onToday + 1;
   let monthNum = thisMonth;
   let sleepDataArrNum = 0;
   let getTotalSleepData = localStorage.getItem("CURRENT_SLEEP");
@@ -150,6 +152,7 @@ export function rangeSleepData() {
 
 //수면 날짜 세팅
 export function setSleepDate(sleepBoxArr, sleepWeekNum){
+  let lastMonthDate = new Date(date.getFullYear(), date.getMonth(), 0).getDate();
   
   let oneMonthDateArr = [];
   let todayDate = onToday;
