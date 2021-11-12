@@ -7,56 +7,60 @@ export const _go = (...args) => _reduce((a, f)=>f(a), args);
 
 export const _pipe = (f,...fs) => (...as) => _go(f(...as), ...fs);
 
+export const _range = l => {
+  let i = -1;
+  let res = [];
+  while (++i < l) {
+    res.push(i);
+  }
+  return res;
+};
+
 export const _filter = curry((f, iter) => {
   let res = [];
-  for(const a of iter){
-    if(f(a)) res.push(a);
+  iter = iter[Symbol.iterator]();
+  let cur;
+  while (!(cur = iter.next()).done) {
+    const a = cur.value;
+    if (f(a)) res.push(a);
   }
   return res;
 });
 
 export const _map = curry((f, iter) => {
-    let res = [];
-    for (const a of iter) {
-      res.push(f(a));
-    }
-    return res;
+  let res = [];
+  iter = iter[Symbol.iterator]();
+  let cur;
+  while (!(cur = iter.next()).done) {
+    const a = cur.value;
+    res.push(f(a));
+  }
+  return res;
 });
 
 export const _reduce = curry((f, acc, iter) => {
-  if(!iter){
+  if (!iter) {
     iter = acc[Symbol.iterator]();
     acc = iter.next().value;
+  } else {
+    iter = iter[Symbol.iterator]();
   }
-  for(const a of iter){
+  let cur;
+  while (!(cur = iter.next()).done) {
+    const a = cur.value;
     acc = f(acc, a);
   }
   return acc;
-})
-
-export const _range = l => {
-  let i = -1;
-  let res = []
-  while(++i < l){
-    res.push(i)
-  }
-  return res;
-};
-
-const _L = {};
-
-_L.range = function *(l){
-  let i = -1;
-  while(++i < l){
-    yield i;
-  }
-};
+});
 
 export const _take = curry((l, iter) => {
   let res = [];
-  for(const a of iter){
+  iter = iter[Symbol.iterator]();
+  let cur;
+  while (!(cur = iter.next()).done) {
+    const a = cur.value;
     res.push(a);
-    if(res.length === l) return res;
+    if (res.length == l) return res;
   }
   return res;
-})
+});
