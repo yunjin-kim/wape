@@ -9,10 +9,11 @@ export function setGoalAchieve(goalBoxArr, goalWeekNum) {
   
   if(goalStep) {
 
-    for(let i = 0; i < goalBoxArr.length; i++){
-      goalBoxArr[i].classList.remove("acheiveGoal", "NotAcheiveGoal");
-    }
+    _.map(a => a.classList.remove("acheiveGoal", "NotAcheiveGoal"), goalBoxArr);
 
+    // _.map(a => a.value >= goalStep ? a.classList.add("acheiveGoal") : a.classList.add("NotAcheiveGoal"), 
+    //     chartDataArr[goalWeekNum])
+    
     for(let i = 0; i < goalBoxArr.length; i++) {
       {chartDataArr[goalWeekNum][i].value >= goalStep
         ? goalBoxArr[i].classList.add("acheiveGoal")

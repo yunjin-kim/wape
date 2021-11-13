@@ -3,8 +3,8 @@ const allTitles = ["방구석에 콕", "걷기 비기너", "걷기 주니어", "
 
 //은행 걷기 데이터
 export function getBankStepData(){
-  let getTotalStepData = localStorage.getItem("STEP_DATA");
-  let parseTotalStepData = JSON.parse(getTotalStepData);
+  const getTotalStepData = localStorage.getItem("STEP_DATA");
+  const parseTotalStepData = JSON.parse(getTotalStepData);
 
   let totalStepData = _.go(
     parseTotalStepData.steps_count,

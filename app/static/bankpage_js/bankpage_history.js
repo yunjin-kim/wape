@@ -21,9 +21,9 @@ export function setStepHistory() {
 
   for (let i = 0; i < stepValue.length; i++) {
 
-    let myStepGragh = stepValue[i]/myGoal*262;
-    if (myStepGragh > 262){
-      myStepGragh = 262;
+    let myStepGragh = stepValue[i]/myGoal*262; //L.map
+    if (myStepGragh > 262){   // L.filer      filter 해서 삼항 연산자?  map해서 삼항 연산자?
+      myStepGragh = 262;    // ??
     }
 
     const showHistory = `
