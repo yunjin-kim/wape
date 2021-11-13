@@ -6,6 +6,7 @@ import { showSetGoalModal, getTodayStep, setStepGragh } from './mainpage_goal.js
 import { getTodayStepData, showTodayWalkDate } from './mainpage_todayWalk.js';
 import { getCurrentLoaction } from './mainpage_weather.js'
 
+const { L, C } = window._;
 const $thisYearMonth = document.querySelector(".thisYearMonth");
 const $calendarDays = document.querySelector(".mainpage__calendar__day");
 const $bookDate = document.querySelector(".mainpage__book__date");

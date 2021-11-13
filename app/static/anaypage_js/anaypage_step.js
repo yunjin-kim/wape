@@ -1,4 +1,3 @@
-import { _filter, _map, _reduce, _add } from '../fx.js';
 import { setWeekStepData, showWeekPercent, hadStepData } from './anaypage.js';
 //걸음 데이터가 30개 미만으로 들어오는 것에 대한 예외처리 확인 필요!
 const googleStepCountUrl = 'https://v1.nocodeapi.com/kimyunjun/fit/lHneRLggDPetxSfn/aggregatesDatasets?dataTypeName=steps_count&timePeriod=30days';
@@ -139,8 +138,8 @@ export function setWeekPercent() {
 
   for(let i = 0; i < chartDataArr.length; i++) {
     dataSumArr.push(
-      _reduce(_add,
-        _map(data => data.value, chartDataArr[i])))
+      _.reduce(_.add,
+        _.map(data => data.value, chartDataArr[i])))
   }
     if(dataSumArr[0] === weekSumStep) {
       percentData = parseInt(dataSumArr[0]/dataSumArr[1]*10);

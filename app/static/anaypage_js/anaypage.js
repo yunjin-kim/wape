@@ -1,6 +1,5 @@
 //한 시간마다의 걸음도 조회할 수 있어서 일정 이상의 걸음이 되면 오늘의 걷기에 운동했다고 할 수 있을 듯 근데 시간이 너무 차이나서 오늘의 걷기는 힘들 듯함?
 //날짜 세팅하고 버튼 클릭은 4개 다 같아서 나중에 다 구현하고 리펙토링해서 하나로
-import { _filter, _reduce } from '../fx.js';
 import { onStepData, walkDayArr, setStepChartHeight, percentData, setWeekPercent } from './anaypage_step.js';
 import { setGoalAchieve } from './anaypage_goal.js';
 import { showGoalWeihgtModal, setGoalWeight, showWeihgtModal, setCurrentWeight, setuntilGoalWeight, rangeWeightData, setWeightChartHeight, setWeightDate } from './anaypage_weight.js';
@@ -58,7 +57,7 @@ export function setWeekStepData(weekSumStep) {
 export function setStepChart(weekNum) {
   const $walkDataGraph = document.querySelector(".anaypage__walk__graph__box");
 
-  const chartBarArr = _filter(
+  const chartBarArr = _.filter(
     charBar => 
       charBar.classList.contains("anaypage__walk__graph__graph")
         ,$walkDataGraph.children
@@ -165,7 +164,7 @@ function ifNoGoal() {
 function setGoalAchieveBox(goalWeekNum) {
   const $goalDataBox = document.querySelector(".anaypage__goal__check__main");
 
-  const goalBoxArr = _filter(
+  const goalBoxArr = _.filter(
     goal => 
       !goal.classList.contains("anaypage__goal__check__wrap")
         ,$goalDataBox.children
@@ -232,7 +231,7 @@ $noCurrentWeight.addEventListener('click', (e) => {
 export function setWeightChart(weightWeekNum) {
   const $weightBox = document.querySelector(".anaypage__weight__graph__box");
 
-  const weightBoxArr = _filter(
+  const weightBoxArr = _.filter(
     weight => 
       weight.classList.contains("anaypage__weight__graph__graph")
         ,$weightBox.children
@@ -306,7 +305,7 @@ $noCurrentSleep.addEventListener('click', (e) => {
 export function setSleepChart(sleepWeekNum) {
   const $sleepBox = document.querySelector(".anaypage__sleep__graph__box");
 
-  const sleepBoxArr = _filter(
+  const sleepBoxArr = _.filter(
     sleep => 
       sleep.classList.contains("anaypage__sleep__graph__graph")
         ,$sleepBox.children

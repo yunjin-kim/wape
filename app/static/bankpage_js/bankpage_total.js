@@ -1,5 +1,4 @@
 import {setBankTotalData, setBankMoneyGraph, setTitle } from "./bankpage.js";
-import { _add, _go, _reduce, _map } from '../fx.js';
 const allTitles = ["방구석에 콕", "걷기 비기너", "걷기 주니어", "걷기 프로", "당신은 마라톤 선수", ""];
 
 //은행 걷기 데이터
@@ -7,10 +6,10 @@ export function getBankStepData(){
   let getTotalStepData = localStorage.getItem("STEP_DATA");
   let parseTotalStepData = JSON.parse(getTotalStepData);
 
-  let totalStepData = _go(
+  let totalStepData = _.go(
     parseTotalStepData.steps_count,
-    _map(data => data.value),
-    _reduce(_add)
+    _.map(data => data.value),
+    _.reduce(_.add)
   )
 
   setBankTotalData(totalStepData);

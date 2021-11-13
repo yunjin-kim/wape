@@ -5,7 +5,7 @@ let onToday = date.getDate();
 
 //현재 수면 모달
 const $noSleepDiv = document.querySelector(".anaypage__nosleep__current");
-export function showSleepModal(e){
+export function showSleepModal(e) {
   const measureDay = new Date().getDate();
 
   const sleepModalDiv = document.createElement('div');
@@ -13,24 +13,24 @@ export function showSleepModal(e){
 
   const sleepTitle = document.createElement('h3');
   sleepTitle.classList.add("weightModalTitle");
-  sleepTitle.textContent = "수면 시간"
+  sleepTitle.textContent = "수면 시간";
   sleepModalDiv.append(sleepTitle);
 
   const sleepModalClose = document.createElement('button');
   sleepModalClose.textContent = "X";
   sleepModalClose.classList.add("sleepModalClose")
   sleepModalDiv.append(sleepModalClose);
-  sleepModalClose.addEventListener('click',()=>{
+  sleepModalClose.addEventListener('click', () => {
     sleepModalDiv.remove();
-  })
+  });
 
   let currnetSleep;
   const sleepInput = document.createElement('input');
   sleepInput.classList.add("sleepInput");
   sleepInput.setAttribute('type','number');
-  sleepInput.setAttribute('placeholder', '7시간30분 = 7.3')
+  sleepInput.setAttribute('placeholder', '7시간30분 = 7.3');
   sleepModalDiv.append(sleepInput);
-  sleepInput.addEventListener('change', (e)=>{
+  sleepInput.addEventListener('change', (e) => {
     currnetSleep = e.target.value;
   })
 
@@ -38,13 +38,12 @@ export function showSleepModal(e){
   sleepSubmitBtn.classList.add("sleepSubmitBtn");
   sleepSubmitBtn.textContent = "시간 입력";
 
-  sleepSubmitBtn.addEventListener('click', ()=> {
+  sleepSubmitBtn.addEventListener('click', () => {
     let getTotalSleepData = localStorage.getItem("CURRENT_SLEEP");
     let parseTotalSleepData = JSON.parse(getTotalSleepData);
 
     parseTotalSleepData[0][0][2] = currnetSleep;
     localStorage.setItem("CURRENT_SLEEP", JSON.stringify(parseTotalSleepData));
-
 
     sleepModalDiv.remove();
     $noSleepDiv.classList.add("hiddenDiv");
@@ -60,24 +59,24 @@ export function showSleepModal(e){
 }
 
 //현재 수면 설정
-export function setCurrentSleep(){
+export function setCurrentSleep() {
   const $currnetSleep = document.querySelector(".currnetSleep");
   const $sleepDiv = document.querySelector(".anaypage__sleep__current");
-  let getTotalSleepData = localStorage.getItem("CURRENT_SLEEP");
-  let parseTotalSleepData = JSON.parse(getTotalSleepData);
+  const getTotalSleepData = localStorage.getItem("CURRENT_SLEEP");
+  const parseTotalSleepData = JSON.parse(getTotalSleepData);
 
-  if(parseTotalSleepData){
-    if(parseTotalSleepData[0][0][2] === ""){
+  if(parseTotalSleepData) {
+    if(parseTotalSleepData[0][0][2] === "") {
       $noSleepDiv.classList.remove("hiddenDiv");
       $sleepDiv.classList.add("hiddenDiv");
       $noSleepDiv.innerHTML = `<span class="noWeight">수면 시간을 적어주세요</span>`;
     }
-    else{
+    else {
       $sleepDiv.classList.remove("hiddenDiv");
       $currnetSleep.textContent = `${parseTotalSleepData[0][0][2]}`;
     }
   }
-  else{
+  else {
     $noSleepDiv.classList.remove("hiddenDiv");
     $sleepDiv.classList.add("hiddenDiv");
     $noSleepDiv.innerHTML = `<span class="noWeight">수면시간을 적어주세요</span>`;
@@ -100,7 +99,7 @@ export function rangeSleepData() {
   
   if(parseTotalSleepData) { //로컬에 데이터가 있다면
     if(parseTotalSleepData[0][0][1] !== onToday) { //오늘 날짜와 다르다면
-      console.log("다음날이 되었다")
+      console.log("다음날이 되었다");
       for(let i = 0; i < 28; i++) {
         dateNum -= 1;
         if(dateNum === 0) {

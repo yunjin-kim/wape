@@ -1,4 +1,3 @@
-import { _filter, _map } from "../fx.js";
 import { showTimeOptionAtReserve } from './mainpage.js';
 import { date } from './mainpage_calendar.js';
 
@@ -107,12 +106,12 @@ export function beforeReseveDelete() {
 
   if(parseGetReserveDate) {
     //오늘 이전 예약 
-    let subLastReserve = _filter(
+    let subLastReserve = _.filter(
       d => d.date < date.getDate(), parseGetReserveDate
     )
     if(subLastReserve) {
       //오늘 포함 이후 예약
-      let afterReserve = _filter(
+      let afterReserve = _.filter(
         d => d.date >= date.getDate(), parseGetReserveDate
       )
       if(subLastReserve.length > 0) {

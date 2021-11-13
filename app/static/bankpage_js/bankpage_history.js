@@ -1,31 +1,32 @@
-import { _go, _map } from '../fx.js'
 //1걸음 = 70cm
 //한걸음 = 5원
-export function setStepHistory(){
+export function setStepHistory() {
+  const getStepData = localStorage.getItem("STEP_DATA");
+  const parseGetStepData = JSON.parse(getStepData);
 
-  let getStepData = localStorage.getItem("STEP_DATA");
-  let parseGetStepData = JSON.parse(getStepData);
-
-  const stepValue = _go(
+  const stepValue = _.go(
     parseGetStepData.steps_count,
-    _map(data => data.value)
+    _.map(data => data.value)
   )
 
-  const daysValue = _go(
+  const daysValue = _.go(
     parseGetStepData.steps_count,
-    _map(data => (data.startTime[0]+data.startTime[1]))
+    _.map(data => (data.startTime[0]+data.startTime[1]))
   )
+
+  console.log(daysValue)
 
   const showHistoryArr = [];
   let myGoal = localStorage.getItem("STEP_GOAL");
 
-  for(let i = 0; i < stepValue.length; i++){
+  for (let i = 0; i < stepValue.length; i++) {
+
     let myStepGragh = stepValue[i]/myGoal*262;
     if (myStepGragh > 262){
       myStepGragh = 262;
     }
 
-    let showHistory = `
+    const showHistory = `
       <div class="bankpage__reposit__wrap">
         <div class="bankpage__reposit__title">
             <div class="bankpage__reposit__flex">
@@ -41,6 +42,7 @@ export function setStepHistory(){
                 </h3>
             </div>
         </div>
+
         <div class="bankpage__reposit__walk">
             <div class="bankpage__reposit__walk__flex">
                 <h4><b>걸음 수 </b><span>${stepValue[i]}</span> 걸음</h4>
@@ -63,6 +65,8 @@ export function setStepHistory(){
         </div>
       </div>
     `;
+
+    
     showHistoryArr.unshift(showHistory);
   }
   return showHistoryArr;
