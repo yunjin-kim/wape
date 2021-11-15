@@ -11,9 +11,31 @@ export function setGoalAchieve(goalBoxArr, goalWeekNum) {
 
     _.map(a => a.classList.remove("acheiveGoal", "NotAcheiveGoal"), goalBoxArr);
 
-    // _.map(a => a.value >= goalStep ? a.classList.add("acheiveGoal") : a.classList.add("NotAcheiveGoal"), 
-    //     chartDataArr[goalWeekNum])
+    const chartDataOverGoalStepArr = _.go(
+      chartDataArr[goalWeekNum],
+      _.map(chartData => chartData.value >= goalStep)
+    )
+
+    // _.go(
+    //   goalBoxArr,
+    //   _.map(goalBox => console.log(goalBox.index)), // true false 어떻게 할 것 인가?
+    // )
     
+    // console.log(goalBoxArr);
+
+    // for(let i = 0;  i < goalBoxArr.length; i++) {
+    //   if(chartDataArr[goalWeekNum][i].value >= goalStep) {
+    //     goalBoxArr[i].classList.add("acheiveGoal")
+    //   }
+    // }
+
+    // for(let i = 0;  i < goalBoxArr.length; i++) {
+    //   if(chartDataArr[goalWeekNum][i].value < goalStep) {
+    //     goalBoxArr[i].classList.add("NotAcheiveGoal")
+    //   }
+    // }
+
+
     for(let i = 0; i < goalBoxArr.length; i++) {
       {chartDataArr[goalWeekNum][i].value >= goalStep
         ? goalBoxArr[i].classList.add("acheiveGoal")

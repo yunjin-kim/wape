@@ -104,6 +104,7 @@ function showReserveModal(walkingArr, reserveIconClickEvent) {
     })
     modalTimeDiv.append(modalTimeDelete);
   }
+  
   modalDiv.append(modalTimeDiv);
   
   reserveIconClickEvent.target.parentNode.parentNode.parentNode.parentNode.append(modalDiv)

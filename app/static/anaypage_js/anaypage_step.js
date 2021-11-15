@@ -140,26 +140,24 @@ export function setWeekPercent() {
       _.reduce(_.add,
         _.map(data => data.value, chartDataArr[i])))
   }
-    if(dataSumArr[0] === weekSumStep) {
-      percentData = parseInt(dataSumArr[0]/dataSumArr[1]*10);
-      if(dataSumArr[0] < dataSumArr[1]) {
-        percentData = -percentData;
+
+  for(let i = 0; i < dataSumArr.length; i++) {
+    if(dataSumArr[i] === weekSumStep) {
+      console.log(dataSumArr[i])
+      if(dataSumArr[i] > dataSumArr[i+1]) {
+        percentData = parseInt(((dataSumArr[i]-dataSumArr[i+1])/dataSumArr[i])*100);
+      }
+      else if(dataSumArr[i] < dataSumArr[i+1]) {
+        percentData = -parseInt(((dataSumArr[i]/dataSumArr[i+1])-1)*100);
+      }
+      else if(dataSumArr[i] === dataSumArr[i+1]) {
+        percentData = 0;
+      }
+      else if(i === 3) {
+        percentData = "";
       }
     }
-    else if(dataSumArr[1] === weekSumStep) {
-      percentData = parseInt(dataSumArr[1]/dataSumArr[2]*10);
-      if(dataSumArr[1] < dataSumArr[2]) {
-        percentData = -percentData;
-      }
-    }
-    else if(dataSumArr[2] === weekSumStep) {
-      percentData = parseInt(dataSumArr[2]/dataSumArr[3]*10);
-      if(dataSumArr[2] < dataSumArr[3]) {
-        percentData = -percentData;
-      }
-    }
-    else if(dataSumArr[3] === weekSumStep) {
-      percentData = "";
-    }
-    showWeekPercent();
+  }
+  
+  showWeekPercent();
 }
