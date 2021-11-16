@@ -1,37 +1,33 @@
-let mapOption;
 let map;
 let dragged = false;
 let canLoadBanner = false;
 
-if (navigator.geolocation) {
-  getLocation();
-}
-else {
-  console.log('error');
-}
-
-function getLocation() {
-  navigator.geolocation.getCurrentPosition(getGeo);
-}
+(function enterMapPage() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(getGeo);
+  }
+  else {
+    console.log('error');
+  }
+})();
 
 function getGeo(event) {
   const lat = event.coords.latitude;
   const lon = event.coords.longitude;
-
-  mapOption = {
+  let mapOption = {
     center: new kakao.maps.LatLng(lat, lon), // 지도의 중심좌표
     level: 2 // 지도의 확대 레벨
   };
+
   getMap(mapOption);
 };
 
 const $showMap = document.getElementById('showmap');
 const $mapText = document.querySelector('.mappage__location__text ');
 const geocoder = new kakao.maps.services.Geocoder();// 주소-좌표 변환 객체를 생성합니다
-console.log(geocoder)
 const pointArr = [];
 
-async function getMap(mapOption) {
+function getMap(mapOption) {
   // 지도를 생성합니다
   map = new kakao.maps.Map($showMap, mapOption);
 
@@ -43,64 +39,48 @@ async function getMap(mapOption) {
     searchAddrFromCoords(map.getCenter(), displayCenterInfo);
   });
 
-  await loadMapPoint()
-    .then(points => {
-      getData(points)
-    })
-    .catch(console.log)
-
-  function loadMapPoint() {
-    return fetch('../data/mappoint.json')
-      .then(response => response.json())
-      .then(json => json.points)
-  };
-
-  function getData(points) {
-    pointArr.push(points);
-    canLoadBanner = true;
-    console.log('AA')
-  };
-
-  showMarker(pointArr);
-
+  getBannerData();
 }
-//배너 정보 보여주기
-setTimeout(()=>{
-  function showWhenTrue(){
-    if(canLoadBanner === true){
-      showWalkBanner();
-      //내 위치가 변경되면 좌표를 반환한다. map을 재생성하는 것을 방지
-      // navigator.geolocation.watchPosition(getMyLocation);
-      //watchPosition로 하면 너무 부정확해서 setinerval로 보류
-      setInterval(getMyLocation, 4000);
-      function getMyLocation() {
-        navigator.geolocation.getCurrentPosition(getMyGeo);
-      }
-      function getMyGeo(event) {
-        const lat1 = event.coords.latitude;
-        const lon1 = event.coords.longitude;
-        console.log(lat1, lon1)
-    
-        let myMapOption = {
-          center: new kakao.maps.LatLng(lat1, lon1), // 지도의 중심좌표
-          level: 2 // 지도의 확대 레벨
-        };
-        showMyLoc(myMapOption);
-      };
-    }
-    else if(canLoadBanner === false){
-      rotateWhenFalse();
-    }
-  }
-  //showWalkBanner error 처리
-    function rotateWhenFalse(){
-      setTimeout(()=>{
-        showWhenTrue();
-      },1000)
-    };
-    rotateWhenFalse();
-}, 10)
 
+async function getBannerData() {
+  try {
+    const mapPointResponse = await fetch('../data/mappoint.json');
+    const maoPointData = await mapPointResponse.json();
+    pointArr.push(maoPointData.points);
+    canLoadBanner = true;
+
+    refreshMyLoaction();
+    showBannerInfo(pointArr);
+    setMapPolygon(pointArr);
+    showWalkBanner();
+  }
+  catch (e) {
+    console.log(e)  //나중에 에러 베너로 오류 발생했으니 재로딩 부탁드립니다 라고 모달 띄워주기
+  }
+}
+
+function refreshMyLoaction() {
+  if (canLoadBanner === true) {
+    getMyLocationData();
+    //watchPosition로 하면 너무 부정확해서 setinerval로 보류
+    setInterval(getMyLocationData, 4000);
+  }
+}
+
+function getMyLocationData() {
+  navigator.geolocation.getCurrentPosition(getMyGeo);
+}
+
+function getMyGeo(event) {
+  const lat1 = event.coords.latitude;
+  const lon1 = event.coords.longitude;
+  let myMapOption = {
+    center: new kakao.maps.LatLng(lat1, lon1), // 지도의 중심좌표
+    level: 2 // 지도의 확대 레벨
+  };
+
+  showMyLoction(myMapOption);
+};
 
 const $backToMyLoc = document.querySelector('.mappage__location__btn');
 
@@ -113,19 +93,16 @@ $backToMyLoc.addEventListener('click', () => {
 //내 위치 표시
 const myLocArr = [];
 let currentMyLoc;
-function showMyLoc(myMapOption) {
+function showMyLoction(myMapOption) {
   const myLocIconImg = '../img/mylocation.png';
   const myLocIconSize = new kakao.maps.Size(10, 10);
   const myLocIcon = new kakao.maps.MarkerImage(myLocIconImg, myLocIconSize);
   let myLocPosition = new kakao.maps.LatLng(myMapOption.center.Ma, myMapOption.center.La);
 
   if (dragged === false) {
-    console.log('aaa')
     map.panTo(new kakao.maps.LatLng(myMapOption.center.Ma, myMapOption.center.La));
   }
-
   if (myLocArr.length <= 0) {
-    console.log('aa')
     currentMyLoc = new kakao.maps.Marker({
       map: map,
       position: myLocPosition,
@@ -139,24 +116,23 @@ function showMyLoc(myMapOption) {
   }
 }
 
-const $selectCourse = document.querySelector('.mappage__walkload__course');
-const $courseImage = document.querySelector('.mappage__walkload__course__img__img');
-const $courseDesc = document.querySelector('.mappage__walkload__course__desc');
-const $courseName = document.querySelector('.mappage__walkload__course__name');
-const $courseLocation = document.querySelector('.mappage__walkload__course__location');
-const $courseDistance = document.querySelector('.mappage__walkload__course__distance');
-const $courseMoney = document.querySelector('.mappage__walkload__course__money');
-const $selectCourse2 = document.querySelector('.mappage__walkload__course2');
-const $courseImage2 = document.querySelector('.mappage__walkload__course2__img__img');
-const $courseDesc2 = document.querySelector('.mappage__walkload__course2__desc');
-const $courseName2 = document.querySelector('.mappage__walkload__course2__name');
-const $courseLocation2 = document.querySelector('.mappage__walkload__course2__location');
-const $courseDistance2 = document.querySelector('.mappage__walkload__course2__distance');
-const $courseMoney2 = document.querySelector('.mappage__walkload__course2__money');
+const $firstSelectCourse = document.querySelector('.mappage__walkload__course');
+const $firstSourseImage = document.querySelector('.mappage__walkload__course__img__img');
+const $firstCourseDesc = document.querySelector('.mappage__walkload__course__desc');
+const $firstCourseName = document.querySelector('.mappage__walkload__course__name');
+const $firstCourseLocation = document.querySelector('.mappage__walkload__course__location');
+const $firstCourseDistance = document.querySelector('.mappage__walkload__course__distance');
+const $firstCourseMoney = document.querySelector('.mappage__walkload__course__money');
 
-let polygon;
-//걷기 포인트 표시
-function showMarker(pointArr) {
+const $secondSelectCourse = document.querySelector('.mappage__walkload__course2');
+const $secondCourseImageSecond = document.querySelector('.mappage__walkload__course2__img__img');
+const $secondCourseDesc = document.querySelector('.mappage__walkload__course2__desc');
+const $secondCourseName = document.querySelector('.mappage__walkload__course2__name');
+const $secondCourseLocation = document.querySelector('.mappage__walkload__course2__location');
+const $secondCourseDistance = document.querySelector('.mappage__walkload__course2__distance');
+const $secondCourseMoney = document.querySelector('.mappage__walkload__course2__money');
+
+function showBannerInfo(pointArr) {
   const markImgSrc = '../img/loaction.png';
   const markImgSize = new kakao.maps.Size(18, 26);
   const markerImg = new kakao.maps.MarkerImage(markImgSrc, markImgSize);
@@ -175,50 +151,49 @@ function showMarker(pointArr) {
   //배너에 정보 표시
   for (let i = 0; i < markerArr.length; i++) {
     markerArr[i].addListener('click', () => {
-      $selectCourse.setAttribute('id', pointArr[0][i].lat);
-      $courseImage.setAttribute("src", pointArr[0][i].image);
-      $courseDesc.setAttribute('id', pointArr[0][i].index);
-      $courseName.textContent = pointArr[0][i].name;
-      $courseLocation.textContent = pointArr[0][i].address;
-      $courseDistance.textContent = pointArr[0][i].distance;
-      $courseMoney.textContent = pointArr[0][i].money;
-      //이거를 selectCourse 이런데에 넣어서 해보기
-      // $courseLat.textContent = pointArr[0][i].lat;
+      $firstSelectCourse.setAttribute('id', pointArr[0][i].lat);
+      $firstSourseImage.setAttribute("src", pointArr[0][i].image);
+      $firstCourseDesc.setAttribute('id', pointArr[0][i].index);
+      $firstCourseName.textContent = pointArr[0][i].name;
+      $firstCourseLocation.textContent = pointArr[0][i].address;
+      $firstCourseDistance.textContent = pointArr[0][i].distance;
+      $firstCourseMoney.textContent = pointArr[0][i].money;
     })
   }
-    //걷기 코스 보여주기
+}
+
+function setMapPolygon(pointArr) {
     const courseArr = [];
     const polygonArr = [];
-    for(let i = 0; i < pointArr[0].length; i++){
+    let polygon;
+
+    for (let i = 0; i < pointArr[0].length; i++) {
         let polygonPath = [];
-      for(let j = 0; j < pointArr[0][i].mapPoints.length; j++){
+      for (let j = 0; j < pointArr[0][i].mapPoints.length; j++) {
         polygonPath.push(new kakao.maps.LatLng(pointArr[0][i].mapPoints[j][0], pointArr[0][i].mapPoints[j][1]));
       }
       courseArr.push(polygonPath);
     }
-    let polygon;
-    for(let i = 0; i < courseArr.length; i++){
-        polygon = new kakao.maps.Polygon({
-        path: courseArr[i],
-        stroke: 5,
-        strokeColor: '#42AB34',
-        strokeOpacity: 1,
-        strokeStyle: 'solid',
-        fillColor: 'none',
-        fillOpacity: 0
+
+    for (let i = 0; i < courseArr.length; i++) {
+      polygon = new kakao.maps.Polygon({
+        path: courseArr[i], stroke: 5, strokeColor: '#42AB34', strokeOpacity: 1, strokeStyle: 'solid', fillColor: 'none', fillOpacity: 0
       });
       polygon.setMap(map);
       polygonArr.push(polygon);
     }
-    let courseStokeStyle;
-    console.log(polygon)
 
-    setTimeout(()=>{
-      courseStokeStyle = (polygon.G.r.childNodes[1].style.cssText)
-      for(let i = 1; i <= polygonArr.length; i++){
-        polygon.G.r.childNodes[i].style.cssText = ""
+    showMapPoint(polygon, polygonArr)
+}
+
+//걷기 포인트 표시
+function showMapPoint(polygon, polygonArr) {
+    let courseStokeStyle;
+
+      courseStokeStyle = (polygon.G.r.childNodes[1].style.cssText);
+      for (let i = 1; i <= polygonArr.length; i++) {
+        polygon.G.r.childNodes[i].style.cssText = "";
       }
-    },10)
     
     //$selectCourse 모든 부분에서 잘 동작하는지 체크 path[1,2,3,4]
     //event에서 클릭한 배너의 인덱스를 polygoncssText cssArr인덱스로 해서 다시 넣어준다
@@ -233,78 +208,78 @@ function showMarker(pointArr) {
   // })
 
   //첫번째 배너 클릭하면 배너의 코스 보여주고 코스 출발 지점으로 이동
-  $selectCourse.addEventListener('click', (event) => {
+  $firstSelectCourse.addEventListener('click', (event) => {
     let couresFirstLat = Number(event.target.parentNode.offsetParent.childNodes[3].id);
 
     map.panTo(new kakao.maps.LatLng(polygonArr[couresFirstLat].Sg[0].Ma, polygonArr[couresFirstLat].Sg[0].La));
-    for(let i = 1; i <= polygonArr.length; i++){
-      if(polygon.G.r.childNodes[i].style.cssText){
+    for(let i = 1; i <= polygonArr.length; i++) {
+      if(polygon.G.r.childNodes[i].style.cssText) {
         polygon.G.r.childNodes[i].style.cssText = "";
       }
     } 
-    if(polygonArr[couresFirstLat].Sg[0].Ma === Number(event.path[2].parentElement.firstElementChild.id)){
+    if(polygonArr[couresFirstLat].Sg[0].Ma === Number(event.path[2].parentElement.firstElementChild.id)) {
       polygon.G.r.childNodes[couresFirstLat+1].style.cssText = `${courseStokeStyle}`;
     }
   })
 
   //두번째 배너 클릭하면 배너의 코스 보여주고 코스 출발 지점으로 이동
-  $selectCourse2.addEventListener('click', (event) => {
+  $secondSelectCourse.addEventListener('click', (event) => {
     let couresFirstLat = Number(event.target.parentNode.offsetParent.childNodes[3].id);
     map.panTo(new kakao.maps.LatLng(polygonArr[couresFirstLat].Sg[0].Ma, polygonArr[couresFirstLat].Sg[0].La));
 
-    for(let i = 1; i <= polygonArr.length; i++){
-      if(polygon.G.r.childNodes[i].style.cssText){
+    for(let i = 1; i <= polygonArr.length; i++) {
+      if(polygon.G.r.childNodes[i].style.cssText) {
         polygon.G.r.childNodes[i].style.cssText = "";
       }
     } 
-    if(polygonArr[couresFirstLat].Sg[0].Ma === Number(event.path[2].parentElement.lastElementChild.id)){
+    if(polygonArr[couresFirstLat].Sg[0].Ma === Number(event.path[2].parentElement.lastElementChild.id)) {
       polygon.G.r.childNodes[couresFirstLat+1].style.cssText = `${courseStokeStyle}`;
     }
   })
   
   //드래그로 지도 이동을 완료했을 때 마지막 파라미터로 넘어온 함수를 호출
-  kakao.maps.event.addListener(map, 'dragend', showWalkBanner)
+  kakao.maps.event.addListener(map, 'dragend', showWalkBanner);
 }
 
 function showWalkBanner() {
   dragged = true;
-  console.log(dragged)
   let mapCenter = map.getCenter();
-  let mapLevel = map.getLevel();
+  // let mapLevel = map.getLevel();
   let shortDistance = Number.MAX_SAFE_INTEGER;
   let firstNearMark;
   let secondNearMark;
   let secondShortDistance = Number.MAX_SAFE_INTEGER;
 
-  pointArr[0].forEach((e,i)=>{
+  pointArr[0].forEach((e, i) => {
     let markToMark = Math.abs((Number(e.lat) + Number(e.lon)) - (mapCenter.Ma + mapCenter.La));
-    if(markToMark < shortDistance){
+    if(markToMark < shortDistance) {
       shortDistance = markToMark;
       firstNearMark = pointArr[0][i];
     }
-    else if(markToMark > shortDistance){
-      if(markToMark < secondShortDistance){
+    else if(markToMark > shortDistance) {
+      if(markToMark < secondShortDistance) {
         secondShortDistance = markToMark;
         secondNearMark = pointArr[0][i];
       }
     }
   })
 
-  $selectCourse.setAttribute('id', firstNearMark.lat);
-  $courseImage.setAttribute("src", firstNearMark.image)
-  $courseDesc.setAttribute('id', firstNearMark.index);
-  $courseName.textContent = firstNearMark.name;
-  $courseLocation.textContent = firstNearMark.address;
-  $courseDistance.textContent = firstNearMark.distance;
-  $courseMoney.textContent = firstNearMark.money;
+  $firstSelectCourse.setAttribute('id', firstNearMark.lat);
+  $firstSourseImage.setAttribute("src", firstNearMark.image)
+  $firstCourseDesc.setAttribute('id', firstNearMark.index);
+  $firstCourseName.textContent = firstNearMark.name;
+  $firstCourseLocation.textContent = firstNearMark.address;
+  $firstCourseDistance.textContent = firstNearMark.distance;
+  $firstCourseMoney.textContent = firstNearMark.money;
 
-  $selectCourse2.setAttribute('id', secondNearMark.lat);
-  $courseImage2.setAttribute("src", secondNearMark.image)
-  $courseDesc2.setAttribute('id', secondNearMark.index);
-  $courseName2.textContent = secondNearMark.name;
-  $courseLocation2.textContent = secondNearMark.address;
-  $courseDistance2.textContent = secondNearMark.distance;
-  $courseMoney2.textContent = secondNearMark.money;
+  $secondSelectCourse.setAttribute('id', secondNearMark.lat);
+  $secondCourseImageSecond.setAttribute("src", secondNearMark.image)
+  $secondCourseDesc.setAttribute('id', secondNearMark.index);
+  $secondCourseName.textContent = secondNearMark.name;
+  $secondCourseLocation.textContent = secondNearMark.address;
+  $secondCourseDistance.textContent = secondNearMark.distance;
+  $secondCourseMoney.textContent = secondNearMark.money;
+
 }
 
 
