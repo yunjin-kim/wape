@@ -1,6 +1,5 @@
 let map;
 let dragged = false;
-let canLoadBanner = false;
 
 (function enterMapPage() {
   if (navigator.geolocation) {
@@ -14,10 +13,16 @@ let canLoadBanner = false;
 function getGeo(event) {
   const lat = event.coords.latitude;
   const lon = event.coords.longitude;
-  let mapOption = {
-    center: new kakao.maps.LatLng(lat, lon), // 지도의 중심좌표
-    level: 2 // 지도의 확대 레벨
-  };
+  let mapOption;
+  try {
+    mapOption = {
+      center: new kakao.maps.LatLng(lat, lon), // 지도의 중심좌표
+      level: 2 // 지도의 확대 레벨
+    };
+  }
+  catch (e) {
+    mapErrorModal();
+  }
 
   getMap(mapOption);
 };
@@ -43,23 +48,38 @@ function getMap(mapOption) {
 }
 
 async function getBannerData() {
+  let canLoadBanner = false;
+  
   try {
     const mapPointResponse = await fetch('../data/mappoint.json');
     const maoPointData = await mapPointResponse.json();
     pointArr.push(maoPointData.points);
     canLoadBanner = true;
 
-    refreshMyLoaction();
+    refreshMyLoaction(canLoadBanner);
     showBannerInfo(pointArr);
     setMapPolygon(pointArr);
     showWalkBanner();
   }
   catch (e) {
-    console.log(e)  //나중에 에러 베너로 오류 발생했으니 재로딩 부탁드립니다 라고 모달 띄워주기
+    mapErrorModal();
   }
 }
 
-function refreshMyLoaction() {
+function mapErrorModal() {
+  const $mapWrap = document.querySelector(".mapWrap");
+  const mapErrorModalDiv = document.createElement('div');
+  mapErrorModalDiv.classList.add("mapErrorModal")
+
+  const mapErrorModalText = document.createElement('p');
+  mapErrorModalText.classList.add("mapErrorModalText");
+  mapErrorModalText.innerHTML = "데이터를 불러오는데<br/> 실패하였습니다<br/> 재로딩 해주세요";
+
+  mapErrorModalDiv.append(mapErrorModalText);
+  $mapWrap.append(mapErrorModalDiv);
+}
+
+function refreshMyLoaction(canLoadBanner) {
   if (canLoadBanner === true) {
     getMyLocationData();
     //watchPosition로 하면 너무 부정확해서 setinerval로 보류
@@ -163,37 +183,36 @@ function showBannerInfo(pointArr) {
 }
 
 function setMapPolygon(pointArr) {
-    const courseArr = [];
-    const polygonArr = [];
-    let polygon;
+  const courseArr = [];
+  const polygonArr = [];
+  let polygon;
 
-    for (let i = 0; i < pointArr[0].length; i++) {
-        let polygonPath = [];
-      for (let j = 0; j < pointArr[0][i].mapPoints.length; j++) {
-        polygonPath.push(new kakao.maps.LatLng(pointArr[0][i].mapPoints[j][0], pointArr[0][i].mapPoints[j][1]));
-      }
-      courseArr.push(polygonPath);
+  for (let i = 0; i < pointArr[0].length; i++) {
+    let polygonPath = [];
+    for (let j = 0; j < pointArr[0][i].mapPoints.length; j++) {
+      polygonPath.push(new kakao.maps.LatLng(pointArr[0][i].mapPoints[j][0], pointArr[0][i].mapPoints[j][1]));
     }
+    courseArr.push(polygonPath);
+  }
 
-    for (let i = 0; i < courseArr.length; i++) {
-      polygon = new kakao.maps.Polygon({
-        path: courseArr[i], stroke: 5, strokeColor: '#42AB34', strokeOpacity: 1, strokeStyle: 'solid', fillColor: 'none', fillOpacity: 0
-      });
-      polygon.setMap(map);
-      polygonArr.push(polygon);
-    }
+  for (let i = 0; i < courseArr.length; i++) {
+    polygon = new kakao.maps.Polygon({
+      path: courseArr[i], stroke: 5, strokeColor: '#42AB34', strokeOpacity: 1, strokeStyle: 'solid', fillColor: 'none', fillOpacity: 0
+    });
+    polygon.setMap(map);
+    polygonArr.push(polygon);
+  }
 
-    showMapPoint(polygon, polygonArr)
+  showMapPoint(polygon, polygonArr)
 }
 
 //걷기 포인트 표시
 function showMapPoint(polygon, polygonArr) {
-    let courseStokeStyle;
+  let courseStokeStyle = (polygon.G.r.childNodes[1].style.cssText);
 
-      courseStokeStyle = (polygon.G.r.childNodes[1].style.cssText);
-      for (let i = 1; i <= polygonArr.length; i++) {
-        polygon.G.r.childNodes[i].style.cssText = "";
-      }
+  for (let i = 1; i <= polygonArr.length; i++) {
+    polygon.G.r.childNodes[i].style.cssText = "";
+  }
     
     //$selectCourse 모든 부분에서 잘 동작하는지 체크 path[1,2,3,4]
     //event에서 클릭한 배너의 인덱스를 polygoncssText cssArr인덱스로 해서 다시 넣어준다
@@ -210,13 +229,13 @@ function showMapPoint(polygon, polygonArr) {
   //첫번째 배너 클릭하면 배너의 코스 보여주고 코스 출발 지점으로 이동
   $firstSelectCourse.addEventListener('click', (event) => {
     let couresFirstLat = Number(event.target.parentNode.offsetParent.childNodes[3].id);
-
     map.panTo(new kakao.maps.LatLng(polygonArr[couresFirstLat].Sg[0].Ma, polygonArr[couresFirstLat].Sg[0].La));
+
     for(let i = 1; i <= polygonArr.length; i++) {
       if(polygon.G.r.childNodes[i].style.cssText) {
         polygon.G.r.childNodes[i].style.cssText = "";
       }
-    } 
+    }
     if(polygonArr[couresFirstLat].Sg[0].Ma === Number(event.path[2].parentElement.firstElementChild.id)) {
       polygon.G.r.childNodes[couresFirstLat+1].style.cssText = `${courseStokeStyle}`;
     }
@@ -244,7 +263,6 @@ function showMapPoint(polygon, polygonArr) {
 function showWalkBanner() {
   dragged = true;
   let mapCenter = map.getCenter();
-  // let mapLevel = map.getLevel();
   let shortDistance = Number.MAX_SAFE_INTEGER;
   let firstNearMark;
   let secondNearMark;
@@ -279,7 +297,6 @@ function showWalkBanner() {
   $secondCourseLocation.textContent = secondNearMark.address;
   $secondCourseDistance.textContent = secondNearMark.distance;
   $secondCourseMoney.textContent = secondNearMark.money;
-
 }
 
 
@@ -288,7 +305,7 @@ function searchAddrFromCoords(coords, callback) {
   geocoder.coord2RegionCode(coords.getLng(), coords.getLat(), callback);
 }
 
- function searchDetailAddrFromCoords(coords, callback) {
+function searchDetailAddrFromCoords(coords, callback) {
   // 좌표로 법정동 상세 주소 정보를 요청합니다
   geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
 }
