@@ -131,8 +131,8 @@ export function setStepChartHeight(chartBarArr, weekNum) {
 }
 
 //저번주 대비 퍼센트
-export let percentData = 0;
 export function setWeekPercent() {
+  let percentData = 0;
   const dataSumArr = [];
 
   for(let i = 0; i < chartDataArr.length; i++) {
@@ -143,12 +143,12 @@ export function setWeekPercent() {
 
   for(let i = 0; i < dataSumArr.length; i++) {
     if(dataSumArr[i] === weekSumStep) {
-      console.log(dataSumArr[i])
+      
       if(dataSumArr[i] > dataSumArr[i+1]) {
-        percentData = parseInt(((dataSumArr[i]-dataSumArr[i+1])/dataSumArr[i])*100);
+        percentData = parseInt(((dataSumArr[i] - dataSumArr[i+1]) / dataSumArr[i]) * 100);
       }
       else if(dataSumArr[i] < dataSumArr[i+1]) {
-        percentData = -parseInt(((dataSumArr[i]/dataSumArr[i+1])-1)*100);
+        percentData = parseInt(((dataSumArr[i] / dataSumArr[i+1]) - 1) * 100);
       }
       else if(dataSumArr[i] === dataSumArr[i+1]) {
         percentData = 0;
@@ -159,5 +159,5 @@ export function setWeekPercent() {
     }
   }
   
-  showWeekPercent();
+  showWeekPercent(percentData);
 }
