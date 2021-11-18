@@ -36,21 +36,25 @@ export function onStepData() {
   }
 }
 
-function getGoogleStepCount(googleStepCountUrl) {
-  console.log("API 호출");
-  return fetch(googleStepCountUrl)
-  .then(response => response.json())
-  .then(json => saveStepToLocal(json))
-  .catch(error => console.log('error', error))
-};
+async function getGoogleStepCount(googleStepCountUrl) {
+  try {
+    const response = await fetch(googleStepCountUrl);
+    const data = await response.json();
+    saveStepToLocal(data)
+  }
+  catch (e) {
+    //에러 모달
+    console.log(e);
+  }
+}
 
 //받아온 JSON 데이터의 마지막 데이터의 endTime의 날짜가 오늘 날짜보다 작다면 밑에 함수를 실행하지 않고 모달을 띄운다
-function saveStepToLocal(json) {
-  console.log(json)
-  if(Number(json.steps_count[json.steps_count.length - 1].endTime[0] + json.steps_count[json.steps_count.length - 1].endTime[1]) !== Number(onToday)) {
+function saveStepToLocal(data) {
+  console.log(data)
+  if(Number(data.steps_count[data.steps_count.length - 1].endTime[0] + data.steps_count[data.steps_count.length - 1].endTime[1]) !== Number(onToday)) {
     showUpdateDataModal();
   }
-  localStorage.setItem("STEP_DATA", JSON.stringify(json));
+  localStorage.setItem("STEP_DATA", JSON.stringify(data));
   setStepDate();
   rangeStepData();
   hadStepData();
