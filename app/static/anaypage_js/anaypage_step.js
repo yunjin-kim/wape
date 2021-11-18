@@ -1,6 +1,6 @@
 import { setWeekStepData, showWeekPercent, hadStepData } from './anaypage.js';
 //걸음 데이터가 30개 미만으로 들어오는 것에 대한 예외처리 확인 필요!
-const googleStepCountUrl = 'https://v1.nocodeapi.com/kimyunjun/fit/lHneRLggDPetxSfn/aggregatesDatasets?dataTypeName=steps_count&timePeriod=30days';
+const googleStepCountUrl = 'https://v1.nocodeapi.com/kimyunjun/fit/lHneRLggDPetxSfn/++aggregatesDatasets?dataTypeName=steps_count&timePeriod=30days';
 //처음에 데이터가 로컬에 없다면 로컬에 저장되는건 되지만 chart배열에 값이 들어가지는 않음 함수 다시 실행될 수 있게
 
 export const date = new Date();
@@ -29,6 +29,7 @@ export function onStepData() {
       getGoogleStepCount(googleStepCountUrl);
     }
     else { //anaypage 42번줄 오류 해결됬는지 확인 필요
+      connsole.log("실행")
       setStepDate();
       rangeStepData();
       hadStepData();
@@ -40,17 +41,30 @@ async function getGoogleStepCount(googleStepCountUrl) {
   try {
     const response = await fetch(googleStepCountUrl);
     const data = await response.json();
+    console.log(data)
     saveStepToLocal(data)
   }
   catch (e) {
-    //에러 모달
+    stepDataErrorModal();
     console.log(e);
   }
 }
 
+function stepDataErrorModal() {
+  const $stepTitle = document.querySelector(".anaypage__walk__title");
+  const stepErrorModalDiv = document.createElement('div');
+  stepErrorModalDiv.classList.add("stepErrorModal")
+
+  const stepErrorModalText = document.createElement('p');
+  stepErrorModalText.classList.add("stepErrorModalText");
+  stepErrorModalText.innerHTML = "걸음 데이터를 불러오는데<br/> 실패하였습니다<br/> 재로딩 해주세요";
+
+  stepErrorModalDiv.append(stepErrorModalText);
+  $stepTitle.append(stepErrorModalDiv);
+}
+
 //받아온 JSON 데이터의 마지막 데이터의 endTime의 날짜가 오늘 날짜보다 작다면 밑에 함수를 실행하지 않고 모달을 띄운다
 function saveStepToLocal(data) {
-  console.log(data)
   if(Number(data.steps_count[data.steps_count.length - 1].endTime[0] + data.steps_count[data.steps_count.length - 1].endTime[1]) !== Number(onToday)) {
     showUpdateDataModal();
   }
