@@ -524,3 +524,19 @@
 #mainpage__today__line {
   margin-left: 24px;
 }
+.todayStepErrorModal {
+  width: 250px;
+  height: 160px;
+  background-color: white;
+  border: 1px solid black;
+  position: absolute;
+  top: 400px;
+  left: 60px;
+  z-index: 10;
+  border-radius: 20px;
+}
+.todayStepErrorModalText {
+  font-size: 1.2rem;
+  text-align: center;
+  margin-top: 24px;
+}

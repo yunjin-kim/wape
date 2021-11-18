@@ -1,18 +1,37 @@
 import { date } from './mainpage_calendar.js';
-
+// 에러처리에서 중요하게 생각한 것 에러가 일어난 함수에서 더 이상 코드가 진행되지 않게 에러난 부분에서 멈춰!
 const googleTodayStepCountUrl = "https://v1.nocodeapi.com/kimyunjun/fit/lHneRLggDPetxSfn/aggregatesDatasets?dataTypeName=steps_count&timePeriod=today&durationTime=hourly";
 const $noTodayStepDataText = document.querySelector(".mainpage__today__main");
 
-async function getTodayStepApi() {
-  const response = await fetch(googleTodayStepCountUrl);
-  const data = await response.json();
-  console.log("API 호출")
-  return data;
+export async function getTodayStepApi() {
+  try {
+    const response = await fetch(googleTodayStepCountUrl);
+    const data = await response.json();
+    getTodayStepData(data);
+    // return data;
+  }
+  catch (e) {
+    todayStepDataErrorModal();
+    console.log(e);
+  }
 }
 
-export async function getTodayStepData() {
-  const data = await getTodayStepApi();
+function todayStepDataErrorModal() {
+  const $todayStepTitle = document.querySelector(".mainpage__today__title");
+  const todayStepErrorModalDiv = document.createElement('div');
+  todayStepErrorModalDiv.classList.add("todayStepErrorModal")
 
+  const todayStepErrorModalText = document.createElement('p');
+  todayStepErrorModalText.classList.add("todayStepErrorModalText");
+  todayStepErrorModalText.innerHTML = "걸음 데이터를 불러오는데<br/> 실패하였습니다<br/> 재로딩 해주세요";
+
+  todayStepErrorModalDiv.append(todayStepErrorModalText);
+  $todayStepTitle.append(todayStepErrorModalDiv);
+}
+
+function getTodayStepData(data) {
+  // const data = await getTodayStepApi();
+  console.log("실행이요")
   if(data.steps_count.length > 0) {
     showTodayStepData(data.steps_count);
   }
@@ -25,6 +44,7 @@ function showTodayStepData(stepData) {
   const $todayWalkWrap = document.querySelector(".mainpage__today__main");
   const $todayWalkLine = document.getElementById("mainpage__today__line");
 
+  console.log("실행이요")
   const walkLine = $todayWalkLine.getContext("2d");
   walkLine.beginPath();
   walkLine.lineWidth = 1;

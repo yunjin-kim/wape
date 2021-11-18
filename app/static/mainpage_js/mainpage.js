@@ -3,7 +3,7 @@ import { getCookie } from "./mainpage_profile.js";
 import { renderCalendar, date, daysArray, clickReserveDate } from "./mainpage_calendar.js";
 import { clickDate, setTimeOptionAtReserve, setClickDateArr, clickReserve, beforeReseveDelete } from "./mainpage_reserve.js";
 import { showSetGoalModal, getTodayStep, setStepGragh } from './mainpage_goal.js';
-import { getTodayStepData, showTodayWalkDate } from './mainpage_todayWalk.js';
+import { getTodayStepApi, showTodayWalkDate } from './mainpage_todayWalk.js';
 import { getCurrentLoaction } from './mainpage_weather.js'
 
 const $thisYearMonth = document.querySelector(".thisYearMonth");
@@ -17,7 +17,7 @@ const $selectMinute = document.querySelector(".selectMinute");
   let getStepDate = localStorage.getItem("STEP_DATA");
   let parseGetStepDate= JSON.parse(getStepDate);
   getCurrentLoaction();
-  getTodayStepData()
+  getTodayStepApi()
   setDateAtReserve();
   setTimeOptionAtReserve()
   beforeReseveDelete();
