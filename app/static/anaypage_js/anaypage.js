@@ -13,12 +13,6 @@ export let sleepWeekNum = 0;
 (function hasStepData() {
   onStepData();
   setGraphDate();
-})();
-
-export function hadStepData() {
-  setStepChart(weekNum);
-  setWeekPercent();
-  ifNoGoal();
   setGoalWeight();
   rangeWeightData()
   setCurrentWeight();
@@ -28,6 +22,12 @@ export function hadStepData() {
   rangeSleepData();
   setSleepChart(sleepWeekNum);
   setSleepDataAverage(sleepWeekNum);
+})();
+
+export function hadStepData() {
+  setStepChart(weekNum);
+  setWeekPercent();
+  ifNoGoal();
 }
 
 //그래프 요일 
