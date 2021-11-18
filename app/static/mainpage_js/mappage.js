@@ -19,12 +19,12 @@ function getGeo(event) {
       center: new kakao.maps.LatLng(lat, lon), // 지도의 중심좌표
       level: 2 // 지도의 확대 레벨
     };
+    getMap(mapOption);
   }
   catch (e) {
     mapErrorModal();
+    console.log(e)
   }
-
-  getMap(mapOption);
 };
 
 const $showMap = document.getElementById('showmap');
@@ -43,7 +43,6 @@ function getMap(mapOption) {
   kakao.maps.event.addListener(map, 'idle', function () {
     searchAddrFromCoords(map.getCenter(), displayCenterInfo);
   });
-
   getBannerData();
 }
 
@@ -63,6 +62,7 @@ async function getBannerData() {
   }
   catch (e) {
     mapErrorModal();
+    console.log(e);
   }
 }
 
