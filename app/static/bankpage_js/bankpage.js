@@ -1,28 +1,44 @@
 import { setStepHistory } from './bankpage_history.js';
 import { getBankStepData, titleModal } from './bankpage_total.js';
+//에러처리
+(function hasStepData() {
+  const getStepDate = localStorage.getItem("STEP_DATA");
+  const parseGetStepDate= JSON.parse(getStepDate);
 
-(function hasStepData(){
-  let getStepDate = localStorage.getItem("STEP_DATA");
-  let parseGetStepDate= JSON.parse(getStepDate);
-
-  if(parseGetStepDate){
+  if(parseGetStepDate) {
     enterBankPage();
+  }
+  else{
+    stepDataErrorModal();
   }
 })()
 
-function enterBankPage(){
-  setWalkData()
+function stepDataErrorModal() {
+  const $bankTitle = document.querySelector(".bankpage__asset");
+  const stepErrorModalDiv = document.createElement('div');
+  stepErrorModalDiv.classList.add("stepErrorModal")
+
+  const stepErrorModalText = document.createElement('p');
+  stepErrorModalText.classList.add("stepErrorModalText");
+  stepErrorModalText.innerHTML = "걸음 데이터를 불러오는데<br/> 실패하였습니다<br/> 재로딩 해주세요";
+
+  stepErrorModalDiv.append(stepErrorModalText);
+  $bankTitle.append(stepErrorModalDiv);
+}
+
+function enterBankPage() {
+  setWalkData();
   getBankStepData();
 };
 
 //이제까지 걸은 데이터 
-function setWalkData(){
+function setWalkData() {
   const $stepHistory = document.querySelector(".bankpage__reposit");
   $stepHistory.innerHTML = setStepHistory().join('');
 }
 
 //총 걷기 데이터
-export function setBankTotalData(totalStepData){
+export function setBankTotalData(totalStepData) {
   const $bankTotalStep = document.querySelector(".bankTotalStep");
   const $bankTotalDistance = document.querySelector(".bankTotalDistance");
   const $bankEarth = document.querySelector(".bankEarth");
@@ -39,7 +55,7 @@ export function setBankTotalData(totalStepData){
 }
 
 //총 자산 그래프
-export function setBankMoneyGraph(bankTotalPrice, bankMoneyGraghMax, bankMoneyGraghMin){
+export function setBankMoneyGraph(bankTotalPrice, bankMoneyGraghMax, bankMoneyGraghMin) {
   const $bankTotalMoney = document.querySelector(".bankTotalMoney");
   const $bankMoneyGraghMin = document.querySelector(".bankMoneyGraghMin");
   const $bankMoneyGraghMax = document.querySelector(".bankMoneyGraghMax");
@@ -51,8 +67,7 @@ export function setBankMoneyGraph(bankTotalPrice, bankMoneyGraghMax, bankMoneyGr
   $bankTotalMoney.textContent = bankTotalPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 }
 
-//칭호
-export function setTitle(currentTitleNum, allTitles){
+export function setTitle(currentTitleNum, allTitles) {
   const $currentTitle = document.querySelector(".currentTitle");
   const $nextTitle = document.querySelector(".nextTitle");
 
@@ -62,6 +77,6 @@ export function setTitle(currentTitleNum, allTitles){
 
 //모든 칭호 보기
 const $showAllTitle = document.querySelector(".bankpage__asset__all");
-$showAllTitle.addEventListener('click', (e)=>{
-  titleModal(e)
+$showAllTitle.addEventListener('click', (e) => {
+  titleModal(e);
 })
