@@ -13,7 +13,6 @@ $loginPassInput.addEventListener('change', (e) => {
 const $loginBtn = document.getElementById("loginBtn");
 
 $loginBtn.addEventListener('click', () => {
-  console.log("로그인111")
   if(loginNum);
   if(loginPass);
 
