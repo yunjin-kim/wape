@@ -13,13 +13,12 @@
         <h2 class="login__title">워피</h2>
         <form class="login__form">
             <label for="phoneNum">휴대전화 번호를 입력해주세요</label>
-            <input type="text" placeholder="휴대전화 번호" id="loginNum" onchange="loginNumber()">
+            <input type="text" class="loginNum" placeholder="휴대전화 번호">
             <label for="secret">비밀번호를 입력해주세요</label>
-            <input type="password" placeholder="비밀번호" id="loginPass" onchange="loginPassword()">
+            <input type="password" class="loginPass" placeholder="비밀번호">
         </form>
         <button class="login__button" id="loginBtn" >로그인</button>
         <div id="loginError"></div>
-        <!-- onclick="location.href='../mainpage_html/mainpage.html'" -->
         <div class="login__new">
             <span  onclick="location='/page/join'">회원가입</span>
             <div></div>
