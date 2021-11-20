@@ -31,7 +31,6 @@ function todayStepDataErrorModal() {
 
 function getTodayStepData(data) {
   // const data = await getTodayStepApi();
-  console.log("실행이요")
   if(data.steps_count.length > 0) {
     showTodayStepData(data.steps_count);
   }
@@ -44,15 +43,20 @@ function showTodayStepData(stepData) {
   const $todayWalkWrap = document.querySelector(".mainpage__today__main");
   const $todayWalkLine = document.getElementById("mainpage__today__line");
 
-  console.log("실행이요")
   const walkLine = $todayWalkLine.getContext("2d");
   walkLine.beginPath();
   walkLine.lineWidth = 1;
   walkLine.strokeStyle = "gray";
-  walkLine.moveTo(0, 107);
+  walkLine.moveTo(0, 110);
 
-  $todayWalkWrap.style.width = `${stepData.length*100}px`;
-  $todayWalkLine.style.width = `${stepData.length*90}px`;
+  walkLine.bezierCurveTo(30, 130, 120, 50, 150, 56);
+
+  walkLine.bezierCurveTo(180, 50, 240, 110, 300, 112);
+
+  // walkLine.bezierCurveTo(330, 130, 360, 50, 450, 56);
+
+  $todayWalkWrap.style.width = `${stepData.length*120}px`; //100
+  $todayWalkLine.style.width = `1500px`;
   $todayWalkLine.style.height = "18vh";
   console.log(stepData.length)
 
@@ -68,33 +72,16 @@ function showTodayStepData(stepData) {
     dottStepText.innerText = `${stepData[i].value}걸음`;
     dottStartTimeText.innerText = `${stepData[i].startTime.substring(12, 20)}`;
     dottEndTimeText.innerText = `${stepData[i].endTime.substring(12, 20)}`;
-    console.log(i)
 
-    if(i%2 === 0) {
-      stepDataDott.style.top = `${100}px`;
-      dottStepText.style.top = `${86}px`;
-      dottStartTimeText.style.top = `${110}px`;
-      dottEndTimeText.style.top = `${120}px`;
-      if(i > 0) {
-        walkLine.quadraticCurveTo(i*70, 130, i*115, 46);
-      }
-      console.log("실행")
-    } 
-    else if(i%2 === 1) {
-      stepDataDott.style.top = `${50}px`;
-      dottStepText.style.top = `${40}px`;
-      dottStartTimeText.style.top = `${60}px`;
-      dottEndTimeText.style.top = `${70}px`;
-      if(i < stepData.length - 1) {
-        walkLine.quadraticCurveTo(i*70, 5, i*115, 107);
-      }
+    stepDataDott.style.top = `${100-(i*2)}px`;
+    dottStepText.style.top = `${86-(i*2)}px`;
+    dottStartTimeText.style.top = `${110-(i*2)}px`;
+    dottEndTimeText.style.top = `${120-(i*2)}px`;
 
-      console.log("실행실행")
-    } 
-    stepDataDott.style.left = `${i*90}px`;
-    dottStepText.style.left = `${i*90}px`;
-    dottStartTimeText.style.left = `${i*90}px`;
-    dottEndTimeText.style.left = `${i*90}px`;
+    stepDataDott.style.left = `${i*120}px`;
+    dottStepText.style.left = `${i*120}px`;
+    dottStartTimeText.style.left = `${i*120}px`;
+    dottEndTimeText.style.left = `${i*120}px`;
     $noTodayStepDataText.append(stepDataDott, dottStepText, dottStartTimeText, dottEndTimeText);
   }
   walkLine.stroke();

@@ -11,7 +11,7 @@ export function setStepHistory() {
 
   const daysValue = _.go(
     parseGetStepData.steps_count,
-    _.map(data => (data.startTime[0]+data.startTime[1]))
+    _.map(data => (data.endTime[0]+data.endTime[1]))
   )
 
   console.log(daysValue)
