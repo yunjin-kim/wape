@@ -15,6 +15,7 @@ export function setStepHistory() {
   )
 
   console.log(daysValue)
+  console.log(stepValue)
 
   const showHistoryArr = [];
   let myGoal = localStorage.getItem("STEP_GOAL");
@@ -37,8 +38,8 @@ export function setStepHistory() {
             </div>
             <div class="bankpage__reposit__value">
                 <h3>
-                    <span>${(daysValue[i]*0.07).toFixed(1)}</span>km 걷고<br>
-                    <span></span>원 벌었어요
+                    <span>${(stepValue[i]*0.0007).toFixed(1)}</span>km 걷고<br>
+                    <span>${stepValue[i]*5}</span>원 벌었어요
                 </h3>
             </div>
         </div>
