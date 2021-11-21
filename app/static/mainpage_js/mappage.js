@@ -198,7 +198,7 @@ function setMapPolygon(pointArr) {
 
   for (let i = 0; i < courseArr.length; i++) {
     polygon = new kakao.maps.Polygon({
-      path: courseArr[i], stroke: 5, strokeColor: '#42AB34', strokeOpacity: 1, strokeStyle: 'solid', fillColor: 'none', fillOpacity: 0
+      path: courseArr[i], stroke: 5, strokeColor: '#42AB34', strokeOpacity: 1, strokeStyle: 'solid', fillColor: 'none', fillOpacity: 0, 
     });
     polygon.setMap(map);
     polygonArr.push(polygon);
@@ -209,7 +209,7 @@ function setMapPolygon(pointArr) {
 
 //걷기 포인트 표시
 function showMapPoint(polygon, polygonArr) {
-  let courseStokeStyle = (polygon.G.r.childNodes[1].style.cssText);
+  let courseStokeStyle = `stroke: rgb(66, 171, 52); stroke-opacity: 1; stroke-width: 3px; color: rgb(66, 171, 52); stroke-linecap: round; display: block`;
 
   for (let i = 1; i <= polygonArr.length; i++) {
     polygon.G.r.childNodes[i].style.cssText = "";
