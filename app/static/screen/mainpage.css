@@ -540,3 +540,8 @@
   text-align: center;
   margin-top: 24px;
 }
+.noTodayStepDataText {
+  z-index: 20;
+  margin-top: -16vh;
+  margin-left: 5vw;
+}

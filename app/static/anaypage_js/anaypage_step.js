@@ -131,6 +131,13 @@ function rangeStepData() {
 //걸음수 관련 처리
 export let weekSumStep = 0;
 export function setStepChartHeight(chartBarArr, weekNum) {
+  //다음날 되엇을 때 이걸로 오류 고쳐지는지 확인해보고 되면 flag로 다음날 되었을 때 한버만 실행되게 바꾸기
+  for(let i = chartBarArr.length-1; i >= 0; i--) {
+    weekSumStep = 0
+    chartBarArr[i].children[1].style.height = "0px";
+    chartBarArr[i].children[0].textContent = "0px";
+  }
+
   weekSumStep = 0;
   let chartDataArrFlat = chartDataArr.flat();
   let monthSumStep = 0;

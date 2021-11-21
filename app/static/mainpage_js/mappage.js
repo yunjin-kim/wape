@@ -90,7 +90,7 @@ function refreshMyLoaction(canLoadBanner) {
 function getMyLocationData() {
   navigator.geolocation.getCurrentPosition(getMyGeo);
 }
-
+//map 오류 고치기
 function getMyGeo(event) {
   const lat1 = event.coords.latitude;
   const lon1 = event.coords.longitude;
@@ -109,6 +109,7 @@ $backToMyLoc.addEventListener('click', () => {
   dragged = false;
   map.panTo(new kakao.maps.LatLng(myMapOption.center.Ma, myMapOption.center.La));
 })
+
 
 //내 위치 표시
 const myLocArr = [];

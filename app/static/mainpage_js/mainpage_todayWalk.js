@@ -1,14 +1,13 @@
 import { date } from './mainpage_calendar.js';
 // 에러처리에서 중요하게 생각한 것 에러가 일어난 함수에서 더 이상 코드가 진행되지 않게 에러난 부분에서 멈춰!
 const googleTodayStepCountUrl = "https://v1.nocodeapi.com/kimyunjun/fit/lHneRLggDPetxSfn/aggregatesDatasets?dataTypeName=steps_count&timePeriod=today&durationTime=hourly";
-const $noTodayStepDataText = document.querySelector(".mainpage__today__main");
+const $todayStepWrap = document.querySelector(".mainpage__today__main");
 
 export async function getTodayStepApi() {
   try {
     const response = await fetch(googleTodayStepCountUrl);
     const data = await response.json();
     getTodayStepData(data);
-    // return data;
   }
   catch (e) {
     todayStepDataErrorModal();
@@ -30,12 +29,14 @@ function todayStepDataErrorModal() {
 }
 
 function getTodayStepData(data) {
-  // const data = await getTodayStepApi();
   if(data.steps_count.length > 0) {
     showTodayStepData(data.steps_count);
   }
   else {
-    $noTodayStepDataText.textContent = "오늘 걸은 데이터가 없습니다";
+    const noTodayStepDataText = document.createElement('p');
+    noTodayStepDataText.textContent = "오늘 걸은 데이터가 없습니다";
+    noTodayStepDataText.classList.add("noTodayStepDataText");
+    $todayStepWrap.append(noTodayStepDataText);
   }
 }
 
@@ -49,7 +50,7 @@ function showTodayStepData(stepData) {
   walkLine.strokeStyle = "gray";
   walkLine.moveTo(0, 110);
 
-  walkLine.bezierCurveTo(30, 130, 120, 50, 150, 56);
+  walkLine.bezierCurveTo(10, 130, 120, 50, 150, 56);
 
   walkLine.bezierCurveTo(180, 50, 240, 110, 300, 112);
 
@@ -73,16 +74,16 @@ function showTodayStepData(stepData) {
     dottStartTimeText.innerText = `${stepData[i].startTime.substring(12, 20)}`;
     dottEndTimeText.innerText = `${stepData[i].endTime.substring(12, 20)}`;
 
-    stepDataDott.style.top = `${100-(i*2)}px`;
-    dottStepText.style.top = `${86-(i*2)}px`;
-    dottStartTimeText.style.top = `${110-(i*2)}px`;
-    dottEndTimeText.style.top = `${120-(i*2)}px`;
+    stepDataDott.style.top = `${100-(i*6)}px`;
+    dottStepText.style.top = `${86-(i*6)}px`;
+    dottStartTimeText.style.top = `${110-(i*6)}px`;
+    dottEndTimeText.style.top = `${120-(i*6)}px`;
 
     stepDataDott.style.left = `${i*120}px`;
     dottStepText.style.left = `${i*120}px`;
     dottStartTimeText.style.left = `${i*120}px`;
     dottEndTimeText.style.left = `${i*120}px`;
-    $noTodayStepDataText.append(stepDataDott, dottStepText, dottStartTimeText, dottEndTimeText);
+    $todayStepWrap.append(stepDataDott, dottStepText, dottStartTimeText, dottEndTimeText);
   }
   walkLine.stroke();
 }
