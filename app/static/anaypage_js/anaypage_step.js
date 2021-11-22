@@ -70,7 +70,7 @@ function saveStepToLocal(data) {
   }
   localStorage.setItem("STEP_DATA", JSON.stringify(data));
   setStepDate();
-  rangeStepData();
+  reloadRangeStepData(data); // 이 함수를 따로 빼자
   hadStepData();
 }
 
@@ -113,17 +113,32 @@ function setStepDate() {
 export const walkDayArr = [];
 export const chartDataArr = [[], [], [], []]
 
-//배열에 걸음수 데이터 넣기
-function rangeStepData() {
-  let getStepDate = localStorage.getItem("STEP_DATA");
-  let parseGetStepDate= JSON.parse(getStepDate);
-  let reserveGetStepDate = parseGetStepDate.steps_count.reverse();
+function reloadRangeStepData(data) {
+  console.log(data);
+  let reserveStepDate = data.slice().reverse(); //여기서 제대로 되나 내일 확인
 
   for(let i = 0; i < chartDataArr.length; i++) {
-    while(reserveGetStepDate.length) {
+    while(reserveStepDate.length) {
       if(chartDataArr[i].length >= 7) break;
-      chartDataArr[i].push(reserveGetStepDate[0]);
-      reserveGetStepDate.shift();
+      chartDataArr[i].push(reserveStepDate[0]);
+      reserveStepDate.shift();
+    }
+  }
+}
+
+//배열에 걸음수 데이터 넣기
+function rangeStepData() {
+  console.log("rangeStepData")
+  let getStepDateFromLocal = localStorage.getItem("STEP_DATA");
+  let parseStepDateFromLocal = JSON.parse(getStepDateFromLocal);
+  let reserveStepDateFromLocal = parseStepDateFromLocal.steps_count.reverse();
+  console.log(reserveStepDateFromLocal)
+
+  for(let i = 0; i < chartDataArr.length; i++) {
+    while(reserveStepDateFromLocal.length) {
+      if(chartDataArr[i].length >= 7) break;
+      chartDataArr[i].push(reserveStepDateFromLocal[0]);
+      reserveStepDateFromLocal.shift();
     }
   }
 }
