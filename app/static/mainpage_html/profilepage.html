@@ -10,9 +10,16 @@
 <body>
   <div class="wrap">
     <h1 class="profilepage__profile">프로필</h1>
-    <img class="profileBackBtn" src="../img/next.png" onclick="history.back()" />
-    <h3 class="profileNameWrap"><span class="profileName"></span>  님 </h3>
+    <img class="profile__backbtn" src="../img/next.png" />
+    <h3 class="profile__namewrap"><span class="profileName"></span>  님 </h3>
     <button id="logoutBtn">로그아웃</button>
+    <div class="profile__bodywrap">
+      <div class="profile__bodywrap__height">
+        <div class="profile__bodywrap__heighttext">키를 입력해주세요</div>
+        <img class="profileHeightFixBtn" src="../img/fixIcon.png" />
+      </div>
+    </div>
+
   </div>
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
