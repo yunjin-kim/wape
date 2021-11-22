@@ -100,15 +100,16 @@ function getMyGeo(event) {
   };
 
   showMyLoction(myMapOption);
+
+  const $backToMyLoc = document.querySelector('.mappage__location__btn');
+//클릭하면 dragged 가 false로 바뀌고 현재 위치로 바로 갈 수 있게
+  $backToMyLoc.addEventListener('click', () => {
+    dragged = false;
+    map.panTo(new kakao.maps.LatLng(myMapOption.center.Ma, myMapOption.center.La));
+  })
 };
 
-const $backToMyLoc = document.querySelector('.mappage__location__btn');
 
-//클릭하면 dragged 가 false로 바뀌고 현재 위치로 바로 갈 수 있게
-$backToMyLoc.addEventListener('click', () => {
-  dragged = false;
-  map.panTo(new kakao.maps.LatLng(myMapOption.center.Ma, myMapOption.center.La));
-})
 
 
 //내 위치 표시
