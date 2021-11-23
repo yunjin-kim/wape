@@ -22,6 +22,7 @@ const $selectMinute = document.querySelector(".selectMinute");
   setTimeOptionAtReserve()
   beforeReseveDelete();
   showTodayWalkDate();
+  setUserTitle();
   
   if(parseGetStepDate) {
     enterMainpage();
@@ -36,6 +37,16 @@ function enterMainpage() {
   setGoalTodayStep();
   setGoalGraph();
 };
+
+function setUserTitle() {
+  const $userTitle = document.querySelector(".userTitle");
+  const getTitleFromLocal = localStorage.getItem("USER_TITLE");
+  const parseTitle = JSON.parse(getTitleFromLocal);
+  $userTitle.textContent = parseTitle;
+  if (!parseTitle) {
+    $userTitle.textContent = "걷기 데이터가 없습니다";
+  }
+}
 
 //걷기 효능
 function setQuote() {

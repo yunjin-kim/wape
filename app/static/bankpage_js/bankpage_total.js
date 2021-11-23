@@ -17,7 +17,7 @@ export function getBankStepData() {
 }
 
 //은행 돈 그래프 
-function setBankData(totalStepData) {
+export function setBankData(totalStepData) {
   let currentTitleNum;
   let bankTotalPrice = totalStepData*5;
   let bankMoneyGraghMax;
@@ -50,6 +50,7 @@ function setBankData(totalStepData) {
   }
   
   setBankMoneyGraph(bankTotalPrice, bankMoneyGraghMax, bankMoneyGraghMin);
+  localStorage.setItem("USER_TITLE", JSON.stringify(allTitles[currentTitleNum-1]));
   setTitle(currentTitleNum, allTitles);
 }
 
