@@ -2,7 +2,7 @@
 //날짜 세팅하고 버튼 클릭은 4개 다 같아서 나중에 다 구현하고 리펙토링해서 하나로
 import { onStepData, walkDayArr, setStepChartHeight, setWeekPercent } from './anaypage_step.js';
 import { setGoalAchieve } from './anaypage_goal.js';
-import { showGoalWeihgtModal, setGoalWeight, showWeihgtModal, setCurrentWeight, setuntilGoalWeight, rangeWeightData, setWeightChartHeight, setWeightDate } from './anaypage_weight.js';
+import { showGoalWeihgtModal, setGoalWeight, showWeihgtModal, setCurrentWeight, setuntilGoalWeight, rangeWeightData, setWeightChartHeight, setWeightDate, setUserBmi } from './anaypage_weight.js';
 import { showSleepModal, rangeSleepData, setCurrentSleep, setSleepChartHeight, setSleepDate } from './anaypage_sleep.js';
 import { getNameFromCookie } from '../mainpage_js/mainpage_profile.js';
 
@@ -24,6 +24,7 @@ export let sleepWeekNum = 0;
   rangeSleepData();
   setSleepChart(sleepWeekNum);
   setSleepDataAverage(sleepWeekNum);
+  setUserBmi();
 })();
 
 export function hadStepData() {

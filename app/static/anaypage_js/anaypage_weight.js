@@ -49,7 +49,7 @@ export function setGoalWeight() {
   let getGoalWeight = localStorage.getItem("GOAL_WEIGHT");
   let parseGoalWeight = JSON.parse(getGoalWeight);
 
-  if(parseGoalWeight) {
+  if (parseGoalWeight) {
     $goalWeihgtDiv.classList.remove("hiddenDiv");
     $goalWeight.textContent = `${parseGoalWeight}kg`;
   }
@@ -121,8 +121,8 @@ export function setCurrentWeight() {
   let getTotalWeightData = localStorage.getItem("CURRENT_WEIGHT");
   let parseTotalWeightData = JSON.parse(getTotalWeightData);
 
-  if(parseTotalWeightData) {
-    if(parseTotalWeightData[0][0][2] === "") {
+  if (parseTotalWeightData) {
+    if (parseTotalWeightData[0][0][2] === "") {
       $noWeightDiv.classList.remove("hiddenDiv");
       $weightDiv.classList.add("hiddenDiv");
       $noWeightDiv.innerHTML = `<span class="noWeight">현재 체중을 적어주세요</span>`;
@@ -140,10 +140,10 @@ export function setCurrentWeight() {
 }
 
 export function setuntilGoalWeight() {
-  let getWeight = localStorage.getItem("GOAL_WEIGHT");
-  let parseWeight = JSON.parse(getWeight);
-  let getTotalWeightData = localStorage.getItem("CURRENT_WEIGHT");
-  let parseTotalWeightData = JSON.parse(getTotalWeightData);
+  const getWeight = localStorage.getItem("GOAL_WEIGHT");
+  const parseWeight = JSON.parse(getWeight);
+  const getTotalWeightData = localStorage.getItem("CURRENT_WEIGHT");
+  const parseTotalWeightData = JSON.parse(getTotalWeightData);
 
   return parseTotalWeightData[0][0][2]-parseWeight;
 }
@@ -163,17 +163,17 @@ export function rangeWeightData() {
   let getTotalWeightData = localStorage.getItem("CURRENT_WEIGHT");
   let parseTotalWeightData = JSON.parse(getTotalWeightData);
   
-  if(parseTotalWeightData) { //로컬에 데이터가 있다면
-    if(parseTotalWeightData[0][0][1] !== date.getDate()) { //오늘 날짜와 다르다면
+  if (parseTotalWeightData) { //로컬에 데이터가 있다면
+    if (parseTotalWeightData[0][0][1] !== date.getDate()) { //오늘 날짜와 다르다면
       console.log("다음날이 되었다")
-      for(let i = 0; i < 28; i++) {
+      for (let i = 0; i < 28; i++) {
         dateNum -= 1;
-        if(dateNum === 0) {
+        if (dateNum === 0) {
           dateNum = prevLastDate;
           monthNum = lastMonth;
         }
         weightDataArr[weightDataArrNum].push([monthNum, dateNum, ""]);
-        if(weightDataArr[weightDataArrNum].length === 7) {
+        if (weightDataArr[weightDataArrNum].length === 7) {
           weightDataArrNum++;
         }
       }
@@ -182,15 +182,15 @@ export function rangeWeightData() {
 
       let localPoint = 0;
       let dataPoint = 0;
-      while(localPoint < 27 || dataPoint < 27) {
-        if(parseTotalWeightDataFlat[0][0] < weightDataArrFlat[dataPoint][0]) { //로컬 첫번재 값의 달보다 새로만든 배열의 달이 더 크다
+      while (localPoint < 27 || dataPoint < 27) {
+        if (parseTotalWeightDataFlat[0][0] < weightDataArrFlat[dataPoint][0]) { //로컬 첫번재 값의 달보다 새로만든 배열의 달이 더 크다
           dataPoint++;
         }
-        else if(parseTotalWeightDataFlat[localPoint][0] === weightDataArrFlat[dataPoint][0] && parseTotalWeightDataFlat[localPoint][1] !== weightDataArrFlat[dataPoint][1] ) {
+        else if (parseTotalWeightDataFlat[localPoint][0] === weightDataArrFlat[dataPoint][0] && parseTotalWeightDataFlat[localPoint][1] !== weightDataArrFlat[dataPoint][1] ) {
           //달은 같으나 날짜가 다르다
           dataPoint++;
         }
-        else if(parseTotalWeightDataFlat[localPoint][0] === weightDataArrFlat[dataPoint][0] && parseTotalWeightDataFlat[localPoint][1] === weightDataArrFlat[dataPoint][1]) {
+        else if (parseTotalWeightDataFlat[localPoint][0] === weightDataArrFlat[dataPoint][0] && parseTotalWeightDataFlat[localPoint][1] === weightDataArrFlat[dataPoint][1]) {
           weightDataArrFlat[dataPoint][2] = parseTotalWeightDataFlat[localPoint][2];
           dataPoint++;
           localPoint++;
@@ -199,15 +199,15 @@ export function rangeWeightData() {
       localStorage.setItem("CURRENT_WEIGHT", JSON.stringify(weightDataArr));
     }
   }
-  else if(!parseTotalWeightData) { //로컬에 데이터 없다면 초기 상태
-    for(let i = 0; i < 28; i++) {
+  else if (!parseTotalWeightData) { //로컬에 데이터 없다면 초기 상태
+    for (let i = 0; i < 28; i++) {
       dateNum -= 1;
-      if(dateNum === 0) {
+      if (dateNum === 0) {
         dateNum = prevLastDate;
         monthNum = lastMonth;
       }
       weightDataArr[weightDataArrNum].push([monthNum, dateNum, ""]);
-      if(weightDataArr[weightDataArrNum].length === 7) {
+      if (weightDataArr[weightDataArrNum].length === 7) {
         weightDataArrNum++;
       }
     }
@@ -218,36 +218,35 @@ export function rangeWeightData() {
 //체중 날짜
 export function setWeightDate(weightBoxArr, weightWeekNum) {
   const date = new Date();
-  let oneMonthDateArr = [];
+  const oneMonthDateArr = [];
   let todayDate = date.getDate();
   const lastMonthDate = new Date(date.getFullYear(), date.getMonth(), 0).getDate();
   todayDate -= weightWeekNum*7;
   
-  if(todayDate < 0) todayDate = lastMonthDate + todayDate;
-  for(let i = 0; i <= 29; i++) {
+  if (todayDate < 0) todayDate = lastMonthDate + todayDate;
+  for (let i = 0; i <= 29; i++) {
     let date = todayDate - i;
-    if(date === 0) {
-      for(let j = 0; j <= 30 - oneMonthDateArr.length; j++) {
+    if (date === 0) {
+      for (let j = 0; j <= 30 - oneMonthDateArr.length; j++) {
         oneMonthDateArr.push(lastMonthDate - j);
       }
       break;
     } 
     oneMonthDateArr.push(date);
   }
-  for(let i = 0; i < 7; i++) {
+  for (let i = 0; i < 7; i++) {
     weightBoxArr[6-i].id = oneMonthDateArr[i];
   }
 }
 
 //체중 차트 값 넣어주기
-export function setWeightChartHeight(weightBoxArr ,weightWeekNum) {
-  let reverseWeightBoxArr = weightBoxArr.slice().reverse();
+export function setWeightChartHeight(weightBoxArr, weightWeekNum) {
+  const reverseWeightBoxArr = weightBoxArr.slice().reverse();
+  const getTotalWeightData = localStorage.getItem("CURRENT_WEIGHT");
+  const parseTotalWeightData = JSON.parse(getTotalWeightData);
 
-  let getTotalWeightData = localStorage.getItem("CURRENT_WEIGHT");
-  let parseTotalWeightData = JSON.parse(getTotalWeightData);
-
-  for(let i = 0; i < parseTotalWeightData[weightWeekNum].length; i++) {
-    if(parseTotalWeightData[weightWeekNum][i][2] > 0) {
+  for (let i = 0; i < parseTotalWeightData[weightWeekNum].length; i++) {
+    if (parseTotalWeightData[weightWeekNum][i][2] > 0) {
       reverseWeightBoxArr[i].children[1].style.height = `${parseTotalWeightData[weightWeekNum][i][2]}px`;
       reverseWeightBoxArr[i].children[0].textContent = `${parseTotalWeightData[weightWeekNum][i][2]}`;
     }
@@ -256,4 +255,14 @@ export function setWeightChartHeight(weightBoxArr ,weightWeekNum) {
       reverseWeightBoxArr[i].children[0].textContent = "";
     }
   }
+}
+
+export function setUserBmi() {
+  const $userBmi = document.querySelector(".userBmi");
+  const getHeihgtFromLocal = localStorage.getItem("USER_HEIGHT");
+  const parseHeight = JSON.parse(getHeihgtFromLocal);
+  const getWeightFromLocal = localStorage.getItem("CURRENT_WEIGHT");
+  const parseWeightFromLocal = JSON.parse(getWeightFromLocal);
+  
+  $userBmi.textContent = parseInt((parseWeightFromLocal[0][0][2]) / (parseHeight/100)**2);
 }
