@@ -1,5 +1,5 @@
 import {setBankTotalData, setBankMoneyGraph, setTitle } from "./bankpage.js";
-const allTitles = ["방구석에 콕", "걷기 비기너", "걷기 주니어", "걷기 프로", "당신은 마라톤 선수", ""];
+const allTitles = ["방구석에 콕", "걷기 비기너", "걷기 주니어", "걷기 프로", "마라톤 선수", ""];
 
 //은행 걷기 데이터
 export function getBankStepData() {
@@ -59,6 +59,10 @@ export function titleModal(e) {
   const titleModaleBox = document.createElement('div');
   titleModaleBox.classList.add("titleModal");
 
+  const titleModalTitle = document.createElement("h2");
+  titleModalTitle.textContent = "모든 칭호";
+  titleModalTitle.classList.add("titleModalTitle");
+
   const titleModalClose = document.createElement('button');
   titleModalClose.textContent = "X";
   titleModalClose.classList.add("titleModalClose");
@@ -66,6 +70,7 @@ export function titleModal(e) {
     titleModaleBox.remove();
   });
   titleModaleBox.append(titleModalClose);
+  titleModaleBox.append(titleModalTitle);
 
   for(let title of allTitles){
     let titles = document.createElement('p');
