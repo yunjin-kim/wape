@@ -4,6 +4,7 @@ import { onStepData, walkDayArr, setStepChartHeight, setWeekPercent } from './an
 import { setGoalAchieve } from './anaypage_goal.js';
 import { showGoalWeihgtModal, setGoalWeight, showWeihgtModal, setCurrentWeight, setuntilGoalWeight, rangeWeightData, setWeightChartHeight, setWeightDate } from './anaypage_weight.js';
 import { showSleepModal, rangeSleepData, setCurrentSleep, setSleepChartHeight, setSleepDate } from './anaypage_sleep.js';
+import { getNameFromCookie } from '../mainpage_js/mainpage_profile.js';
 
 let weekNum = 0;
 let goalWeekNum = 0
@@ -11,6 +12,7 @@ export let weightWeekNum = 0;
 export let sleepWeekNum = 0;
 
 (function hasStepData() {
+  setUsername();
   onStepData();
   setGraphDate();
   setGoalWeight();
@@ -28,6 +30,11 @@ export function hadStepData() {
   setStepChart(weekNum);
   setWeekPercent();
   ifNoGoal();
+}
+
+function setUsername () {
+  const $anayUsername = document.querySelector(".anayUsername");
+  $anayUsername.textContent = getNameFromCookie();
 }
 
 //그래프 요일 

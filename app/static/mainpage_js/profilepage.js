@@ -84,7 +84,7 @@ function setProfileWeight() {
 function setProfileAge() {
   const date = new Date();
   const $profileAge = document.querySelector(".profile__bodywrap__age");
-  $profileAge.textContent = `${date.getFullYear() - (getAgeFromCookie().substr(0, 4))}세`
+  $profileAge.textContent = `${date.getFullYear() - (getAgeFromCookie().substr(0, 4))}세`;
 }
 
 const $logoutBtn = document.getElementById("logoutBtn");
