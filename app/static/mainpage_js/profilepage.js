@@ -1,13 +1,14 @@
-import { getCookie } from "./mainpage_profile.js";
+import { getNameFromCookie, getAgeFromCookie } from "./mainpage_profile.js";
 const $profileHeightText = document.querySelector(".profile__bodywrap__heighttext");
 
 (function enterProfilePage() {
   setProfileHeight();
   setProfileWeight();
+  setProfileAge();
 })();
 
 const $profilePageName = document.querySelector(".profileName");
-$profilePageName.textContent = getCookie();
+$profilePageName.textContent = getNameFromCookie();
 
 const $profileBackBtn = document.querySelector(".profile__backbtn");
 $profileBackBtn.addEventListener('click', () => {
@@ -80,7 +81,11 @@ function setProfileWeight() {
   }
 }
 
-
+function setProfileAge() {
+  const date = new Date();
+  const $profileAge = document.querySelector(".profile__bodywrap__age");
+  $profileAge.textContent = `${date.getFullYear() - (getAgeFromCookie().substr(0, 4))}세`
+}
 
 const $logoutBtn = document.getElementById("logoutBtn");
 $logoutBtn.addEventListener('click', () => {
@@ -98,7 +103,7 @@ function logout() {
     console.log(res);
   })
   .catch(error => {
-    $joinError.textContent = "입력한 정보가 올바르지 않습니다";
+    // $joinError.textContent = "입력한 정보가 올바르지 않습니다";
     console.log(error);
   })
 }

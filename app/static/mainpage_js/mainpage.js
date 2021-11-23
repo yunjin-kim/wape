@@ -1,5 +1,5 @@
 import { quoteSentence } from "./mainpage_quote.js";
-import { getCookie } from "./mainpage_profile.js";
+import { getNameFromCookie } from "./mainpage_profile.js";
 import { renderCalendar, date, daysArray, clickReserveDate } from "./mainpage_calendar.js";
 import { clickDate, setTimeOptionAtReserve, setClickDateArr, clickReserve, beforeReseveDelete } from "./mainpage_reserve.js";
 import { showSetGoalModal, getTodayStep, setStepGragh } from './mainpage_goal.js';
@@ -46,7 +46,7 @@ function setQuote() {
 //프로필
 function setProfile() {
   const $profileName = document.getElementById('profileName');
-  $profileName.textContent = getCookie();
+  $profileName.textContent = getNameFromCookie();
 }
 
 //오늘 날씨

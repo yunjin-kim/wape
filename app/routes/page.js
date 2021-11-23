@@ -41,7 +41,7 @@ router.get('/profile',isNotLoggedIn,(req, res, next)=>{
   res.sendFile(path.join(__dirname, '..','/static','/mainpage_html','/profilepage.html'))
 })
 
-router.get('/error',isLoggedIn, (req, res, next)=>{ 
+router.get('/error',isNotLoggedIn, (req, res, next)=>{ 
   res.sendFile(path.join(__dirname, '..','/static','/error','/errorpage.html'))
 });
 

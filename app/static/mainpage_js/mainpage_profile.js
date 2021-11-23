@@ -1,7 +1,11 @@
-export function getCookie(){
-  let cookie = document.cookie;
-  cookie = decodeURI(cookie.split(',')[0].replace('nick=', ''));
+export function getNameFromCookie() {
+  const cookie = decodeURI(document.cookie);
+  const cookieArr = cookie.split("=");
+  return cookieArr[1].split(";")[0];
+}
 
-  console.log(cookie)
-  return cookie;
+export function getAgeFromCookie() {
+  const cookie = decodeURI(document.cookie);
+  const cookieArr = cookie.split("=");
+  return cookieArr[2];
 }
