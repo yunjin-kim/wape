@@ -81,3 +81,11 @@
   margin-top: 20px;
   margin-left: 88px;
 }
+.profile__bodywrap__weight {
+  width: 100px;
+  margin-top: 4vh;
+  margin-left: 56px;
+  border: none;
+  border-bottom: 2px solid black;
+  font-size: 14px;
+}

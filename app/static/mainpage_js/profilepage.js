@@ -2,7 +2,8 @@ import { getCookie } from "./mainpage_profile.js";
 const $profileHeightText = document.querySelector(".profile__bodywrap__heighttext");
 
 (function enterProfilePage() {
-  setHeight();
+  setProfileHeight();
+  setProfileWeight();
 })();
 
 const $profilePageName = document.querySelector(".profileName");
@@ -13,7 +14,7 @@ $profileBackBtn.addEventListener('click', () => {
   history.back();
 })
 
-function setHeight() {
+function setProfileHeight() {
   const userHeight = localStorage.getItem("USER_HEIGHT");
   const parseUserHeight = JSON.parse(userHeight);
   $profileHeightText.textContent = `${parseUserHeight} cm`;
@@ -63,6 +64,21 @@ function showHeightModal(e) {
   e.target.parentNode.parentNode.parentNode.parentNode.append(hightModalDiv);
 }
 
+function setProfileWeight() {
+  const $profileWeight = document.querySelector(".profile__bodywrap__weight");
+  const getWeightFromLocal = localStorage.getItem("CURRENT_WEIGHT");
+  const parseWeightFromLocal = JSON.parse(getWeightFromLocal);
+
+  const currentWeight = _.go(
+    parseWeightFromLocal,
+    _.flat,
+    _.map(weight => weight),
+    _.find(weight => weight[2] > 0));
+
+  if (currentWeight) {
+    $profileWeight.textContent = `${currentWeight[2]}kg`;
+  }
+}
 
 
 

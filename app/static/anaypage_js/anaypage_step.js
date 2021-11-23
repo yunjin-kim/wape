@@ -115,7 +115,7 @@ export const chartDataArr = [[], [], [], []]
 
 function reloadRangeStepData(data) {
   console.log(data);
-  let reserveStepDate = data.slice().reverse(); //여기서 제대로 되나 내일 확인
+  let reserveStepDate = data.reverse(); //여기서 제대로 되나 내일 확인
 
   for(let i = 0; i < chartDataArr.length; i++) {
     while(reserveStepDate.length) {
