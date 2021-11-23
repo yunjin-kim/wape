@@ -4,7 +4,7 @@ import { onStepData, walkDayArr, setStepChartHeight, setWeekPercent } from './an
 import { setGoalAchieve } from './anaypage_goal.js';
 import { showGoalWeihgtModal, setGoalWeight, showWeihgtModal, setCurrentWeight, setuntilGoalWeight, rangeWeightData, setWeightChartHeight, setWeightDate, setUserBmi } from './anaypage_weight.js';
 import { showSleepModal, rangeSleepData, setCurrentSleep, setSleepChartHeight, setSleepDate } from './anaypage_sleep.js';
-import { getNameFromCookie } from '../mainpage_js/mainpage_profile.js';
+import { getNameFromCookie } from '../mainpage_js/getCookie.js';
 
 let weekNum = 0;
 let goalWeekNum = 0

@@ -1,4 +1,4 @@
-import { getNameFromCookie, getAgeFromCookie } from "./mainpage_profile.js";
+import { getNameFromCookie, getAgeFromCookie } from "./getCookie.js";
 const $profileHeightText = document.querySelector(".profile__bodywrap__heighttext");
 
 (function enterProfilePage() {

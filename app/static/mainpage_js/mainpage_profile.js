@@ -1,11 +1,18 @@
-export function getNameFromCookie() {
-  const cookie = decodeURI(document.cookie);
-  const cookieArr = cookie.split("=");
-  return cookieArr[1].split(";")[0];
+import { getNameFromCookie } from "./getCookie.js";
+
+export function setProfile() {
+  const $profileName = document.getElementById('profileName');
+  $profileName.textContent = getNameFromCookie();
 }
 
-export function getAgeFromCookie() {
-  const cookie = decodeURI(document.cookie);
-  const cookieArr = cookie.split("=");
-  return cookieArr[2];
+export function setUserTitle() {
+  const $userTitle = document.querySelector(".userTitle");
+  const getTitleFromLocal = localStorage.getItem("USER_TITLE");
+  const parseTitle = JSON.parse(getTitleFromLocal);
+  $userTitle.textContent = parseTitle;
+  if (!parseTitle) {
+    $userTitle.textContent = "걷기 데이터가 없습니다";
+  }
 }
+
+//프로필 사진 넣는 코드

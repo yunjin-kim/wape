@@ -1,10 +1,10 @@
 import { quoteSentence } from "./mainpage_quote.js";
-import { getNameFromCookie } from "./mainpage_profile.js";
 import { renderCalendar, date, daysArray, clickReserveDate } from "./mainpage_calendar.js";
 import { clickDate, setTimeOptionAtReserve, setClickDateArr, clickReserve, beforeReseveDelete } from "./mainpage_reserve.js";
 import { showSetGoalModal, getTodayStep, setStepGragh } from './mainpage_goal.js';
 import { getTodayStepApi, showTodayWalkDate } from './mainpage_todayWalk.js';
 import { getCurrentLoaction } from './mainpage_weather.js'
+import { setProfile, setUserTitle} from './mainpage_profile.js';
 
 const $thisYearMonth = document.querySelector(".thisYearMonth");
 const $calendarDays = document.querySelector(".mainpage__calendar__day");
@@ -38,26 +38,10 @@ function enterMainpage() {
   setGoalGraph();
 };
 
-function setUserTitle() {
-  const $userTitle = document.querySelector(".userTitle");
-  const getTitleFromLocal = localStorage.getItem("USER_TITLE");
-  const parseTitle = JSON.parse(getTitleFromLocal);
-  $userTitle.textContent = parseTitle;
-  if (!parseTitle) {
-    $userTitle.textContent = "걷기 데이터가 없습니다";
-  }
-}
-
 //걷기 효능
 function setQuote() {
   const $quote = document.querySelector('.quote');
   $quote.textContent = quoteSentence;
-}
-
-//프로필
-function setProfile() {
-  const $profileName = document.getElementById('profileName');
-  $profileName.textContent = getNameFromCookie();
 }
 
 //오늘 날씨
