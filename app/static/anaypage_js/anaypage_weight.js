@@ -177,12 +177,13 @@ export function rangeWeightData() {
           weightDataArrNum++;
         }
       }
-      let weightDataArrFlat = weightDataArr.flat();
-      let parseTotalWeightDataFlat = parseTotalWeightData.flat();
+      const weightDataArrFlat = weightDataArr.flat();
+      const parseTotalWeightDataFlat = parseTotalWeightData.flat();
 
       let localPoint = 0;
       let dataPoint = 0;
-      while (localPoint < 27 || dataPoint < 27) {
+      while (dataPoint < 27 || localPoint < 27) {
+
         if (parseTotalWeightDataFlat[0][0] < weightDataArrFlat[dataPoint][0]) { //로컬 첫번재 값의 달보다 새로만든 배열의 달이 더 크다
           dataPoint++;
         }
