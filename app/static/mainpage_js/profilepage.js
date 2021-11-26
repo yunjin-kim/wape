@@ -18,7 +18,12 @@ $profileBackBtn.addEventListener('click', () => {
 function setProfileHeight() {
   const userHeight = localStorage.getItem("USER_HEIGHT");
   const parseUserHeight = JSON.parse(userHeight);
-  $profileHeightText.textContent = `${parseUserHeight} cm`;
+  if (!parseUserHeight) {
+    $profileHeightText.textContent = "키를 입력해주세요";
+  }
+  else {
+    $profileHeightText.textContent = `${parseUserHeight} cm`;
+  }
 }
 
 const $profileHeightFixBtn = document.querySelector(".profileHeightFixBtn");
