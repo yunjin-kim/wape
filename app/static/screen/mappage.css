@@ -57,6 +57,7 @@
   height: 20vh;
   margin-left: 6vw;
   position: relative;
+  opacity: 0;
 }
 .mappage__walkload__course__img {
   position: absolute;
@@ -118,6 +119,7 @@
   position: absolute;
   left: 46vw;
   top: 0;
+  opacity: 0;
 }
 .mappage__walkload__course2__img {
   position: absolute;
@@ -190,4 +192,9 @@
 }
 .mainpage__today__main{
   overflow: hidden;
+}
+
+.showContent {
+  opacity: 1;
+  transform: 1;
 }
