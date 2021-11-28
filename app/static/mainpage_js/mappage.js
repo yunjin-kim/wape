@@ -46,8 +46,9 @@ async function getBannerData() {
   let canLoadBanner = false;
   
   try {
-    const mapPointResponse = await fetch('../data/mappoint.json');
+    const mapPointResponse = await fetch('https://yunjin-kim.github.io/mappoint.json');
     const maoPointData = await mapPointResponse.json();
+    console.log(maoPointData)
     pointArr.push(maoPointData.points)
     canLoadBanner = true;
 
