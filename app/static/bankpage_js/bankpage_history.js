@@ -1,52 +1,41 @@
-//1걸음 = 70cm
-//한걸음 = 5원
+//1걸음 = 70cm 한걸음 = 5원
 export function setStepHistory() {
   const getStepData = localStorage.getItem("STEP_DATA");
   const parseGetStepData = JSON.parse(getStepData);
-
   const stepValue = _.go(
     parseGetStepData.steps_count,
     _.map(data => data.value)
-  )
-
+  );
   const daysValue = _.go(
     parseGetStepData.steps_count,
     _.map(data => (data.endTime[0]+data.endTime[1]))
-  )
-
-  console.log(daysValue)
-  console.log(stepValue)
-
+  );
   const showHistoryArr = [];
   let myGoal = localStorage.getItem("STEP_GOAL");
-
-  for (let i = 0; i < stepValue.length; i++) {
-
-    let myStepGragh = stepValue[i]/myGoal*262; //L.map
-    if (myStepGragh > 262){   // L.filer      filter 해서 삼항 연산자?  map해서 삼항 연산자?
-      myStepGragh = 262;    // ??
+  for (const [day, step] of _.zip(daysValue, stepValue)) {
+    let myStepGragh = step / myGoal * 262; 
+    if (myStepGragh > 262) {   
+      myStepGragh = 262;    
     }
-
     const showHistory = `
       <div class="bankpage__reposit__wrap">
         <div class="bankpage__reposit__title">
             <div class="bankpage__reposit__flex">
                 <div class="circle"></div>
                 <div class="bankpage__reposit__day">
-                    <span>${daysValue[i]}</span>일
+                    <span>${day}</span>일
                 </div>
             </div>
             <div class="bankpage__reposit__value">
                 <h3>
-                    <span>${(stepValue[i]*0.0007).toFixed(1)}</span>km 걷고<br>
-                    <span>${stepValue[i]*5}</span>원 벌었어요
+                    <span>${(step * 0.0007).toFixed(1)}</span>km 걷고<br>
+                    <span>${step * 5}</span>원 벌었어요
                 </h3>
             </div>
         </div>
-
         <div class="bankpage__reposit__walk">
             <div class="bankpage__reposit__walk__flex">
-                <h4><b>걸음 수 </b><span>${stepValue[i]}</span> 걸음</h4>
+                <h4><b>걸음 수 </b><span>${step}</span> 걸음</h4>
                 <p><span>${myGoal}</span>걸음</p>
             </div>
             <div class="bankpage__reposit__walk__graph">
@@ -56,7 +45,7 @@ export function setStepHistory() {
         </div>
         <div class="bankpage__reposit__money">
             <div class="bankpage__reposit__money__flex">
-                <h4><b>금액 </b><span>${stepValue[i]*5}</span> 원</h4>
+                <h4><b>금액 </b><span>${step * 5}</span> 원</h4>
                 <p><span>${myGoal*5}</span>원</p>
             </div>
             <div class="bankpage__reposit__money__graph">
@@ -66,9 +55,8 @@ export function setStepHistory() {
         </div>
       </div>
     `;
-
-    
-    showHistoryArr.unshift(showHistory);
+    showHistoryArr.unshift(showHistory)
   }
+  
   return showHistoryArr;
 }
