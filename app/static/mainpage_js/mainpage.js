@@ -24,7 +24,7 @@ const $selectMinute = document.querySelector(".selectMinute");
   showTodayWalkDate();
   setUserTitle();
   
-  if(parseGetStepDate) {
+  if (parseGetStepDate) {
     enterMainpage();
   }
   renderCalendar();
@@ -51,8 +51,7 @@ export function loadWeather(weatherData, tempData, maxTempData, minTempData) {
   const $hightemp = document.querySelector('.mainpage__weather__hightemp');
   const $lowtemp = document.querySelector('.mainpage__weather__lowtemp');
   const $weatherLocation = document.querySelector('.mainpage__weather__dust__gu');
-
-  if(weatherData) {
+  if (weatherData) {
     $atmosCon.textContent = weatherData;
     $temp.textContent = tempData;
     $hightemp.textContent = maxTempData;
@@ -73,18 +72,17 @@ $calendarDays.addEventListener('click', (e) => {
 function setDateAtReserve() {
   const holeDayArr = [];
   const holeDateArr = [];
-  const holeDay = ['월','화','수','목','금','토','일'];
-  const thisLast = new Date(date.getFullYear(), date.getMonth()+1, 0);
+  const holeDay = ['월', '화', '수', '목', '금', '토', '일'];
+  const thisLast = new Date(date.getFullYear(), date.getMonth() + 1, 0);
   let todayDay = date.getDay();
   let todayDate = date.getDate();
-  
-  for(let i = 0; i < 7; i++) {
-    todayDay--;
-    if(todayDay === -1) todayDay = 6;
-    holeDayArr.push(holeDay[todayDay]);
-  
-    if(todayDate > thisLast.getDate()) todayDate = 1;
+  todayDay--;
+  for (let i = 0; i < 7; i++) {
+    if (todayDay === 7 ) todayDay = 0;
+    if (todayDate > thisLast.getDate()) todayDate = 1;
+    holeDayArr.push(holeDay[todayDay])
     holeDateArr.push(todayDate)
+    todayDay++;
     todayDate++;
   }
   setReserveDate(holeDayArr, holeDateArr);
@@ -92,7 +90,7 @@ function setDateAtReserve() {
 
 //걷기 알림
 function setReserveDate(holeDayArr, holeDateArr) {
-  for(let i = 0; i < 7; i++) {
+  for (let i = 0; i < 7; i++) {
     $bookDays[i].children[0].textContent = holeDayArr[i];
     $bookDays[i].children[1].textContent = holeDateArr[i];
     $bookDays[i].children[0].classList.add("dateSpan");
@@ -109,12 +107,12 @@ $bookDate.addEventListener('click', (e) => {
 
 //몇시에 걸을까요 시
 export function showTimeOptionAtReserve(hourArr, minuteArr) {
-  for(let i = 0; i < hourArr.length; i++) {
+  for (let i = 0; i < hourArr.length; i++) {
     $selectHour.append(hourArr[i])
   }
 
   //먗시에 걸을까요 분
-  for(let i = 0; i < minuteArr.length; i++) {
+  for (let i = 0; i < minuteArr.length; i++) {
     $selectMinute.append(minuteArr[i])
   }
 }
@@ -127,7 +125,7 @@ $reserveBtn.addEventListener('click', (e) => {
   let reserveHour = $selectHour.options[$selectHour.selectedIndex].textContent;
   let reserveMinute = $selectMinute.options[$selectMinute.selectedIndex].textContent;
 
-  for(let i = 0; i < 7; i++) {
+  for (let i = 0; i < 7; i++) {
     $bookDays[i].classList.remove("backgroundGreen");
   }
   //같은 날 같은 시 같은 분일 때 겹치는 문제
@@ -137,15 +135,15 @@ $reserveBtn.addEventListener('click', (e) => {
 
 //달력에 예약한 날짜 아이콘으로 표시
 export function getResreveDate() {
-  let getReserveDate = localStorage.getItem("RESERVE_DATE");
-  let parseGetReserveDate = JSON.parse(getReserveDate);
+  const getReserveDate = localStorage.getItem("RESERVE_DATE");
+  const parseGetReserveDate = JSON.parse(getReserveDate);
 
-  if(parseGetReserveDate) {
-    for(let i = 0; i < $calendarDays.children.length; i++) {
+  if (parseGetReserveDate) {
+    for (let i = 0; i < $calendarDays.children.length; i++) {
       $calendarDays.children[i].classList.remove("walkingDay");
-      if($calendarDays.children[i].classList.contains("thisMonth")) {
+      if ($calendarDays.children[i].classList.contains("thisMonth")) {
         parseGetReserveDate.forEach((reDate) => {
-          if(reDate.date === $calendarDays.children[i].textContent) {
+          if (reDate.date === $calendarDays.children[i].textContent) {
             $calendarDays.children[i].classList.add("walkingDay");
           }
         })
@@ -166,8 +164,8 @@ export function stepGoal() {
   const $stepGoal = document.querySelector(".setGoal");
   const $setMoney = document.querySelector(".setMoney");
   let myGoalStep = localStorage.getItem("STEP_GOAL");
-  let myGoalMoney = myGoalStep*5;
-  if(!myGoalStep) {
+  let myGoalMoney = myGoalStep * 5;
+  if (!myGoalStep) {
     myGoalStep = '목표를 설정해주세요';
     myGoalMoney ='목표를 설정해주세요';
   }
@@ -180,7 +178,7 @@ function setGoalTodayStep() {
   const $todayStep = document.querySelector(".todayStep");
   const $todayMoney = document.querySelector(".todayMoney");
   $todayStep.textContent = getTodayStep();
-  $todayMoney.textContent = getTodayStep()*5;
+  $todayMoney.textContent = getTodayStep() * 5;
 }
 
 //목표 걸음 수 그래프 
@@ -188,7 +186,7 @@ export function setGoalGraph() {
   const $myStepDataGragh = document.querySelector(".mainpage__walk__graph__my");
   const $myMoneyDataGragph = document.querySelector(".mainpage__money__graph__my");
   let stepGragh = 230*setStepGragh();
-  if(stepGragh > 230) {
+  if (stepGragh > 230) {
     stepGragh = 230;
   }
   $myStepDataGragh.style = `width: ${stepGragh}px`;
