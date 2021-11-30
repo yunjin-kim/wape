@@ -14,7 +14,6 @@ export function showSleepModal(e) {
   sleepModalClose.classList.add("sleepModalClose")
   sleepInput.classList.add("sleepInput")
   sleepSubmitBtn.classList.add("sleepSubmitBtn")
-  $noSleepDiv.classList.add("hiddenDiv")
   sleepTitle.textContent = "수면 시간";
   sleepModalClose.textContent = "X";
   sleepSubmitBtn.textContent = "시간 입력";
@@ -29,6 +28,7 @@ export function showSleepModal(e) {
   sleepSubmitBtn.addEventListener('click', () => {
     const getTotalSleepData = localStorage.getItem("CURRENT_SLEEP");
     const parseTotalSleepData = JSON.parse(getTotalSleepData);
+    $noSleepDiv.classList.add("hiddenDiv")
     parseTotalSleepData[0][0][2] = currnetSleep;
     localStorage.setItem("CURRENT_SLEEP", JSON.stringify(parseTotalSleepData))
     sleepModalDiv.remove()
@@ -46,12 +46,14 @@ export function showSleepModal(e) {
 
 //현재 수면 설정
 export function setCurrentSleep() {
+  console.log("실행")
   const $currnetSleep = document.querySelector(".currnetSleep");
   const $sleepDiv = document.querySelector(".anaypage__sleep__current");
   const getTotalSleepData = localStorage.getItem("CURRENT_SLEEP");
   const parseTotalSleepData = JSON.parse(getTotalSleepData);
 
   if (parseTotalSleepData) {
+    console.log(parseTotalSleepData[0][0][2])
     if (parseTotalSleepData[0][0][2] === "") {
       $noSleepDiv.classList.remove("hiddenDiv")
       $sleepDiv.classList.add("hiddenDiv")
@@ -138,22 +140,27 @@ export function setSleepDate(sleepBoxArr, sleepWeekNum){
   let lastMonthDate = new Date(date.getFullYear(), date.getMonth(), 0).getDate();
   let todayDate = onToday;
   todayDate -= sleepWeekNum * 7;
+  
   if (todayDate < 0) {
     todayDate = lastMonthDate + todayDate;
   }
 
   for (let i = 0; i < 7; i++) {
     let date = todayDate - i;
+    console.log(date)
+
     if (date === 0) {
-      for (let j = 0; j <= 30 - weekNumArr.length; j++) {
+      for (let j = 0; j <= weekNumArr.length; j++) { // 30 - weekNumArr.length;
         weekNumArr.unshift(lastMonthDate - j);
       }
+      console.log(weekNumArr)
       break;
     } 
     weekNumArr.unshift(date);
   }
 
-  console.log(sleepBoxArr)
+
+  console.log(weekNumArr)
 
   for (let [weekNum, sleepDiv] of _.zip(weekNumArr, sleepBoxArr)) {
     sleepDiv.id = weekNum;
