@@ -108,6 +108,7 @@ export function showWeihgtModal(e) {
     rangeWeightData();
     setWeightChart(weightWeekNum);
     untilGoalWeight();
+    setUserBmi();
   });
   
   weightModalDiv.append(weightSubmitBtn);
