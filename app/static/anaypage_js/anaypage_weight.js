@@ -218,25 +218,26 @@ export function rangeWeightData() {
 
 //체중 날짜
 export function setWeightDate(weightBoxArr, weightWeekNum) {
+  const weekNumArr = [];
   const date = new Date();
-  const oneMonthDateArr = [];
-  let todayDate = date.getDate();
   const lastMonthDate = new Date(date.getFullYear(), date.getMonth(), 0).getDate();
+  let todayDate = date.getDate();
   todayDate -= weightWeekNum*7;
-  
-  if (todayDate < 0) todayDate = lastMonthDate + todayDate;
-  for (let i = 0; i <= 29; i++) {
-    let date = todayDate - i;
-    if (date === 0) {
-      for (let j = 0; j <= 30 - oneMonthDateArr.length; j++) {
-        oneMonthDateArr.push(lastMonthDate - j);
-      }
-      break;
-    } 
-    oneMonthDateArr.push(date);
+  if (todayDate < 0) {
+    todayDate = lastMonthDate + todayDate;
   }
-  for (let i = 0; i < 7; i++) {
-    weightBoxArr[6-i].id = oneMonthDateArr[i];
+  let i = 0;
+  while (weekNumArr.length !== 7) {
+    let date = todayDate - i;
+    i++;
+    if (date === 1) {
+      todayDate = lastMonthDate;
+      i = 0;
+    } 
+    weekNumArr.unshift(date);
+  }
+  for (let [weekNum, weightDiv] of _.zip(weekNumArr, weightBoxArr)) {
+    weightDiv.id = weekNum;
   }
 }
 

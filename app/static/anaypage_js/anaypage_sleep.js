@@ -46,14 +46,12 @@ export function showSleepModal(e) {
 
 //현재 수면 설정
 export function setCurrentSleep() {
-  console.log("실행")
   const $currnetSleep = document.querySelector(".currnetSleep");
   const $sleepDiv = document.querySelector(".anaypage__sleep__current");
   const getTotalSleepData = localStorage.getItem("CURRENT_SLEEP");
   const parseTotalSleepData = JSON.parse(getTotalSleepData);
 
   if (parseTotalSleepData) {
-    console.log(parseTotalSleepData[0][0][2])
     if (parseTotalSleepData[0][0][2] === "") {
       $noSleepDiv.classList.remove("hiddenDiv")
       $sleepDiv.classList.add("hiddenDiv")
@@ -86,6 +84,7 @@ export function rangeSleepData() {
   if (parseTotalSleepData) { //로컬에 데이터가 있다면
     if (parseTotalSleepData[0][0][1] !== onToday) { //오늘 날짜와 다르다면
       console.log("다음날이 되었다");
+      
       for (let i = 0; i < 28; i++) {
         dateNum -= 1;
         if (dateNum === 0) {
@@ -97,6 +96,7 @@ export function rangeSleepData() {
           sleepDataArrNum++;
         }
       }
+
       const sleepDataArrFlat = sleepDataArr.flat();
       const parseTotalSleepDataFlat = parseTotalSleepData.flat();
 
@@ -140,28 +140,24 @@ export function setSleepDate(sleepBoxArr, sleepWeekNum){
   let lastMonthDate = new Date(date.getFullYear(), date.getMonth(), 0).getDate();
   let todayDate = onToday;
   todayDate -= sleepWeekNum * 7;
-  
-  if (todayDate < 0) {
+  if (todayDate <= 0) {
     todayDate = lastMonthDate + todayDate;
   }
-
-  for (let i = 0; i < 7; i++) {
+  // _.go(
+  //   _.range(1, 7),
+  //   _.map(a => )
+  // )
+  //range 로 바꾸기 애매
+  let i = 0;
+  while (weekNumArr.length !== 7) {
     let date = todayDate - i;
-    console.log(date)
-
-    if (date === 0) {
-      for (let j = 0; j <= weekNumArr.length; j++) { // 30 - weekNumArr.length;
-        weekNumArr.unshift(lastMonthDate - j);
-      }
-      console.log(weekNumArr)
-      break;
+    i++;
+    if (date === 1) {
+      todayDate = lastMonthDate;
+      i = 0;
     } 
     weekNumArr.unshift(date);
   }
-
-
-  console.log(weekNumArr)
-
   for (let [weekNum, sleepDiv] of _.zip(weekNumArr, sleepBoxArr)) {
     sleepDiv.id = weekNum;
   }
