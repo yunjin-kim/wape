@@ -1,7 +1,7 @@
 //한 시간마다의 걸음도 조회할 수 있어서 일정 이상의 걸음이 되면 오늘의 걷기에 운동했다고 할 수 있을 듯 근데 시간이 너무 차이나서 오늘의 걷기는 힘들 듯함?
 //날짜 세팅하고 버튼 클릭은 4개 다 같아서 나중에 다 구현하고 리펙토링해서 하나로
-import { onStepData, walkDayArr, setStepChartHeight, setWeekPercent } from './anaypage_step.js';
-import { setGoalAchieve } from './anaypage_goal.js';
+import { onStepData, walkDayArr, setStepChartHeight, setWeekPercent, setStepDataArr } from './anaypage_step.js';
+// import { setGoalAchieve } from './anaypage_goal.js';
 import { showGoalWeihgtModal, setGoalWeight, showWeihgtModal, setCurrentWeight, setuntilGoalWeight, rangeWeightData, setWeightChartHeight, setWeightDate, setUserBmi } from './anaypage_weight.js';
 import { showSleepModal, rangeSleepData, setCurrentSleep, setSleepChartHeight, setSleepDate } from './anaypage_sleep.js';
 import { getNameFromCookie } from '../mainpage_js/getCookie.js';
@@ -28,9 +28,12 @@ export let sleepWeekNum = 0;
 })();
 
 export function hadStepData() {
-  setStepChart(weekNum);
-  setWeekPercent();
+  const stepDataArr = setStepDataArr();
+  setStepChart(weekNum, stepDataArr);
+  setWeekPercent(stepDataArr);
   ifNoGoal();
+  chartButtonClickEvent(stepDataArr);
+  // goalButtonClickEvent(stepDataArr);
 }
 
 function setUsername () {
@@ -45,7 +48,7 @@ function setGraphDate() {
   const $weightDays = document.querySelector(".anaypage__weight__graph__day__ul");
   const $sleepDays = document.querySelector(".anaypage__sleep__graph__day__ul");
 
-  for(let i = 0; i < walkDayArr.length; i++) {//하루 데이터 다시 들어올 때 오류
+  for (let i = 0; i < walkDayArr.length; i++) {//하루 데이터 다시 들어올 때 오류
     $walkDataDays.children[i].textContent = walkDayArr[i];
     $goalDays.children[i].textContent = walkDayArr[i];
     $weightDays.children[i].textContent = walkDayArr[i];
@@ -62,7 +65,7 @@ export function setWeekStepData(weekSumStep) {
 }
 
 //걸음수 차트
-export function setStepChart(weekNum) {
+export function setStepChart(weekNum, stepDataArr) {
   const $walkDataGraph = document.querySelector(".anaypage__walk__graph__box");
 
   const chartBarArr = _.filter(
@@ -70,36 +73,37 @@ export function setStepChart(weekNum) {
       charBar.classList.contains("anaypage__walk__graph__graph")
         ,$walkDataGraph.children
   )
-  setStepChartHeight(chartBarArr, weekNum);
+  setStepChartHeight(chartBarArr, weekNum, stepDataArr);
 }
 
 //걸음수 차트 왼쪽 버튼
-const $stepChartLeftBtn = document.querySelector(".anaypage__walk__graph__left");
-$stepChartLeftBtn.addEventListener('click', () => {
-  weekNum++;
-  setStepChartBtn();
-  setStepChart(weekNum);
-  setWeekPercent();
-})
+function chartButtonClickEvent(stepDataArr) {
+  const $stepChartLeftBtn = document.querySelector(".anaypage__walk__graph__left");
+  $stepChartLeftBtn.addEventListener('click', () => {
+    weekNum++;
+    setStepChartBtn($stepChartLeftBtn, $stepChartRightBtn);
+    setStepChart(weekNum, stepDataArr);
+    setWeekPercent(stepDataArr);
+  })
+  
+  //걸음수 차트 오른쪽 버튼
+  const $stepChartRightBtn = document.querySelector(".anaypage__walk__graph__right");
+  $stepChartRightBtn.addEventListener('click', () => {
+    weekNum--;
+    setStepChartBtn($stepChartLeftBtn, $stepChartRightBtn);
+    setStepChart(weekNum, stepDataArr);
+    setWeekPercent(stepDataArr);
+  })
+}
 
-//걸음수 차트 오른쪽 버튼
-const $stepChartRightBtn = document.querySelector(".anaypage__walk__graph__right");
-$stepChartRightBtn.addEventListener('click', () => {
-  weekNum--;
-  setStepChartBtn();
-  setStepChart(weekNum);
-  setWeekPercent();
-})
 
 //걸음수 차트 버튼 show/hidden
-function setStepChartBtn() {
+function setStepChartBtn($stepChartLeftBtn, $stepChartRightBtn) {
   if(weekNum == 3) {
     $stepChartLeftBtn.classList.add("hiddenButton");
-  }
-  else if(weekNum == 0) {
+  } else if(weekNum == 0) {
     $stepChartRightBtn.classList.add("hiddenButton");
-  }
-  else {
+  } else {
     $stepChartLeftBtn.classList.remove("hiddenButton");
     $stepChartRightBtn.classList.remove("hiddenButton");
   }
@@ -113,34 +117,31 @@ export function showWeekPercent(percentData) {
 
   if(percentData === "") {
     $weekDiffPercentWrap.style ="opacity: 0";
-  }
-  else {
+  } else {
     $weekDiffPercentWrap.style ="opacity: 1";
     if(percentData < 0) {
       $stpPercentArrow.style = "transform : rotate(180deg)";
-    }
-    else if(percentData > 0) {
+    } else if(percentData > 0) {
       $stpPercentArrow.style = "transform : rotate(0deg)";
     }
   }
   $weekDiffPercent.textContent = percentData;
 }
 
-//목표 왼쪽 버튼
-const $goalLeftBtn = document.querySelector(".anaypage__goal__check__left");
-$goalLeftBtn.addEventListener('click', () => {
-  goalWeekNum++;
-  setGoaltBtn();
-  setGoalAchieveBox(goalWeekNum);
-})
-
-  //목표 오른쪽 버튼
-const $goalRightBtn = document.querySelector(".anaypage__goal__check__right");
-$goalRightBtn.addEventListener('click', () => {
-  goalWeekNum--;
-  setGoaltBtn();
-  setGoalAchieveBox(goalWeekNum);
-})
+function goalButtonClickEvent(stepDataArr) {
+  const $goalLeftBtn = document.querySelector(".anaypage__goal__check__left");
+  $goalLeftBtn.addEventListener('click', () => {
+    goalWeekNum++;
+    setGoaltBtn();
+    // setGoalAchieveBox(goalWeekNum, stepDataArr);
+  })
+  const $goalRightBtn = document.querySelector(".anaypage__goal__check__right");
+  $goalRightBtn.addEventListener('click', () => {
+    goalWeekNum--;
+    setGoaltBtn();
+    // setGoalAchieveBox(goalWeekNum, stepDataArr);
+  })
+}
 
 //목표 버튼 show/hidden
 function setGoaltBtn() {
@@ -161,7 +162,7 @@ function ifNoGoal() {
   const goalStep = localStorage.getItem("STEP_GOAL");
   if(!goalStep) {
     const $goalCheck = document.querySelector(".anaypage__goal__check__noGoal");
-    $goalCheck.innerHTML = setGoalAchieve();
+    // $goalCheck.innerHTML = setGoalAchieve();
   }
   else{ 
     setGoalAchieveBox();
@@ -178,7 +179,7 @@ function setGoalAchieveBox(goalWeekNum) {
         ,$goalDataBox.children
   )
   goalBoxArr.reverse();
-  setGoalAchieve(goalBoxArr, goalWeekNum);
+  // setGoalAchieve(goalBoxArr, goalWeekNum);
 }
 
 //체중 왼쪽 버튼

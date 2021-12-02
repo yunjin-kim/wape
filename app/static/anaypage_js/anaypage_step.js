@@ -30,7 +30,7 @@ export function onStepData() {
     }
     else {
       setStepDate();
-      rangeStepData();
+      setStepDataArr();
       hadStepData();
     }
   }
@@ -65,7 +65,7 @@ function stepDataErrorModal() {
 //12시 데이터가 로드 되기 때문에 금일 12시 전에 들오면 어떻게 해야할지 고민
 //받아온 JSON 데이터의 마지막 데이터의 endTime의 날짜가 오늘 날짜보다 작다면 밑에 함수를 실행하지 않고 모달을 띄운다
 function saveStepToLocal(data) {
-  if(Number(data.steps_count[data.steps_count.length - 1].endTime[0] + data.steps_count[data.steps_count.length - 1].endTime[1]) !== Number(onToday)) {
+  if (Number(data.steps_count[data.steps_count.length - 1].endTime[0] + data.steps_count[data.steps_count.length - 1].endTime[1]) !== Number(onToday)) {
     showUpdateDataModal();
   }
   localStorage.setItem("STEP_DATA", JSON.stringify(data));
@@ -111,12 +111,10 @@ function setStepDate() {
 }
 
 export const walkDayArr = [];
-export const chartDataArr = [[], [], [], []]
+// export const chartDataArr = [[], [], [], []]
 
 function reloadRangeStepData(data) {
-  console.log(data);
   let reserveStepDate = data.steps_count.reverse(); //여기서 제대로 되나 내일 확인 reverse 에러
-
   for (let i = 0; i < chartDataArr.length; i++) {
     while (reserveStepDate.length) {
       if (chartDataArr[i].length >= 7) break;
@@ -127,25 +125,30 @@ function reloadRangeStepData(data) {
 }
 
 //배열에 걸음수 데이터 넣기
-function rangeStepData() {
+export function setStepDataArr() {
   console.log("rangeStepData")
-  let getStepDateFromLocal = localStorage.getItem("STEP_DATA");
-  let parseStepDateFromLocal = JSON.parse(getStepDateFromLocal);
+  const getStepDateFromLocal = localStorage.getItem("STEP_DATA");
+  const parseStepDateFromLocal = JSON.parse(getStepDateFromLocal);
+  const { L, C } = window._;
   let reserveStepDateFromLocal = parseStepDateFromLocal.steps_count.reverse();
-  console.log(reserveStepDateFromLocal)
+  
+  _.groupBySize = _.curry((size, iter) => {
+    let r = L.range(Infinity);
+    return _.groupBy(_ => Math.floor(r.next().value / size), iter);
+  })
 
-  for (let i = 0; i < chartDataArr.length; i++) {
-    while (reserveStepDateFromLocal.length) {
-      if (chartDataArr[i].length >= 7) break;
-      chartDataArr[i].push(reserveStepDateFromLocal[0]);
-      reserveStepDateFromLocal.shift();
-    }
-  }
+  const chartDataArr = _.go(
+    reserveStepDateFromLocal,
+    _.map(stepData => stepData),
+    _.groupBySize(7)
+  );
+  
+  return chartDataArr;
 }
 
 //걸음수 관련 처리
 export let weekSumStep = 0;
-export function setStepChartHeight(chartBarArr, weekNum) {
+export function setStepChartHeight(chartBarArr, weekNum, stepDataArr) { // 걷기 데이터 높이 여기서 정함
   //다음날 되엇을 때 이걸로 오류 고쳐지는지 확인해보고 되면 flag로 다음날 되었을 때 한버만 실행되게 바꾸기
   for (let i = chartBarArr.length-1; i >= 0; i--) {
     weekSumStep = 0
@@ -154,7 +157,7 @@ export function setStepChartHeight(chartBarArr, weekNum) {
   }
 
   weekSumStep = 0;
-  let chartDataArrFlat = chartDataArr.flat();
+  let chartDataArrFlat = (_.values(stepDataArr)).flat();
   let monthSumStep = 0;
 
   for (let i = 0; i < chartDataArrFlat.length; i++) {
@@ -163,37 +166,31 @@ export function setStepChartHeight(chartBarArr, weekNum) {
   let charBarHeightDivide = parseInt(monthSumStep/1200);
 
   for (let i = chartBarArr.length-1; i >= 0; i--) {
-    weekSumStep += chartDataArr[weekNum][i].value;
-    chartBarArr[i].children[1].style.height = `${chartDataArr[weekNum][6-i].value/charBarHeightDivide}px`;
-    chartBarArr[i].children[0].textContent = chartDataArr[weekNum][6-i].value;
+    weekSumStep += stepDataArr[weekNum][i].value;
+    chartBarArr[i].children[1].style.height = `${stepDataArr[weekNum][6-i].value/charBarHeightDivide}px`;
+    chartBarArr[i].children[0].textContent = stepDataArr[weekNum][6-i].value;
   }
   setWeekStepData(weekSumStep);
 }
 
 //저번주 대비 퍼센트
-export function setWeekPercent() {
-  let percentData = 0;
+export function setWeekPercent(stepDataArr) {
   const dataSumArr = [];
-
-  for (let i = 0; i < chartDataArr.length; i++) {
+  let percentData = 0;
+  for (let i = 0; i < stepDataArr.length; i++) {
     dataSumArr.push(
       _.reduce(_.add,
-        _.map(data => data.value, chartDataArr[i])))
+        _.map(data => data.value, stepDataArr[i])))
   }
-
   for (let i = 0; i < dataSumArr.length; i++) {
     if (dataSumArr[i] === weekSumStep) {
-      
-      if (dataSumArr[i] > dataSumArr[i+1]) {
-        percentData = parseInt(((dataSumArr[i] - dataSumArr[i+1]) / dataSumArr[i]) * 100);
-      }
-      else if (dataSumArr[i] < dataSumArr[i+1]) {
-        percentData = parseInt(((dataSumArr[i] / dataSumArr[i+1]) - 1) * 100);
-      }
-      else if (dataSumArr[i] === dataSumArr[i+1]) {
+      if (dataSumArr[i] > dataSumArr[i + 1]) {
+        percentData = parseInt(((dataSumArr[i] - dataSumArr[i + 1]) / dataSumArr[i]) * 100);
+      } else if (dataSumArr[i] < dataSumArr[i + 1]) {
+        percentData = parseInt(((dataSumArr[i] / dataSumArr[i + 1]) - 1) * 100);
+      } else if (dataSumArr[i] === dataSumArr[i + 1]) {
         percentData = 0;
-      }
-      else if (i === 3) {
+      } else if (i === 3) {
         percentData = "";
       }
     }
