@@ -161,13 +161,18 @@ export function setStepChartHeight(chartBarArr, weekNum, stepDataArr) { // 걷�
 
 //저번주 대비 퍼센트
 export function setWeekPercent(stepDataArr) {
-  const dataSumArr = [];
-  let percentData = 0;
-  for (let i = 0; i < stepDataArr.length; i++) {
-    dataSumArr.push(
-      _.reduce(_.add,
-        _.map(data => data.value, stepDataArr[i])))
-  }
+  const add = (a, b) => a + b;
+  const dataSumArr = _.go(
+      _.entries(stepDataArr),
+      _.map(([_, stepDataArr]) => stepDataArr),
+      _.map(stepDataArr=> _.go(
+        stepDataArr,
+        _.map(stepDataArr=> stepDataArr.value),
+        _.reduce(add)
+      )),
+      _.take(4));
+    let percentData = 0;
+
   for (let i = 0; i < dataSumArr.length; i++) {
     if (dataSumArr[i] === weekSumStep) {
       if (dataSumArr[i] > dataSumArr[i + 1]) {
