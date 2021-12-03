@@ -40,7 +40,6 @@ async function getGoogleStepCount(googleStepCountUrl) {
   try {
     const response = await fetch(googleStepCountUrl);
     const data = await response.json();
-    console.log(data)
     saveStepToLocal(data);
   }
   catch (e) {
@@ -70,7 +69,6 @@ function saveStepToLocal(data) {
   }
   localStorage.setItem("STEP_DATA", JSON.stringify(data));
   setStepDate();
-  reloadRangeStepData(data); // 이 함수를 따로 빼자
   hadStepData();
 }
 
@@ -111,18 +109,6 @@ function setStepDate() {
 }
 
 export const walkDayArr = [];
-// export const chartDataArr = [[], [], [], []]
-
-function reloadRangeStepData(data) {
-  let reserveStepDate = data.steps_count.reverse(); //여기서 제대로 되나 내일 확인 reverse 에러
-  for (let i = 0; i < chartDataArr.length; i++) {
-    while (reserveStepDate.length) {
-      if (chartDataArr[i].length >= 7) break;
-      chartDataArr[i].push(reserveStepDate[0]);
-      reserveStepDate.shift();
-    }
-  }
-}
 
 //배열에 걸음수 데이터 넣기
 export function setStepDataArr() {
