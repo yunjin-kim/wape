@@ -12,6 +12,7 @@ https://notefolio.net/sion11290805/250934
 - Node.js express
 - MySQL
 - JavaScript
+- [FxJS](https://github.com/marpple/FxJS)
 
 ## 로그인 회원가입 페이지
 
