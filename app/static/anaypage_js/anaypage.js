@@ -2,12 +2,11 @@
 //날짜 세팅하고 버튼 클릭은 4개 다 같아서 나중에 다 구현하고 리펙토링해서 하나로
 import { onStepData, walkDayArr, setStepChartHeight, setWeekPercent, setStepDataArr } from './anaypage_step.js';
 import { setGoalAchieve } from './anaypage_goal.js';
-import { showGoalWeihgtModal, setGoalWeight, showWeihgtModal, setCurrentWeight, setuntilGoalWeight, rangeWeightData, setWeightChartHeight, setWeightDate, setUserBmi } from './anaypage_weight.js';
+import { showGoalWeihgtModal, setGoalWeight, showWeihgtModal, setCurrentWeight, rangeWeightData, setWeightChartHeight, setWeightDate, setUserBmi } from './anaypage_weight.js';
 import { showSleepModal, rangeSleepData, setCurrentSleep, setSleepChartHeight, setSleepDate } from './anaypage_sleep.js';
 import { getNameFromCookie } from '../mainpage_js/getCookie.js';
 
 let weekNum = 0;
-export let weightWeekNum = 0;
 export let sleepWeekNum = 0;
 
 (function hasStepData() {
@@ -16,15 +15,17 @@ export let sleepWeekNum = 0;
   setGraphDate();
   setGoalWeight();
   rangeWeightData()
+  setWeightChartHeight();
   setCurrentWeight();
-  setWeightChart(weightWeekNum);
-  untilGoalWeight();
   setCurrentSleep();
   rangeSleepData();
   setSleepChart(sleepWeekNum);
   setSleepDataAverage(sleepWeekNum);
   setUserBmi();
   goalButtonClickEvent();
+  weightButtonClickEvent();
+  weightGoalButtonClickEvent();
+  untilGoalWeight();
 })();
 
 export function hadStepData() {
@@ -95,7 +96,6 @@ function chartButtonClickEvent(stepDataArr) {
   })
 }
 
-
 //걸음수 차트 버튼 show/hidden
 function setStepChartBtn($stepChartLeftBtn, $stepChartRightBtn) {
   if(weekNum == 3) {
@@ -113,7 +113,6 @@ export function showWeekPercent(percentData) {
   const $weekDiffPercentWrap = document.querySelector(".anaypage__walk__accure__percent");
   const $weekDiffPercent = document.querySelector(".anaypage__walk__accure__weekPercent");
   const $stpPercentArrow = document.querySelector(".stepPercentArrow");
-
   if(percentData === "") {
     $weekDiffPercentWrap.style ="opacity: 0";
   } else {
@@ -133,28 +132,23 @@ function goalButtonClickEvent() {
   let goalWeekNum = 0
   $goalLeftBtn.addEventListener('click', () => {
     goalWeekNum++;
-    setGoaltBtn(goalWeekNum);
+    setGoaltBtn(goalWeekNum, $goalLeftBtn, $goalRightBtn);
     setGoalAchieve(goalWeekNum);
-
   })
   $goalRightBtn.addEventListener('click', () => {
     goalWeekNum--;
-    setGoaltBtn(goalWeekNum);
+    setGoaltBtn(goalWeekNum, $goalLeftBtn, $goalRightBtn);
     setGoalAchieve(goalWeekNum);
   })
 }
 
 //목표 버튼 show/hidden
-function setGoaltBtn(goalWeekNum) {
-  const $goalLeftBtn = document.querySelector(".anaypage__goal__check__left");
-  const $goalRightBtn = document.querySelector(".anaypage__goal__check__right");
+function setGoaltBtn(goalWeekNum, $goalLeftBtn, $goalRightBtn) {
   if(goalWeekNum == 3) {
     $goalLeftBtn.classList.add("hiddenButton");
-  }
-  else if(goalWeekNum == 0) {
+  } else if(goalWeekNum == 0) {
     $goalRightBtn.classList.add("hiddenButton");
-  }
-  else {
+  } else {
     $goalLeftBtn.classList.remove("hiddenButton");
     $goalRightBtn.classList.remove("hiddenButton");
   }
@@ -182,86 +176,78 @@ export function setGoalAchieveBox() {
   return goalBoxArr;
 }
 
-//체중 왼쪽 버튼 //전역변수 없애주기
-const $weightLeftBtn = document.querySelector(".anaypage__weight__graph__left");
-$weightLeftBtn.addEventListener('click', () => {
-  weightWeekNum++;
-  setWeighttBtn();
-  setWeightChart(weightWeekNum);
-})
+function weightButtonClickEvent() {
+  const $weightLeftBtn = document.querySelector(".anaypage__weight__graph__left");
+  const $weightRightBtn = document.querySelector(".anaypage__weight__graph__right");
+  let weightWeekNum = 0;
+  $weightLeftBtn.addEventListener('click', () => {
+    weightWeekNum++;
+    setWeighttBtn(weightWeekNum, $weightLeftBtn, $weightRightBtn);
+    setWeightChartHeight(weightWeekNum)
+  })
+  $weightRightBtn.addEventListener('click', () => {
+    weightWeekNum--;
+    setWeighttBtn(weightWeekNum, $weightLeftBtn, $weightRightBtn);
+    setWeightChartHeight(weightWeekNum)
+  })
+}
 
-//체중 오른쪽 버튼
-const $weightRightBtn = document.querySelector(".anaypage__weight__graph__right");
-$weightRightBtn.addEventListener('click', () => {
-  weightWeekNum--;
-  setWeighttBtn();
-  setWeightChart(weightWeekNum);
-})
+//목표 체중 차트  
+export function setWeightChart() {
+  const $weightBox = document.querySelector(".anaypage__weight__graph__box");
+  const weightBoxArr = _.filter(
+    weight => 
+      weight.classList.contains("anaypage__weight__graph__graph")
+        ,$weightBox.children);
+
+  return weightBoxArr;
+}
 
 //체중 버튼 show/hidden
-function setWeighttBtn() {
-  if(weightWeekNum == 3) {
+function setWeighttBtn(weightWeekNum, $weightLeftBtn, $weightRightBtn) {
+  if (weightWeekNum == 3) {
     $weightLeftBtn.classList.add("hiddenButton");
-  }
-  else if(weightWeekNum == 0) {
+  } else if (weightWeekNum == 0) {
     $weightRightBtn.classList.add("hiddenButton");
-  }
-  else{
+  } else {
     $weightLeftBtn.classList.remove("hiddenButton");
     $weightRightBtn.classList.remove("hiddenButton");
   }
 }
 
-//목표 체중 입력되있는 상태에서 재입력
-const $setGoalWeight = document.querySelector(".anaypage__weight__accure");
-$setGoalWeight.addEventListener('click', (e) => {
-  showGoalWeihgtModal(e);
-})
-
-//목표 체중이 입력되지 않은 상태에서 입력
-const $noWeightGoalDiv = document.querySelector(".anaypage__noweight__accure");
-$noWeightGoalDiv.addEventListener('click', (e) => {
-  showGoalWeihgtModal(e);
-})
-
-//현재 체중 입력되있는 상태에서 재입력
-const $currentWeight = document.querySelector(".anaypage__weight__current");
-$currentWeight.addEventListener('click', (e) => {
-  showWeihgtModal(e);
-})
-
-//현재 체중이 입력되지 않은 상태에서 입력
-const $noCurrentWeight = document.querySelector(".anaypage__noweight__current");
-$noCurrentWeight.addEventListener('click', (e) => {
-  showWeihgtModal(e);
-})
-
-//목표 체중 차트  
-export function setWeightChart(weightWeekNum) {
-  const $weightBox = document.querySelector(".anaypage__weight__graph__box");
-
-  const weightBoxArr = _.filter(
-    weight => 
-      weight.classList.contains("anaypage__weight__graph__graph")
-        ,$weightBox.children
-  )
-  setWeightDate(weightBoxArr, weightWeekNum);
-  setWeightChartHeight(weightBoxArr, weightWeekNum);
+function weightGoalButtonClickEvent() {
+  const $setGoalWeight = document.querySelector(".anaypage__weight__accure");
+  const $noWeightGoalDiv = document.querySelector(".anaypage__noweight__accure");
+  const $currentWeight = document.querySelector(".anaypage__weight__current");
+  const $noCurrentWeight = document.querySelector(".anaypage__noweight__current");
+  $setGoalWeight.addEventListener('click', (e) => {
+    showGoalWeihgtModal(e);
+  })
+  $noWeightGoalDiv.addEventListener('click', (e) => {
+    showGoalWeihgtModal(e);
+  })
+    $currentWeight.addEventListener('click', (e) => {
+    showWeihgtModal(e);
+  })
+    $noCurrentWeight.addEventListener('click', (e) => {
+    showWeihgtModal(e);
+  })
 }
 
 //목표 체중까지
 export function untilGoalWeight() {
+  console.log("실행")
   const getTotalWeightData = localStorage.getItem("CURRENT_WEIGHT");
   const parseTotalWeightData = JSON.parse(getTotalWeightData);
-
+  const getWeight = localStorage.getItem("GOAL_WEIGHT");
+  const parseWeight = JSON.parse(getWeight);
   const $untilGoalWeight = document.querySelector(".untilGoalWeight");
   if(parseTotalWeightData[0].length > 0) {
     if(parseTotalWeightData[0][0][2] === "") {
       $untilGoalWeight.parentNode.parentNode.parentNode.classList.add("hiddenDiv");
-    }
-    else {
+    } else {
       $untilGoalWeight.parentNode.parentNode.parentNode.classList.remove("hiddenDiv");
-      $untilGoalWeight.textContent = setuntilGoalWeight();
+      $untilGoalWeight.textContent = parseTotalWeightData[0][0][2] - parseWeight;
     }
   }
 }

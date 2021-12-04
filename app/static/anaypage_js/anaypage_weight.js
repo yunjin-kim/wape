@@ -1,4 +1,4 @@
-import { setWeightChart, weightWeekNum, untilGoalWeight } from './anaypage.js';
+import { setWeightChart, untilGoalWeight } from './anaypage.js';
 
 //목표 체중 모달
 const $noWeightGoalDiv = document.querySelector(".anaypage__noweight__accure");
@@ -35,6 +35,7 @@ export function showGoalWeihgtModal(e) {
     localStorage.setItem("GOAL_WEIGHT", goalWeight);
     goalWeightModalDiv.remove();
     $noWeightGoalDiv.classList.add("hiddenDiv");
+    untilGoalWeight();
     setGoalWeight();
   });
   goalWeightModalDiv.append(goalWeightSubmitBtn);
@@ -106,7 +107,7 @@ export function showWeihgtModal(e) {
 
     setCurrentWeight();
     rangeWeightData();
-    setWeightChart(weightWeekNum);
+    setWeightChart();
     untilGoalWeight();
     setUserBmi();
   });
@@ -138,15 +139,6 @@ export function setCurrentWeight() {
     $weightDiv.classList.add("hiddenDiv");
     $noWeightDiv.innerHTML = `<span class="noWeight">현재 체중을 적어주세요</span>`;
   }
-}
-
-export function setuntilGoalWeight() {
-  const getWeight = localStorage.getItem("GOAL_WEIGHT");
-  const parseWeight = JSON.parse(getWeight);
-  const getTotalWeightData = localStorage.getItem("CURRENT_WEIGHT");
-  const parseTotalWeightData = JSON.parse(getTotalWeightData);
-
-  return parseTotalWeightData[0][0][2]-parseWeight;
 }
 
 // 체중 데이터 로직
@@ -218,7 +210,7 @@ export function rangeWeightData() {
 }
 
 //체중 날짜
-export function setWeightDate(weightBoxArr, weightWeekNum) {
+export function setWeightDate(weightWeekNum) {
   const weekNumArr = [];
   const date = new Date();
   const lastMonthDate = new Date(date.getFullYear(), date.getMonth(), 0).getDate();
@@ -237,23 +229,23 @@ export function setWeightDate(weightBoxArr, weightWeekNum) {
     } 
     weekNumArr.unshift(date);
   }
-  for (let [weekNum, weightDiv] of _.zip(weekNumArr, weightBoxArr)) {
+  for (let [weekNum, weightDiv] of _.zip(weekNumArr, setWeightChart())) {
     weightDiv.id = weekNum;
   }
 }
 
 //체중 차트 값 넣어주기
-export function setWeightChartHeight(weightBoxArr, weightWeekNum) {
-  const reverseWeightBoxArr = weightBoxArr.slice().reverse();
+export function setWeightChartHeight(weightWeekNum) {
+  const reverseWeightBoxArr = setWeightChart().slice().reverse();
   const getTotalWeightData = localStorage.getItem("CURRENT_WEIGHT");
   const parseTotalWeightData = JSON.parse(getTotalWeightData);
+  if (!weightWeekNum) weightWeekNum = 0;
 
   for (let i = 0; i < parseTotalWeightData[weightWeekNum].length; i++) {
     if (parseTotalWeightData[weightWeekNum][i][2] > 0) {
       reverseWeightBoxArr[i].children[1].style.height = `${parseTotalWeightData[weightWeekNum][i][2]}px`;
       reverseWeightBoxArr[i].children[0].textContent = `${parseTotalWeightData[weightWeekNum][i][2]}`;
-    }
-    else {
+    } else {
       reverseWeightBoxArr[i].children[1].style.height = "0px";
       reverseWeightBoxArr[i].children[0].textContent = "";
     }
