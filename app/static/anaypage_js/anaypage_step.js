@@ -126,7 +126,9 @@ export function setStepDataArr() {
   const chartDataArr = _.go(
     reserveStepDateFromLocal,
     _.map(stepData => stepData),
-    _.groupBySize(7)
+    _.groupBySize(7),
+    _.values,
+    _.take(4)
   );
   
   return chartDataArr;
