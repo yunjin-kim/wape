@@ -1,4 +1,4 @@
-const { L, C } = window._;
+export const { L, C } = window._;
 
 export const groupBySize = _.groupBySize = _.curry((size, iter) => {
   let r = L.range(Infinity);
