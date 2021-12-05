@@ -38,8 +38,8 @@ export function showGoalWeihgtModal(e) {
     untilGoalWeight();
     setGoalWeight();
   });
-  goalWeightModalDiv.append(goalWeightSubmitBtn);
 
+  goalWeightModalDiv.append(goalWeightSubmitBtn);
   e.target.parentNode.parentNode.parentNode.parentNode.append(goalWeightModalDiv);
 }
 
@@ -53,8 +53,7 @@ export function setGoalWeight() {
   if (parseGoalWeight) {
     $goalWeihgtDiv.classList.remove("hiddenDiv");
     $goalWeight.textContent = `${parseGoalWeight}kg`;
-  }
-  else {
+  } else {
     $noWeightGoalDiv.classList.remove("hiddenDiv");
     $goalWeihgtDiv.classList.add("hiddenDiv");
     $noWeightGoalDiv.innerHTML = `<span class="noWeightGoal">목표 체중을 설정해주세요</span>`;
@@ -64,8 +63,7 @@ export function setGoalWeight() {
 //현재 체중 모달
 const $noWeightDiv = document.querySelector(".anaypage__noweight__current");
 export function showWeihgtModal(e) {
-  const measureDay = new Date().getDate();
-
+  // const measureDay = new Date().getDate();
   const weightModalDiv = document.createElement('div');
   weightModalDiv.classList.add("weightModal")
 
@@ -96,12 +94,11 @@ export function showWeihgtModal(e) {
   weightSubmitBtn.textContent = "체중 입력";
 
   weightSubmitBtn.addEventListener('click', () => {
-    let getTotalWeightData = localStorage.getItem("CURRENT_WEIGHT");
+    const getTotalWeightData = localStorage.getItem("CURRENT_WEIGHT");
     let parseTotalWeightData = JSON.parse(getTotalWeightData);
 
     parseTotalWeightData[0][0][2] = currnetWeight;
-    localStorage.setItem("CURRENT_WEIGHT", JSON.stringify(parseTotalWeightData))
-  
+    localStorage.setItem("CURRENT_WEIGHT", JSON.stringify(parseTotalWeightData));
     weightModalDiv.remove();
     $noWeightDiv.classList.add("hiddenDiv");
 
@@ -110,6 +107,7 @@ export function showWeihgtModal(e) {
     setWeightChart();
     untilGoalWeight();
     setUserBmi();
+    setWeightChartHeight();
   });
   
   weightModalDiv.append(weightSubmitBtn);
@@ -120,7 +118,7 @@ export function showWeihgtModal(e) {
 export function setCurrentWeight() {
   const $currnetWeight = document.querySelector(".currnetWeight");
   const $weightDiv = document.querySelector(".anaypage__weight__current");
-  let getTotalWeightData = localStorage.getItem("CURRENT_WEIGHT");
+  const getTotalWeightData = localStorage.getItem("CURRENT_WEIGHT");
   let parseTotalWeightData = JSON.parse(getTotalWeightData);
 
   if (parseTotalWeightData) {
@@ -128,13 +126,11 @@ export function setCurrentWeight() {
       $noWeightDiv.classList.remove("hiddenDiv");
       $weightDiv.classList.add("hiddenDiv");
       $noWeightDiv.innerHTML = `<span class="noWeight">현재 체중을 적어주세요</span>`;
-    }
-    else {
+    } else {
       $weightDiv.classList.remove("hiddenDiv");
       $currnetWeight.textContent = `${parseTotalWeightData[0][0][2]}kg`;
     }
-  }
-  else {
+  } else {
     $noWeightDiv.classList.remove("hiddenDiv");
     $weightDiv.classList.add("hiddenDiv");
     $noWeightDiv.innerHTML = `<span class="noWeight">현재 체중을 적어주세요</span>`;
