@@ -1,4 +1,5 @@
 import { setWeekStepData, showWeekPercent, hadStepData } from './anaypage.js';
+import { groupBySize } from '../fx.js';
 //걸음 데이터가 30개 미만으로 들어오는 것에 대한 예외처리 확인 필요!
 const googleStepCountUrl = 'https://v1.nocodeapi.com/kimyunjun/fit/lHneRLggDPetxSfn/aggregatesDatasets?dataTypeName=steps_count&timePeriod=30days';
 //처음에 데이터가 로컬에 없다면 로컬에 저장되는건 되지만 chart배열에 값이 들어가지는 않음 함수 다시 실행될 수 있게
@@ -115,18 +116,11 @@ export function setStepDataArr() {
   console.log("rangeStepData")
   const getStepDateFromLocal = localStorage.getItem("STEP_DATA");
   const parseStepDateFromLocal = JSON.parse(getStepDateFromLocal);
-  const { L, C } = window._;
   let reserveStepDateFromLocal = parseStepDateFromLocal.steps_count.reverse();
-  
-  _.groupBySize = _.curry((size, iter) => {
-    let r = L.range(Infinity);
-    return _.groupBy(_ => Math.floor(r.next().value / size), iter);
-  })
-
   const chartDataArr = _.go(
     reserveStepDateFromLocal,
     _.map(stepData => stepData),
-    _.groupBySize(7),
+    groupBySize(7),
     _.values,
     _.take(4)
   );
