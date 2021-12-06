@@ -2,7 +2,7 @@
 //날짜 세팅하고 버튼 클릭은 4개 다 같아서 나중에 다 구현하고 리펙토링해서 하나로
 import { onStepData, walkDayArr, setStepChartHeight, setWeekPercent, setStepDataArr } from './anaypage_step.js';
 import { setGoalAchieve } from './anaypage_goal.js';
-import { showGoalWeihgtModal, setGoalWeight, showWeihgtModal, setCurrentWeight, rangeWeightData, setWeightChartHeight, setWeightDate, setUserBmi } from './anaypage_weight.js';
+import { showGoalWeihgtModal, setGoalWeight, showWeihgtModal, setCurrentWeight, rangeWeightData, setWeightChartHeight, setUserBmi } from './anaypage_weight.js';
 import { showSleepModal, rangeSleepData, setCurrentSleep, setSleepChartHeight, setSleepDate } from './anaypage_sleep.js';
 import { getNameFromCookie } from '../mainpage_js/getCookie.js';
 
@@ -21,11 +21,13 @@ export let sleepWeekNum = 0;
   rangeSleepData();
   setSleepChart(sleepWeekNum);
   setSleepDataAverage(sleepWeekNum);
+  setSleepChartHeight()
   setUserBmi();
   goalButtonClickEvent();
   weightButtonClickEvent();
   weightGoalButtonClickEvent();
   untilGoalWeight();
+  
 })();
 
 export function hadStepData() {
@@ -257,8 +259,8 @@ const $sleppLeftBtn = document.querySelector(".anaypage__sleep__graph__left");
 $sleppLeftBtn.addEventListener('click', () => {
   sleepWeekNum++;
   setSleepBtn();
-  setSleepChart(sleepWeekNum);
   setSleepDataAverage(sleepWeekNum)
+  setSleepChartHeight(sleepWeekNum)
 })
 
 //수면 오른쪽 버튼
@@ -266,19 +268,17 @@ const $sleepRightBtn = document.querySelector(".anaypage__sleep__graph__right");
 $sleepRightBtn.addEventListener('click', () => {
   sleepWeekNum--;
   setSleepBtn();
-  setSleepChart(sleepWeekNum);
   setSleepDataAverage(sleepWeekNum)
+  setSleepChartHeight(sleepWeekNum)
 })
 
 //수면 버튼 show/hidden
 function setSleepBtn() {
-  if(sleepWeekNum == 3) {
+  if (sleepWeekNum == 3) {
     $sleppLeftBtn.classList.add("hiddenButton");
-  }
-  else if(sleepWeekNum == 0) {
+  } else if (sleepWeekNum == 0) {
     $sleepRightBtn.classList.add("hiddenButton");
-  }
-  else {
+  } else {
     $sleppLeftBtn.classList.remove("hiddenButton");
     $sleepRightBtn.classList.remove("hiddenButton");
   }
@@ -297,16 +297,15 @@ $noCurrentSleep.addEventListener('click', (e) => {
 })
 
 //수면 차트  
-export function setSleepChart(sleepWeekNum) {
+export function setSleepChart() {
   const $sleepBox = document.querySelector(".anaypage__sleep__graph__box");
 
   const sleepBoxArr = _.filter(
     sleep => 
       sleep.classList.contains("anaypage__sleep__graph__graph")
-        ,$sleepBox.children
-  )
-  setSleepDate(sleepBoxArr, sleepWeekNum);
-  setSleepChartHeight(sleepBoxArr, sleepWeekNum);
+        ,$sleepBox.children);
+
+  return sleepBoxArr;
 }
 
 //수면 일평균 주간 누적
@@ -322,15 +321,14 @@ export function setSleepDataAverage(sleepWeekNum) {
     data[2] === "" ? "" : weekSleepData.push(data[2]);
   });
 
-  for(let data of weekSleepData) {
+  for (let data of weekSleepData) {
     totalSleepData += Number(data);
   }
   let averageSleepData = totalSleepData/weekSleepData.length;
-  if(totalSleepData) {
+  if (totalSleepData) {
     $sleepDataWeekTotal.textContent = totalSleepData;
     $sleepDateAverage.textContent = averageSleepData.toFixed(1);
-  }
-  else {
+  } else {
     $sleepDataWeekTotal.textContent = "0";
     $sleepDateAverage.textContent = "0";
   }

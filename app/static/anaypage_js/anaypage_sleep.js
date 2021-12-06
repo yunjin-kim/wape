@@ -80,7 +80,7 @@ export function rangeSleepData() {
   let todayDate = date.getDate();
   let thisMonth = lastMonth + 1;
   let monthSleepDataArr = [];
-  
+
   _.go(
     L.range(Infinity),
     L.map(rangeNum => rangeNum == todayDate ? (thisMonth -= 1, rangeNum) : rangeNum),
@@ -110,41 +110,13 @@ export function rangeSleepData() {
   }
 }
 
-//수면 날짜 세팅
-export function setSleepDate(sleepBoxArr, sleepWeekNum){
-  const weekNumArr = [];
-  const onToday = date.getDate();
-  let lastMonthDate = new Date(date.getFullYear(), date.getMonth(), 0).getDate();
-  let todayDate = onToday;
-  todayDate -= sleepWeekNum * 7;
-  if (todayDate <= 0) {
-    todayDate = lastMonthDate + todayDate;
-  }
-  // _.go(
-  //   _.range(1, 7),
-  //   _.map(a => )
-  // )
-  //range 로 바꾸기 애매
-  let i = 0;
-  while (weekNumArr.length !== 7) {
-    let date = todayDate - i;
-    i++;
-    if (date === 1) {
-      todayDate = lastMonthDate;
-      i = 0;
-    } 
-    weekNumArr.unshift(date);
-  }
-  for (let [weekNum, sleepDiv] of _.zip(weekNumArr, sleepBoxArr)) {
-    sleepDiv.id = weekNum;
-  }
-}
-
 //수면 차트 값 넣어주기
-export function setSleepChartHeight(sleepBoxArr, sleepWeekNum) {
-  const reverseSleepBoxArr = sleepBoxArr.slice().reverse();
+export function setSleepChartHeight(sleepWeekNum) {
+  const reverseSleepBoxArr = setSleepChart().slice().reverse();
   const getTotalSleepData = localStorage.getItem("CURRENT_SLEEP");
   const parseTotalSleepData = JSON.parse(getTotalSleepData);
+  if (!sleepWeekNum) sleepWeekNum = 0;
+
   for (const [sleepData, sleepDiv] of _.zip(parseTotalSleepData[sleepWeekNum], reverseSleepBoxArr)) {
     sleepData[2] > 0 
     ? (sleepDiv.children[1].style.height = `${sleepData[2]*10}px`,
