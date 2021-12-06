@@ -1,5 +1,7 @@
 import { setSleepChart, sleepWeekNum, setSleepDataAverage } from './anaypage.js';
 import { date } from './anaypage_step.js';
+import { groupBySize, L } from '../fx.js';
+
 //현재 수면 모달
 const $noSleepDiv = document.querySelector(".anaypage__nosleep__current");
 export function showSleepModal(e) {
@@ -68,68 +70,43 @@ export function setCurrentSleep() {
 }
 
 export function rangeSleepData() {
-  const sleepDataArr = [[], [], [], []];
   const date = new Date();
   const thisYear = date.getFullYear();
   const lastMonth = date.getMonth();
-  const thisMonth = lastMonth + 1;
   const prevLast = new Date(thisYear, lastMonth, 0)
   const prevLastDate = prevLast.getDate();
   const getTotalSleepData = localStorage.getItem("CURRENT_SLEEP");
   const parseTotalSleepData = JSON.parse(getTotalSleepData);
-  let onToday = date.getDate();
-  let dateNum  = onToday + 1;
-  let monthNum = thisMonth;
-  let sleepDataArrNum = 0;
-  if (parseTotalSleepData) { //로컬에 데이터가 있다면
-    if (parseTotalSleepData[0][0][1] !== onToday) { //오늘 날짜와 다르다면
-      console.log("다음날이 되었다");
-      
-      for (let i = 0; i < 28; i++) {
-        dateNum -= 1;
-        if (dateNum === 0) {
-          dateNum = prevLastDate;
-          monthNum = lastMonth;
-        }
-        sleepDataArr[sleepDataArrNum].push([monthNum, dateNum, ""]);
-        if (sleepDataArr[sleepDataArrNum].length === 7) {
-          sleepDataArrNum++;
-        }
-      }
+  let todayDate = date.getDate();
+  let thisMonth = lastMonth + 1;
+  let monthSleepDataArr = [];
+  
+  _.go(
+    L.range(Infinity),
+    L.map(rangeNum => rangeNum == todayDate ? (thisMonth -= 1, rangeNum) : rangeNum),
+    L.map(rangeNum => rangeNum >= todayDate 
+          ? monthSleepDataArr.push([thisMonth, prevLastDate + todayDate - rangeNum]) 
+          : monthSleepDataArr.push([thisMonth, todayDate - rangeNum])),
+    _.take(28),
+    _.map(rangeNum => monthSleepDataArr[rangeNum-1][2] = ""));
 
-      const sleepDataArrFlat = sleepDataArr.flat();
-      const parseTotalSleepDataFlat = parseTotalSleepData.flat();
-
-      let localPoint = 0;
-      let dataPoint = 0;
-      while (localPoint < 27 || dataPoint < 27) {
-        if (parseTotalSleepDataFlat[0][0] < sleepDataArrFlat[dataPoint][0]) { //로컬 첫번재 값의 달보다 새로만든 배열의 달이 더 크다
-          dataPoint++;
-        } else if (parseTotalSleepDataFlat[localPoint][0] === sleepDataArrFlat[dataPoint][0] && parseTotalSleepDataFlat[localPoint][1] !== sleepDataArrFlat[dataPoint][1] ) {
-          //달은 같으나 날짜가 다르다
-          dataPoint++;
-        } else if (parseTotalSleepDataFlat[localPoint][0] === sleepDataArrFlat[dataPoint][0] && parseTotalSleepDataFlat[localPoint][1] === sleepDataArrFlat[dataPoint][1]) {
-          sleepDataArrFlat[dataPoint][2] = parseTotalSleepDataFlat[localPoint][2];
-          dataPoint++;
-          localPoint++;
-        }
-        console.log(localPoint, dataPoint)
-      }
-      localStorage.setItem("CURRENT_SLEEP", JSON.stringify(sleepDataArr));
+    monthSleepDataArr = _.go(
+      monthSleepDataArr,
+    _.map(sleepData => sleepData),
+    groupBySize(7),
+    _.values);
+    
+  if (parseTotalSleepData && parseTotalSleepData[0][0][1] !== date.getDate()) { //로컬에 데이터가 있다면 오늘 날짜와 다르다면
+    console.log("다음날이 되었다")
+    const monthSleepDataArrFlat = monthSleepDataArr.flat();
+    const parseTotalSleepDataFlat = parseTotalSleepData.flat();
+    for (const [sleepData, localSleepData] of _.zip(monthSleepDataArrFlat, parseTotalSleepDataFlat)) {
+      if (sleepData[0] === localSleepData[0] && sleepData[1] === localSleepData[1]) {
+        sleepData[2] = localSleepData[2];
+      } console.log(monthSleepDataArr) // 내일 잘 되는지 확인
     }
   } else if (!parseTotalSleepData) { //로컬에 데이터 없다면 초기 상태
-    for (let i = 0; i < 28; i++) {
-      dateNum -= 1;
-      if (dateNum === 0) {
-        dateNum = prevLastDate;
-        monthNum = lastMonth;
-      }
-      sleepDataArr[sleepDataArrNum].push([monthNum, dateNum, ""]);
-      if (sleepDataArr[sleepDataArrNum].length === 7) {
-        sleepDataArrNum++;
-      }
-    }
-    localStorage.setItem("CURRENT_SLEEP", JSON.stringify(sleepDataArr));
+    localStorage.setItem("CURRENT_SLEEP", JSON.stringify(monthSleepDataArr));
   }
 }
 
