@@ -1,4 +1,5 @@
 import { setWeightChart, untilGoalWeight } from './anaypage.js';
+import { groupBySize, L } from '../fx.js';
 
 //목표 체중 모달
 const $noWeightGoalDiv = document.querySelector(".anaypage__noweight__accure");
@@ -61,9 +62,8 @@ export function setGoalWeight() {
 }
 
 //현재 체중 모달
-const $noWeightDiv = document.querySelector(".anaypage__noweight__current");
 export function showWeihgtModal(e) {
-  // const measureDay = new Date().getDate();
+  const $noWeightDiv = document.querySelector(".anaypage__noweight__current");
   const weightModalDiv = document.createElement('div');
   weightModalDiv.classList.add("weightModal")
 
@@ -102,7 +102,7 @@ export function showWeihgtModal(e) {
     weightModalDiv.remove();
     $noWeightDiv.classList.add("hiddenDiv");
 
-    setCurrentWeight();
+    setCurrentWeight($noWeightDiv);
     rangeWeightData();
     setWeightChart();
     untilGoalWeight();
@@ -116,6 +116,7 @@ export function showWeihgtModal(e) {
 
 //현재 체중 설정
 export function setCurrentWeight() {
+  const $noWeightDiv = document.querySelector(".anaypage__noweight__current");
   const $currnetWeight = document.querySelector(".currnetWeight");
   const $weightDiv = document.querySelector(".anaypage__weight__current");
   const getTotalWeightData = localStorage.getItem("CURRENT_WEIGHT");
@@ -139,69 +140,43 @@ export function setCurrentWeight() {
 
 // 체중 데이터 로직
 export function rangeWeightData() {
-  const weightDataArr = [[], [], [], []];
   const date = new Date();
   const thisYear = date.getFullYear();
   const lastMonth = date.getMonth();
-  const thisMonth = lastMonth + 1;
   const prevLast = new Date(thisYear, lastMonth, 0)
   const prevLastDate = prevLast.getDate();
-  let dateNum  = date.getDate()+1;
-  let monthNum = thisMonth;
-  let weightDataArrNum = 0;
-  let getTotalWeightData = localStorage.getItem("CURRENT_WEIGHT");
-  let parseTotalWeightData = JSON.parse(getTotalWeightData);
+  const getTotalWeightData = localStorage.getItem("CURRENT_WEIGHT");
+  const parseTotalWeightData = JSON.parse(getTotalWeightData);
+  let todayDate = date.getDate();
+  let thisMonth = lastMonth + 1;
   
-  if (parseTotalWeightData) { //로컬에 데이터가 있다면
-    if (parseTotalWeightData[0][0][1] !== date.getDate()) { //오늘 날짜와 다르다면
-      console.log("다음날이 되었다")
-      for (let i = 0; i < 28; i++) {
-        dateNum -= 1;
-        if (dateNum === 0) {
-          dateNum = prevLastDate;
-          monthNum = lastMonth;
-        }
-        weightDataArr[weightDataArrNum].push([monthNum, dateNum, ""]);
-        if (weightDataArr[weightDataArrNum].length === 7) {
-          weightDataArrNum++;
-        }
-      }
-      const weightDataArrFlat = weightDataArr.flat();
-      const parseTotalWeightDataFlat = parseTotalWeightData.flat();
+  let monthWeightDataArr = [];
+  _.go(
+    L.range(Infinity),
+    L.map(rangeNum => rangeNum == todayDate ? (thisMonth -= 1, rangeNum) : rangeNum),
+    L.map(rangeNum => rangeNum >= todayDate 
+          ? monthWeightDataArr.push([thisMonth, prevLastDate + todayDate - rangeNum]) 
+          : monthWeightDataArr.push([thisMonth, todayDate - rangeNum])),
+    _.take(28),
+    _.map(rangeNum => monthWeightDataArr[rangeNum-1][2] = ""));
 
-      let localPoint = 0;
-      let dataPoint = 0;
-      while (dataPoint < 27 || localPoint < 27) {
-
-        if (parseTotalWeightDataFlat[0][0] < weightDataArrFlat[dataPoint][0]) { //로컬 첫번재 값의 달보다 새로만든 배열의 달이 더 크다
-          dataPoint++;
-        }
-        else if (parseTotalWeightDataFlat[localPoint][0] === weightDataArrFlat[dataPoint][0] && parseTotalWeightDataFlat[localPoint][1] !== weightDataArrFlat[dataPoint][1] ) {
-          //달은 같으나 날짜가 다르다
-          dataPoint++;
-        }
-        else if (parseTotalWeightDataFlat[localPoint][0] === weightDataArrFlat[dataPoint][0] && parseTotalWeightDataFlat[localPoint][1] === weightDataArrFlat[dataPoint][1]) {
-          weightDataArrFlat[dataPoint][2] = parseTotalWeightDataFlat[localPoint][2];
-          dataPoint++;
-          localPoint++;
-        }
-      }
-      localStorage.setItem("CURRENT_WEIGHT", JSON.stringify(weightDataArr));
+  monthWeightDataArr = _.go(
+    monthWeightDataArr,
+    _.map(weightData => weightData),
+    groupBySize(7),
+    _.values);
+    
+  if (parseTotalWeightData && parseTotalWeightData[0][0][1] !== date.getDate()) { //로컬에 데이터가 있다면 오늘 날짜와 다르다면
+    console.log("다음날이 되었다")
+    const monthWeightDataArrFlat = monthWeightDataArr.flat();
+    const parseTotalWeightDataFlat = parseTotalWeightData.flat();
+    for (const [weightData, localWeightData] of _.zip(monthWeightDataArrFlat, parseTotalWeightDataFlat)) {
+      if (weightData[0] === localWeightData[0] && weightData[1] === localWeightData[1]) {
+        weightData[2] = localWeightData[2];
+      } console.log(monthWeightDataArr) // 내일 잘 되는지 확인
     }
-  }
-  else if (!parseTotalWeightData) { //로컬에 데이터 없다면 초기 상태
-    for (let i = 0; i < 28; i++) {
-      dateNum -= 1;
-      if (dateNum === 0) {
-        dateNum = prevLastDate;
-        monthNum = lastMonth;
-      }
-      weightDataArr[weightDataArrNum].push([monthNum, dateNum, ""]);
-      if (weightDataArr[weightDataArrNum].length === 7) {
-        weightDataArrNum++;
-      }
-    }
-    localStorage.setItem("CURRENT_WEIGHT", JSON.stringify(weightDataArr));
+  } else if (!parseTotalWeightData) { //로컬에 데이터 없다면 초기 상태
+    localStorage.setItem("CURRENT_WEIGHT", JSON.stringify(monthWeightDataArr));
   }
 }
 

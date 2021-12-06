@@ -147,6 +147,8 @@ export function setStepChartHeight(chartBarArr, weekNum, stepDataArr) { // ê±·ê¸
   }
   let charBarHeightDivide = parseInt(monthSumStep/1200);
 
+  console.log(chartBarArr)
+  console.log(stepDataArr, weekNum)
   for (let i = chartBarArr.length-1; i >= 0; i--) {
     weekSumStep += stepDataArr[weekNum][i].value;
     chartBarArr[i].children[1].style.height = `${stepDataArr[weekNum][6-i].value/charBarHeightDivide}px`;
