@@ -149,8 +149,8 @@ export function rangeWeightData() {
   const parseTotalWeightData = JSON.parse(getTotalWeightData);
   let todayDate = date.getDate();
   let thisMonth = lastMonth + 1;
-  
   let monthWeightDataArr = [];
+
   _.go(
     L.range(Infinity),
     L.map(rangeNum => rangeNum == todayDate ? (thisMonth -= 1, rangeNum) : rangeNum),
@@ -177,31 +177,6 @@ export function rangeWeightData() {
     }
   } else if (!parseTotalWeightData) { //로컬에 데이터 없다면 초기 상태
     localStorage.setItem("CURRENT_WEIGHT", JSON.stringify(monthWeightDataArr));
-  }
-}
-
-//체중 날짜
-export function setWeightDate(weightWeekNum) {
-  const weekNumArr = [];
-  const date = new Date();
-  const lastMonthDate = new Date(date.getFullYear(), date.getMonth(), 0).getDate();
-  let todayDate = date.getDate();
-  todayDate -= weightWeekNum*7;
-  if (todayDate < 0) {
-    todayDate = lastMonthDate + todayDate;
-  }
-  let i = 0;
-  while (weekNumArr.length !== 7) {
-    let date = todayDate - i;
-    i++;
-    if (date === 1) {
-      todayDate = lastMonthDate;
-      i = 0;
-    } 
-    weekNumArr.unshift(date);
-  }
-  for (let [weekNum, weightDiv] of _.zip(weekNumArr, setWeightChart())) {
-    weightDiv.id = weekNum;
   }
 }
 
