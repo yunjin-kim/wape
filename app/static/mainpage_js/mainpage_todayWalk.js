@@ -8,8 +8,7 @@ export async function getTodayStepApi() {
     const response = await fetch(googleTodayStepCountUrl);
     const data = await response.json();
     getTodayStepData(data);
-  }
-  catch (e) {
+  } catch (e) {
     todayStepDataErrorModal();
     console.log(e);
   }
@@ -18,21 +17,20 @@ export async function getTodayStepApi() {
 function todayStepDataErrorModal() {
   const $todayStepTitle = document.querySelector(".mainpage__today__title");
   const todayStepErrorModalDiv = document.createElement('div');
-  todayStepErrorModalDiv.classList.add("todayStepErrorModal")
-
   const todayStepErrorModalText = document.createElement('p');
+  todayStepErrorModalDiv.classList.add("todayStepErrorModal");
   todayStepErrorModalText.classList.add("todayStepErrorModalText");
   todayStepErrorModalText.innerHTML = "걸음 데이터를 불러오는데<br/> 실패하였습니다<br/> 재로딩 해주세요";
-
   todayStepErrorModalDiv.append(todayStepErrorModalText);
   $todayStepTitle.append(todayStepErrorModalDiv);
 }
 
 function getTodayStepData(data) {
-  if(data.steps_count.length > 0) {
+  if(!data.error && data.steps_count.length > 0) {
     showTodayStepData(data.steps_count);
-  }
-  else {
+  } else if (data.error === 1) {
+    todayStepDataErrorModal();
+  } else {
     const noTodayStepDataText = document.createElement('p');
     noTodayStepDataText.textContent = "오늘 걸은 데이터가 없습니다";
     noTodayStepDataText.classList.add("noTodayStepDataText");
@@ -43,8 +41,8 @@ function getTodayStepData(data) {
 function showTodayStepData(stepData) {
   const $todayWalkWrap = document.querySelector(".mainpage__today__main");
   const $todayWalkLine = document.getElementById("mainpage__today__line");
-
   const walkLine = $todayWalkLine.getContext("2d");
+  
   walkLine.beginPath();
   walkLine.lineWidth = 1;
   walkLine.strokeStyle = "gray";
