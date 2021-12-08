@@ -1,6 +1,6 @@
 //한 시간마다의 걸음도 조회할 수 있어서 일정 이상의 걸음이 되면 오늘의 걷기에 운동했다고 할 수 있을 듯 근데 시간이 너무 차이나서 오늘의 걷기는 힘들 듯함?
 //날짜 세팅하고 버튼 클릭은 4개 다 같아서 나중에 다 구현하고 리펙토링해서 하나로
-import { onStepData, walkDayArr, setStepChartHeight, setWeekPercent, setStepDataArr } from './anaypage_step.js';
+import { onStepData, walkDayArr, setStepChartHeight, setStepDataArr } from './anaypage_step.js';
 import { setGoalAchieve } from './anaypage_goal.js';
 import { showGoalWeihgtModal, setGoalWeight, showWeihgtModal, setCurrentWeight, rangeWeightData, setWeightChartHeight, setUserBmi } from './anaypage_weight.js';
 import { showSleepModal, rangeSleepData, setCurrentSleep, setSleepChartHeight } from './anaypage_sleep.js';
@@ -32,7 +32,6 @@ export function hadStepData() {
   const stepDataArr = setStepDataArr();
   let weekNum = 0;
   setStepChart(weekNum, stepDataArr);
-  setWeekPercent(stepDataArr);
   ifNoGoal();
   chartButtonClickEvent(weekNum, stepDataArr);
 }
@@ -83,7 +82,6 @@ function chartButtonClickEvent(weekNum, stepDataArr) {
     weekNum++;
     setStepChartBtn($stepChartLeftBtn, $stepChartRightBtn, weekNum);
     setStepChart(weekNum, stepDataArr);
-    setWeekPercent(stepDataArr);
   })
   
   //걸음수 차트 오른쪽 버튼
@@ -92,7 +90,6 @@ function chartButtonClickEvent(weekNum, stepDataArr) {
     weekNum--;
     setStepChartBtn($stepChartLeftBtn, $stepChartRightBtn, weekNum);
     setStepChart(weekNum, stepDataArr);
-    setWeekPercent(stepDataArr);
   })
 }
 

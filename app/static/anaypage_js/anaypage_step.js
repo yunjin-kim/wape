@@ -129,9 +129,10 @@ export function setStepDataArr() {
 }
 
 //걸음수 관련 처리
-export let weekSumStep = 0;
 export function setStepChartHeight(chartBarArr, weekNum, stepDataArr) { // 걷기 데이터 높이 여기서 정함
-  //다음날 되엇을 때 이걸로 오류 고쳐지는지 확인해보고 되면 flag로 다음날 되었을 때 한버만 실행되게 바꾸기
+  //다음날 되엇을 때 이걸로 오류 고쳐지는지 확인해보고 되면 flag로 다음날 되었을 때 한버만 실행되게 바꾸기  
+  let weekSumStep = 0;
+
   for (let i = chartBarArr.length-1; i >= 0; i--) {
     weekSumStep = 0
     chartBarArr[i].children[1].style.height = "0px";
@@ -147,18 +148,17 @@ export function setStepChartHeight(chartBarArr, weekNum, stepDataArr) { // 걷�
   }
   let charBarHeightDivide = parseInt(monthSumStep/1200);
 
-  console.log(chartBarArr)
-  console.log(stepDataArr, weekNum)
   for (let i = chartBarArr.length-1; i >= 0; i--) {
     weekSumStep += stepDataArr[weekNum][i].value;
     chartBarArr[i].children[1].style.height = `${stepDataArr[weekNum][6-i].value/charBarHeightDivide}px`;
     chartBarArr[i].children[0].textContent = stepDataArr[weekNum][6-i].value;
   }
   setWeekStepData(weekSumStep);
+  setWeekPercent(weekSumStep, stepDataArr)
 }
 
 //저번주 대비 퍼센트
-export function setWeekPercent(stepDataArr) {
+ function setWeekPercent(weekSumStep, stepDataArr) {
   const add = (a, b) => a + b;
   const dataSumArr = _.go(
       _.entries(stepDataArr),
