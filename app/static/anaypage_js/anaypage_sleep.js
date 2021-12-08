@@ -100,11 +100,17 @@ export function rangeSleepData() {
     console.log("다음날이 되었다")
     const monthSleepDataArrFlat = monthSleepDataArr.flat();
     const parseTotalSleepDataFlat = parseTotalSleepData.flat();
-    for (const [sleepData, localSleepData] of _.zip(monthSleepDataArrFlat, parseTotalSleepDataFlat)) {
-      if (sleepData[0] === localSleepData[0] && sleepData[1] === localSleepData[1]) {
-        sleepData[2] = localSleepData[2];
-      } console.log(monthSleepDataArr) // 내일 잘 되는지 확인
-    }
+
+    _.go(
+      parseTotalSleepDataFlat,
+      _.filter(localSleepData => localSleepData[2] > 0),
+      _.map(localSleepData => _.go(
+        monthSleepDataArrFlat,
+          _.filter(sleeptData => sleeptData[0] === localSleepData[0]),
+          _.filter(sleeptData => sleeptData[1] === localSleepData[1]),
+          _.map(sleeptData => sleeptData[2] = localSleepData[2]))));
+
+    localStorage.setItem("CURRENT_SLEEP", JSON.stringify(monthSleepDataArr));
   } else if (!parseTotalSleepData) { //로컬에 데이터 없다면 초기 상태
     localStorage.setItem("CURRENT_SLEEP", JSON.stringify(monthSleepDataArr));
   }
