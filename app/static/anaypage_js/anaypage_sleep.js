@@ -38,6 +38,7 @@ export function showSleepModal(e) {
     setCurrentSleep()
     setSleepChart(sleepWeekNum)
     setSleepDataAverage(sleepWeekNum)
+    setSleepChartHeight(sleepWeekNum)
   })
   sleepModalDiv.append(sleepTitle)
   sleepModalDiv.append(sleepModalClose)
