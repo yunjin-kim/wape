@@ -170,11 +170,17 @@ export function rangeWeightData() {
     console.log("다음날이 되었다")
     const monthWeightDataArrFlat = monthWeightDataArr.flat();
     const parseTotalWeightDataFlat = parseTotalWeightData.flat();
-    for (const [weightData, localWeightData] of _.zip(monthWeightDataArrFlat, parseTotalWeightDataFlat)) {
-      if (weightData[0] === localWeightData[0] && weightData[1] === localWeightData[1]) {
-        weightData[2] = localWeightData[2];
-      } console.log(monthWeightDataArr) // 내일 잘 되는지 확인
-    }
+
+    _.go(
+      parseTotalWeightDataFlat,
+      _.filter(localWeightData => localWeightData[2] > 0),
+      _.map(localWeightData => _.go(
+        monthWeightDataArrFlat,
+          _.filter(weightData => weightData[0] === localWeightData[0]),
+          _.filter(weightData => weightData[1] === localWeightData[1]),
+          _.map(weightData => weightData[2] = localWeightData[2]))));
+
+    localStorage.setItem("CURRENT_WEIGHT", JSON.stringify(monthWeightDataArr));
   } else if (!parseTotalWeightData) { //로컬에 데이터 없다면 초기 상태
     localStorage.setItem("CURRENT_WEIGHT", JSON.stringify(monthWeightDataArr));
   }
