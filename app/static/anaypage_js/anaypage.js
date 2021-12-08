@@ -3,10 +3,9 @@
 import { onStepData, walkDayArr, setStepChartHeight, setWeekPercent, setStepDataArr } from './anaypage_step.js';
 import { setGoalAchieve } from './anaypage_goal.js';
 import { showGoalWeihgtModal, setGoalWeight, showWeihgtModal, setCurrentWeight, rangeWeightData, setWeightChartHeight, setUserBmi } from './anaypage_weight.js';
-import { showSleepModal, rangeSleepData, setCurrentSleep, setSleepChartHeight, setSleepDate } from './anaypage_sleep.js';
+import { showSleepModal, rangeSleepData, setCurrentSleep, setSleepChartHeight } from './anaypage_sleep.js';
 import { getNameFromCookie } from '../mainpage_js/getCookie.js';
 
-let weekNum = 0;
 export let sleepWeekNum = 0;
 
 (function hasStepData() {
@@ -27,15 +26,15 @@ export let sleepWeekNum = 0;
   weightButtonClickEvent();
   weightGoalButtonClickEvent();
   untilGoalWeight();
-  
 })();
 
 export function hadStepData() {
   const stepDataArr = setStepDataArr();
+  let weekNum = 0;
   setStepChart(weekNum, stepDataArr);
   setWeekPercent(stepDataArr);
   ifNoGoal();
-  chartButtonClickEvent(stepDataArr);
+  chartButtonClickEvent(weekNum, stepDataArr);
 }
 
 function setUsername () {
@@ -69,7 +68,6 @@ export function setWeekStepData(weekSumStep) {
 //걸음수 차트
 export function setStepChart(weekNum, stepDataArr) {
   const $walkDataGraph = document.querySelector(".anaypage__walk__graph__box");
-
   const chartBarArr = _.filter(
     charBar => 
       charBar.classList.contains("anaypage__walk__graph__graph")
@@ -79,11 +77,11 @@ export function setStepChart(weekNum, stepDataArr) {
 }
 
 //걸음수 차트 왼쪽 버튼
-function chartButtonClickEvent(stepDataArr) {
+function chartButtonClickEvent(weekNum, stepDataArr) {
   const $stepChartLeftBtn = document.querySelector(".anaypage__walk__graph__left");
   $stepChartLeftBtn.addEventListener('click', () => {
     weekNum++;
-    setStepChartBtn($stepChartLeftBtn, $stepChartRightBtn);
+    setStepChartBtn($stepChartLeftBtn, $stepChartRightBtn, weekNum);
     setStepChart(weekNum, stepDataArr);
     setWeekPercent(stepDataArr);
   })
@@ -92,14 +90,14 @@ function chartButtonClickEvent(stepDataArr) {
   const $stepChartRightBtn = document.querySelector(".anaypage__walk__graph__right");
   $stepChartRightBtn.addEventListener('click', () => {
     weekNum--;
-    setStepChartBtn($stepChartLeftBtn, $stepChartRightBtn);
+    setStepChartBtn($stepChartLeftBtn, $stepChartRightBtn, weekNum);
     setStepChart(weekNum, stepDataArr);
     setWeekPercent(stepDataArr);
   })
 }
 
 //걸음수 차트 버튼 show/hidden
-function setStepChartBtn($stepChartLeftBtn, $stepChartRightBtn) {
+function setStepChartBtn($stepChartLeftBtn, $stepChartRightBtn, weekNum) {
   if(weekNum == 3) {
     $stepChartLeftBtn.classList.add("hiddenButton");
   } else if(weekNum == 0) {
