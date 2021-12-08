@@ -97,7 +97,8 @@ function showUpdateDataModal() {
 }
 
 //걸음 수 요일
-function setStepDate() {
+export function setStepDate() {
+  const walkDayArr = [];
   const holeDay = ['월','화','수','목','금','토','일'];
   let walkDataDay = date.getDay();
 
@@ -107,9 +108,11 @@ function setStepDate() {
     walkDataDay++;
     walkDayArr.push(holeDay[walkDataDay-1]);
   }
+
+  return walkDayArr;
 }
 
-export const walkDayArr = [];
+// export const walkDayArr = [];
 
 //배열에 걸음수 데이터 넣기
 export function setStepDataArr() {
