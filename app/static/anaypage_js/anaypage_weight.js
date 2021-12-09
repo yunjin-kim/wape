@@ -19,12 +19,15 @@ export function showGoalWeihgtModal(e) {
   goalWeightModalClose.textContent = "X";
   goalWeightSubmitBtn.textContent = "목표 설정";
   goalWeightInput.setAttribute('type','number');
+  
   goalWeightModalClose.addEventListener('click', () => {
     goalWeightModalDiv.remove();
   })
+
   goalWeightInput.addEventListener('change', (e) => {
     goalWeight = e.target.value;
   })
+
   goalWeightSubmitBtn.addEventListener('click', () => {
     localStorage.setItem("GOAL_WEIGHT", goalWeight);
     goalWeightModalDiv.remove();
@@ -32,6 +35,7 @@ export function showGoalWeihgtModal(e) {
     untilGoalWeight();
     setGoalWeight();
   });
+
   goalWeightModalDiv.append(goalWeightTitle, goalWeightModalClose, goalWeightInput, goalWeightSubmitBtn);
   e.target.parentNode.parentNode.parentNode.parentNode.append(goalWeightModalDiv);
 }
@@ -72,12 +76,15 @@ export function showWeihgtModal(e) {
   weightSubmitBtn.textContent = "체중 입력";
   weightInput.setAttribute('type','number');
   let currnetWeight;
+
   weightModalClose.addEventListener('click', () => {
     weightModalDiv.remove();
   })
+
   weightInput.addEventListener('change', (e) => {
     currnetWeight = e.target.value;
   })
+
   weightSubmitBtn.addEventListener('click', () => {
     const getTotalWeightData = localStorage.getItem("CURRENT_WEIGHT");
     let parseTotalWeightData = JSON.parse(getTotalWeightData);
@@ -92,6 +99,7 @@ export function showWeihgtModal(e) {
     setUserBmi();
     setWeightChartHeight();
   });
+
   weightModalDiv.append(weightTitle, weightModalClose, weightInput, weightSubmitBtn);
   e.target.parentNode.parentNode.parentNode.parentNode.append(weightModalDiv);
 }
@@ -175,16 +183,12 @@ export function setWeightChartHeight(weightWeekNum) {
   const parseTotalWeightData = JSON.parse(getTotalWeightData);
   if (!weightWeekNum) weightWeekNum = 0;
 
-  console.log(parseTotalWeightData)
-  console.log(reverseWeightBoxArr)
-  for (let i = 0; i < parseTotalWeightData[weightWeekNum].length; i++) {
-    if (parseTotalWeightData[weightWeekNum][i][2] > 0) {
-      reverseWeightBoxArr[i].children[1].style.height = `${parseTotalWeightData[weightWeekNum][i][2]}px`;
-      reverseWeightBoxArr[i].children[0].textContent = `${parseTotalWeightData[weightWeekNum][i][2]}`;
-    } else {
-      reverseWeightBoxArr[i].children[1].style.height = "0px";
-      reverseWeightBoxArr[i].children[0].textContent = "";
-    }
+  for (const [weightData, weightDiv] of _.zip(parseTotalWeightData[weightWeekNum], reverseWeightBoxArr)) {
+    weightData[2] > 0 
+    ? (weightDiv.children[1].style.height = `${weightData[2]}px`,
+      weightDiv.children[0].textContent = `${weightData[2]}`)
+    : (weightDiv.children[1].style.height = "0px",
+      weightDiv.children[0].textContent = "")
   }
 }
 
