@@ -3,30 +3,33 @@ import { date } from './anaypage_step.js';
 import { groupBySize, L } from '../fx.js';
 
 //현재 수면 모달
-const $noSleepDiv = document.querySelector(".anaypage__nosleep__current");
 export function showSleepModal(e) {
+  const $noSleepDiv = document.querySelector(".anaypage__nosleep__current");
   const sleepModalDiv = document.createElement('div');
   const sleepTitle = document.createElement('h3');
   const sleepModalClose = document.createElement('button');
   const sleepInput = document.createElement('input');
   const sleepSubmitBtn = document.createElement('button');
   let currnetSleep;
-  sleepModalDiv.classList.add("sleepModal")
-  sleepTitle.classList.add("weightModalTitle")
-  sleepModalClose.classList.add("sleepModalClose")
-  sleepInput.classList.add("sleepInput")
-  sleepSubmitBtn.classList.add("sleepSubmitBtn")
+  sleepModalDiv.classList.add("sleepModal");
+  sleepTitle.classList.add("weightModalTitle");
+  sleepModalClose.classList.add("sleepModalClose");
+  sleepInput.classList.add("sleepInput");
+  sleepSubmitBtn.classList.add("sleepSubmitBtn");
   sleepTitle.textContent = "수면 시간";
   sleepModalClose.textContent = "X";
   sleepSubmitBtn.textContent = "시간 입력";
   sleepInput.setAttribute('type','number')
-  sleepInput.setAttribute('placeholder', '7시간30분 = 7.3')
+  sleepInput.setAttribute('placeholder', '7시간30분 = 7.3');
+
   sleepModalClose.addEventListener('click', () => {
     sleepModalDiv.remove()
   })
+
   sleepInput.addEventListener('change', (e) => {
     currnetSleep = e.target.value;
   })
+
   sleepSubmitBtn.addEventListener('click', () => {
     const getTotalSleepData = localStorage.getItem("CURRENT_SLEEP");
     const parseTotalSleepData = JSON.parse(getTotalSleepData);
@@ -40,15 +43,14 @@ export function showSleepModal(e) {
     setSleepDataAverage(sleepWeekNum)
     setSleepChartHeight(sleepWeekNum)
   })
-  sleepModalDiv.append(sleepTitle)
-  sleepModalDiv.append(sleepModalClose)
-  sleepModalDiv.append(sleepInput)
-  sleepModalDiv.append(sleepSubmitBtn)
+
+  sleepModalDiv.append(sleepTitle, sleepModalClose, sleepInput, sleepSubmitBtn)
   e.target.parentNode.parentNode.parentNode.parentNode.append(sleepModalDiv)
 }
 
 //현재 수면 설정
 export function setCurrentSleep() {
+  const $noSleepDiv = document.querySelector(".anaypage__nosleep__current");
   const $currnetSleep = document.querySelector(".currnetSleep");
   const $sleepDiv = document.querySelector(".anaypage__sleep__current");
   const getTotalSleepData = localStorage.getItem("CURRENT_SLEEP");
