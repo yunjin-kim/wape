@@ -2,36 +2,29 @@ import { setWeightChart, untilGoalWeight } from './anaypage.js';
 import { groupBySize, L } from '../fx.js';
 
 //목표 체중 모달
-const $noWeightGoalDiv = document.querySelector(".anaypage__noweight__accure");
 export function showGoalWeihgtModal(e) {
+  const $noWeightGoalDiv = document.querySelector(".anaypage__noweight__accure");
   const goalWeightModalDiv = document.createElement('div');
-  goalWeightModalDiv.classList.add("goalWeightModal");
-
   const goalWeightTitle = document.createElement('h3');
-  goalWeightTitle.classList.add("goalWeightModalTitle");
-  goalWeightTitle.textContent = "목표 체중";
-  goalWeightModalDiv.append(goalWeightTitle);
-
   const goalWeightModalClose = document.createElement('button');
-  goalWeightModalClose.textContent = "X";
+  const goalWeightInput = document.createElement('input');
+  const goalWeightSubmitBtn = document.createElement('button');
+  let goalWeight;
+  goalWeightModalDiv.classList.add("goalWeightModal");
+  goalWeightTitle.classList.add("goalWeightModalTitle");
   goalWeightModalClose.classList.add("goalWeightModalClose");
-  goalWeightModalDiv.append(goalWeightModalClose);
+  goalWeightInput.classList.add("goalWeightInput");
+  goalWeightSubmitBtn.classList.add("goalWeightSubmitBtn");
+  goalWeightTitle.textContent = "목표 체중";
+  goalWeightModalClose.textContent = "X";
+  goalWeightSubmitBtn.textContent = "목표 설정";
+  goalWeightInput.setAttribute('type','number');
   goalWeightModalClose.addEventListener('click', () => {
     goalWeightModalDiv.remove();
   })
-
-  let goalWeight;
-  const goalWeightInput = document.createElement('input');
-  goalWeightInput.classList.add("goalWeightInput");
-  goalWeightInput.setAttribute('type','number');
-  goalWeightModalDiv.append(goalWeightInput);
   goalWeightInput.addEventListener('change', (e) => {
     goalWeight = e.target.value;
   })
-
-  const goalWeightSubmitBtn = document.createElement('button');
-  goalWeightSubmitBtn.classList.add("goalWeightSubmitBtn");
-  goalWeightSubmitBtn.textContent = "목표 설정";
   goalWeightSubmitBtn.addEventListener('click', () => {
     localStorage.setItem("GOAL_WEIGHT", goalWeight);
     goalWeightModalDiv.remove();
@@ -39,17 +32,17 @@ export function showGoalWeihgtModal(e) {
     untilGoalWeight();
     setGoalWeight();
   });
-
-  goalWeightModalDiv.append(goalWeightSubmitBtn);
+  goalWeightModalDiv.append(goalWeightTitle, goalWeightModalClose, goalWeightInput, goalWeightSubmitBtn);
   e.target.parentNode.parentNode.parentNode.parentNode.append(goalWeightModalDiv);
 }
 
 //목표 체중 설정
 export function setGoalWeight() {
+  const $noWeightGoalDiv = document.querySelector(".anaypage__noweight__accure");
   const $goalWeight = document.querySelector(".goalWeight");
   const $goalWeihgtDiv = document.querySelector(".anaypage__weight__accure");
-  let getGoalWeight = localStorage.getItem("GOAL_WEIGHT");
-  let parseGoalWeight = JSON.parse(getGoalWeight);
+  const getGoalWeight = localStorage.getItem("GOAL_WEIGHT");
+  const parseGoalWeight = JSON.parse(getGoalWeight);
 
   if (parseGoalWeight) {
     $goalWeihgtDiv.classList.remove("hiddenDiv");
@@ -64,44 +57,34 @@ export function setGoalWeight() {
 //현재 체중 모달
 export function showWeihgtModal(e) {
   const $noWeightDiv = document.querySelector(".anaypage__noweight__current");
-  const weightModalDiv = document.createElement('div');
-  weightModalDiv.classList.add("weightModal")
-
-  const weightTitle = document.createElement('h3');
-  weightTitle.classList.add("weightModalTitle");
-  weightTitle.textContent = "현재 체중";
-  weightModalDiv.append(weightTitle);
-
   const weightModalClose = document.createElement('button');
+  const weightModalDiv = document.createElement('div');
+  const weightTitle = document.createElement('h3');
+  const weightInput = document.createElement('input');
+  const weightSubmitBtn = document.createElement('button');
+  weightModalDiv.classList.add("weightModal");
+  weightTitle.classList.add("weightModalTitle");
+  weightModalClose.classList.add("weightModalClose");
+  weightInput.classList.add("weightInput");
+  weightSubmitBtn.classList.add("weightSubmitBtn");
   weightModalClose.textContent = "X";
-  weightModalClose.classList.add("weightModalClose")
-  weightModalDiv.append(weightModalClose);
+  weightTitle.textContent = "현재 체중";
+  weightSubmitBtn.textContent = "체중 입력";
+  weightInput.setAttribute('type','number');
+  let currnetWeight;
   weightModalClose.addEventListener('click', () => {
     weightModalDiv.remove();
   })
-
-  let currnetWeight;
-  const weightInput = document.createElement('input');
-  weightInput.classList.add("weightInput");
-  weightInput.setAttribute('type','number');
-  weightModalDiv.append(weightInput);
   weightInput.addEventListener('change', (e) => {
     currnetWeight = e.target.value;
   })
-
-  const weightSubmitBtn = document.createElement('button');
-  weightSubmitBtn.classList.add("weightSubmitBtn");
-  weightSubmitBtn.textContent = "체중 입력";
-
   weightSubmitBtn.addEventListener('click', () => {
     const getTotalWeightData = localStorage.getItem("CURRENT_WEIGHT");
     let parseTotalWeightData = JSON.parse(getTotalWeightData);
-
     parseTotalWeightData[0][0][2] = currnetWeight;
     localStorage.setItem("CURRENT_WEIGHT", JSON.stringify(parseTotalWeightData));
     weightModalDiv.remove();
     $noWeightDiv.classList.add("hiddenDiv");
-
     setCurrentWeight($noWeightDiv);
     rangeWeightData();
     setWeightChart();
@@ -109,8 +92,7 @@ export function showWeihgtModal(e) {
     setUserBmi();
     setWeightChartHeight();
   });
-  
-  weightModalDiv.append(weightSubmitBtn);
+  weightModalDiv.append(weightTitle, weightModalClose, weightInput, weightSubmitBtn);
   e.target.parentNode.parentNode.parentNode.parentNode.append(weightModalDiv);
 }
 
@@ -193,6 +175,8 @@ export function setWeightChartHeight(weightWeekNum) {
   const parseTotalWeightData = JSON.parse(getTotalWeightData);
   if (!weightWeekNum) weightWeekNum = 0;
 
+  console.log(parseTotalWeightData)
+  console.log(reverseWeightBoxArr)
   for (let i = 0; i < parseTotalWeightData[weightWeekNum].length; i++) {
     if (parseTotalWeightData[weightWeekNum][i][2] > 0) {
       reverseWeightBoxArr[i].children[1].style.height = `${parseTotalWeightData[weightWeekNum][i][2]}px`;
@@ -210,6 +194,5 @@ export function setUserBmi() {
   const parseHeight = JSON.parse(getHeihgtFromLocal);
   const getWeightFromLocal = localStorage.getItem("CURRENT_WEIGHT");
   const parseWeightFromLocal = JSON.parse(getWeightFromLocal);
-  
   $userBmi.textContent = parseInt((parseWeightFromLocal[0][0][2]) / (parseHeight/100)**2);
 }
