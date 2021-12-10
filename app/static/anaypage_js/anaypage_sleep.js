@@ -1,5 +1,4 @@
 import { setSleepChart, sleepWeekNum, setSleepDataAverage } from './anaypage.js';
-import { date } from './anaypage_step.js';
 import { groupBySize, L } from '../fx.js';
 
 //현재 수면 모달
