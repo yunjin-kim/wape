@@ -1,31 +1,36 @@
 import { setWeekStepData, showWeekPercent, hadStepData } from './anaypage.js';
 import { groupBySize } from '../fx.js';
 //걸음 데이터가 30개 미만으로 들어오는 것에 대한 예외처리 확인 필요!
-const googleStepCountUrl = 'https://v1.nocodeapi.com/kimyunjun/fit/lHneRLggDPetxSfn/aggregatesDatasets?dataTypeName=steps_count&timePeriod=30days';
-//처음에 데이터가 로컬에 없다면 로컬에 저장되는건 되지만 chart배열에 값이 들어가지는 않음 함수 다시 실행될 수 있게
-//걸음수 api
-export function onStepData() {
-  const getStepDate = localStorage.getItem("STEP_DATA");
-  if (getStepDate) { // 12시 이후에 당일 데이터가 로드된다
-    showUpdateDataModal();
-    setStepDate();
-    setStepDataArr();
-    hadStepData();
-  } else {
-    getGoogleStepCount(googleStepCountUrl);
-  }
-}
-// 동기화 되지 않거나 12시가 넘지 않았을 때 날짜 변경되지 않게 하게 걷기 차트
-async function getGoogleStepCount(googleStepCountUrl) {
+
+export async function onStepData() {
+  const googleStepCountUrl = 'https://v1.nocodeapi.com/kimyunjun/fit/lHneRLggDPetxSfn/aggregatesDatasets?dataTypeName=steps_count&timePeriod=30days';
   try {
     const response = await fetch(googleStepCountUrl);
     const data = await response.json();
-    saveStepToLocal(data);
-  }
-  catch (e) {
+    setValidateData(data);
+  } catch (e) {
     stepDataErrorModal();
     console.log(e);
+  }  
+}
+
+function setValidateData(data) {
+  const date = new Date();
+  const lastStepDataDate = data.steps_count[data.steps_count.length - 1].endTime[0] + data.steps_count[data.steps_count.length - 1].endTime[1];
+  if (lastStepDataDate < date.getDate()) {
+    if (date.getHours() < 12) {
+      showBeforeLunchModal();
+    } else {
+      showUpdateDataModal();
+    }
   }
+  saveStepToLocal(data);
+}
+
+function saveStepToLocal(data) {
+  localStorage.setItem("STEP_DATA", JSON.stringify(data));
+  hadStepData();
+  setStepDate();
 }
 
 function stepDataErrorModal() {
@@ -39,12 +44,24 @@ function stepDataErrorModal() {
   $stepTitle.append(stepErrorModalDiv);
 }
 
-//12시 데이터가 로드 되기 때문에 금일 12시 전에 들오면 어떻게 해야할지 고민
-//받아온 JSON 데이터의 마지막 데이터의 endTime의 날짜가 오늘 날짜보다 작다면 밑에 함수를 실행하지 않고 모달을 띄운다
-function saveStepToLocal(data) {
-  localStorage.setItem("STEP_DATA", JSON.stringify(data));
-  setStepDate();
-  hadStepData();
+
+function showBeforeLunchModal() {
+  const $anaypageWalkTitle = document.querySelector(".anaypage__walk__title");
+  const updateDataModalDiv = document.createElement('div');
+  const updateDataModalClose = document.createElement('button');
+  const updateDataTitle = document.createElement('h3');
+  updateDataModalDiv.classList.add("updateDataModal");
+  updateDataModalClose.classList.add("updateDataModalClose");
+  updateDataTitle.classList.add("updateDataModalTitle");
+  updateDataModalClose.textContent = "X";
+  updateDataModalDiv.addEventListener('click', () => {
+    updateDataModalDiv.remove();
+  })
+  updateDataTitle.innerHTML = "<p>당일 걸음 데이터 <br/>12시 이후에 <br/>확인할 수 있습니다</p>";
+  updateDataModalDiv.append(updateDataModalClose);
+  updateDataModalDiv.append(updateDataModalClose);
+  updateDataModalDiv.append(updateDataTitle);
+  $anaypageWalkTitle.append(updateDataModalDiv)
 }
 
 //걸음 데이터가 동기화 되지 않음에 대한 모달
@@ -85,7 +102,6 @@ export function setStepDate() {
 
 //배열에 걸음수 데이터 넣기
 export function setStepDataArr() {
-  console.log("rangeStepData")
   const getStepDateFromLocal = localStorage.getItem("STEP_DATA");
   const parseStepDateFromLocal = JSON.parse(getStepDateFromLocal);
   let reserveStepDateFromLocal = parseStepDateFromLocal.steps_count.reverse();
