@@ -1,5 +1,5 @@
 import { quoteSentence } from "./mainpage_quote.js";
-import { renderCalendar, date, daysArray, clickReserveDate } from "./mainpage_calendar.js";
+import { renderCalendar, daysArray, clickReserveDate } from "./mainpage_calendar.js";
 import { clickDate, setTimeOptionAtReserve, setClickDateArr, clickReserve, beforeReseveDelete } from "./mainpage_reserve.js";
 import { showSetGoalModal, getTodayStep, setStepGragh } from './mainpage_goal.js';
 import { getTodayStepApi, showTodayWalkDate } from './mainpage_todayWalk.js';
@@ -12,6 +12,7 @@ const $bookDate = document.querySelector(".mainpage__book__date");
 const $bookDays = $bookDate.children;
 const $selectHour = document.querySelector(".selectHour");
 const $selectMinute = document.querySelector(".selectMinute");
+const date = new Date();
 
 (function hasStepData() {
   let getStepDate = localStorage.getItem("STEP_DATA");
@@ -37,6 +38,7 @@ function enterMainpage() {
   setGoalTodayStep();
   setGoalGraph();
 };
+
 
 //걷기 효능
 function setQuote() {
@@ -72,11 +74,11 @@ $calendarDays.addEventListener('click', (e) => {
 function setDateAtReserve() {
   const holeDayArr = [];
   const holeDateArr = [];
-  const holeDay = ['월', '화', '수', '목', '금', '토', '일'];
+  const holeDay = ['일' ,'월', '화', '수', '목', '금', '토'];
   const thisLast = new Date(date.getFullYear(), date.getMonth() + 1, 0);
   let todayDay = date.getDay();
   let todayDate = date.getDate();
-  todayDay--;
+
   for (let i = 0; i < 7; i++) {
     if (todayDay === 7 ) todayDay = 0;
     if (todayDate > thisLast.getDate()) todayDate = 1;
