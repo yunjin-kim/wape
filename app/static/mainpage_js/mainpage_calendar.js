@@ -1,6 +1,6 @@
 import { getResreveDate } from "./mainpage.js";
 
-export const date = new Date();
+const date = new Date();
 
 export let daysArray = [];
 const thisYear = date.getFullYear();

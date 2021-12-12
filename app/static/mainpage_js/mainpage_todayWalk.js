@@ -1,7 +1,8 @@
-import { date } from './mainpage_calendar.js';
 // 에러처리에서 중요하게 생각한 것 에러가 일어난 함수에서 더 이상 코드가 진행되지 않게 에러난 부분에서 멈춰!
 const googleTodayStepCountUrl = "https://v1.nocodeapi.com/kimyunjun/fit/lHneRLggDPetxSfn/aggregatesDatasets?dataTypeName=steps_count&timePeriod=today&durationTime=hourly";
 const $todayStepWrap = document.querySelector(".mainpage__today__main");
+
+const date = new Date();
 
 export async function getTodayStepApi() {
   try {

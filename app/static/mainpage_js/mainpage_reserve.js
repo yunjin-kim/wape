@@ -1,5 +1,6 @@
 import { showTimeOptionAtReserve } from './mainpage.js';
-import { date } from './mainpage_calendar.js';
+
+const date = new Date();
 
 //언제 걸을까요 클릭하면 background색
 const CLICK_GREEN = 'backgroundGreen';
