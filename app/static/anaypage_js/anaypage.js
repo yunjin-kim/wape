@@ -164,11 +164,7 @@ function ifNoGoal() {
 //걷기 목표 달성 유무
 export function setGoalAchieveBox() {
   const $goalDataBox = document.querySelector(".anaypage__goal__check__main");
-  const goalBoxArr = _.filter(
-    goal => 
-      !goal.classList.contains("anaypage__goal__check__wrap")
-        ,$goalDataBox.children);
-  goalBoxArr.reverse();
+  const goalBoxArr = _.filter( goal => !goal.classList.contains("anaypage__goal__check__wrap"), $goalDataBox.children);
 
   return goalBoxArr;
 }
