@@ -1,5 +1,5 @@
 import { quoteSentence } from "./mainpage_quote.js";
-import { renderCalendar, daysArray, clickReserveDate } from "./mainpage_calendar.js";
+import { renderCalendar, clickReserveDate } from "./mainpage_calendar.js";
 import { clickDate, setTimeOptionAtReserve, setClickDateArr, clickReserve, beforeReseveDelete } from "./mainpage_reserve.js";
 import { showSetGoalModal, getTodayStep, setStepGragh } from './mainpage_goal.js';
 import { getTodayStepApi, showTodayWalkDate } from './mainpage_todayWalk.js';
@@ -28,7 +28,6 @@ const date = new Date();
   if (parseGetStepDate) {
     enterMainpage();
   }
-  renderCalendar();
   setProfile();
   setQuote();
 })()
@@ -63,7 +62,7 @@ export function loadWeather(weatherData, tempData, maxTempData, minTempData) {
 
 //달력 
 $thisYearMonth.textContent = `${date.getFullYear()}.${date.getMonth()+1}`;
-$calendarDays.innerHTML = daysArray.join(' ');
+$calendarDays.innerHTML = renderCalendar().join(' ');
 
 $calendarDays.addEventListener('click', (e) => {
   if(e.target.classList.contains("walkingDay")) {
