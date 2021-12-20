@@ -6,24 +6,24 @@ import { getTodayStepApi, showTodayWalkDate } from './mainpage_todayWalk.js';
 import { getCurrentLoaction } from './mainpage_weather.js'
 import { setProfile, setUserTitle} from './mainpage_profile.js';
 
-const $thisYearMonth = document.querySelector(".thisYearMonth");
 const $calendarDays = document.querySelector(".mainpage__calendar__day");
-const $bookDate = document.querySelector(".mainpage__book__date");
-const $bookDays = $bookDate.children;
 const $selectHour = document.querySelector(".selectHour");
 const $selectMinute = document.querySelector(".selectMinute");
-const date = new Date();
 
 (function hasStepData() {
-  let getStepDate = localStorage.getItem("STEP_DATA");
-  let parseGetStepDate= JSON.parse(getStepDate);
+  const getStepDate = localStorage.getItem("STEP_DATA");
+  const parseGetStepDate= JSON.parse(getStepDate);
   getCurrentLoaction();
   getTodayStepApi()
   setDateAtReserve();
   setTimeOptionAtReserve()
   beforeReseveDelete();
+  clickReserveDateButton();
+  setReserve();
   showTodayWalkDate();
   setUserTitle();
+  clickCalendarDate();
+  getResreveDate();
   
   if (parseGetStepDate) {
     enterMainpage();
@@ -36,6 +36,7 @@ function enterMainpage() {
   stepGoal();
   setGoalTodayStep();
   setGoalGraph();
+  clickWalkGoalIcon();
 };
 
 
@@ -61,16 +62,21 @@ export function loadWeather(weatherData, tempData, maxTempData, minTempData) {
 }
 
 //달력 
-$thisYearMonth.textContent = `${date.getFullYear()}.${date.getMonth()+1}`;
-$calendarDays.innerHTML = renderCalendar().join(' ');
-
-$calendarDays.addEventListener('click', (e) => {
-  if(e.target.classList.contains("walkingDay")) {
-    clickReserveDate(e);
-  }
-})
+function clickCalendarDate() {
+  const date = new Date();
+  const $thisYearMonth = document.querySelector(".thisYearMonth");
+  $thisYearMonth.textContent = `${date.getFullYear()}.${date.getMonth()+1}`;
+  $calendarDays.innerHTML = renderCalendar().join(' ');
+  
+  $calendarDays.addEventListener('click', (e) => {
+    if (e.target.classList.contains("walkingDay")) {
+      clickReserveDate(e);
+    }
+  })
+}
 
 function setDateAtReserve() {
+  const date = new Date();  
   const holeDayArr = [];
   const holeDateArr = [];
   const holeDay = ['일' ,'월', '화', '수', '목', '금', '토'];
@@ -91,6 +97,9 @@ function setDateAtReserve() {
 
 //걷기 알림
 function setReserveDate(holeDayArr, holeDateArr) {
+  const $bookDate = document.querySelector(".mainpage__book__date");
+  const $bookDays = $bookDate.children;
+
   for (let i = 0; i < 7; i++) {
     $bookDays[i].children[0].textContent = holeDayArr[i];
     $bookDays[i].children[1].textContent = holeDateArr[i];
@@ -101,10 +110,14 @@ function setReserveDate(holeDayArr, holeDateArr) {
 }
 
 //언제 걸을까요 버튼들
-$bookDate.addEventListener('click', (e) => {
-  setClickDateArr(e)
-  clickDate(e)
-})
+function clickReserveDateButton() {
+  const $bookDate = document.querySelector(".mainpage__book__date");
+  $bookDate.addEventListener('click', (e) => {
+    setClickDateArr(e)
+    clickDate(e)
+  });
+}
+
 
 //몇시에 걸을까요 시
 export function showTimeOptionAtReserve(hourArr, minuteArr) {
@@ -120,19 +133,24 @@ export function showTimeOptionAtReserve(hourArr, minuteArr) {
 
 
 //예약버튼
-const $reserveBtn = document.querySelector(".reserveBtn");
-$reserveBtn.addEventListener('click', (e) => {
-  e.preventDefault();
-  let reserveHour = $selectHour.options[$selectHour.selectedIndex].textContent;
-  let reserveMinute = $selectMinute.options[$selectMinute.selectedIndex].textContent;
+function setReserve() {
+  const $bookDate = document.querySelector(".mainpage__book__date");
+  const $bookDays = $bookDate.children;
+  const $reserveBtn = document.querySelector(".reserveBtn");
+  $reserveBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    let reserveHour = $selectHour.options[$selectHour.selectedIndex].textContent;
+    let reserveMinute = $selectMinute.options[$selectMinute.selectedIndex].textContent;
+  
+    for (let i = 0; i < 7; i++) {
+      $bookDays[i].classList.remove("backgroundGreen");
+    }
+    //같은 날 같은 시 같은 분일 때 겹치는 문제
+    clickReserve(reserveHour, reserveMinute);
+    getResreveDate();
+  })
+}
 
-  for (let i = 0; i < 7; i++) {
-    $bookDays[i].classList.remove("backgroundGreen");
-  }
-  //같은 날 같은 시 같은 분일 때 겹치는 문제
-  clickReserve(reserveHour, reserveMinute);
-  getResreveDate();
-})
 
 //달력에 예약한 날짜 아이콘으로 표시
 export function getResreveDate() {
@@ -152,13 +170,13 @@ export function getResreveDate() {
     }
   };
 }
-getResreveDate();
 
-//목표 걸음 모달
-const $walkIcon = document.querySelector(".mainpage__walk__icon");
-$walkIcon.addEventListener('click', (e) => {
-  showSetGoalModal(e);
-})
+function clickWalkGoalIcon() {
+  const $walkIcon = document.querySelector(".mainpage__walk__icon");
+  $walkIcon.addEventListener('click', (e) => {
+    showSetGoalModal(e);
+  })
+}
 
 //목표 걸음 데이터
 export function stepGoal() {
