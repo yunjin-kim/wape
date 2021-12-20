@@ -1,8 +1,5 @@
 // 에러처리에서 중요하게 생각한 것 에러가 일어난 함수에서 더 이상 코드가 진행되지 않게 에러난 부분에서 멈춰!
 const googleTodayStepCountUrl = "https://v1.nocodeapi.com/kimyunjun/fit/lHneRLggDPetxSfn/aggregatesDatasets?dataTypeName=steps_count&timePeriod=today&durationTime=hourly";
-const $todayStepWrap = document.querySelector(".mainpage__today__main");
-
-const date = new Date();
 
 export async function getTodayStepApi() {
   try {
@@ -27,6 +24,7 @@ function todayStepDataErrorModal() {
 }
 
 function getTodayStepData(data) {
+  const $todayStepWrap = document.querySelector(".mainpage__today__main");
   if(!data.error && data.steps_count.length > 0) {
     showTodayStepData(data.steps_count);
   } else if (data.error === 1) {
@@ -41,24 +39,25 @@ function getTodayStepData(data) {
 
 function showTodayStepData(stepData) {
   const $todayWalkWrap = document.querySelector(".mainpage__today__main");
-  const $todayWalkLine = document.getElementById("mainpage__today__line");
-  const walkLine = $todayWalkLine.getContext("2d");
+  const $todayStepWrap = document.querySelector(".mainpage__today__main");
+  // const $todayWalkLine = document.getElementById("mainpage__today__line");
+  // const walkLine = $todayWalkLine.getContext("2d");
   
-  walkLine.beginPath();
-  walkLine.lineWidth = 1;
-  walkLine.strokeStyle = "gray";
-  walkLine.moveTo(0, 110);
+  // walkLine.beginPath();
+  // walkLine.lineWidth = 1;
+  // walkLine.strokeStyle = "gray";
+  // walkLine.moveTo(0, 110);
 
-  walkLine.bezierCurveTo(10, 130, 120, 50, 150, 56);
+  // walkLine.bezierCurveTo(10, 130, 120, 50, 150, 56);
 
-  walkLine.bezierCurveTo(180, 50, 240, 110, 300, 112);
+  // walkLine.bezierCurveTo(180, 50, 240, 110, 300, 112);
 
   // walkLine.bezierCurveTo(330, 130, 360, 50, 450, 56);
 
   $todayWalkWrap.style.width = `${stepData.length*120}px`; //100
-  $todayWalkLine.style.width = `1500px`;
-  $todayWalkLine.style.height = "18vh";
-  console.log(stepData.length)
+  // $todayWalkLine.style.width = `1500px`;
+  // $todayWalkLine.style.height = "18vh";
+  // console.log(stepData.length)
 
   for(let i = 0; i < stepData.length; i++) {
     const stepDataDott = document.createElement('div');
@@ -84,10 +83,11 @@ function showTodayStepData(stepData) {
     dottEndTimeText.style.left = `${i*120}px`;
     $todayStepWrap.append(stepDataDott, dottStepText, dottStartTimeText, dottEndTimeText);
   }
-  walkLine.stroke();
+  // walkLine.stroke();
 }
 
 export function showTodayWalkDate() {
+  const date = new Date();
   const $todayWalkDate = document.querySelector(".mainpage__today__title__date");
   $todayWalkDate.textContent = (`${date.getMonth()+1}월 ${date.getDate()}일`)
 }
