@@ -287,12 +287,12 @@
   position: absolute;
   z-index: 10;
   top: 0px;
-  margin-top: 180px;
+  margin-top: 150px;
   margin-left: 120px;
 }
 .titleModalClose {
   background-color: white;
-  margin-top: 14px;
+  margin-top: -10px;
   margin-right: 5px;
   border: none;
   float: right;
