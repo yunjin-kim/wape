@@ -6,14 +6,21 @@ export default class BankController {
     this.bankTotalView = bankTotalView;
     this.bankHistoryView = bankHistoryView;
 
-    this.setData();
+    this.setTotalData();
+    this.setHistoryData();
 
     this.renderTotalAsset();
     this.renderTotalWalk();
     this.renderTitleList();
-
     this.subscribeViewEvent();
-    
+    this.renderHistory();
+
+  }
+
+  setTotalData() {
+    this.totalStepData = this.bankTotalModel.getBankStepData();
+    this.titleList = this.bankTotalModel.allTitles();
+    this.totalAssetInfo = this.bankTotalModel.setBankData();
   }
 
   subscribeViewEvent() {
@@ -27,12 +34,6 @@ export default class BankController {
     : this.bankTotalView.titleModalWrap.style = ("display: block");
   }
 
-  setData() {
-    this.totalStepData = this.bankTotalModel.getBankStepData();
-    this.titleList = this.bankTotalModel.allTitles();
-    this.totalAssetInfo = this.bankTotalModel.setBankData();
-  }
-
   renderTotalAsset() {
     this.bankTotalView.setBankMoneyGraph(this.totalStepData, this.totalAssetInfo.bankMoneyGraghMax, this.totalAssetInfo.bankMoneyGraghMin);    // 나중에 리펙터링 필요!
     this.bankTotalView.setTitle(this.titleList, this.totalAssetInfo.currentTitleNum);
@@ -40,6 +41,16 @@ export default class BankController {
 
   renderTotalWalk() {
     this.bankTotalView.setBankTotalData(this.totalStepData,);
+  }
+
+  setHistoryData() {
+    this.stepData = this.bankTotalModel.getStepData();
+    this.dayData = this.bankTotalModel.getDayData();
+    this.goalData = this.bankTotalModel.getGoalData();
+  }
+
+  renderHistory() {
+    this.bankHistoryView.setHistory(this.stepData, this.dayData, this.goalData);
   }
 
 }

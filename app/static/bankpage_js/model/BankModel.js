@@ -1,6 +1,7 @@
 export default class BankModel {
   constructor() {
     this.titles = ["방구석에 콕", "걷기 비기너", "걷기 주니어", "걷기 프로", "마라톤 선수", ""];
+    this.getTotalStepData = JSON.parse(localStorage.getItem("STEP_DATA"));
   }
 
   allTitles() {
@@ -46,10 +47,31 @@ export default class BankModel {
     let totalStepData = _.go(
       parseTotalStepData.steps_count,
       _.map(data => data.value),
-      _.reduce(_.add)
-    );
+      _.reduce(_.add));
 
     return totalStepData;
+  }
+
+  getStepData() {
+    const stepValue = _.go(
+      this.getTotalStepData.steps_count,
+      _.map(data => data.value));
+
+    return stepValue;
+  }
+
+  getDayData() {
+    const daysValue = _.go(
+      this.getTotalStepData.steps_count,
+      _.map(data => (data.endTime[0]+data.endTime[1])));
+
+    return daysValue;
+  }
+
+  getGoalData() {
+    const myGoal = localStorage.getItem("STEP_GOAL");
+
+    return myGoal;
   }
 
 }
