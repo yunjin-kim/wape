@@ -1,10 +1,27 @@
-import { quoteSentence } from "./mainpage_quote.js";
+// import { quoteSentence } from "./mainpage_quote.js";
 import { renderCalendar, clickReserveDate } from "./mainpage_calendar.js";
 import { clickDate, setTimeOptionAtReserve, setClickDateArr, clickReserve, beforeReseveDelete } from "./mainpage_reserve.js";
 import { showSetGoalModal, getTodayStep, setStepGragh } from './mainpage_goal.js';
 import { getTodayStepApi, showTodayWalkDate } from './mainpage_todayWalk.js';
 import { getCurrentLoaction } from './mainpage_weather.js'
 import { setProfile, setUserTitle} from './mainpage_profile.js';
+
+import HomeModel from "./model/HomeModel.js";
+import HomeController from "./controller/HomeController.js";
+import HomeQuoteView from "./views/HomeQuoteView.js";
+
+document.addEventListener("DOMContentLoaded", homeMain);
+
+function homeMain() {
+  const homeModel = new HomeModel();
+
+  const views = {
+    homeQuoteView: new HomeQuoteView(),
+  }
+
+  new HomeController(homeModel, views);
+}
+
 
 const $calendarDays = document.querySelector(".mainpage__calendar__day");
 const $selectHour = document.querySelector(".selectHour");
@@ -29,7 +46,6 @@ const $selectMinute = document.querySelector(".selectMinute");
     enterMainpage();
   }
   setProfile();
-  setQuote();
 })()
 
 function enterMainpage() {
@@ -40,11 +56,8 @@ function enterMainpage() {
 };
 
 
-//걷기 효능
-function setQuote() {
-  const $quote = document.querySelector('.quote');
-  $quote.textContent = quoteSentence;
-}
+
+
 
 //오늘 날씨
 export function loadWeather(weatherData, tempData, maxTempData, minTempData) {
@@ -60,6 +73,10 @@ export function loadWeather(weatherData, tempData, maxTempData, minTempData) {
     $lowtemp.textContent = minTempData;
   }
 }
+
+
+
+
 
 //달력 
 function clickCalendarDate() {
