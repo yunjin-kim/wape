@@ -3,24 +3,14 @@ import { renderCalendar, clickReserveDate } from "./mainpage_calendar.js";
 import { clickDate, setTimeOptionAtReserve, setClickDateArr, clickReserve, beforeReseveDelete } from "./mainpage_reserve.js";
 import { showSetGoalModal, getTodayStep, setStepGragh } from './mainpage_goal.js';
 import { getTodayStepApi, showTodayWalkDate } from './mainpage_todayWalk.js';
-import { getCurrentLoaction } from './mainpage_weather.js'
+// import { getCurrentLoaction } from './mainpage_weather.js'
 import { setProfile, setUserTitle} from './mainpage_profile.js';
 
 import HomeModel from "./model/HomeModel.js";
 import HomeController from "./controller/HomeController.js";
 import HomeQuoteView from "./views/HomeQuoteView.js";
+import HomeWeatherView from "./views/HomeWeatherView.js";
 
-document.addEventListener("DOMContentLoaded", homeMain);
-
-function homeMain() {
-  const homeModel = new HomeModel();
-
-  const views = {
-    homeQuoteView: new HomeQuoteView(),
-  }
-
-  new HomeController(homeModel, views);
-}
 
 
 const $calendarDays = document.querySelector(".mainpage__calendar__day");
@@ -30,7 +20,6 @@ const $selectMinute = document.querySelector(".selectMinute");
 (function hasStepData() {
   const getStepDate = localStorage.getItem("STEP_DATA");
   const parseGetStepDate= JSON.parse(getStepDate);
-  getCurrentLoaction();
   getTodayStepApi()
   setDateAtReserve();
   setTimeOptionAtReserve()
@@ -56,26 +45,18 @@ function enterMainpage() {
 };
 
 
+document.addEventListener("DOMContentLoaded", homeMain);
 
+function homeMain() {
+  const homeModel = new HomeModel();
 
-
-//오늘 날씨
-export function loadWeather(weatherData, tempData, maxTempData, minTempData) {
-  const $atmosCon = document.querySelector('.mainpage__weather__weather');
-  const $temp = document.querySelector('.mainpage__weather__temp');
-  const $hightemp = document.querySelector('.mainpage__weather__hightemp');
-  const $lowtemp = document.querySelector('.mainpage__weather__lowtemp');
-  const $weatherLocation = document.querySelector('.mainpage__weather__dust__gu');
-  if (weatherData) {
-    $atmosCon.textContent = weatherData;
-    $temp.textContent = tempData;
-    $hightemp.textContent = maxTempData;
-    $lowtemp.textContent = minTempData;
+  const views = {
+    homeQuoteView: new HomeQuoteView(),
+    homeWeatherView: new HomeWeatherView(),
   }
+
+  new HomeController(homeModel, views);
 }
-
-
-
 
 
 //달력 
