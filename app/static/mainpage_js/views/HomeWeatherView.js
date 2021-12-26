@@ -7,11 +7,11 @@ export default class HomeWeatherView extends View {
   }
 
   loadWeather(weatherData, tempData, maxTempData, minTempData) {
-    const $atmosCon = document.querySelector('.mainpage__weather__weather');
-    const $temp = document.querySelector('.mainpage__weather__temp');
-    const $hightemp = document.querySelector('.mainpage__weather__hightemp');
-    const $lowtemp = document.querySelector('.mainpage__weather__lowtemp');
-    const $weatherLocation = document.querySelector('.mainpage__weather__dust__gu');
+    const $atmosCon = qs(".mainpage__weather__weather");
+    const $temp = qs(".mainpage__weather__temp");
+    const $hightemp = qs(".mainpage__weather__hightemp");
+    const $lowtemp = qs(".mainpage__weather__lowtemp");
+    const $weatherLocation = qs(".mainpage__weather__dust__gu");
     
     if (weatherData) {
       $atmosCon.textContent = weatherData;
