@@ -81,4 +81,56 @@ export default class HomeModel {
     return "error";
   }
 
+  setCalendar() {
+    const daysArray = [];
+    const date = new Date();
+    const prevMonth = date.getMonth();
+    const thisYear = date.getFullYear();
+    const thisDay = date.getDate();
+    const thisLast = new Date(thisYear, prevMonth+1, 0);
+    const prevLast = new Date(thisYear, prevMonth, 0);
+    const today = new Date();
+    const todayMonth = today.getMonth()+1;
+    for (let i = prevLast.getDate() -  prevLast.getDay();  i <= prevLast.getDate(); i++) {
+      daysArray.push(i);
+    }  
+    for (let i = 1; i <= thisLast.getDate(); i++) {
+      daysArray.push(i)
+    }
+    for (let i = 1; i <= 6 - thisLast.getDay(); i++) {
+      daysArray.push(i);
+    }
+  
+    daysArray.forEach((date, i) => {
+      if(i >= 0 && i <=  prevLast.getDay() || i >= daysArray.length - (6 - thisLast.getDay())) {
+        daysArray[i] = `<div class="NotThisMonth">${date}</div>`
+      } else if(i === thisDay +  prevLast.getDay() && prevMonth+1 === todayMonth ) {
+        daysArray[i] = `<div class="today thisMonth">${date}</div>`;
+      } else{
+        daysArray[i] = `<div class="thisMonth">${date}</div>`;
+      }
+    })
+  
+    return daysArray;
+  }
+
+  setReserveDate() {
+    const getReserveDate = JSON.parse(localStorage.getItem("RESERVE_DATE"));
+
+    return getReserveDate;
+  }
+
+  setDeleteReserveTime(deleteInfo) {
+    const reverseList = JSON.parse(localStorage.getItem("RESERVE_DATE"));
+    for (let i = 0; i < reverseList.length; i++) { // filter가 안 되는데 나중에 다시 
+      reverseList[i].date === deleteInfo.deleteDate.match(/[^일,시,분, ]/gm).join('') &&
+      (reverseList[i].hour + reverseList[i].minute) === deleteInfo.deleteTime.match(/[^일,시,분, ]/gm).join('') &&
+      reverseList.splice(i, 1);
+    }
+
+    localStorage.setItem("RESERVE_DATE", JSON.stringify(reverseList));
+    
+
+  }
+
 }
