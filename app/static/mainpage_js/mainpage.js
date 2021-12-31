@@ -18,7 +18,6 @@ const $selectMinute = document.querySelector(".selectMinute");
   const getStepDate = localStorage.getItem("STEP_DATA");
   const parseGetStepDate= JSON.parse(getStepDate);
   getTodayStepApi()
-  // clickWalkGoalIcon()
   
   setDateAtReserve();
   setTimeOptionAtReserve()
@@ -27,18 +26,9 @@ const $selectMinute = document.querySelector(".selectMinute");
   setReserve();
   showTodayWalkDate();
   setUserTitle();
-  
-  if (parseGetStepDate) {
-    enterMainpage();
-  }
   setProfile();
 })()
 
-function enterMainpage() {
-  // stepGoal();
-  // setGoalTodayStep();
-  // setGoalGraph();
-};
 
 
 document.addEventListener("DOMContentLoaded", homeMain);
@@ -55,110 +45,6 @@ function homeMain() {
 
   new HomeController(homeModel, views);
 }
-
-
-
-
-//목표 걸음 데이터
-// export function stepGoal() {
-//   const $stepGoal = document.querySelector(".setGoal");
-//   const $setMoney = document.querySelector(".setMoney");
-//   let myGoalStep = localStorage.getItem("STEP_GOAL");
-//   let myGoalMoney = myGoalStep * 5;
-//   if (!myGoalStep) {
-//     myGoalStep = '목표를 설정해주세요';
-//     myGoalMoney ='목표를 설정해주세요';
-//   }
-//   $stepGoal.textContent = myGoalStep;
-//   $setMoney.textContent = myGoalMoney;
-// }
-
-//오늘 걸음 데이터
-// function setGoalTodayStep() {
-//   const $todayStep = document.querySelector(".todayStep");
-//   const $todayMoney = document.querySelector(".todayMoney");
-//   $todayStep.textContent = getTodayStep();
-//   $todayMoney.textContent = getTodayStep() * 5;
-// }
-
-//목표 걸음 수 그래프 
-// function setGoalGraph() {
-//   const $myStepDataGragh = document.querySelector(".mainpage__walk__graph__my");
-//   const $myMoneyDataGragph = document.querySelector(".mainpage__money__graph__my");
-//   let stepGragh = 230*setStepGragh();
-//   if (stepGragh > 230) {
-//     stepGragh = 230;
-//   }
-//   $myStepDataGragh.style = `width: ${stepGragh}px`;
-//   $myMoneyDataGragph.style = `width: ${stepGragh}px`;
-// }
-
-// function clickWalkGoalIcon() {
-//   const $walkIcon = document.querySelector(".mainpage__walk__icon");
-//   $walkIcon.addEventListener('click', (e) => {
-//     showSetGoalModal(e);
-//   })
-// }
-
-function showSetGoalModal(e) {
-  const modalDiv = document.createElement('div');
-  modalDiv.classList.add("goalModal")
-
-  const goalTitle = document.createElement('h3');
-  goalTitle.classList.add("goalModalTitle");
-  goalTitle.textContent = "목표 걸음 수";
-  modalDiv.append(goalTitle);
-
-  const modalClose = document.createElement('button');
-  modalClose.textContent = "X";
-  modalClose.classList.add("goalModalClose")
-  modalDiv.append(modalClose);
-  modalClose.addEventListener('click', () => {
-    modalDiv.remove();
-  })
-
-  const goalInput = document.createElement('input');
-  goalInput.classList.add("goalInput");
-  goalInput.setAttribute('type','number');
-  modalDiv.append(goalInput);
-  goalInput.addEventListener('change', (e) => {
-    localStorage.setItem("STEP_GOAL", e.target.value);
-    stepGoal();
-    setGoalGraph();
-  })
-
-  const goallSubmitBtn = document.createElement('button');
-  goallSubmitBtn.classList.add("goalSubmitBtn");
-  goallSubmitBtn.textContent = "목표 설정";
-  goallSubmitBtn.addEventListener('click', () => {
-    modalDiv.remove();
-  });
-  modalDiv.append(goallSubmitBtn);
-
-  e.target.parentNode.parentNode.parentNode.parentNode.append(modalDiv);
-}
-
-//오늘 걸음 데이터
-// function getTodayStep(){
-//   const lastDateStepDataArr = localStorage.getItem("STEP_DATA");
-//   if (JSON.parse(lastDateStepDataArr)) {
-//     const lastDateStepData = JSON.parse(lastDateStepDataArr).steps_count[JSON.parse(lastDateStepDataArr).steps_count.length-2].value;
-//     return lastDateStepData;
-//   }
-// }
-
-//목표 걸음 수 그래프 
-// function setStepGragh(){
-//   const myGoal = localStorage.getItem("STEP_GOAL");
-//   const goalGraphPercent = getTodayStep()/myGoal;
-
-//   return goalGraphPercent;
-// }
-
-
-
-
-
 
 
 
