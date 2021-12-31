@@ -129,8 +129,22 @@ export default class HomeModel {
     }
 
     localStorage.setItem("RESERVE_DATE", JSON.stringify(reverseList));
-    
+  }
 
+  getGoalStepData() {
+    this.goalStep = JSON.parse(localStorage.getItem("STEP_GOAL"));
+    
+    return this.goalStep;
+  }
+
+  getStepData() {
+    this.stepData = JSON.parse(localStorage.getItem("STEP_DATA"));
+    
+    return this.stepData.steps_count[0].value;
+  }
+
+  setGoalData(goalData) {
+    localStorage.setItem("STEP_GOAL", JSON.stringify(goalData));
   }
 
 }
