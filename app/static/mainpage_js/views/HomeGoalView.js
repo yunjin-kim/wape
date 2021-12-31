@@ -30,7 +30,6 @@ export default class HomeGoalView extends View {
   }
 
   bindGoalEvent() {
-    console.log("bindGoalEvent")
     this.goalModal = qs(".goalModal", this.element);
     this.goalModalCloseButton = qs(".goalModalClose", this.element);
     this.goalModalInput = qs(".goalInput", this.element);
@@ -57,8 +56,8 @@ export default class HomeGoalView extends View {
   renderGoalGraph(stepData, goalStepData) {
     let stepGraghWidth = stepData / goalStepData * 230;
     if (stepGraghWidth > 230) stepGraghWidth = 230;
-    this.goalStepGraphElement.style = `width: ${stepGraghWidth}`;
-    this.moneyGraphElement.style = `width: ${stepGraghWidth}`;
+    this.goalStepGraphElement.style = `width: ${stepGraghWidth}px`;
+    this.moneyGraphElement.style = `width: ${stepGraghWidth}px`;
   }
 
   renderGoalRate(stepData, goalStepData) {
@@ -82,7 +81,7 @@ class Template {
         <input class="goalInput" type="number" >
         <button class="goalSubmitBtn">목표 설정</button>
       </div>
-    `;// onchange 함수 넣어주고 value에 thsi.변수명
+    `;
 
     return divFargment;
   } 
