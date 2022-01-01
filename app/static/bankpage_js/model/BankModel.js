@@ -69,7 +69,7 @@ export default class BankModel {
   }
 
   getGoalData() {
-    const myGoal = localStorage.getItem("STEP_GOAL");
+    const myGoal = JSON.parse(localStorage.getItem("STEP_GOAL"));
 
     return myGoal;
   }
