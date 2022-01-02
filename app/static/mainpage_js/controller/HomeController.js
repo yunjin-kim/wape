@@ -50,6 +50,8 @@ export default class HomeController {
 
   setDelteReverseTimeList(event) {
     this.homeModel.setDeleteReserveTime(event.detail);
+    this.setData();
+    this.renderCalendar();
   }
 
   changeGoalData(event) {
