@@ -73,52 +73,18 @@ export default class homeCalendarView extends View {
     this.element.append(this.template.reservedModel(reserveList));
   }
 
-  //예약한 모달
-  showReserveModal() {
-
-    for (const reserveTime of walkingArr) {
-      let modalTime = document.createElement('p');
-      let modalTimeDelete = document.createElement('button');
-      modalTime.textContent = (`${reserveTime.hour}시 ${reserveTime.minute}분`);
-      modalTimeDelete.textContent = "X";
-      modalTime.classList.add("reserveModalTime");
-      modalTimeDelete.classList.add("reserveDelete");
-
-      modalTimeDelete.addEventListener('click', (e) => {
-        for (let i = 0; i < parseGetReserveDate.length; i++) {
-          parseGetReserveDate[i].date === e.target.parentNode.previousSibling.textContent.match(/[^일,시,분, ]/gm).join('') &&
-          (parseGetReserveDate[i].hour + parseGetReserveDate[i].minute) === e.target.previousSibling.textContent.match(/[^일,시,분, ]/gm).join('') &&
-          parseGetReserveDate.splice(i, 1);
-        }
-        localStorage.setItem("RESERVE_DATE", JSON.stringify(parseGetReserveDate));
-        modalDiv.remove();
-        getResreveDate();
-      })
-
-      modalTimeDiv.append(modalTime);
-      modalTimeDiv.append(modalTimeDelete);
-    }
-    modalDiv.append(modalTimeDiv);
-    reserveIconClickEvent.target.parentNode.parentNode.parentNode.parentNode.append(modalDiv)
-
-
-  }
-
   getResreveDate(reserveData) {
     if (reserveData) {
       for (let i = 0; i < this.calendarDayElement.children.length; i++) {
         this.calendarDayElement.children[i].classList.remove("walkingDay");
-        if (this.calendarDayElement.children[i].classList.contains("thisMonth")) {
+        this.calendarDayElement.children[i].classList.contains("thisMonth") &&
           reserveData.forEach((reDate) => {
-            if (reDate.date === this.calendarDayElement.children[i].textContent) {
-              this.calendarDayElement.children[i].classList.add("walkingDay");
-            }
+            reDate.date === this.calendarDayElement.children[i].textContent &&
+            this.calendarDayElement.children[i].classList.add("walkingDay");
           })
-        }
       }
     }
   }
-
 
 }
 
