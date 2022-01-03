@@ -1,8 +1,11 @@
+import HomeTodayWalkView from "../views/HomeTodayWalkView.js";
 import HomeWeatherView from "../views/HomeWeatherView.js";
+
 
 export default class HomeModel {
   constructor() {
     this.homeWeatherView = new HomeWeatherView(); // 비동기는 mvc 패턴으로 어떻게?
+    this.homeTodayWalkView = new HomeTodayWalkView();
     this.getCurrentLoaction();
   }
 
@@ -145,6 +148,29 @@ export default class HomeModel {
 
   setGoalData(goalData) {
     localStorage.setItem("STEP_GOAL", JSON.stringify(goalData));
+  }
+
+  async getTodayStepData() {
+    try {
+      const googleTodayStepCountUrl = "https://v1.nocodeapi.com/kimyunjun/fit/lHneRLggDPetxSfn/aggregatesDatasets?dataTypeName=steps_count&timePeriod=today&durationTime=hourly";
+      const response = await fetch(googleTodayStepCountUrl);
+      const data = await response.json();
+      this.checkTodayWalkData(data);
+    } catch (e) {
+      this.homeTodayWalkView.todayStepDataErrorModal();
+      console.log(e);
+    }
+  }
+
+  checkTodayWalkData(data) {
+    console.log(data)
+    if (!data.error && data.steps_count.length > 0) {
+      this.homeTodayWalkView.renderTodayStep(data.steps_count);
+    } else if (data.error === 1) {
+      this.homeTodayWalkView.todayStepDataErrorModal();
+    } else {
+      this.homeTodayWalkView.renderTodayNoData();
+    }
   }
 
 }

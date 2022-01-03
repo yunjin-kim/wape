@@ -1,5 +1,5 @@
 export default class HomeController {
-  constructor(homeModel, { homeQuoteView, homeWeatherView, homeCalendarView, homeGoalView }) {
+  constructor(homeModel, { homeQuoteView, homeWeatherView, homeCalendarView, homeGoalView, homeTodayWalkView }) {
 
     this.homeModel = homeModel;
 
@@ -7,6 +7,7 @@ export default class HomeController {
     this.homeWeatherView = homeWeatherView;
     this.homeCalendarView = homeCalendarView;
     this.homeGoalView = homeGoalView;
+    this.homeTodayWalkView = homeTodayWalkView;
 
     this.setData();
 
@@ -17,9 +18,14 @@ export default class HomeController {
     this.subScribeViewEvents();
 
     this.setGoalGraph();
+
+    this.setTodayStepData();
+
+    this.setTodayDate();
+
   }
 
-  setData() {
+  setData() {// 모든 데이터 다 불러와서 어떻게 할지 고민
     this.quoteData = this.homeModel.getRandomQuote();
     this.calendarData = this.homeModel.setCalendar();
     this.reserveDataList = this.homeModel.setReserveDate();
@@ -56,13 +62,21 @@ export default class HomeController {
 
   changeGoalData(event) {
     this.homeModel.setGoalData(event.detail);
-    this.setData(); // 걷기 데ㅣ터만 필요한데 모든 데이터 다 불러와서 어떻게 할지 고민
+    this.setData(); 
     this.setGoalGraph();
   }
 
   setGoalGraph() {
     this.homeGoalView.renderGoalGraph(this.stepData, this.goalStepData);
     this.homeGoalView.renderGoalRate(this.stepData, this.goalStepData);
+  }
+
+  setTodayStepData() {
+    this.homeModel.getTodayStepData();
+  }
+
+  setTodayDate() {
+    this.homeTodayWalkView.renderTodayWalkDate();
   }
 
 }

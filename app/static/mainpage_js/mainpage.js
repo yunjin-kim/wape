@@ -1,6 +1,4 @@
 import { clickDate, setTimeOptionAtReserve, setClickDateArr, clickReserve, beforeReseveDelete } from "./mainpage_reserve.js";
-// import { showSetGoalModal, getTodayStep, setStepGragh } from './mainpage_goal.js';
-import { getTodayStepApi, showTodayWalkDate } from './mainpage_todayWalk.js';
 import { setProfile, setUserTitle} from './mainpage_profile.js';
 
 import HomeModel from "./model/HomeModel.js";
@@ -9,26 +7,22 @@ import HomeQuoteView from "./views/HomeQuoteView.js";
 import HomeWeatherView from "./views/HomeWeatherView.js";
 import homeCalendarView from "./views/HomeCalendarView.js";
 import HomeGoalView from "./views/HomeGoalView.js";
+import HomeTodayWalkView from "./views/HomeTodayWalkView.js";
 
 
 const $selectHour = document.querySelector(".selectHour");
 const $selectMinute = document.querySelector(".selectMinute");
 
 (function hasStepData() {
-  const getStepDate = localStorage.getItem("STEP_DATA");
-  const parseGetStepDate= JSON.parse(getStepDate);
-  getTodayStepApi()
-  
+
   setDateAtReserve();
   setTimeOptionAtReserve()
   beforeReseveDelete();
   clickReserveDateButton();
   setReserve();
-  showTodayWalkDate();
   setUserTitle();
   setProfile();
 })()
-
 
 
 document.addEventListener("DOMContentLoaded", homeMain);
@@ -41,6 +35,7 @@ function homeMain() {
     homeWeatherView: new HomeWeatherView(),
     homeCalendarView: new homeCalendarView(),
     homeGoalView: new HomeGoalView(),
+    homeTodayWalkView: new HomeTodayWalkView(),
   }
 
   new HomeController(homeModel, views);
