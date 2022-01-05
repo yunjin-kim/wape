@@ -315,7 +315,7 @@
   display: flex;
   justify-content: space-around;
 }
-.thisYearMonth{
+.thisYearMonth {
   font-size: 1.2rem;
   font-weight: 500;
 }
@@ -455,7 +455,7 @@
   border: none;
   font-size: 20px;
 }
-.modalTimeDiv{
+.modalTimeDiv {
   display: flex;
   margin-left: 10px;
   margin-bottom: 4px;
@@ -472,7 +472,7 @@
   margin-top: 3px;
   margin-left: 5px;
 }
-.reserveDelete{
+.reserveDelete {
   width: 20px;
   height: 20px;
   border: none;
@@ -517,7 +517,7 @@
   margin-top: 20px;
   margin-left: 88px;
 }
-.stepDataDott{
+.stepDataDott {
   width: 7px;
   height: 7px;
   background-color: var(--main-color);
@@ -527,7 +527,7 @@
 }
 .dottStepText,
 .dottEndTimeText,
-.dottStartTimeText{
+.dottStartTimeText {
   position: absolute;
   font-size: 10px;
   margin-left: 10px;

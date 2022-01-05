@@ -157,13 +157,12 @@ export default class HomeModel {
       const data = await response.json();
       this.checkTodayWalkData(data);
     } catch (e) {
-      this.homeTodayWalkView.todayStepDataErrorModal();
+      this.homeTodayWalkView.renderStepErrorModal();
       console.log(e);
     }
   }
 
   checkTodayWalkData(data) {
-    console.log(data)
     if (!data.error && data.steps_count.length > 0) {
       this.homeTodayWalkView.renderTodayStep(data.steps_count);
     } else if (data.error === 1) {

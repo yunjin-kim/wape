@@ -1,4 +1,4 @@
-import { qs } from "../../helper.js";
+import { creatEl, qs } from "../../helper.js";
 import View from "./Views.js";
 
 export default class HomeTodayWalkView extends View {
@@ -6,68 +6,66 @@ export default class HomeTodayWalkView extends View {
     super(qs(".mainpage__today"));
 
     this.template = new Template();
+
+    this.todayStepElement = qs(".mainpage__today__main");
+    this.todayWalkDateElement = qs(".mainpage__today__title__date");
+    this.todayStepTitle = qs(".mainpage__today__title");
   }
 
-  // 리펙토리
   renderTodayStep(stepData) {
-    const $todayWalkWrap = document.querySelector(".mainpage__today__main");
-    const $todayStepWrap = document.querySelector(".mainpage__today__main");
+    this.todayStepElement.style.width = `${stepData.length*120}px`; 
   
-    $todayWalkWrap.style.width = `${stepData.length*120}px`; 
-  
-    for(let i = 0; i < stepData.length; i++) {
-      const stepDataDott = document.createElement('div');
-      const dottStepText = document.createElement('span')
-      const dottStartTimeText = document.createElement('span')
-      const dottEndTimeText = document.createElement('span')
-      stepDataDott.classList.add("stepDataDott");
-      dottStepText.classList.add("dottStepText");
-      dottStartTimeText.classList.add("dottStartTimeText");
-      dottEndTimeText.classList.add("dottEndTimeText");
-      dottStepText.innerText = `${stepData[i].value}걸음`;
-      dottStartTimeText.innerText = `${stepData[i].startTime.substring(12, 20)}`;
-      dottEndTimeText.innerText = `${stepData[i].endTime.substring(12, 20)}`;
-  
-      stepDataDott.style.top = `${100-(i*6)}px`;
-      dottStepText.style.top = `${86-(i*6)}px`;
-      dottStartTimeText.style.top = `${110-(i*6)}px`;
-      dottEndTimeText.style.top = `${120-(i*6)}px`;
-  
-      stepDataDott.style.left = `${i*120}px`;
-      dottStepText.style.left = `${i*120}px`;
-      dottStartTimeText.style.left = `${i*120}px`;
-      dottEndTimeText.style.left = `${i*120}px`;
-      $todayStepWrap.append(stepDataDott, dottStepText, dottStartTimeText, dottEndTimeText);
-    }
+    stepData.map((step, index) => {
+      let eachStepDott = this.template.hourStepDott(step, index);
+      this.todayStepElement.append(eachStepDott);
+    });
   }
 
   renderTodayNoData() {
-    const $todayStepWrap = document.querySelector(".mainpage__today__main");
-    const noTodayStepDataText = document.createElement('p');
-    noTodayStepDataText.textContent = "오늘 걸은 데이터가 없습니다";
-    noTodayStepDataText.classList.add("noTodayStepDataText");
-    $todayStepWrap.append(noTodayStepDataText);
+    this.todayStepElement.innerHTML(this.template.todayNoData());
   }
 
   renderTodayWalkDate() {
     const date = new Date();
-    const $todayWalkDate = document.querySelector(".mainpage__today__title__date");
-    $todayWalkDate.textContent = (`${date.getMonth()+1}월 ${date.getDate()}일`)
+    this.todayWalkDateElement.textContent = (`${date.getMonth()+1}월 ${date.getDate()}일`)
   }
 
-  todayStepDataErrorModal() {
-    const $todayStepTitle = document.querySelector(".mainpage__today__title");
-    const todayStepErrorModalDiv = document.createElement('div');
-    const todayStepErrorModalText = document.createElement('p');
-    todayStepErrorModalDiv.classList.add("todayStepErrorModal");
-    todayStepErrorModalText.classList.add("todayStepErrorModalText");
-    todayStepErrorModalText.innerHTML = "걸음 데이터를 불러오는데<br/> 실패하였습니다<br/> 재로딩 해주세요";
-    todayStepErrorModalDiv.append(todayStepErrorModalText);
-    $todayStepTitle.append(todayStepErrorModalDiv);
+  renderStepErrorModal() {
+    this.todayStepTitle.append(this.template.todayStepErrorModal());
   }
 
 }
 
 class Template {
+
+  hourStepDott(stepData, index) {
+    const divFragment = creatEl('div');
+    divFragment.innerHTML = `
+        <div class="stepDataDott" style="top:${100-(index*6)}px; left:${index*120}px"></div>
+        <span class="dottStepText" style="top:${86-(index*6)}px; left:${index*120}px">${stepData.value}걸음</span>
+        <span class="dottStartTimeText" style="top:${110-(index*6)}px; left: ${index*120}px">${stepData.startTime.substring(12, 20)}</span>
+        <span class="dottEndTimeText" style="top:${120-(index*6)}px; left:${index*120}px">${stepData.endTime.substring(12, 20)}</span>
+    `;
+
+    return divFragment;
+  }
+
+  todayNoData() {
+    return `
+      <p class="noTodayStepDataText">오늘 걸은 데이터가 없습니다</p>
+    `;
+  }
+
+  todayStepErrorModal() {
+    const divFragment = creatEl("div");
+    divFragment.className = "todayStepErrorModal";
+    divFragment.innerHTML = `
+      <p class="todayStepErrorModalText">
+        걸음 데이터를 불러오는데<br/> 실패하였습니다<br/> 재로딩 해주세요
+      </p>
+    `;
+
+    return divFragment;
+  }
 
 }
