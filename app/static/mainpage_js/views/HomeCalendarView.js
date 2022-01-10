@@ -37,7 +37,7 @@ export default class homeCalendarView extends View {
     on(this.resverseModalCloseButton, "click", () => this.handleReserveModalClose());
   }
 
-  renderReserveTme(reserveDataList, clickDate) {
+  renderReserveTime(reserveDataList, clickDate) {
     this.reverseModel = qs(".reserveModal", this.element);
     const clickDateReserveTime = reserveDataList.filter(reserveData => reserveData.date === clickDate);
     this.reserveTimeListTemplate = this.template.reserveTime(clickDateReserveTime);
@@ -73,13 +73,16 @@ export default class homeCalendarView extends View {
     this.element.append(this.template.reservedModel(reserveList));
   }
 
-  getResreveDate(reserveData) {
-    if (reserveData) {
+  getResreveDate(reserveDateList) { // 로직 변경 필수! 너무 많은 순회
+    console.log(reserveDateList)
+    console.log(this.calendarDayElement)
+    if (reserveDateList) {
       for (let i = 0; i < this.calendarDayElement.children.length; i++) {
         this.calendarDayElement.children[i].classList.remove("walkingDay");
         this.calendarDayElement.children[i].classList.contains("thisMonth") &&
-          reserveData.forEach((reDate) => {
-            reDate.date === this.calendarDayElement.children[i].textContent &&
+          reserveDateList.forEach((reserveDate) => {
+            console.log(this.calendarDayElement.children[i].textContent, reserveDate)
+            reserveDate[0] === this.calendarDayElement.children[i].textContent &&
             this.calendarDayElement.children[i].classList.add("walkingDay");
           })
       }

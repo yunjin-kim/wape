@@ -1,176 +1,189 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>mainpage</title>
-        <link rel="stylesheet" href="../main.css">
-    </head>
-    <body>
-        <div class="mainpage__line"></div>
-        <div class="mainpageWap">
-            <div class="mainpage__title">
-                <div class="mainpage__title__text">
-                워피
-                </div>
-                <div class="mainpage__title__icon">
-                    <img onclick="location='/page/profile'" src="../img/mypage.png" alt="마이페이지">
-                    <img src="../img/setting.png" alt="설정">
-                </div>
-            </div>
-            <div class="mainpage__profi">
-                <div class="mainpage__profi__pic">
-                    <!-- <input type="file" accept="img/*" /> -->
-                    <img src="" alt="">
-                </div>
-                <div class="mainpage__profi__text">
-                    <h3><span id="profileName"></span>님</h3>
-                    <span class="userTitle">걷기 데이터가 없습니다</span>
-                </div>
-            </div>
-            <div class="mainpage__goal">
-                <h3>목표 걸음 수</h3>
-                <div class="mainpage__walk">
-                    <div class="mainpage__walk__value">
-                        <h2><span class="todayStep"></span>걸음</h2>
-                        <span class="setGoal">목표를 설정해주세요</span>
-                    </div>
-                    <div class="mainpage__walk__graph">
-                        <div class="mainpage__walk__graph__total"></div>
-                        <div class="mainpage__walk__graph__my"></div>
-                    </div>
-                    <div class="mainpage__walk__icon">
-                        <img src="../img/walki.png" alt="걷기아이콘">
-                    </div>
-                </div>
-                <div class="mainpage__money">
-                    <div class="mainpage__money__value">
-                        <h2><span class="todayMoney"></span>원</h2>
-                        <span class="setMoney"></span>
-                    </div>
-                    <div class="mainpage__money__graph">
-                        <div class="mainpage__money__graph__total"></div>
-                        <div class="mainpage__money__graph__my"></div>
-                    </div>
-                    <div class="mainpage__money__icon">
-                        <img src="../img/coin.png" alt="돈아이콘">
-                    </div>
-                </div>
-            </div>
-            <div class="mainpage__today">   
-                <div class="mainpage__today__title">
-                    <h3>오늘의 걷기</h3>
-                    <span class="mainpage__today__title__date"></span>
-                </div>
-                <div class="mainpage__today__scroll">
-                    <div class="mainpage__today__main">
-                        <canvas id="mainpage__today__line"></canvas>
-                        
-                    </div>
-                </div>
-            </div>
-            <div class="mainpage__book">
-                <h3>걷기 알림</h3>
-                <div class="mainpage__book__main">
-                    <h4>언제 걸을까요?</h4>
-                    <div class="mainpage__book__date">
-                        <div >
-                            <span>일</span>
-                            <span>18</span>
-                        </div>
-                        <div>
-                            <span>월</span>
-                            <span>19</span>
-                        </div>
-                        <div>
-                            <span>화</span>
-                            <span>20</span>
-                        </div>
-                        <div>
-                            <span>수</span>
-                            <span>21</span>
-                        </div>
-                        <div>
-                            <span>목</span>
-                            <span>22</span>
-                        </div>
-                        <div>
-                            <span>금</span>
-                            <span>23</span>
-                        </div>
-                        <div>
-                            <span>토</span>
-                            <span>24</span>
-                        </div>
-                    </div>
-                    <div class="mainpage__book__time">
-                        <h4>몇시에 걸을까요?</h4>
-                        <div class="mainpage__book__select">
-                            <select class="selectHour" name="" id="">
-                                <option>00</option>
-                            </select>
-                            시
-                            <select class="selectMinute" name="" id="">
-                                <option>00</option>
-                            </select>
-                            분
-                        </div>
-                    </div>
-                    <div class="mainpage__book__btn">
-                        <button class="reserveBtn" type="submit">예약하기</button>
-                    </div>
-                </div>
-            </div>
-            <div class="mainpage__calendar">
-                <div class="mainpage__calendar__slide">
-                        <div class="thisYearMonth"></div>
-                </div>
-                <div class="mainpage__calendar__main">
-                    <ul class="mainpage__calendar__week">
-                        <li>일</li>
-                        <li>월</li>
-                        <li>화</li>
-                        <li>수</li>
-                        <li>목</li>
-                        <li>금</li>
-                        <li>토</li>
-                    </ul>
-                    <ul class="mainpage__calendar__day">
-                    </ul>
-                </div>
-            </div>
-            <div class="mainpage__quote">
-                <h3>오늘의 걷기 효능</h3>
-                <div class="mainpage__quote__main">
-                    <h3 class="quote"></h3>
-                </div>
-            </div>
-            <div class="mainpage__weather">
-                <h3>오늘 날씨</h3>
-                <div class="mainpage__weather__main">
-                    <div class="mainpage__weather__condi">
-                        <h4 class="mainpage__weather__weather"></h4>
-                        <div class="mainpage__weather__flex">
-                            <h2 class="mainpage__weather__temp">00</h2>
-                            <p>(<span class="mainpage__weather__lowtemp">00</span>,<span class="mainpage__weather__hightemp">00</span>)</p>
-                        </div>
-                    </div>
-                    <div class="mainpage__weather__dust">
-                        <h2 class="mainpage__weather__dust__gu">00구</h2>
-                        <!-- <h4 class="mainpage__weather__dust__value">미세먼지</h4> -->
-                    </div>
-                </div>
-            </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mainpage</title>
+    <link rel="stylesheet" href="../main.css" />
+  </head>
+  <body>
+    <div class="mainpage__line"></div>
+    <div class="mainpageWap">
+      <div class="mainpage__title">
+        <div class="mainpage__title__text">워피</div>
+        <div class="mainpage__title__icon">
+          <img
+            onclick="location='/page/profile'"
+            src="../img/mypage.png"
+            alt="마이페이지"
+          />
+          <img src="../img/setting.png" alt="설정" />
         </div>
-        <div class="mainpage__bar">
-            <span onclick="location='/page/main'" class="mainpage__bar__home"><img src="../img/homegreen.png" alt="홈아이콘"></span>
-            <span onclick="location='/page/anay'"  class="mainpage__bar__anay"><img src="../img/anay.png" alt="분석아이콘"></span>
-            <span onclick="location='/page/bank'"  class="mainpage__bar__bank"><img src="../img/bank.png" alt="통장아이콘"></span>
-            <span onclick="location='/page/map'"  class="mainpage__bar__map"><img src="../img/mapicon.png" alt="지도아이콘"></span>
       </div>
+      <div class="mainpage__profi">
+        <div class="mainpage__profi__pic">
+          <!-- <input type="file" accept="img/*" /> -->
+          <img src="" alt="" />
+        </div>
+        <div class="mainpage__profi__text">
+          <h3><span id="profileName"></span>님</h3>
+          <span class="userTitle">걷기 데이터가 없습니다</span>
+        </div>
+      </div>
+      <div class="mainpage__goal">
+        <h3>목표 걸음 수</h3>
+        <div class="mainpage__walk">
+          <div class="mainpage__walk__value">
+            <h2><span class="todayStep"></span>걸음</h2>
+            <span class="setGoal">목표를 설정해주세요</span>
+          </div>
+          <div class="mainpage__walk__graph">
+            <div class="mainpage__walk__graph__total"></div>
+            <div class="mainpage__walk__graph__my"></div>
+          </div>
+          <div class="mainpage__walk__icon">
+            <img src="../img/walki.png" alt="걷기아이콘" />
+          </div>
+        </div>
+        <div class="mainpage__money">
+          <div class="mainpage__money__value">
+            <h2><span class="todayMoney"></span>원</h2>
+            <span class="setMoney"></span>
+          </div>
+          <div class="mainpage__money__graph">
+            <div class="mainpage__money__graph__total"></div>
+            <div class="mainpage__money__graph__my"></div>
+          </div>
+          <div class="mainpage__money__icon">
+            <img src="../img/coin.png" alt="돈아이콘" />
+          </div>
+        </div>
+      </div>
+      <div class="mainpage__today">
+        <div class="mainpage__today__title">
+          <h3>오늘의 걷기</h3>
+          <span class="mainpage__today__title__date"></span>
+        </div>
+        <div class="mainpage__today__scroll">
+          <div class="mainpage__today__main">
+            <canvas id="mainpage__today__line"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="mainpage__book">
+        <h3>걷기 알림</h3>
+        <div class="mainpage__book__main">
+          <h4>언제 걸을까요?</h4>
+          <div class="mainpage__book__date">
+            <div>
+              <span>일</span>
+              <span>18</span>
+            </div>
+            <div>
+              <span>월</span>
+              <span>19</span>
+            </div>
+            <div>
+              <span>화</span>
+              <span>20</span>
+            </div>
+            <div>
+              <span>수</span>
+              <span>21</span>
+            </div>
+            <div>
+              <span>목</span>
+              <span>22</span>
+            </div>
+            <div>
+              <span>금</span>
+              <span>23</span>
+            </div>
+            <div>
+              <span>토</span>
+              <span>24</span>
+            </div>
+          </div>
+          <div class="mainpage__book__time">
+            <h4>몇시에 걸을까요?</h4>
+            <div class="mainpage__book__select">
+              <select class="selectHour" name="" id="">
+                <option>00</option>
+              </select>
+              시
+              <select class="selectMinute" name="" id="">
+                <option>00</option>
+              </select>
+              분
+            </div>
+          </div>
+          <div class="mainpage__book__btn">
+            <button class="reserveBtn" type="submit">예약하기</button>
+          </div>
+        </div>
+      </div>
+      <div class="mainpage__calendar">
+        <div class="mainpage__calendar__slide">
+          <div class="thisYearMonth"></div>
+        </div>
+        <div class="mainpage__calendar__main">
+          <ul class="mainpage__calendar__week">
+            <li>일</li>
+            <li>월</li>
+            <li>화</li>
+            <li>수</li>
+            <li>목</li>
+            <li>금</li>
+            <li>토</li>
+          </ul>
+          <ul class="mainpage__calendar__day"></ul>
+        </div>
+      </div>
+      <div class="mainpage__quote">
+        <h3>오늘의 걷기 효능</h3>
+        <div class="mainpage__quote__main">
+          <h3 class="quote"></h3>
+        </div>
+      </div>
+      <div class="mainpage__weather">
+        <h3>오늘 날씨</h3>
+        <div class="mainpage__weather__main">
+          <div class="mainpage__weather__condi">
+            <h4 class="mainpage__weather__weather"></h4>
+            <div class="mainpage__weather__flex">
+              <h2 class="mainpage__weather__temp">00</h2>
+              <p>
+                (<span class="mainpage__weather__lowtemp">00</span>,<span
+                  class="mainpage__weather__hightemp"
+                  >00</span
+                >)
+              </p>
+            </div>
+          </div>
+          <div class="mainpage__weather__dust">
+            <h2 class="mainpage__weather__dust__gu">00구</h2>
+            <!-- <h4 class="mainpage__weather__dust__value">미세먼지</h4> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mainpage__bar">
+      <span onclick="location='/page/main'" class="mainpage__bar__home"
+        ><img src="../img/homegreen.png" alt="홈아이콘"
+      /></span>
+      <span onclick="location='/page/anay'" class="mainpage__bar__anay"
+        ><img src="../img/anay.png" alt="분석아이콘"
+      /></span>
+      <span onclick="location='/page/bank'" class="mainpage__bar__bank"
+        ><img src="../img/bank.png" alt="통장아이콘"
+      /></span>
+      <span onclick="location='/page/map'" class="mainpage__bar__map"
+        ><img src="../img/mapicon.png" alt="지도아이콘"
+      /></span>
+    </div>
 
-      <script src="https://unpkg.com/fxjs/dist/fx.js"></script>
-      <script type="module" src="../mainpage_js/mainpage.js"></script>
+    <script src="https://unpkg.com/fxjs/dist/fx.js"></script>
+    <script type="module" src="../mainpage_js/mainpage.js"></script>
   </body>
 </html>

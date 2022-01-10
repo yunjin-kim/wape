@@ -1,3 +1,5 @@
+import { L } from "../../fx.js";
+import { creatEl } from "../../helper.js";
 import HomeTodayWalkView from "../views/HomeTodayWalkView.js";
 import HomeWeatherView from "../views/HomeWeatherView.js";
 
@@ -170,6 +172,66 @@ export default class HomeModel {
     } else {
       this.homeTodayWalkView.renderTodayNoData();
     }
+  }
+
+  setTimeHourOption() {
+    const dateArr =_.go(
+      L.range(1, 25),
+      _.map(date => date / 10 < 1 ? date = "0" + date : `${date}`));
+    const optionArr = _.go(
+      L.range(1, 25),
+      _.map(v => v = creatEl("option")));
+
+    for (const[date, option] of _.zip(dateArr, optionArr)) {
+      option.textContent = date;
+    };
+
+    return optionArr;
+  }
+
+  setTimeMinuteOption() { // 다시 고민
+    const hourArr =_.go(
+      L.range(1, 60),
+      _.map(date => date / 10 < 1 ? date = "0" + date : `${date}`));
+    const optionArr = _.go(
+      L.range(1, 60),
+      _.map(v => v = creatEl("option")));
+
+    for (const[hour, option] of _.zip(hourArr, optionArr)) {
+      option.textContent = hour;
+    };
+
+    return optionArr;
+  }
+
+  setWalkDateList() {
+    const date = new Date();  
+    const holeDayArr = [];
+    const holeDateArr = [];
+  
+    const holeDay = ['일' ,'월', '화', '수', '목', '금', '토'];
+    const thisLast = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    
+    let todayDay = date.getDay();
+    let todayDate = date.getDate();
+  
+    for (let i = 0; i < 7; i++) {
+      if (todayDay === 7 ) todayDay = 0;
+      if (todayDate > thisLast.getDate()) todayDate = 1;
+      holeDayArr.push(holeDay[todayDay])
+      holeDateArr.push(todayDate)
+      todayDay++;
+      todayDate++;
+    }
+
+    return ({holeDayArr, holeDateArr});
+  }
+
+  addReserveDate(reserveDateList) {
+    const getReserveDateList = JSON.parse(localStorage.getItem("RESERVE_DATE"));
+    getReserveDateList
+    ? reserveDateList && localStorage.setItem("RESERVE_DATE", JSON.stringify(getReserveDateList.concat(reserveDateList))) 
+    : reserveDateList && localStorage.setItem("RESERVE_DATE", JSON.stringify(reserveDateList));
   }
 
 }
