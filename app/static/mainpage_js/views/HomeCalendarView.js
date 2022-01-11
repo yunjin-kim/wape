@@ -1,3 +1,4 @@
+import { L } from "../../fx.js";
 import { creatEl, delegate, on, qs, qsAll } from "../../helper.js";
 import View from "./Views.js";
 
@@ -73,19 +74,17 @@ export default class homeCalendarView extends View {
     this.element.append(this.template.reservedModel(reserveList));
   }
 
-  getResreveDate(reserveDateList) { // 로직 변경 필수! 너무 많은 순회
-    console.log(reserveDateList)
-    console.log(this.calendarDayElement)
+  getResreveDate(reserveDateList) { // 로직 변경 필수! 너무 많은 순회,  한자리 일때 동작하는지 
     if (reserveDateList) {
-      for (let i = 0; i < this.calendarDayElement.children.length; i++) {
-        this.calendarDayElement.children[i].classList.remove("walkingDay");
-        this.calendarDayElement.children[i].classList.contains("thisMonth") &&
-          reserveDateList.forEach((reserveDate) => {
-            console.log(this.calendarDayElement.children[i].textContent, reserveDate)
-            reserveDate[0] === this.calendarDayElement.children[i].textContent &&
-            this.calendarDayElement.children[i].classList.add("walkingDay");
-          })
-      }
+      _.go(
+        this.calendarDayElement.children,
+        L.map(el => el.classList.contains("walkingDay") ? el.classList.remove("walkingDay") : el),
+        L.filter(el => el.classList.contains("thisMonth")),
+        _.map(el => _.go(
+          reserveDateList,
+          _.map(v => v[0] === (el.textContent.length === 1 ? el.textContent = `0`+`${el.textContent}`: el.textContent) && el.classList.add("walkingDay")),
+        ))
+      );
     }
   }
 

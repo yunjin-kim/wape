@@ -42,7 +42,7 @@ export default class HomeController {
     // 모든 데이터 다 불러와서 어떻게 할지 고민
     this.quoteData = this.homeModel.getRandomQuote();
     this.calendarData = this.homeModel.setCalendar();
-    this.reserveDataList = this.homeModel.setReserveDate();
+    this.reserveDateList = this.homeModel.setReserveDate();
     this.stepData = this.homeModel.getStepData();
     this.goalStepData = this.homeModel.getGoalStepData();
 
@@ -59,7 +59,7 @@ export default class HomeController {
   renderCalendar() {
     console.log("renderCalendar");
     this.homeCalendarView.render(this.calendarData);
-    this.homeCalendarView.getResreveDate(this.reserveDataList);
+    this.homeCalendarView.getResreveDate(this.reserveDateList);
   }
 
   subScribeViewEvents() {
@@ -70,8 +70,8 @@ export default class HomeController {
   }
 
   bindReserveModalEvent(event) {
-    this.homeCalendarView.setReserveList(this.reserveDataList, event.detail);
-    this.homeCalendarView.renderReserveTime(this.reserveDataList, event.detail);
+    this.homeCalendarView.setReserveList(this.reserveDateList, event.detail);
+    this.homeCalendarView.renderReserveTime(this.reserveDateList, event.detail);
   }
 
   setDeleteReverseTimeList(event) {
@@ -88,7 +88,8 @@ export default class HomeController {
 
   setReserveDateList(event) {
     this.homeModel.addReserveDate(event.detail);
-    // 달력 렌더 함수
+    this.setData();
+    this.renderCalendar();
   }
 
   setGoalGraph() {

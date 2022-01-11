@@ -55,7 +55,7 @@ export default class HomeWalkReserveView extends View {
     const value = _.go(
       this.reserveDateListElement.children,
       L.filter(reserveDateElement => reserveDateElement.classList.contains("backgroundGreen")),
-      _.map(selectDateElement => `[${selectDateElement.children[1].textContent}, ${this.hourOptiomElement.options[this.hourOptiomElement.selectedIndex].textContent}, ${this.minuteOptionElement.options[this.minuteOptionElement.selectedIndex].textContent}]`),
+      _.map(selectDateElement => [`${selectDateElement.children[1].textContent}`, `${this.hourOptiomElement.options[this.hourOptiomElement.selectedIndex].textContent}`, `${this.minuteOptionElement.options[this.minuteOptionElement.selectedIndex].textContent}`]),
     );
     this.emit("@reserve", value);
   }
