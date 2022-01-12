@@ -71,7 +71,7 @@ export default class HomeController {
 
   bindReserveModalEvent(event) {
     this.homeCalendarView.setReserveList(this.reserveDateList, event.detail);
-    this.homeCalendarView.renderReserveTime(this.reserveDateList, event.detail);
+    // this.homeCalendarView.renderReserveTime(this.reserveDateList, event.detail);
   }
 
   setDeleteReverseTimeList(event) {

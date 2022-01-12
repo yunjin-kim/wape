@@ -38,11 +38,11 @@ export default class homeCalendarView extends View {
     on(this.resverseModalCloseButton, "click", () => this.handleReserveModalClose());
   }
 
-  renderReserveTime(reserveDataList, clickDate) {
+  renderReserveTime(clickDate) {
     this.reverseModel = qs(".reserveModal", this.element);
-    const clickDateReserveTime = reserveDataList.filter(reserveData => reserveData.date === clickDate);
-    this.reserveTimeListTemplate = this.template.reserveTime(clickDateReserveTime);
-    this.reverseModel.append(...this.reserveTimeListTemplate);
+    // const clickDateReserveTime = reserveDataList.filter(reserveData => reserveData.date === clickDate);
+    // this.reserveTimeListTemplate = this.template.reserveTime(clickDateReserveTime);
+    // this.reverseModel.append(...this.reserveTimeListTemplate);
     this.bindReserveTimeDelete(clickDate);
   }
 
@@ -65,13 +65,8 @@ export default class homeCalendarView extends View {
   }
 
   setReserveList(reserveData, date) {
-    const reserveList = [];
-    reserveData.map((reserveDate) => {
-      if (reserveDate.date === date) {
-        reserveList.push(reserveDate);
-      }
-    })
-    this.element.append(this.template.reservedModel(reserveList));
+    this.element.append(this.template.reservedModel(_.filter(reserve => reserve[0] === date, reserveData), date));
+    this.renderReserveTime(date)
   }
 
   getResreveDate(reserveDateList) { // 로직 변경 필수! 너무 많은 순회,  한자리 일때 동작하는지 
@@ -92,33 +87,31 @@ export default class homeCalendarView extends View {
 
 class Template {
 
-  reservedModel(walkingArr) {
+  reservedModel(timeArr, date) {
     const divFargment = creatEl('div');
     divFargment.innerHTML = `
       <div class="reserveModal">
-        <h2 class="reserveModalTitle">걷기 예약</h2>
+        <h2 class="reserveModalTitle">걷기 일정</h2>
         <button class="reserveModalClose">X</button>
         <h3 class="reserveModalDate"></h3>
-        <div class="modalTimeDiv">${`${walkingArr[0].date}일`}</div>
-      </div>
-    `;
+        <div class="modalTimeDiv">${`${date}일`}</div>
+        ${this.reserveTime(timeArr)}
+      </div>`;
 
     return divFargment;
   }
 
-  reserveTime(reserveTimeList) {
-    const reserveTimeListTemplate = reserveTimeList.map((reserveTime) => {
-      const divFargment = creatEl('div');
-      divFargment.classList.add('reserveTiemWrap');
-      divFargment.innerHTML = `
-        <p class="reserveModalTime">${reserveTime.hour}시 ${reserveTime.minute}분</p>
-        <button class="reserveDelete">X</button>
-      `;
-
-      return divFargment;
+  reserveTime(timeArr) {
+    let timeListTemplate = "";
+    timeArr.forEach((time) => {
+      timeListTemplate +=  `
+        <div class="reserveTiemWrap">
+          <p class="reserveModalTime">${time[1]}시 ${time[2]}분</p>
+          <button class="reserveDelete">X</button>
+        </div>`;
     });
 
-    return reserveTimeListTemplate;
+    return timeListTemplate;
   }
 
 }
