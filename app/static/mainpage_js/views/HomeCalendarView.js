@@ -40,9 +40,6 @@ export default class homeCalendarView extends View {
 
   renderReserveTime(clickDate) {
     this.reverseModel = qs(".reserveModal", this.element);
-    // const clickDateReserveTime = reserveDataList.filter(reserveData => reserveData.date === clickDate);
-    // this.reserveTimeListTemplate = this.template.reserveTime(clickDateReserveTime);
-    // this.reverseModel.append(...this.reserveTimeListTemplate);
     this.bindReserveTimeDelete(clickDate);
   }
 

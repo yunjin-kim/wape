@@ -127,11 +127,11 @@ export default class HomeModel {
 
   setDeleteReserveTime(deleteInfo) {
     const reverseList = JSON.parse(localStorage.getItem("RESERVE_DATE"));
-    for (let i = 0; i < reverseList.length; i++) { // filter가 안 되는데 나중에 다시 
-      reverseList[i].date === deleteInfo.deleteDate.match(/[^일,시,분, ]/gm).join('') &&
-      (reverseList[i].hour + reverseList[i].minute) === deleteInfo.deleteTime.match(/[^일,시,분, ]/gm).join('') &&
-      reverseList.splice(i, 1);
-    }
+    reverseList.map((time, index) => {
+      deleteInfo.deleteDate === time[0] &&  
+      deleteInfo.deleteTime.match(/[^일,시,분, ]/gm).join('') === time[1]+time[2] &&
+      reverseList.splice(index, 1);
+    });
 
     localStorage.setItem("RESERVE_DATE", JSON.stringify(reverseList));
   }
