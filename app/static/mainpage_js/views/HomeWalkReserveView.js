@@ -17,6 +17,7 @@ export default class HomeWalkReserveView extends View {
   }
 
   rednerTimeOption(hourOptions, minuteOption) {
+    console.log("rednerTimeOption")
     this.hourOptiomElement.append(...hourOptions);
     this.minuteOptionElement.append(...minuteOption);
   }
@@ -39,7 +40,6 @@ export default class HomeWalkReserveView extends View {
 
   handleReserveDate(event) {
     const reserveDateElement = event.target.closest("div");
-    console.log(reserveDateElement);
     if (!reserveDateElement.classList.contains("mainpage__book__date")) {
       reserveDateElement.classList.contains("backgroundGreen")
       ? reserveDateElement.classList.remove("backgroundGreen")
@@ -58,5 +58,11 @@ export default class HomeWalkReserveView extends View {
       _.map(selectDateElement => [`${selectDateElement.children[1].textContent}`, `${this.hourOptiomElement.options[this.hourOptiomElement.selectedIndex].textContent}`, `${this.minuteOptionElement.options[this.minuteOptionElement.selectedIndex].textContent}`]),
     );
     this.emit("@reserve", value);
+  }
+
+  initialReserveElement() {
+    _.map(reserveDateElement => reserveDateElement.classList.remove("backgroundGreen"), this.reserveDateListElement.children);
+    this.hourOptiomElement.value = "00";
+    this.minuteOptionElement.value = "00";
   }
 }

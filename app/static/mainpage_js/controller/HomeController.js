@@ -31,7 +31,7 @@ export default class HomeController {
 
     this.setTodayDate();
 
-    this.setTimeOptiom();
+    this.setTimeOption();
 
     this.setWalkDate(); // 네이밍 고민
 
@@ -89,6 +89,7 @@ export default class HomeController {
     this.homeModel.addReserveDate(event.detail);
     this.setData();
     this.renderCalendar();
+    this.homeWalkReserveView.initialReserveElement();
   }
 
   setGoalGraph() {
@@ -104,7 +105,7 @@ export default class HomeController {
     this.homeTodayWalkView.renderTodayWalkDate();
   }
 
-  setTimeOptiom() {
+  setTimeOption() {
     this.homeWalkReserveView.rednerTimeOption(
       this.hourOptions,
       this.minuteOptions
