@@ -75,8 +75,6 @@ export default class HomeController {
   }
 
   setDeleteReverseTimeList(event) {
-    console.log("setDeleteReverseTimeList")
-    console.log(event)
     this.homeModel.setDeleteReserveTime(event.detail);
     this.setData();
     this.renderCalendar();
