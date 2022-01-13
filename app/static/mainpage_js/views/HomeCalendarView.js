@@ -12,6 +12,7 @@ export default class homeCalendarView extends View {
     this.template = new Template();
 
     this.bindEvent();
+
   }
 
   render(calendarData) {
@@ -21,7 +22,6 @@ export default class homeCalendarView extends View {
   }
 
   bindEvent() {
-    console.log("bindEvent")
     on(this.calendarDayElement, "click", (event) => this.handleReserveIconClick(event));
   }
 
@@ -29,22 +29,22 @@ export default class homeCalendarView extends View {
     if (event.target.classList.contains("walkingDay")) {
       const value = event.target.textContent;
       this.emit("@click", value);
+      this.bindReserveTimeDelete();
       this.bindReserveModalClose();
     }
   }
 
   bindReserveModalClose() { 
+    console.log("bindReserveModalClose")
     this.resverseModalCloseButton = qs(".reserveModalClose", this.element);
     on(this.resverseModalCloseButton, "click", () => this.handleReserveModalClose());
   }
 
-  renderReserveTime(clickDate) {
-    this.reverseModel = qs(".reserveModal", this.element);
-    this.bindReserveTimeDelete(clickDate);
-  }
-
-  bindReserveTimeDelete(clickDate) {
-    delegate(this.element, "click", "button.reserveDelete", (event) => this.handleReserveTimeDelete(event, clickDate))
+  bindReserveTimeDelete() {
+    const clickDateElement = qs(".modalTimeDiv");
+    const clickDate = clickDateElement.textContent.match(/[^일]/gm).join("");
+    this.deleteBtn = qs(".reserveDelete");
+    on(this.deleteBtn, "click", (event) => this.handleReserveTimeDelete(event, clickDate)); // 다른날짜 예약 연속으로 지울때 delegate로 하면 안 됨
   }
 
   handleReserveTimeDelete(event, clickDate) {
@@ -63,7 +63,6 @@ export default class homeCalendarView extends View {
 
   setReserveList(reserveData, date) {
     this.element.append(this.template.reservedModel(_.filter(reserve => reserve[0] === date, reserveData), date));
-    this.renderReserveTime(date)
   }
 
   getResreveDate(reserveDateList) { // 로직 변경 필수! 너무 많은 순회,  한자리 일때 동작하는지 
@@ -91,7 +90,7 @@ class Template {
         <h2 class="reserveModalTitle">걷기 일정</h2>
         <button class="reserveModalClose">X</button>
         <h3 class="reserveModalDate"></h3>
-        <div class="modalTimeDiv">${`${date}일`}</div>
+        <span class="modalTimeDiv">${`${date}일`}</span>
         ${this.reserveTime(timeArr)}
       </div>`;
 

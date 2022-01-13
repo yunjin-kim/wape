@@ -63,6 +63,7 @@ export default class HomeController {
   }
 
   subScribeViewEvents() {
+    console.log("subScribeViewEvents");
     this.homeCalendarView.on("@click", (event) => this.bindReserveModalEvent(event));
     this.homeCalendarView.on("@delete", (event) => this.setDeleteReverseTimeList(event));
     this.homeGoalView.on("@submit", (event) => this.changeGoalData(event));
@@ -74,6 +75,8 @@ export default class HomeController {
   }
 
   setDeleteReverseTimeList(event) {
+    console.log("setDeleteReverseTimeList")
+    console.log(event)
     this.homeModel.setDeleteReserveTime(event.detail);
     this.setData();
     this.renderCalendar();
