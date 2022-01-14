@@ -3,12 +3,10 @@
 import { onStepData, setStepChartHeight, setStepDataArr, setStepDate } from './anaypage_step.js';
 import { setGoalAchieve } from './anaypage_goal.js';
 import { showGoalWeihgtModal, setGoalWeight, showWeihgtModal, setCurrentWeight, rangeWeightData, setWeightChartHeight, setUserBmi } from './anaypage_weight.js';
-// import { showSleepModal, rangeSleepData, setCurrentSleep, setSleepChartHeight } from './anaypage_sleep.js';
 import AnayModal from './model/AnayModel.js';
 import AnaySleepView from './views/AnaySleepView.js';
 import AnayController from './controller/AnayController.js';
 import { groupBySize, L } from "../fx.js";
-// import { getNameFromCookie } from '../mainpage_js/getCookie.js';
 
 export let sleepWeekNum = 0;
 
@@ -20,11 +18,7 @@ export let sleepWeekNum = 0;
   rangeWeightData()
   setWeightChartHeight();
   setCurrentWeight();
-  // setCurrentSleep();
-  // rangeSleepData();
-  // setSleepChart(sleepWeekNum);
-  // setSleepDataAverage(sleepWeekNum);
-  // setSleepChartHeight()
+
   setUserBmi();
   goalButtonClickEvent();
   weightButtonClickEvent();
