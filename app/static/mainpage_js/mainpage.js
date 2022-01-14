@@ -1,4 +1,4 @@
-import { setProfile, setUserTitle } from "./mainpage_profile.js";
+// import { setProfile, setUserTitle } from "./mainpage_profile.js";
 
 import HomeModel from "./model/HomeModel.js";
 import HomeController from "./controller/HomeController.js";
@@ -9,16 +9,11 @@ import HomeGoalView from "./views/HomeGoalView.js";
 import HomeTodayWalkView from "./views/HomeTodayWalkView.js";
 import HomeWalkReserveView from "./views/HomeWalkReserveView.js";
 
-(function hasStepData() {
-  setUserTitle();
-  setProfile();
-})();
-
 document.addEventListener("DOMContentLoaded", homeMain);
 
 function homeMain() {
   const homeModel = new HomeModel();
-  
+
   const views = {
     homeQuoteView: new HomeQuoteView(),
     homeWeatherView: new HomeWeatherView(),
@@ -30,3 +25,16 @@ function homeMain() {
 
   new HomeController(homeModel, views);
 }
+
+// function getNameFromCookie() {
+//   const cookie = decodeURI(document.cookie);
+//   const cookieArr = cookie.split("=");
+//   console.log(cookieArr)
+//   return cookieArr[1].split(";")[0];
+// }
+// function getAgeFromCookie() {
+//   const cookie = decodeURI(document.cookie);
+//   const cookieArr = cookie.split("=");
+//   console.log(cookieArr)
+//   return cookieArr[2];
+// }

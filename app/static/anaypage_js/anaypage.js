@@ -3,8 +3,12 @@
 import { onStepData, setStepChartHeight, setStepDataArr, setStepDate } from './anaypage_step.js';
 import { setGoalAchieve } from './anaypage_goal.js';
 import { showGoalWeihgtModal, setGoalWeight, showWeihgtModal, setCurrentWeight, rangeWeightData, setWeightChartHeight, setUserBmi } from './anaypage_weight.js';
-import { showSleepModal, rangeSleepData, setCurrentSleep, setSleepChartHeight } from './anaypage_sleep.js';
-import { getNameFromCookie } from '../mainpage_js/getCookie.js';
+// import { showSleepModal, rangeSleepData, setCurrentSleep, setSleepChartHeight } from './anaypage_sleep.js';
+import AnayModal from './model/AnayModel.js';
+import AnaySleepView from './views/AnaySleepView.js';
+import AnayController from './controller/AnayController.js';
+import { groupBySize, L } from "../fx.js";
+// import { getNameFromCookie } from '../mainpage_js/getCookie.js';
 
 export let sleepWeekNum = 0;
 
@@ -16,17 +20,32 @@ export let sleepWeekNum = 0;
   rangeWeightData()
   setWeightChartHeight();
   setCurrentWeight();
-  setCurrentSleep();
-  rangeSleepData();
-  setSleepChart(sleepWeekNum);
-  setSleepDataAverage(sleepWeekNum);
-  setSleepChartHeight()
+  // setCurrentSleep();
+  // rangeSleepData();
+  // setSleepChart(sleepWeekNum);
+  // setSleepDataAverage(sleepWeekNum);
+  // setSleepChartHeight()
   setUserBmi();
   goalButtonClickEvent();
   weightButtonClickEvent();
   weightGoalButtonClickEvent();
   untilGoalWeight();
 })();
+
+
+document.addEventListener("DOMContentLoaded", anayMain);
+
+function anayMain() {
+  const anayModal = new AnayModal();
+
+  const views = {
+    anaySleepView: new AnaySleepView(),
+  };
+
+  new AnayController(anayModal, views);
+}
+
+
 
 export function hadStepData() {
   const stepDataArr = setStepDataArr();
@@ -38,7 +57,7 @@ export function hadStepData() {
 
 function setUsername () {
   const $anayUsername = document.querySelector(".anayUsername");
-  $anayUsername.textContent = getNameFromCookie();
+  // $anayUsername.textContent = getNameFromCookie();
 }
 
 //그래프 요일 
@@ -242,85 +261,5 @@ export function untilGoalWeight() {
       $untilGoalWeight.parentNode.parentNode.parentNode.classList.remove("hiddenDiv");
       $untilGoalWeight.textContent = parseTotalWeightData[0][0][2] - parseWeight;
     }
-  }
-}
-
-//수면 왼쪽 버튼
-const $sleppLeftBtn = document.querySelector(".anaypage__sleep__graph__left");
-$sleppLeftBtn.addEventListener('click', () => {
-  sleepWeekNum++;
-  setSleepBtn();
-  setSleepDataAverage(sleepWeekNum)
-  setSleepChartHeight(sleepWeekNum)
-})
-
-//수면 오른쪽 버튼
-const $sleepRightBtn = document.querySelector(".anaypage__sleep__graph__right");
-$sleepRightBtn.addEventListener('click', () => {
-  sleepWeekNum--;
-  setSleepBtn();
-  setSleepDataAverage(sleepWeekNum)
-  setSleepChartHeight(sleepWeekNum)
-})
-
-//수면 버튼 show/hidden
-function setSleepBtn() {
-  if (sleepWeekNum == 3) {
-    $sleppLeftBtn.classList.add("hiddenButton");
-  } else if (sleepWeekNum == 0) {
-    $sleepRightBtn.classList.add("hiddenButton");
-  } else {
-    $sleppLeftBtn.classList.remove("hiddenButton");
-    $sleepRightBtn.classList.remove("hiddenButton");
-  }
-}
-
-//현재 수면 입력되있는 상태에서 재입력
-const $currentSleep = document.querySelector(".anaypage__sleep__current");
-$currentSleep.addEventListener('click', (e) => {
-  showSleepModal(e);
-})
-
-//현재 수면이 입력되지 않은 상태에서 입력
-const $noCurrentSleep = document.querySelector(".anaypage__nosleep__current");
-$noCurrentSleep.addEventListener('click', (e) => {
-  showSleepModal(e);
-})
-
-//수면 차트  
-export function setSleepChart() {
-  const $sleepBox = document.querySelector(".anaypage__sleep__graph__box");
-
-  const sleepBoxArr = _.filter(
-    sleep => 
-      sleep.classList.contains("anaypage__sleep__graph__graph")
-        ,$sleepBox.children);
-
-  return sleepBoxArr;
-}
-
-//수면 일평균 주간 누적
-export function setSleepDataAverage(sleepWeekNum) {
-  const $sleepDateAverage = document.querySelector(".sleepDateAverage");
-  const $sleepDataWeekTotal = document.querySelector(".sleepDataWeekTotal");
-  const getTotalSleepData = localStorage.getItem("CURRENT_SLEEP");
-  const parseTotalSleepData = JSON.parse(getTotalSleepData);
-  let weekSleepData = [];
-  let totalSleepData = 0;
-
-  parseTotalSleepData[sleepWeekNum].map((data) => {
-    data[2] === "" ? "" : weekSleepData.push(data[2]);
-  });
-
-  for (let data of weekSleepData) {
-    totalSleepData += Number(data);
-  }
-  let averageSleepData = totalSleepData/weekSleepData.length;
-  if (totalSleepData) {
-    $sleepDataWeekTotal.textContent = totalSleepData;
-    $sleepDateAverage.textContent = averageSleepData.toFixed(1);
-  } else {
-    $sleepDataWeekTotal.textContent = "0";
-    $sleepDateAverage.textContent = "0";
   }
 }
