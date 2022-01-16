@@ -4,10 +4,12 @@ import { qs } from "../../helper.js";
 export default class AnayModal {
   constructor() {
     this.setChartDateList();
+    this.setSleepChartData();
     this.setSleepChartElement();
   }
 
   setChartDateList() {
+    console.log("setChartDateList");
     this.date = new Date();
     this.monthSleepDataArr = [];
     const prevLastDate = new Date(this.date.getFullYear(), this.date.getMonth(), 0).getDate();
@@ -29,20 +31,19 @@ export default class AnayModal {
   }
 
   setSleepChartData() {
-    // const getTotalSleepData = localStorage.getItem("CURRENT_SLEEP");
     const sleepDataList = JSON.parse(localStorage.getItem("CURRENT_SLEEP"));
 
-    if (sleepDataList && sleepDataList[0][0][1] !== this.date.getDate()) {
+
+    if (sleepDataList && sleepDataList[0][1] !== this.date.getDate()) {
       //로컬에 데이터가 있고 오늘 날짜와 다르다면
       _.go(
-        sleepDataList.flat(),
+        sleepDataList,
         L.filter((localSleepData) => localSleepData[2] > 0),
-        _.map((localSleepData) =>
-          _.go(
-            this.monthSleepDataArr.flat(),
+        _.map((localSleepData) =>_.go(
+            this.monthSleepDataArr,
             L.filter((sleeptData) => sleeptData[0] === localSleepData[0]),
             L.filter((sleeptData) => sleeptData[1] === localSleepData[1]),
-            _.map((sleeptData) => (sleeptData[2] = localSleepData[2]))
+            _.map((sleeptData) => (sleeptData[2] = localSleepData[2])),
           )
         )
       );
@@ -66,7 +67,7 @@ export default class AnayModal {
 
   addInputSleepData(sleepData) {
     const sleepDataList = JSON.parse(localStorage.getItem("CURRENT_SLEEP"));
-    sleepDataList[0][0][2] = sleepData;
+    sleepDataList[0][2] = sleepData;
     localStorage.setItem("CURRENT_SLEEP", JSON.stringify(sleepDataList));
   }
 

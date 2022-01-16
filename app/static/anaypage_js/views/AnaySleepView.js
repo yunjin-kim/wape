@@ -1,3 +1,4 @@
+import { groupBySize } from "../../fx.js";
 import { qs, on, creatEl } from "../../helper.js";
 import View from "./View.js";
 
@@ -36,7 +37,7 @@ export default class AnaySleepView extends View {
     this.setSleepButton();
   }
 
-  setSleepButton() {
+  setSleepButton() {  // classList.add View 함수에 추가 추상화 추가
     if (this.sleepPageNumber == 3) {
       this.sleepLeftButton.classList.add("hiddenButton");
     } else if (this.sleepPageNumber == 0) {
@@ -68,11 +69,13 @@ export default class AnaySleepView extends View {
   }
 
   setSleepChartHeight(sleepElemnetList, sleepDataList) {
-    // if (!sleepWeekNum) sleepWeekNum = 0;
-    for (const [sleepData, sleepDiv] of _.zip(
-      sleepDataList[this.sleepPageNumber],
-      sleepElemnetList.reverse()
-    )) {
+    const sleepDataListGroup = _.go(
+      sleepDataList,
+      _.map((v) => v),
+      groupBySize(7),
+      _.values);
+    
+    for (const [sleepData, sleepDiv] of _.zip(sleepDataListGroup[this.sleepPageNumber], sleepElemnetList.reverse())) {
       sleepData[2] > 0
         ? ((sleepDiv.children[1].style.height = `${sleepData[2] * 10}px`),
           (sleepDiv.children[0].textContent = `${sleepData[2]}`))
@@ -82,25 +85,11 @@ export default class AnaySleepView extends View {
   }
 
   setCurrentSleep() {
-    const $noSleepDiv = document.querySelector(".anaypage__nosleep__current");
-    const $currnetSleep = document.querySelector(".currnetSleep");
-    const $sleepDiv = document.querySelector(".anaypage__sleep__current");
-    const getTotalSleepData = localStorage.getItem("CURRENT_SLEEP");
-    const parseTotalSleepData = JSON.parse(getTotalSleepData);
-
-    if (parseTotalSleepData) {
-      if (parseTotalSleepData[0][0][2] === "") {
-        $noSleepDiv.classList.remove("hiddenDiv");
-        $sleepDiv.classList.add("hiddenDiv");
-        $noSleepDiv.innerHTML = `<span class="noWeight">수면 시간을 적어주세요</span>`;
-      } else {
-        $sleepDiv.classList.remove("hiddenDiv");
-        $currnetSleep.textContent = `${parseTotalSleepData[0][0][2]}`;
-      }
+    const sleepDataList = JSON.parse(localStorage.getItem("CURRENT_SLEEP"));
+    if (sleepDataList[0][2] === "") {
+      this.currentSleepElement.innerHTML = `<span class="noWeight">수면 시간을 적어주세요</span>`;
     } else {
-      $noSleepDiv.classList.remove("hiddenDiv");
-      $sleepDiv.classList.add("hiddenDiv");
-      $noSleepDiv.innerHTML = `<span class="noWeight">수면시간을 적어주세요</span>`;
+      this.currentSleepElement.innerHTML = this.template.currentSleepData(sleepDataList[0][2]);
     }
   }
 
@@ -112,7 +101,6 @@ export default class AnaySleepView extends View {
     let weekSleepData = [];
     let totalSleepData = 0;
 
-    // if (!sleepWeekNum) sleepWeekNum = 0;
       parseTotalSleepData[this.sleepPageNumber].map((data) => {
         data[2] === "" ? "" : weekSleepData.push(data[2]);
       });
@@ -144,6 +132,19 @@ class Template {
     `;
 
     return divFragment;
+  }
+
+  currentSleepData(currentSleep) {
+    return `
+      <div>
+        <h4>수면량</h4>
+        <p><span class="currnetSleep">${currentSleep}</span>시간</p>
+      </div>
+      <div>
+        <h4>권장</h4>
+        <p><span>7</span>시간</p>
+      </div>
+    `;
   }
 
 }

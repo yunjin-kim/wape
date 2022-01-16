@@ -19,8 +19,10 @@ export default class AnayController {
 
   renderSleep() { // sleepWeekNum 나중에 넣어주기
     this.anaySleepView.setSleepChartHeight(this.sleepElemnetList, this.sleepDataList);
+    console.log(this.sleepElemnetList, this.sleepDataList);
     this.anaySleepView.setCurrentSleep();
     this.anaySleepView.setSleepDataAverage();
+    this.anaySleepView.setCurrentSleep();
   }
 
   subScribeViewEvents() {
@@ -33,6 +35,7 @@ export default class AnayController {
   }
 
   setInputSleepData(event) {
+    console.log(event.detail)
     this.anayModal.addInputSleepData(event.detail);
     this.setData();
     this.renderSleep();
