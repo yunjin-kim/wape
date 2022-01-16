@@ -17,7 +17,7 @@ export default class AnaySleepView extends View {
   }
 
   bindEvent() {
-    on(this.currentSleepElement, "click", (event) => this.bindSleepDataInput(event));
+    on(this.currentSleepElement, "click", () => this.bindSleepModal());
     on(this.sleepLeftButton, "click", () => this.handleSleepLeftButton());
     on(this.sleepRightButton, "click", () => this.handleSleepRightButton());
 
@@ -48,7 +48,7 @@ export default class AnaySleepView extends View {
     }
   }
 
-  bindSleepDataInput() {
+  bindSleepModal() {
     this.element.append(this.template.sleepModal());
     this.sleepModal = qs(".sleepModal");
     this.sleepModalClose = qs(".sleepModalClose");
