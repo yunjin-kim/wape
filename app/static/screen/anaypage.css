@@ -307,7 +307,8 @@
   border-radius: 14px;
   box-sizing: border-box;
   padding: 1.4vh 6vw 1.6vh 2.2vw;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   justify-content: space-between;
 }
 .anaypage__weight__accure__value {
@@ -343,6 +344,9 @@
 .anaypage__weight__accure__percent h6 {
   font-size: 0.8rem;
   color: var(--sub-color);
+}
+.anaypage__weight__accure__percent p {
+  font-size: 0.7rem;
 }
 
 .anaypage__sleep {

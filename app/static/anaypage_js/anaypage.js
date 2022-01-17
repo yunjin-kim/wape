@@ -2,11 +2,11 @@
 //날짜 세팅하고 버튼 클릭은 4개 다 같아서 나중에 다 구현하고 리펙토링해서 하나로
 import { onStepData, setStepChartHeight, setStepDataArr, setStepDate } from './anaypage_step.js';
 import { setGoalAchieve } from './anaypage_goal.js';
-import { showGoalWeihgtModal, setGoalWeight, showWeihgtModal, setCurrentWeight, rangeWeightData, setWeightChartHeight, setUserBmi } from './anaypage_weight.js';
 import AnayModal from './model/AnayModel.js';
 import AnaySleepView from './views/AnaySleepView.js';
 import AnayController from './controller/AnayController.js';
 import { groupBySize, L } from "../fx.js";
+import AnayWeightView from './views/AnayWeightView.js';
 
 export let sleepWeekNum = 0;
 
@@ -14,16 +14,7 @@ export let sleepWeekNum = 0;
   setUsername();
   onStepData();
   setGraphDate();
-  setGoalWeight();
-  rangeWeightData()
-  setWeightChartHeight();
-  setCurrentWeight();
-
-  setUserBmi();
   goalButtonClickEvent();
-  weightButtonClickEvent();
-  weightGoalButtonClickEvent();
-  untilGoalWeight();
 })();
 
 
@@ -34,10 +25,22 @@ function anayMain() {
 
   const views = {
     anaySleepView: new AnaySleepView(),
+    anayWeightView: new AnayWeightView(),
   };
 
   new AnayController(anayModal, views);
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -182,78 +185,3 @@ export function setGoalAchieveBox() {
   return goalBoxArr;
 }
 
-function weightButtonClickEvent() {
-  const $weightLeftBtn = document.querySelector(".anaypage__weight__graph__left");
-  const $weightRightBtn = document.querySelector(".anaypage__weight__graph__right");
-  let weightWeekNum = 0;
-  $weightLeftBtn.addEventListener('click', () => {
-    weightWeekNum++;
-    setWeighttBtn(weightWeekNum, $weightLeftBtn, $weightRightBtn);
-    setWeightChartHeight(weightWeekNum)
-  })
-  $weightRightBtn.addEventListener('click', () => {
-    weightWeekNum--;
-    setWeighttBtn(weightWeekNum, $weightLeftBtn, $weightRightBtn);
-    setWeightChartHeight(weightWeekNum)
-  })
-}
-
-//목표 체중 차트  
-export function setWeightChart() {
-  const $weightBox = document.querySelector(".anaypage__weight__graph__box");
-  const weightBoxArr = _.filter(
-    weight => 
-      weight.classList.contains("anaypage__weight__graph__graph")
-        ,$weightBox.children);
-
-  return weightBoxArr;
-}
-
-//체중 버튼 show/hidden
-function setWeighttBtn(weightWeekNum, $weightLeftBtn, $weightRightBtn) {
-  if (weightWeekNum == 3) {
-    $weightLeftBtn.classList.add("hiddenButton");
-  } else if (weightWeekNum == 0) {
-    $weightRightBtn.classList.add("hiddenButton");
-  } else {
-    $weightLeftBtn.classList.remove("hiddenButton");
-    $weightRightBtn.classList.remove("hiddenButton");
-  }
-}
-
-function weightGoalButtonClickEvent() {
-  const $setGoalWeight = document.querySelector(".anaypage__weight__accure");
-  const $noWeightGoalDiv = document.querySelector(".anaypage__noweight__accure");
-  const $currentWeight = document.querySelector(".anaypage__weight__current");
-  const $noCurrentWeight = document.querySelector(".anaypage__noweight__current");
-  $setGoalWeight.addEventListener('click', (e) => {
-    showGoalWeihgtModal(e);
-  })
-  $noWeightGoalDiv.addEventListener('click', (e) => {
-    showGoalWeihgtModal(e);
-  })
-    $currentWeight.addEventListener('click', (e) => {
-    showWeihgtModal(e);
-  })
-    $noCurrentWeight.addEventListener('click', (e) => {
-    showWeihgtModal(e);
-  })
-}
-
-//목표 체중까지
-export function untilGoalWeight() {
-  console.log("실행")
-  const getTotalWeightData = localStorage.getItem("CURRENT_WEIGHT");
-  const parseTotalWeightData = JSON.parse(getTotalWeightData);
-  const getWeight = localStorage.getItem("GOAL_WEIGHT");
-  const parseWeight = JSON.parse(getWeight);
-  const $untilGoalWeight = document.querySelector(".untilGoalWeight");
-  if(parseTotalWeightData[0].length > 0) {
-    if(parseTotalWeightData[0][0][2] === "") {
-      $untilGoalWeight.parentNode.parentNode.parentNode.classList.add("hiddenDiv");
-    } else {
-      $untilGoalWeight.parentNode.parentNode.parentNode.classList.remove("hiddenDiv");
-      $untilGoalWeight.textContent = parseTotalWeightData[0][0][2] - parseWeight;
-    }
-  }
-}
