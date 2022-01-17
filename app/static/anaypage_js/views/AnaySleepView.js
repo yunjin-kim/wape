@@ -9,7 +9,7 @@ export default class AnaySleepView extends View {
 
     this.template = new Template();
 
-    this.currentSleepElement = qs(".anaypage__sleep__current");
+    this.currentSleepWrap = qs(".anaypage__sleep__current");
     this.sleepLeftButton = qs(".anaypage__sleep__graph__left");
     this.sleepRightButton = qs(".anaypage__sleep__graph__right");
 
@@ -17,7 +17,7 @@ export default class AnaySleepView extends View {
   }
 
   bindEvent() {
-    on(this.currentSleepElement, "click", () => this.bindSleepModal());
+    on(this.currentSleepWrap, "click", () => this.bindSleepModal());
     on(this.sleepLeftButton, "click", () => this.handleSleepLeftButton());
     on(this.sleepRightButton, "click", () => this.handleSleepRightButton());
 
@@ -69,13 +69,7 @@ export default class AnaySleepView extends View {
   }
 
   setSleepChartHeight(sleepElemnetList, sleepDataList) {
-    const sleepDataListGroup = _.go(
-      sleepDataList,
-      _.map((v) => v),
-      groupBySize(7),
-      _.values);
-    
-    for (const [sleepData, sleepDiv] of _.zip(sleepDataListGroup[this.sleepPageNumber], sleepElemnetList.reverse())) {
+    for (const [sleepData, sleepDiv] of _.zip(sleepDataList[this.sleepPageNumber], sleepElemnetList.reverse())) {
       sleepData[2] > 0
         ? ((sleepDiv.children[1].style.height = `${sleepData[2] * 10}px`),
           (sleepDiv.children[0].textContent = `${sleepData[2]}`))
@@ -86,29 +80,29 @@ export default class AnaySleepView extends View {
 
   setCurrentSleep() {
     const sleepDataList = JSON.parse(localStorage.getItem("CURRENT_SLEEP"));
-    if (sleepDataList[0][2] === "") {
-      this.currentSleepElement.innerHTML = `<span class="noWeight">수면 시간을 적어주세요</span>`;
+    if (sleepDataList[0][0][2] === "") {
+      this.currentSleepWrap.innerHTML = `<span class="noWeight">수면 시간을 적어주세요</span>`;
     } else {
-      this.currentSleepElement.innerHTML = this.template.currentSleepData(sleepDataList[0][2]);
+      this.currentSleepWrap.innerHTML = this.template.currentSleepElement(sleepDataList[0][0][2]);
     }
   }
 
-  setSleepDataAverage() {
+  setSleepDataAverage() { // 리펙터링
     const $sleepDateAverage = document.querySelector(".sleepDateAverage");
     const $sleepDataWeekTotal = document.querySelector(".sleepDataWeekTotal");
     const getTotalSleepData = localStorage.getItem("CURRENT_SLEEP");
     const parseTotalSleepData = JSON.parse(getTotalSleepData);
     let weekSleepData = [];
     let totalSleepData = 0;
-
-      parseTotalSleepData[this.sleepPageNumber].map((data) => {
+    parseTotalSleepData[this.sleepPageNumber].map((data) => {
         data[2] === "" ? "" : weekSleepData.push(data[2]);
       });
 
-    for (let data of weekSleepData) {
+      for (let data of weekSleepData) {
       totalSleepData += Number(data);
     }
     let averageSleepData = totalSleepData / weekSleepData.length;
+
     if (totalSleepData) {
       $sleepDataWeekTotal.textContent = totalSleepData;
       $sleepDateAverage.textContent = averageSleepData.toFixed(1);
@@ -134,7 +128,7 @@ class Template {
     return divFragment;
   }
 
-  currentSleepData(currentSleep) {
+  currentSleepElement(currentSleep) {
     return `
       <div>
         <h4>수면량</h4>
