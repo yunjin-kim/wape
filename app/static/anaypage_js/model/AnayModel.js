@@ -112,7 +112,7 @@ export default class AnayModal {
 
     return _.go(
       weightElementWrap.children,
-      _.filter((weightElement) => weightElement.classList.contains("anaypage__weight__graph__graph")))
+      _.filter((weightElement) => weightElement.classList.contains("anaypage__weight__graph__graph")));
   }
 
   getWeightData() {
@@ -125,6 +125,31 @@ export default class AnayModal {
 
   getWeightGoalData() {
     return localStorage.getItem("GOAL_WEIGHT");
+  }
+
+  setStepDataList() {
+    const stepDataList = JSON.parse(localStorage.getItem("STEP_DATA"));
+
+    return _.go(
+      stepDataList.steps_count,
+      L.map((stepData) => stepData),
+      groupBySize(7),
+      _.values,
+      L.map((v) => v.reverse()),
+      _.take(4)
+    );
+  }
+
+  steGoalElementList() {
+    const goaElementWrap = document.querySelector(".anaypage__goal__check__main");
+
+    return _.go(
+      goaElementWrap.children,
+      _.filter((element) => !element.classList.contains("anaypage__goal__check__wrap")));
+  }
+
+  setGoalData() {
+    return JSON.parse(localStorage.getItem("STEP_GOAL"));
   }
 
 }

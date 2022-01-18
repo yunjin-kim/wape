@@ -1,12 +1,11 @@
 //한 시간마다의 걸음도 조회할 수 있어서 일정 이상의 걸음이 되면 오늘의 걷기에 운동했다고 할 수 있을 듯 근데 시간이 너무 차이나서 오늘의 걷기는 힘들 듯함?
 //날짜 세팅하고 버튼 클릭은 4개 다 같아서 나중에 다 구현하고 리펙토링해서 하나로
 import { onStepData, setStepChartHeight, setStepDataArr, setStepDate } from './anaypage_step.js';
-import { setGoalAchieve } from './anaypage_goal.js';
 import AnayModal from './model/AnayModel.js';
 import AnaySleepView from './views/AnaySleepView.js';
 import AnayController from './controller/AnayController.js';
-import { groupBySize, L } from "../fx.js";
 import AnayWeightView from './views/AnayWeightView.js';
+import AnayGoalView from './views/AnayGoalView.js';
 
 export let sleepWeekNum = 0;
 
@@ -14,7 +13,6 @@ export let sleepWeekNum = 0;
   setUsername();
   onStepData();
   setGraphDate();
-  goalButtonClickEvent();
 })();
 
 
@@ -26,6 +24,7 @@ function anayMain() {
   const views = {
     anaySleepView: new AnaySleepView(),
     anayWeightView: new AnayWeightView(),
+    anayGoalView: new AnayGoalView(),
   };
 
   new AnayController(anayModal, views);
@@ -33,22 +32,10 @@ function anayMain() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 export function hadStepData() {
   const stepDataArr = setStepDataArr();
   let weekNum = 0;
   setStepChart(weekNum, stepDataArr);
-  ifNoGoal();
   chartButtonClickEvent(weekNum, stepDataArr);
 }
 
@@ -137,51 +124,5 @@ export function showWeekPercent(percentData) {
     }
   }
   $weekDiffPercent.textContent = percentData;
-}
-
-function goalButtonClickEvent() {
-  const $goalLeftBtn = document.querySelector(".anaypage__goal__check__left");
-  const $goalRightBtn = document.querySelector(".anaypage__goal__check__right");
-  let goalWeekNum = 0
-  $goalLeftBtn.addEventListener('click', () => {
-    goalWeekNum++;
-    setGoaltBtn(goalWeekNum, $goalLeftBtn, $goalRightBtn);
-    setGoalAchieve(goalWeekNum);
-  })
-  $goalRightBtn.addEventListener('click', () => {
-    goalWeekNum--;
-    setGoaltBtn(goalWeekNum, $goalLeftBtn, $goalRightBtn);
-    setGoalAchieve(goalWeekNum);
-  })
-}
-
-//목표 버튼 show/hidden
-function setGoaltBtn(goalWeekNum, $goalLeftBtn, $goalRightBtn) {
-  if(goalWeekNum == 3) {
-    $goalLeftBtn.classList.add("hiddenButton");
-  } else if(goalWeekNum == 0) {
-    $goalRightBtn.classList.add("hiddenButton");
-  } else {
-    $goalLeftBtn.classList.remove("hiddenButton");
-    $goalRightBtn.classList.remove("hiddenButton");
-  }
-}
-
-//목표 걸음수 없다면
-function ifNoGoal() {
-  const goalStep = localStorage.getItem("STEP_GOAL");
-  if(!goalStep) {
-    const $goalCheck = document.querySelector(".anaypage__goal__check__noGoal");
-    $goalCheck.innerHTML = `<div class="noGoalText">목표를 설정해주세요</div>`;
-  } else{ 
-    setGoalAchieve();
-  }
-}
-//걷기 목표 달성 유무
-export function setGoalAchieveBox() {
-  const $goalDataBox = document.querySelector(".anaypage__goal__check__main");
-  const goalBoxArr = _.filter( goal => !goal.classList.contains("anaypage__goal__check__wrap"), $goalDataBox.children);
-
-  return goalBoxArr;
 }
 
