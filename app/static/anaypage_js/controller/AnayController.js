@@ -1,13 +1,17 @@
 export default class AnayController {
-  constructor(anayModal, { anaySleepView, anayWeightView, anayGoalView }) {
-
+  constructor(
+    anayModal, { anayStepView, anaySleepView, anayWeightView, anayGoalView }
+  ) {
     this.anayModal = anayModal;
 
+    this.anayStepView = anayStepView;
     this.anaySleepView = anaySleepView;
     this.anayWeightView = anayWeightView;
-    this.anayGoalView = anayGoalView; 
+    this.anayGoalView = anayGoalView;
 
     this.setData();
+
+    this.renderStep();
 
     this.renderSleep();
 
@@ -19,6 +23,7 @@ export default class AnayController {
   }
 
   setData() {
+    this.dayOfWeekData = this.anayModal.setDayOfWeek();
     this.sleepElemnetList = this.anayModal.setSleepChartElement();
     this.sleepDataList = this.anayModal.getSleepData();
     this.weightElementList = this.anayModal.setWeightChartElement();
@@ -29,13 +34,19 @@ export default class AnayController {
     this.goalData = this.anayModal.setGoalData();
   }
 
+  renderStep() {
+    this.anayStepView.setDayOfWeek(this.dayOfWeekData);
+  }
+
   renderSleep() {
+    this.anaySleepView.setDayOfWeek(this.dayOfWeekData);
     this.anaySleepView.setSleepChartHeight(this.sleepElemnetList, this.sleepDataList);
     this.anaySleepView.setCurrentSleep();
     this.anaySleepView.setSleepDataAverage();
   }
 
   renderWeight() {
+    this.anayWeightView.setDayOfWeek(this.dayOfWeekData);
     this.anayWeightView.setWeightChartHeight(this.weightElementList, this.weightDataList); // 데이터하고 엘리먼트 불러오는 것 까지
     this.anayWeightView.setCurrentWeight(this.weightDataList);
     this.anayWeightView.setCurrentBmi(this.weightDataList);
@@ -43,9 +54,10 @@ export default class AnayController {
   }
 
   renderGoal() {
-    this.goalData 
-    ? this.anayGoalView.setGoalAchieve(this.goalElementList, this.stepDataList, this.goalData)
-    : this.anayGoalView.noStepGoal();
+    this.anayGoalView.setDayOfWeek(this.dayOfWeekData);
+    this.goalData
+      ? this.anayGoalView.setGoalAchieve(this.goalElementList, this.stepDataList, this.goalData)
+      : this.anayGoalView.noStepGoal();
   }
 
   subScribeViewEvents() {
@@ -55,7 +67,6 @@ export default class AnayController {
     this.anayWeightView.on("@weightGoalSubmit", (event) => this.setInputWeightGoaltData(event));
     this.anayWeightView.on("@weightButtom", () => this.setWeightButton());
     this.anayGoalView.on("@goalButtom", () => this.setGoalButton());
-
   }
 
   setInputWeightGoaltData(event) {
@@ -79,7 +90,7 @@ export default class AnayController {
     this.setData();
     this.renderSleep();
   }
-  
+
   setWeightButton() {
     this.anayWeightView.setWeightChartHeight(this.weightElementList, this.weightDataList);
   }
@@ -87,5 +98,4 @@ export default class AnayController {
   setGoalButton() {
     this.anayGoalView.setGoalAchieve(this.goalElementList, this.stepDataList, this.goalData);
   }
-
 }

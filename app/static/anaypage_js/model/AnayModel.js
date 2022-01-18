@@ -3,13 +3,13 @@ import { qs } from "../../helper.js";
 
 export default class AnayModal {
   constructor() {
+    this.date = new Date();
     this.setChartDateList();
     this.setSleepChartData();
     this.setWeightChartData();
   }
 
   setChartDateList() {
-    this.date = new Date();
     this.monthDataArr = [];
     const prevLastDate = new Date(this.date.getFullYear(), this.date.getMonth(), 0).getDate();
     let todayDate = this.date.getDate();
@@ -150,6 +150,20 @@ export default class AnayModal {
 
   setGoalData() {
     return JSON.parse(localStorage.getItem("STEP_GOAL"));
+  }
+
+  setDayOfWeek() {
+    const walkDayArr = [];
+    const holeDay = ["월", "화", "수", "목", "금", "토", "일"];
+    let walkDataDay = this.date.getDay();
+    for (let i = 0; i < 7; i++) {
+      if (walkDataDay === -1) walkDataDay = 6;
+      if (walkDataDay >= 7) walkDataDay = 0;
+      walkDataDay++;
+      walkDayArr.push(holeDay[walkDataDay - 1]);
+    }
+
+    return walkDayArr;
   }
 
 }

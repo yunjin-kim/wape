@@ -9,6 +9,7 @@ export default class AnaySleepView extends View {
 
     this.template = new Template();
 
+    this.sleepDayOfWeekWrap = qs(".anaypage__sleep__graph__day__ul");
     this.currentSleepWrap = qs(".anaypage__sleep__current");
     this.sleepLeftButton = qs(".anaypage__sleep__graph__left");
     this.sleepRightButton = qs(".anaypage__sleep__graph__right");
@@ -20,7 +21,12 @@ export default class AnaySleepView extends View {
     on(this.currentSleepWrap, "click", () => this.bindSleepModal());
     on(this.sleepLeftButton, "click", () => this.handleSleepLeftButton());
     on(this.sleepRightButton, "click", () => this.handleSleepRightButton());
+  }
 
+  setDayOfWeek(dayOfWeekData) {
+    for (let i = 0; i < dayOfWeekData.length; i++) {
+      this.sleepDayOfWeekWrap.children[i].textContent = dayOfWeekData[i];
+    }
   }
 
   handleSleepLeftButton() {

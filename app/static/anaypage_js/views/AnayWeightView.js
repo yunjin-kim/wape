@@ -8,6 +8,7 @@ export default class AnayWeightView extends View {
 
     this.template = new Template();
 
+    this.weightDayOfWeekWrap = qs(".anaypage__weight__graph__day__ul");
     this.currentWeightWrap = qs(".anaypage__weight__current");
     this.currentGoalWeightWrap = qs(".anaypage__weight__accure");
     this.weightLeftButton = qs(".anaypage__weight__graph__left");
@@ -21,6 +22,12 @@ export default class AnayWeightView extends View {
     on(this.currentGoalWeightWrap, "click", () => this.bindWeightGoalodal());
     on(this.weightLeftButton, "click", () => this.handleWeightLeftButton());
     on(this.weightRightButton, "click", () => this.handleWeightRightButton());
+  }
+
+  setDayOfWeek(dayOfWeekData) {
+    for (let i = 0; i < dayOfWeekData.length; i++) {
+      this.weightDayOfWeekWrap.children[i].textContent = dayOfWeekData[i];
+    }
   }
 
   handleWeightLeftButton() {
@@ -52,8 +59,12 @@ export default class AnayWeightView extends View {
     this.weightGoalModal = qs(".goalWeightModal");
     this.weightGoalModalClose = qs(".goalWeightModalClose");
     this.weightGoalModalSubmit = qs(".goalWeightSubmitBtn");
-    on(this.weightGoalModalClose, "click", () => this.handleWeightGoalModalClose());
-    on(this.weightGoalModalSubmit, "click", () => this.handleWeightGoalModalSubmit());
+    on(this.weightGoalModalClose, "click", () =>
+      this.handleWeightGoalModalClose()
+    );
+    on(this.weightGoalModalSubmit, "click", () =>
+      this.handleWeightGoalModalSubmit()
+    );
   }
 
   handleWeightGoalModalClose() {
@@ -88,7 +99,10 @@ export default class AnayWeightView extends View {
   }
 
   setWeightChartHeight(weightElemnetList, weightDataList) {
-    for (const [weightData, wiehgtDiv] of _.zip(weightDataList[this.weightPageNumber], weightElemnetList.reverse())) {
+    for (const [weightData, wiehgtDiv] of _.zip(
+      weightDataList[this.weightPageNumber],
+      weightElemnetList.reverse()
+    )) {
       weightData[2] > 0
         ? ((wiehgtDiv.children[1].style.height = `${weightData[2] * 0.8}px`),
           (wiehgtDiv.children[0].textContent = `${weightData[2]}`))

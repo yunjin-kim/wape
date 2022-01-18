@@ -7,6 +7,7 @@ export default class AnayGoalView extends View {
 
     this.goalPageNumber = 0;
 
+    this.goalDayOfWeekWrap = qs(".anaypage__goal__check__day__ul");
     this.goalLeftButton = qs(".anaypage__goal__check__left");
     this.goalRightButton = qs(".anaypage__goal__check__right");
     this.noStepGoalElement = qs(".anaypage__goal__check__noGoal");
@@ -17,6 +18,12 @@ export default class AnayGoalView extends View {
   bindEvent() {
     on(this.goalLeftButton, "click", () => this.handleGoalLeftButton());
     on(this.goalRightButton, "click", () => this.handleGoalRightButton());
+  }
+
+  setDayOfWeek(dayOfWeekData) {
+    for (let i = 0; i < dayOfWeekData.length; i++) {
+      this.goalDayOfWeekWrap.children[i].textContent = dayOfWeekData[i];
+    }
   }
 
   handleGoalLeftButton() {
@@ -45,17 +52,23 @@ export default class AnayGoalView extends View {
 
   setGoalAchieve(goalElementList, stepDataList, goalData) {
     if (goalData) {
-      _.map(goalElement => goalElement.classList.remove("acheiveGoal", "NotAcheiveGoal"), goalElementList);
-      for (const [setData, goalElement] of _.zip(stepDataList[this.goalPageNumber], goalElementList)) {
+      _.map(
+        (goalElement) =>
+          goalElement.classList.remove("acheiveGoal", "NotAcheiveGoal"),
+        goalElementList
+      );
+      for (const [setData, goalElement] of _.zip(
+        stepDataList[this.goalPageNumber],
+        goalElementList
+      )) {
         setData.value >= Number(goalData)
           ? goalElement.classList.add("acheiveGoal")
           : goalElement.classList.add("NotAcheiveGoal");
-      };
-    } 
+      }
+    }
   }
 
   noStepGoal() {
     this.noStepGoalElement.innerHTML = `<div class="noGoalText">걷기 목표를 설정해주세요</div>`;
   }
-
 }
