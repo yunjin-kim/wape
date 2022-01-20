@@ -1,4 +1,4 @@
-import { groupBySize, L } from "../../fx.js";
+import { add, groupBySize, L } from "../../fx.js";
 import { qs } from "../../helper.js";
 
 export default class AnayModal {
@@ -196,13 +196,25 @@ export default class AnayModal {
   }
 
   setStepChart() {
-  const $walkDataGraph = document.querySelector(".anaypage__walk__graph__box");
-  
+  const stepDataGraphWrap = qs(".anaypage__walk__graph__box");
+
   return _.filter(
-    charBar => 
-      charBar.classList.contains("anaypage__walk__graph__graph")
-        ,$walkDataGraph.children
-  )
-}
+    (charBar) => charBar.classList.contains("anaypage__walk__graph__graph"),
+    stepDataGraphWrap.children
+  );
+  }
+
+  setEachWeekStepDataSum(stepDataGroup) {
+    return _.go(
+      L.entries(stepDataGroup),
+      L.map(([_, stepData]) => stepData),
+      L.map((stepData) => _.go(
+        stepData,
+        L.map((stepData) => stepData.value),
+        _.reduce(add)
+      )),
+      _.take(4)
+    );
+  }
 
 }

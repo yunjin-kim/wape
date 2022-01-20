@@ -11,8 +11,6 @@ export default class AnayController {
 
     this.setData();
 
-    this.renderStep();
-
     this.renderSleep();
 
     this.renderWeight();
@@ -33,9 +31,8 @@ export default class AnayController {
     this.stepDataList.then(() => {
       this.stepDataGroup = this.anayModal.setStepDataGroup();
       this.anayStepView.setStepChartHeight(this.stepElementList, this.stepDataGroup);
-      this.anayStepView.setWeekPercent(this.stepDataGroup);
-      this.anayStepView.showWeekPercent();
-      this.anayStepView.setWeekStepData();
+      this.eachWeekStepDataSum = this.anayModal.setEachWeekStepDataSum(this.stepDataGroup);
+      this.renderStep();
       this.renderGoal();
     });
   }
@@ -53,6 +50,9 @@ export default class AnayController {
 
   renderStep() {
     this.anayStepView.setDayOfWeek(this.dayOfWeekData);
+    this.anayStepView.setWeekPercent(this.eachWeekStepDataSum);
+    this.anayStepView.showWeekPercent();
+    this.anayStepView.setWeekStepData();
   }
 
   renderSleep() {
@@ -120,9 +120,9 @@ export default class AnayController {
   }
 
   stepStepButton() {
-      this.anayStepView.setStepChartHeight(this.stepElementList, this.stepDataGroup);
-      this.anayStepView.setWeekPercent(this.stepDataGroup);
-      this.anayStepView.showWeekPercent();
-      this.anayStepView.setWeekStepData();
+    this.anayStepView.setStepChartHeight(this.stepElementList, this.stepDataGroup);
+    this.anayStepView.setWeekPercent(this.eachWeekStepDataSum);
+    this.anayStepView.showWeekPercent();
+    this.anayStepView.setWeekStepData();
   }
 }

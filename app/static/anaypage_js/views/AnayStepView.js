@@ -11,6 +11,11 @@ export default class AnayStepView extends View {
     this.stepDayOfWeekWrap = qs(".anaypage__walk__graph__day__ul");
     this.stepLeftButton = qs(".anaypage__walk__graph__left");
     this.stepRightButton = qs(".anaypage__walk__graph__right");
+    this.weekDiffPercentWrap = qs(".anaypage__walk__accure__percent");
+    this.weekDiffPercent = qs(".anaypage__walk__accure__weekPercent");
+    this.stepPercentArrow = qs(".stepPercentArrow");
+    this.weekStepAverage = qs(".anaypage__walk__weekAverage");
+    this.wekkStepSum = qs(".anaypage__walk__accure__weekValue");
 
     this.bindEvent();
   }
@@ -45,9 +50,9 @@ export default class AnayStepView extends View {
   }
 
   setDayOfWeek(dayOfWeekData) {
-    for (let i = 0; i < dayOfWeekData.length; i++) {
-      this.stepDayOfWeekWrap.children[i].textContent = dayOfWeekData[i];
-    }
+    dayOfWeekData.forEach((_, dateIndex) => {
+      this.stepDayOfWeekWrap.children[dateIndex].textContent = dayOfWeekData[dateIndex];
+    })
   }
 
   setStepChartHeight(stepElementList, stepDataGroup) {
@@ -55,12 +60,6 @@ export default class AnayStepView extends View {
     this.monthSumStep = _.reduce(add, _.map((v) => v.value, chartDataArrFlat));
     this.weekSumStep = _.reduce(add, _.map((stepData) => stepData.value, stepDataGroup[this.stepPageNumber]));
 
-    stepElementList.map(
-      (chartBar) => (
-        (chartBar.children[0].textContent = "0px"),
-        (chartBar.children[1].style.height = "0px")
-      )
-    );
     this.stepAverage = parseInt(this.monthSumStep / 1200);
     for (const [chartBar, stepData] of _.zip(stepElementList, stepDataGroup[this.stepPageNumber])) {
       chartBar.children[0].textContent = stepData.value;
@@ -68,29 +67,18 @@ export default class AnayStepView extends View {
     }
   }
 
-  setWeekPercent(stepDataGroup) {
-    const dataSumArr = _.go(
-      L.entries(stepDataGroup),
-      L.map(([_, stepData]) => stepData),
-      L.map((stepData) => _.go(
-        stepData,
-        L.map((stepData) => stepData.value),
-        _.reduce(add)
-      )),
-      _.take(4)
-    );
-
-    for (let i = 0; i < dataSumArr.length; i++) {
-      if (dataSumArr[i] === this.weekSumStep) {
-        if (dataSumArr[i] > dataSumArr[i + 1]) {
+  setWeekPercent(eachWeekStepDataSum) {
+    for (let i = 0; i < eachWeekStepDataSum.length; i++) {
+      if (eachWeekStepDataSum[i] === this.weekSumStep) {
+        if (eachWeekStepDataSum[i] > eachWeekStepDataSum[i + 1]) {
           this.percentData = parseInt(
-            ((dataSumArr[i] - dataSumArr[i + 1]) / dataSumArr[i]) * 100
+            ((eachWeekStepDataSum[i] - eachWeekStepDataSum[i + 1]) / eachWeekStepDataSum[i]) * 100
           );
-        } else if (dataSumArr[i] < dataSumArr[i + 1]) {
+        } else if (eachWeekStepDataSum[i] < eachWeekStepDataSum[i + 1]) {
           this.percentData = parseInt(
-            (dataSumArr[i] / dataSumArr[i + 1] - 1) * 100
+            (eachWeekStepDataSum[i] / eachWeekStepDataSum[i + 1] - 1) * 100
           );
-        } else if (dataSumArr[i] === dataSumArr[i + 1]) {
+        } else if (eachWeekStepDataSum[i] === eachWeekStepDataSum[i + 1]) {
           this.percentData = 0;
         } else if (i === 3) {
           this.percentData = "";
@@ -100,34 +88,21 @@ export default class AnayStepView extends View {
   }
 
   showWeekPercent() {
-    const $weekDiffPercentWrap = document.querySelector(
-      ".anaypage__walk__accure__percent"
-    );
-    const $weekDiffPercent = document.querySelector(
-      ".anaypage__walk__accure__weekPercent"
-    );
-    const $stpPercentArrow = document.querySelector(".stepPercentArrow");
     if (this.percentData === "") {
-      $weekDiffPercentWrap.style = "opacity: 0";
+      this.weekDiffPercentWrap.style = "opacity: 0";
     } else {
-      $weekDiffPercentWrap.style = "opacity: 1";
+      this.weekDiffPercentWrap.style = "opacity: 1";
       if (this.percentData < 0) {
-        $stpPercentArrow.style = "transform : rotate(180deg)";
+        this.stepPercentArrow.style = "transform : rotate(180deg)";
       } else if (this.percentData > 0) {
-        $stpPercentArrow.style = "transform : rotate(0deg)";
+        this.stepPercentArrow.style = "transform : rotate(0deg)";
       }
     }
-    $weekDiffPercent.textContent = this.percentData;
+    this.weekDiffPercent.textContent = this.percentData;
   }
 
   setWeekStepData() {
-    const $weekStepAverage = document.querySelector(
-      ".anaypage__walk__weekAverage"
-    );
-    const $wekkStepSum = document.querySelector(
-      ".anaypage__walk__accure__weekValue"
-    );
-    $weekStepAverage.textContent = parseInt(this.weekSumStep / 7);
-    $wekkStepSum.textContent = this.weekSumStep;
+    this.weekStepAverage.textContent = parseInt(this.weekSumStep / 7);
+    this.wekkStepSum.textContent = this.weekSumStep;
   }
 }
