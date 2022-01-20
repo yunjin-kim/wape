@@ -127,19 +127,6 @@ export default class AnayModal {
     return localStorage.getItem("GOAL_WEIGHT");
   }
 
-  setStepDataList() {
-    const stepDataList = JSON.parse(localStorage.getItem("STEP_DATA"));
-
-    return _.go(
-      stepDataList.steps_count,
-      L.map((stepData) => stepData),
-      groupBySize(7),
-      _.values,
-      L.map((v) => v.reverse()),
-      _.take(4)
-    );
-  }
-
   steGoalElementList() {
     const goaElementWrap = document.querySelector(".anaypage__goal__check__main");
 
@@ -165,5 +152,57 @@ export default class AnayModal {
 
     return walkDayArr;
   }
+
+  setStepDataGroup() {
+    const stepDataList = JSON.parse(localStorage.getItem("STEP_DATA"));
+
+    return _.go(
+      stepDataList.steps_count,
+      L.map((stepData) => stepData),
+      groupBySize(7),
+      _.values,
+      L.map((v) => v.reverse()),
+      _.take(4),
+    );
+  }
+
+  async getStepDataList() {
+    const googleStepCountUrl = "https://v1.nocodeapi.com/kimyunjun/fit/lHneRLggDPetxSfn/aggregatesDatasets?dataTypeName=steps_count&timePeriod=30days";
+    try {
+      const response = await fetch(googleStepCountUrl);
+      const data = await response.json();
+      localStorage.setItem("STEP_DATA", JSON.stringify(data));
+      return data;
+      // this.setValidateData(data);
+    } catch (e) {
+      // stepDataErrorModal();
+      console.log(e);
+    }
+  }
+
+  setValidateData(data) {
+    const lastStepDataDate = data.steps_count[data.steps_count.length - 1].endTime[0] + data.steps_count[data.steps_count.length - 1].endTime[1];
+    if (lastStepDataDate < date.getDate()) {
+      if (this.date.getHours() < 12) {
+        // showBeforeLunchModal();
+      } else {
+        // showUpdateDataModal();
+      }
+    }
+  }
+
+  getStepData() {
+    return JSON.parse(localStorage.getItem("STEP_DATA"));
+  }
+
+  setStepChart() {
+  const $walkDataGraph = document.querySelector(".anaypage__walk__graph__box");
+  
+  return _.filter(
+    charBar => 
+      charBar.classList.contains("anaypage__walk__graph__graph")
+        ,$walkDataGraph.children
+  )
+}
 
 }

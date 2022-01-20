@@ -52,15 +52,9 @@ export default class AnayGoalView extends View {
 
   setGoalAchieve(goalElementList, stepDataList, goalData) {
     if (goalData) {
-      _.map(
-        (goalElement) =>
-          goalElement.classList.remove("acheiveGoal", "NotAcheiveGoal"),
-        goalElementList
+      _.map((goalElement) => goalElement.classList.remove("acheiveGoal", "NotAcheiveGoal"), goalElementList
       );
-      for (const [setData, goalElement] of _.zip(
-        stepDataList[this.goalPageNumber],
-        goalElementList
-      )) {
+      for (const [setData, goalElement] of _.zip(stepDataList[this.goalPageNumber], goalElementList)) {
         setData.value >= Number(goalData)
           ? goalElement.classList.add("acheiveGoal")
           : goalElement.classList.add("NotAcheiveGoal");

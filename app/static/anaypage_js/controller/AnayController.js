@@ -17,21 +17,38 @@ export default class AnayController {
 
     this.renderWeight();
 
-    this.renderGoal();
-
     this.subScribeViewEvents();
   }
 
-  setData() {
+   setData() { // 쓸데없는 데이터를 다시 렌더하는 것보다는 중복이 낫다
     this.dayOfWeekData = this.anayModal.setDayOfWeek();
+    this.setSleepData();
+    this.setWeightData();
+    this.setStepData();
+  }
+
+  setStepData() {
+    this.stepElementList = this.anayModal.setStepChart();
+    this.stepDataList = this.anayModal.getStepDataList();
+    this.stepDataList.then(() => {
+      this.stepDataGroup = this.anayModal.setStepDataGroup();
+      this.anayStepView.setStepChartHeight(this.stepElementList, this.stepDataGroup);
+      this.anayStepView.setWeekPercent(this.stepDataGroup);
+      this.anayStepView.showWeekPercent();
+      this.anayStepView.setWeekStepData();
+      this.renderGoal();
+    });
+  }
+
+  setSleepData() {
     this.sleepElemnetList = this.anayModal.setSleepChartElement();
     this.sleepDataList = this.anayModal.getSleepData();
+  }
+
+  setWeightData() {
     this.weightElementList = this.anayModal.setWeightChartElement();
     this.weightDataList = this.anayModal.getWeightData();
     this.weightGoalData = this.anayModal.getWeightGoalData();
-    this.stepDataList = this.anayModal.setStepDataList();
-    this.goalElementList = this.anayModal.steGoalElementList();
-    this.goalData = this.anayModal.setGoalData();
   }
 
   renderStep() {
@@ -54,9 +71,11 @@ export default class AnayController {
   }
 
   renderGoal() {
+    this.goalElementList = this.anayModal.steGoalElementList();
+    this.goalData = this.anayModal.setGoalData();
     this.anayGoalView.setDayOfWeek(this.dayOfWeekData);
     this.goalData
-      ? this.anayGoalView.setGoalAchieve(this.goalElementList, this.stepDataList, this.goalData)
+      ? this.anayGoalView.setGoalAchieve(this.goalElementList, this.stepDataGroup, this.goalData)
       : this.anayGoalView.noStepGoal();
   }
 
@@ -67,17 +86,18 @@ export default class AnayController {
     this.anayWeightView.on("@weightGoalSubmit", (event) => this.setInputWeightGoaltData(event));
     this.anayWeightView.on("@weightButtom", () => this.setWeightButton());
     this.anayGoalView.on("@goalButtom", () => this.setGoalButton());
+    this.anayStepView.on("@stepButton", () => this.stepStepButton());
   }
 
   setInputWeightGoaltData(event) {
     this.anayModal.setWeightGoalData(event.detail);
-    this.setData();
+    this.setWeightData();
     this.renderWeight();
   }
 
   setInputWeightData(event) {
     this.anayModal.addWeightData(event.detail);
-    this.setData();
+    this.setWeightData();
     this.renderWeight();
   }
 
@@ -87,7 +107,7 @@ export default class AnayController {
 
   setInputSleepData(event) {
     this.anayModal.addSleepData(event.detail);
-    this.setData();
+    this.setSleepData();
     this.renderSleep();
   }
 
@@ -95,7 +115,14 @@ export default class AnayController {
     this.anayWeightView.setWeightChartHeight(this.weightElementList, this.weightDataList);
   }
 
-  setGoalButton() {
-    this.anayGoalView.setGoalAchieve(this.goalElementList, this.stepDataList, this.goalData);
+  setGoalButton() { // 네이밍 다시 고민
+    this.anayGoalView.setGoalAchieve(this.goalElementList, this.stepDataGroup, this.goalData);
+  }
+
+  stepStepButton() {
+      this.anayStepView.setStepChartHeight(this.stepElementList, this.stepDataGroup);
+      this.anayStepView.setWeekPercent(this.stepDataGroup);
+      this.anayStepView.showWeekPercent();
+      this.anayStepView.setWeekStepData();
   }
 }
