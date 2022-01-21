@@ -1,4 +1,3 @@
-import { groupBySize } from "../../fx.js";
 import { qs, on, creatEl } from "../../helper.js";
 import View from "./View.js";
 
@@ -13,6 +12,7 @@ export default class AnaySleepView extends View {
     this.currentSleepWrap = qs(".anaypage__sleep__current");
     this.sleepLeftButton = qs(".anaypage__sleep__graph__left");
     this.sleepRightButton = qs(".anaypage__sleep__graph__right");
+    this.sleepAverageWrap = qs(".anaypage__sleep__accure");
 
     this.bindEvent();
   }
@@ -32,14 +32,12 @@ export default class AnaySleepView extends View {
   handleSleepLeftButton() {
     this.sleepPageNumber++;
     this.emit("@sleepButtom")
-    this.setSleepDataAverage();
     this.setSleepButton();
   }
 
   handleSleepRightButton() {
     this.sleepPageNumber--;
     this.emit("@sleepButtom");
-    this.setSleepDataAverage();
     this.setSleepButton();
   }
 
@@ -84,8 +82,7 @@ export default class AnaySleepView extends View {
     }
   }
 
-  setCurrentSleep() {
-    const sleepDataList = JSON.parse(localStorage.getItem("CURRENT_SLEEP"));
+  setCurrentSleep(sleepDataList) {
     if (sleepDataList[0][0][2] === "") {
       this.currentSleepWrap.innerHTML = `<span class="noWeight">수면 시간을 적어주세요</span>`;
     } else {
@@ -93,36 +90,30 @@ export default class AnaySleepView extends View {
     }
   }
 
-  setSleepDataAverage() { // 리펙터링
-    const $sleepDateAverage = document.querySelector(".sleepDateAverage");
-    const $sleepDataWeekTotal = document.querySelector(".sleepDataWeekTotal");
-    const getTotalSleepData = localStorage.getItem("CURRENT_SLEEP");
-    const parseTotalSleepData = JSON.parse(getTotalSleepData);
+  setSleepDataAverage(sleepDataList) { //
     let weekSleepData = [];
     let totalSleepData = 0;
-    parseTotalSleepData[this.sleepPageNumber].map((data) => {
-        data[2] === "" ? "" : weekSleepData.push(data[2]);
-      });
 
-      for (let data of weekSleepData) {
+    sleepDataList[this.sleepPageNumber].forEach((data) => {
+      data[2] !== "" && weekSleepData.push(data[2]);
+    });
+
+    for (const data of weekSleepData) {
       totalSleepData += Number(data);
     }
-    let averageSleepData = totalSleepData / weekSleepData.length;
 
     if (totalSleepData) {
-      $sleepDataWeekTotal.textContent = totalSleepData;
-      $sleepDateAverage.textContent = averageSleepData.toFixed(1);
+      this.sleepAverageWrap.innerHTML = this.template.sleepAverageElement(totalSleepData, weekSleepData.length);
     } else {
-      $sleepDataWeekTotal.textContent = "0";
-      $sleepDateAverage.textContent = "0";
+      this.sleepAverageWrap.innerHTML = `<span class="noWeight">수면 시간을 적어주세요</span>`;
     }
   }
 }
 
 class Template {
-
-  sleepModal() { // weightModalTitle 이름 바꿔주기 나중에
-    const divFragment = creatEl('div');
+  sleepModal() {
+    // weightModalTitle 이름 바꿔주기 나중에
+    const divFragment = creatEl("div");
     divFragment.className = "sleepModal";
     divFragment.innerHTML = `
       <h3 class="weightModalTitle">수면 시간</h3>
@@ -147,4 +138,16 @@ class Template {
     `;
   }
 
+  sleepAverageElement(totalSleepData, weekSleepDataLength) {
+    return `
+      <div class="anaypage__walk__accure__dateAver">
+        <h4>일평균</h4>
+        <p><span class="sleepDateAverage">${totalSleepData}</span>시간</p>
+      </div>
+      <div class="anaypage__walk__accure__weekTotal">
+        <h4 >주간누적</h4>
+        <p><span class="sleepDataWeekTotal">${(totalSleepData / weekSleepDataLength).toFixed(1)}</span>시간</p>
+      </div>
+    `;
+  }
 }

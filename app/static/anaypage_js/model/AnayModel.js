@@ -165,7 +165,7 @@ export default class AnayModal {
       _.take(4),
     );
   }
-
+  // 에러 모달 처리 해주기
   async getStepDataList() {
     const googleStepCountUrl = "https://v1.nocodeapi.com/kimyunjun/fit/lHneRLggDPetxSfn/aggregatesDatasets?dataTypeName=steps_count&timePeriod=30days";
     try {

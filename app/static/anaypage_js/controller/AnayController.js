@@ -58,8 +58,8 @@ export default class AnayController {
   renderSleep() {
     this.anaySleepView.setDayOfWeek(this.dayOfWeekData);
     this.anaySleepView.setSleepChartHeight(this.sleepElemnetList, this.sleepDataList);
-    this.anaySleepView.setCurrentSleep();
-    this.anaySleepView.setSleepDataAverage();
+    this.anaySleepView.setCurrentSleep(this.sleepDataList);
+    this.anaySleepView.setSleepDataAverage(this.sleepDataList);
   }
 
   renderWeight() {
@@ -102,7 +102,10 @@ export default class AnayController {
   }
 
   setSleepButton() {
+    this.setSleepData();
+
     this.anaySleepView.setSleepChartHeight(this.sleepElemnetList, this.sleepDataList);
+    this.anaySleepView.setSleepDataAverage(this.sleepDataList);
   }
 
   setInputSleepData(event) {
