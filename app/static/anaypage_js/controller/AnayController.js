@@ -1,9 +1,6 @@
 export default class AnayController {
-  constructor(
-    anayModal, { anayStepView, anaySleepView, anayWeightView, anayGoalView }
-  ) {
+  constructor(anayModal, { anayStepView, anaySleepView, anayWeightView, anayGoalView }) {
     this.anayModal = anayModal;
-
     this.anayStepView = anayStepView;
     this.anaySleepView = anaySleepView;
     this.anayWeightView = anayWeightView;
@@ -16,6 +13,11 @@ export default class AnayController {
     this.renderWeight();
 
     this.subScribeViewEvents();
+    
+  }
+
+  errorModal() {
+    console.log("errorModal");
   }
 
    setData() { // 쓸데없는 데이터를 다시 렌더하는 것보다는 중복이 낫다

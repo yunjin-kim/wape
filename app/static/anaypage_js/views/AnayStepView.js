@@ -1,12 +1,13 @@
 import { add, L } from "../../fx.js";
-import { qs, on } from "../../helper.js";
+import { qs, on, creatEl } from "../../helper.js";
 import View from "./View.js";
 
 export default class AnayStepView extends View {
   constructor() {
     super(qs(".anaypage__walk"));
-
     this.stepPageNumber = 0;
+
+    this.template = new Template();
 
     this.stepDayOfWeekWrap = qs(".anaypage__walk__graph__day__ul");
     this.stepLeftButton = qs(".anaypage__walk__graph__left");
@@ -16,6 +17,7 @@ export default class AnayStepView extends View {
     this.stepPercentArrow = qs(".stepPercentArrow");
     this.weekStepAverage = qs(".anaypage__walk__weekAverage");
     this.wekkStepSum = qs(".anaypage__walk__accure__weekValue");
+    this.stepDataErrorModalWrap = qs(".anaypage__walk__errorModal");
 
     this.bindEvent();
   }
@@ -105,4 +107,49 @@ export default class AnayStepView extends View {
     this.weekStepAverage.textContent = parseInt(this.weekSumStep / 7);
     this.wekkStepSum.textContent = this.weekSumStep;
   }
+
+  stepDataErrorModal() {
+    this.stepDataErrorModalWrap.innerHTML = this.template.stepDataErrorModalTemplete();
+  }
+
+  beforeLunchStepDataModal() {
+    this.stepDataErrorModalWrap.innerHTML = this.template.beforeLunchStepDataModalTemplate();
+  }
+
+  updateStepDataModal() {
+    this.stepDataErrorModalWrap.innerHTML = this.template
+  }
+
+}
+
+class Template {
+  stepDataErrorModalTemplete() {
+    return `
+      <div class="stepErrorModal">
+        <p class="stepErrorModalText">걸음 데이터를 불러오는데<br/> 실패하였습니다<br/> 재로딩 해주세요</p>
+      </div>
+    `;
+  }
+
+  beforeLunchStepDataModalTemplate() {
+    return `
+      <div class="updateDataModal">
+        <button class="updateDataModalClose">X</button>
+        <h3 class="updateDataModalTitle">
+          당일 걸음 데이터 <br/>12시 이후에 <br/>확인할 수 있습니다
+        </h3>
+
+      </div>
+    `;
+  }
+
+  updateStepDataModalTemplete() {
+    return `
+      <div class="updateDataModal">
+        <button class="updateDataModalClose">X</button>
+        <h3 class="updateDataModalTitle">걸음 데이터가 <br/>동기화 되지 않았습니다</p><br/><p>구글 피트니스 앱에서<br/>동기화 해주세요</h3>
+      </div>
+    `;
+  };
+
 }

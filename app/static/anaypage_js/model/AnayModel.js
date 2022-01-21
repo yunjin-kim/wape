@@ -1,8 +1,10 @@
 import { add, groupBySize, L } from "../../fx.js";
 import { qs } from "../../helper.js";
+import AnayStepView from "../views/AnayStepView.js";
 
 export default class AnayModal {
   constructor() {
+    this.anayStepView = new AnayStepView(); // 에러처리에 대한 모달 때문에 뷰를 한번 더 실행하는데 이게 맞나?
     this.date = new Date();
     this.setChartDateList();
     this.setSleepChartData();
@@ -172,21 +174,21 @@ export default class AnayModal {
       const response = await fetch(googleStepCountUrl);
       const data = await response.json();
       localStorage.setItem("STEP_DATA", JSON.stringify(data));
+      this.setValidateData(data);
       return data;
-      // this.setValidateData(data);
     } catch (e) {
-      // stepDataErrorModal();
+      this.anayStepView.stepDataErrorModal();
       console.log(e);
     }
   }
 
   setValidateData(data) {
     const lastStepDataDate = data.steps_count[data.steps_count.length - 1].endTime[0] + data.steps_count[data.steps_count.length - 1].endTime[1];
-    if (lastStepDataDate < date.getDate()) {
-      if (this.date.getHours() < 12) {
-        // showBeforeLunchModal();
+    if (lastStepDataDate < this.date.getDate()) {
+      if (this.date.getHours() < 12) { // 12시 기준으로 당일 데이터 불러올 수 있다
+        this.anayStepView.beforeLunchStepDataModal(); 
       } else {
-        // showUpdateDataModal();
+        this.anayStepView.updateStepDataModal();
       }
     }
   }
