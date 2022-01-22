@@ -13,16 +13,16 @@ export default class HomeTodayWalkView extends View {
   }
 
   renderTodayStep(stepData) {
-    this.todayStepElement.style.width = `${stepData.length*120}px`; 
+    this.todayStepElement.style.width = `${stepData.steps_count.length*120}px`; 
   
-    stepData.map((step, index) => {
+    stepData.steps_count.forEach((step, index) => {
       let eachStepDott = this.template.hourStepDott(step, index);
       this.todayStepElement.append(eachStepDott);
     });
   }
 
   renderTodayNoData() {
-    this.todayStepElement.innerHTML(this.template.todayNoData());
+    this.todayStepElement.innerHTML = this.template.todayNoData();
   }
 
   renderTodayWalkDate() {

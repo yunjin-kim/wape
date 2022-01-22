@@ -152,12 +152,13 @@ export default class HomeModel {
     localStorage.setItem("STEP_GOAL", JSON.stringify(goalData));
   }
 
-  async getTodayStepData() {
+  async getTodayStepData() { // 다시
     try {
       const googleTodayStepCountUrl = "https://v1.nocodeapi.com/kimyunjun/fit/lHneRLggDPetxSfn/aggregatesDatasets?dataTypeName=steps_count&timePeriod=today&durationTime=hourly";
       const response = await fetch(googleTodayStepCountUrl);
       const data = await response.json();
       this.checkTodayWalkData(data);
+      return data;
     } catch (e) {
       this.homeTodayWalkView.renderStepErrorModal();
       console.log(e);
@@ -165,11 +166,7 @@ export default class HomeModel {
   }
 
   checkTodayWalkData(data) {
-    if (!data.error && data.steps_count.length > 0) {
-      this.homeTodayWalkView.renderTodayStep(data.steps_count);
-    } else if (data.error === 1) {
-      this.homeTodayWalkView.todayStepDataErrorModal();
-    } else {
+    if (data.steps_count.length === 0) {
       this.homeTodayWalkView.renderTodayNoData();
     }
   }
