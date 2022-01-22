@@ -4,21 +4,28 @@ import View from "./Views.js";
 export default class HomeWeatherView extends View {
   constructor() {
     super(qs(".mainpage__weather"));
+
+    this.template = new Template();
   }
 
   loadWeather(weatherData, tempData, maxTempData, minTempData) {
-    const $atmosCon = qs(".mainpage__weather__weather");
-    const $temp = qs(".mainpage__weather__temp");
-    const $hightemp = qs(".mainpage__weather__hightemp");
-    const $lowtemp = qs(".mainpage__weather__lowtemp");
-    const $weatherLocation = qs(".mainpage__weather__dust__gu");
-    
-    if (weatherData) {
-      $atmosCon.textContent = weatherData;
-      $temp.textContent = tempData;
-      $hightemp.textContent = maxTempData;
-      $lowtemp.textContent = minTempData;
-    } 
+    this.temperatureWrap = qs(".mainpage__weather__condi");
+    this.temperatureWrap.innerHTML = this.template.weatherTemplate(weatherData, tempData, maxTempData, minTempData);
   }
 
+}
+
+class Template {
+  weatherTemplate(weatherData, tempData, maxTempData, minTempData) {
+    return `
+      <h4 class="mainpage__weather__weather">${weatherData}</h4>
+        <div class="mainpage__weather__flex">
+          <h2 class="mainpage__weather__temp">${tempData}</h2>
+          <p>
+            (<span class="mainpage__weather__lowtemp">${minTempData}</span>,
+            <span class="mainpage__weather__hightemp">${maxTempData}</span>)
+          </p>
+        </div>
+    `;
+  }
 }
