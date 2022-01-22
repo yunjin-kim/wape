@@ -30,13 +30,11 @@ export default class AnayController {
   async setStepData() {
     this.stepElementList = this.anayModal.setStepChart();
     this.stepDataList = await this.anayModal.getStepDataList();
-    // this.stepDataList.then(() => {
-      this.stepDataGroup = this.anayModal.setStepDataGroup();
-      this.anayStepView.setStepChartHeight(this.stepElementList, this.stepDataGroup);
-      this.eachWeekStepDataSum = this.anayModal.setEachWeekStepDataSum(this.stepDataGroup);
-      this.renderStep();
-      this.renderGoal();
-    // });
+    this.stepDataGroup = this.anayModal.setStepDataGroup();
+    this.anayStepView.setStepChartHeight(this.stepElementList, this.stepDataGroup);
+    this.eachWeekStepDataSum = this.anayModal.setEachWeekStepDataSum(this.stepDataGroup);
+    this.renderStep();
+    this.renderGoal();
   }
 
   setSleepData() {
