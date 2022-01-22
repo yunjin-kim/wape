@@ -55,7 +55,7 @@ export default class HomeGoalView extends View {
 
   renderGoalGraph(stepData, goalStepData) {
     let stepGraghWidth = stepData / goalStepData * 230;
-    if (stepGraghWidth > 230) stepGraghWidth = 230;
+    if (stepGraghWidth > 230) stepGraghWidth = 236;
     this.goalStepGraphElement.style = `width: ${stepGraghWidth}px`;
     this.moneyGraphElement.style = `width: ${stepGraghWidth}px`;
   }
