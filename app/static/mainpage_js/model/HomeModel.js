@@ -152,7 +152,7 @@ export default class HomeModel {
     localStorage.setItem("STEP_GOAL", JSON.stringify(goalData));
   }
 
-  async getTodayStepData() { // 다시
+  async getTodayStepData() {
     try {
       const googleTodayStepCountUrl = "https://v1.nocodeapi.com/kimyunjun/fit/lHneRLggDPetxSfn/aggregatesDatasets?dataTypeName=steps_count&timePeriod=today&durationTime=hourly";
       const response = await fetch(googleTodayStepCountUrl);

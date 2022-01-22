@@ -1,6 +1,7 @@
 export default class HomeController {
   constructor(
-    homeModel, {
+    homeModel,
+    {
       homeQuoteView,
       homeWeatherView,
       homeCalendarView,
@@ -32,26 +33,36 @@ export default class HomeController {
 
     this.setTimeOption();
 
-    this.setWalkDate(); // 네이밍 고민
+    this.setReserveWalkDate();
 
     this.subScribeViewEvents();
   }
 
   setData() {
-    // 모든 데이터 다 불러와서 어떻게 할지 고민
-    this.quoteData = this.homeModel.getRandomQuote();
-    this.calendarData = this.homeModel.setCalendar();
-    this.reserveDateList = this.homeModel.setReserveDate();
-    this.stepData = this.homeModel.getStepData();
-    this.goalStepData = this.homeModel.getGoalStepData();
+    this.setCalendarData();
+    this.setGoalData();
+    this.setReserveData();
+  }
 
+  setReserveData() {
     this.hourOptions = this.homeModel.setTimeHourOption();
     this.minuteOptions = this.homeModel.setTimeMinuteOption();
-
     this.walkDateList = this.homeModel.setWalkDateList();
+
+  }
+
+  setGoalData() {
+    this.stepData = this.homeModel.getStepData();
+    this.goalStepData = this.homeModel.getGoalStepData();
+  };
+
+  setCalendarData() {
+    this.calendarData = this.homeModel.setCalendar();
+    this.reserveDateList = this.homeModel.setReserveDate();
   }
 
   renderQuote() {
+    this.quoteData = this.homeModel.getRandomQuote();
     this.homeQuoteView.render(this.quoteData);
   }
 
@@ -61,10 +72,16 @@ export default class HomeController {
   }
 
   subScribeViewEvents() {
-    this.homeCalendarView.on("@click", (event) => this.bindReserveModalEvent(event));
-    this.homeCalendarView.on("@delete", (event) => this.setDeleteReverseTimeList(event));
+    this.homeCalendarView.on("@click", (event) =>
+      this.bindReserveModalEvent(event)
+    );
+    this.homeCalendarView.on("@delete", (event) =>
+      this.setDeleteReverseTimeList(event)
+    );
     this.homeGoalView.on("@submit", (event) => this.changeGoalData(event));
-    this.homeWalkReserveView.on("@reserve", (event) => this.setReserveDateList(event));
+    this.homeWalkReserveView.on("@reserve", (event) =>
+      this.setReserveDateList(event)
+    );
   }
 
   bindReserveModalEvent(event) {
@@ -73,13 +90,13 @@ export default class HomeController {
 
   setDeleteReverseTimeList(event) {
     this.homeModel.setDeleteReserveTime(event.detail);
-    this.setData();
+    this.setCalendarData();
     this.renderCalendar();
   }
 
   changeGoalData(event) {
     this.homeModel.setGoalData(event.detail);
-    this.setData();
+    this.setGoalData();
     this.setGoalGraph();
   }
 
@@ -105,10 +122,13 @@ export default class HomeController {
   }
 
   setTimeOption() {
-    this.homeWalkReserveView.rednerTimeOption(this.hourOptions, this.minuteOptions);
+    this.homeWalkReserveView.rednerTimeOption(
+      this.hourOptions,
+      this.minuteOptions
+    );
   }
 
-  setWalkDate() {
+  setReserveWalkDate() {
     this.homeWalkReserveView.renderWalkDate(this.walkDateList);
   }
 }
