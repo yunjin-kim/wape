@@ -1,31 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="../main.css">
-
-</head>
-<body>
+    <link rel="stylesheet" href="../main.css" />
+  </head>
+  <body>
     <div class="login">
-        <h2 class="login__title">워피</h2>
-        <form class="login__form">
-            <label for="phoneNum">휴대전화 번호를 입력해주세요</label>
-            <input type="text" class="loginNum" placeholder="휴대전화 번호">
-            <label for="secret">비밀번호를 입력해주세요</label>
-            <input type="password" class="loginPass" placeholder="비밀번호">
-        </form>
-        <button class="login__button" id="loginBtn" >로그인</button>
-        <div id="loginError"></div>
-        <div class="login__new">
-            <span  onclick="location='/page/join'">회원가입</span>
-            <div></div>
-            <span  onclick="location='/page/find'">비밀번호찾기</span>
-        </div>
+      <h2 class="login__title">워피</h2>
+      <form class="login__form">
+        <label for="phoneNum">휴대전화 번호를 입력해주세요</label>
+        <input type="text" class="loginNum" placeholder="휴대전화 번호" />
+        <label for="secret">비밀번호를 입력해주세요</label>
+        <input type="password" class="loginPass" placeholder="비밀번호" />
+      </form>
+      <button class="login__button" id="loginBtn">로그인</button>
+      <div id="loginError"></div>
+      <div class="login__new">
+        <span onclick="location='/page/join'">회원가입</span>
+        <div></div>
+        <span onclick="location='/page/find'">비밀번호찾기</span>
+      </div>
     </div>
-    <script src="../login_js/login.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-</body>
+    <script src="../login_js/login.js"></script>
+  </body>
 </html>

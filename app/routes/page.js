@@ -22,23 +22,23 @@ router.get('/find', isNotLoggedIn, (req, res)=>{
 });
 
 router.get('/main',isNotLoggedIn, (req, res, next)=>{ 
-  res.sendFile(path.join(__dirname, '..','/static','/mainpage_html','/mainpage.html'))
+  res.sendFile(path.join(__dirname, '..','/static','/public','/mainpage.html'))
 });
 
 router.get('/bank',isNotLoggedIn, (req, res, next)=>{ 
-  res.sendFile(path.join(__dirname, '..','/static','/mainpage_html','/bankpage.html'))
+  res.sendFile(path.join(__dirname, '..','/static','/public','/bankpage.html'))
 });
 
 router.get('/map',isNotLoggedIn, (req, res, next)=>{ 
-  res.sendFile(path.join(__dirname, '..','/static','/mainpage_html','/mappage.html'))
+  res.sendFile(path.join(__dirname, '..','/static','/public','/mappage.html'))
 });
 
 router.get('/anay',isNotLoggedIn, (req, res, next)=>{ 
-  res.sendFile(path.join(__dirname, '..','/static','/mainpage_html','/anaypage.html'))
+  res.sendFile(path.join(__dirname, '..','/static','/public','/anaypage.html'))
 });
 
 router.get('/profile',isNotLoggedIn,(req, res, next)=>{
-  res.sendFile(path.join(__dirname, '..','/static','/mainpage_html','/profilepage.html'))
+  res.sendFile(path.join(__dirname, '..','/static','/public','/profilepage.html'))
 })
 
 router.get('/error',isNotLoggedIn, (req, res, next)=>{ 

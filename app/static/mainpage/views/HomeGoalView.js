@@ -35,14 +35,16 @@ export default class HomeGoalView extends View {
     this.goalModalInput = qs(".goalInput", this.element);
     this.goalSubmitButton = qs(".goalSubmitBtn", this.element);
     on(this.goalModalCloseButton, "click", () => this.handleGoalModalClose());
-    on(this.goalModalInput, "change", (event) => this.handleGoalModelInput(event));
+    on(this.goalModalInput, "change", (event) =>
+      this.handleGoalModelInput(event)
+    );
     on(this.goalSubmitButton, "click", () => this.handleGoalSubmit());
   }
 
   handleGoalModalClose() {
     this.goalModal.remove();
   }
-  
+
   handleGoalModelInput(event) {
     this.goalInputValue = event.target.value;
   }
@@ -54,26 +56,27 @@ export default class HomeGoalView extends View {
   }
 
   renderGoalGraph(stepData, goalStepData) {
-    let stepGraghWidth = stepData / goalStepData * 230;
+    let stepGraghWidth = (stepData / goalStepData) * 230;
     if (stepGraghWidth > 230) stepGraghWidth = 236;
     this.goalStepGraphElement.style = `width: ${stepGraghWidth}px`;
     this.moneyGraphElement.style = `width: ${stepGraghWidth}px`;
   }
 
   renderGoalRate(stepData, goalStepData) {
-    this.goalStepRateElement.textContent = goalStepData ? goalStepData : '목표를 설정해주세요';
-    this.goalMoneyRateElement.textContent = goalStepData ? goalStepData * 5 : '목표를 설정해주세요';
+    this.goalStepRateElement.textContent = goalStepData
+      ? goalStepData
+      : "목표를 설정해주세요";
+    this.goalMoneyRateElement.textContent = goalStepData
+      ? goalStepData * 5
+      : "목표를 설정해주세요";
     this.todayStepRateElement.textContent = stepData;
     this.todayMoneyRateElement.textContent = stepData * 5;
   }
-
 }
 
-class Template { 
-
-
+class Template {
   goalStepModal() {
-    const divFargment = creatEl('div');
+    const divFargment = creatEl("div");
     divFargment.innerHTML = `
       <div class="goalModal">
         <h3 class="goalModalTitle">목표 걸음 수</h3>
@@ -84,6 +87,5 @@ class Template {
     `;
 
     return divFargment;
-  } 
-
+  }
 }

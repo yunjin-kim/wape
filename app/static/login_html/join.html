@@ -1,88 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
-        <link rel="stylesheet" href="../main.css">
-    </head>
-    <body>
-        <div class="line"></div>
-            <div class="join">
-                <div class="join__title">
-                    <img src="../img/next.png" alt="다음"  onclick="location='/page/login'">
-                    <h2>회원가입</h2>
-                    <div></div>
-                </div>
-                <div class="join__main">
-                    <div class="input__box">
-                        <div class="join__main__phone">
-                            <h3>휴대전화 번호</h3>
-                            <input class="joinNum" type="number" placeholder="'-' 구분없이 입력해주세요" />
-                            <button>인증번호 전송</button>
-                        </div>
-                        <div class="join__main__certi">
-                            <h3>인증번호</h3>
-                            <input type="text" placeholder="인증번호를 입력해주세요"/>
-                            <button>인증번호 확인</button>
-                        </div>
-                        <div class="join__main__pass">
-                            <h3>비밀번호</h3>
-                            <input class="joinPass" type="password" placeholder="8자리 이상 입력해주세요" minlength="8" />
-                            <div class="noticeWrongPass"></div>
-                        </div>
-                        <div class="join__main__pass__again">
-                            <h3>비밀번호 재입력</h3>
-                            <input class="joinPassSame" type="password" placeholder="비밀번호를 다시 입력해주세요" />
-                            <div class="noticeNotSamePass"></div>
-                        </div>
-                        <div class="join__main__birth">
-                            <h3>생년월일</h3>
-                            <input class="joinBirth" type="number" placeholder="생년월일 8자리를 입력해주세요" />
-                            <div class="noticeWrongBirth"></div>
-                        </div>
-                        <div class="join__main__wrap">
-                            <div class="join__main__gender">
-                                <h3>성별</h3>
-                                <form class="join__main__gender__form" >
-                                    <input type="radio" id="women" name="gender" class="women" >
-                                    여성
-                                    <input type="radio" id="men" name="gender"  class="men" >
-                                    남성
-                                </form>
-                            </div>
-                            <div class="join__main__nick">
-                                <h3>별명</h3>
-                                <input class="joinNick" type="text" placeholder="별명을 입력해주세요" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="join__main__trem">
-                        <label for="">
-                            <input type="checkbox" class="fristCheck">
-                            워피 이용약관
-                        </label>
-                        <span>보기</span>
-                        <label for="">
-                            <input type="checkbox" class="secondCheck">
-                            개인정보 취급방침
-                        </label>
-                        <span>보기</span>
-                        <label for="">
-                            <input type="checkbox" class="thirdCheck">
-                            위치기반 서비스 이용약관
-                        </label>
-                        <span>보기</span>
-                    </div>
-                    <div class="joinError"></div>
-                </div>
-                <div class="join__button">
-                    <button class="userJoinButton" type="submit">시작하기</button>
-                </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../main.css" />
+  </head>
+  <body>
+    <div class="line"></div>
+    <div class="join">
+      <div class="join__title">
+        <img
+          src="../img/next.png"
+          alt="다음"
+          onclick="location='/page/login'"
+        />
+        <h2>회원가입</h2>
+        <div></div>
+      </div>
+      <div class="join__main">
+        <div class="input__box">
+          <div class="join__main__phone">
+            <h3>휴대전화 번호</h3>
+            <input
+              class="joinNum"
+              type="number"
+              placeholder="'-' 구분없이 입력해주세요"
+            />
+            <button>인증번호 전송</button>
+          </div>
+          <div class="join__main__certi">
+            <h3>인증번호</h3>
+            <input type="text" placeholder="인증번호를 입력해주세요" />
+            <button>인증번호 확인</button>
+          </div>
+          <div class="join__main__pass">
+            <h3>비밀번호</h3>
+            <input
+              class="joinPass"
+              type="password"
+              placeholder="8자리 이상 입력해주세요"
+              minlength="8"
+            />
+            <div class="noticeWrongPass"></div>
+          </div>
+          <div class="join__main__pass__again">
+            <h3>비밀번호 재입력</h3>
+            <input
+              class="joinPassSame"
+              type="password"
+              placeholder="비밀번호를 다시 입력해주세요"
+            />
+            <div class="noticeNotSamePass"></div>
+          </div>
+          <div class="join__main__birth">
+            <h3>생년월일</h3>
+            <input
+              class="joinBirth"
+              type="number"
+              placeholder="생년월일 8자리를 입력해주세요"
+            />
+            <div class="noticeWrongBirth"></div>
+          </div>
+          <div class="join__main__wrap">
+            <div class="join__main__gender">
+              <h3>성별</h3>
+              <form class="join__main__gender__form">
+                <input type="radio" id="women" name="gender" class="women" />
+                여성
+                <input type="radio" id="men" name="gender" class="men" />
+                남성
+              </form>
             </div>
+            <div class="join__main__nick">
+              <h3>별명</h3>
+              <input
+                class="joinNick"
+                type="text"
+                placeholder="별명을 입력해주세요"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="join__main__trem">
+          <label for="">
+            <input type="checkbox" class="fristCheck" />
+            워피 이용약관
+          </label>
+          <span>보기</span>
+          <label for="">
+            <input type="checkbox" class="secondCheck" />
+            개인정보 취급방침
+          </label>
+          <span>보기</span>
+          <label for="">
+            <input type="checkbox" class="thirdCheck" />
+            위치기반 서비스 이용약관
+          </label>
+          <span>보기</span>
+        </div>
+        <div class="joinError"></div>
+      </div>
+      <div class="join__button">
+        <button class="userJoinButton" type="submit">시작하기</button>
+      </div>
+    </div>
 
-    <script src="../login_js/join.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    </body>
+    <script src="../login_js/join.js"></script>
+  </body>
 </html>

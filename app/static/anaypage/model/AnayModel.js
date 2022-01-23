@@ -13,16 +13,28 @@ export default class AnayModal {
 
   setChartDateList() {
     this.monthDataArr = [];
-    const prevLastDate = new Date(this.date.getFullYear(), this.date.getMonth(), 0).getDate();
+    const prevLastDate = new Date(
+      this.date.getFullYear(),
+      this.date.getMonth(),
+      0
+    ).getDate();
     let todayDate = this.date.getDate();
     let thisMonth = this.date.getMonth() + 1;
 
-    _.go( // 합칠 수 있지 않을까?
+    _.go(
+      // 합칠 수 있지 않을까?
       L.range(Infinity),
-      L.map((rangeNum) => rangeNum == todayDate ? ((thisMonth -= 1), rangeNum) : rangeNum),
-      L.map((rangeNum) => rangeNum >= todayDate
-          ? this.monthDataArr.push([thisMonth, prevLastDate + todayDate - rangeNum])
-          : this.monthDataArr.push([thisMonth, todayDate - rangeNum])),
+      L.map((rangeNum) =>
+        rangeNum == todayDate ? ((thisMonth -= 1), rangeNum) : rangeNum
+      ),
+      L.map((rangeNum) =>
+        rangeNum >= todayDate
+          ? this.monthDataArr.push([
+              thisMonth,
+              prevLastDate + todayDate - rangeNum,
+            ])
+          : this.monthDataArr.push([thisMonth, todayDate - rangeNum])
+      ),
       _.take(28),
       _.map((rangeNum) => (this.monthDataArr[rangeNum - 1][2] = "")),
       _.map((sleepData) => sleepData),
@@ -34,7 +46,8 @@ export default class AnayModal {
       this.monthDataArr,
       _.map((v) => v),
       groupBySize(7),
-      _.values);
+      _.values
+    );
   }
 
   setSleepChartData() {
@@ -46,7 +59,8 @@ export default class AnayModal {
       _.go(
         sleepDataList.flat(),
         L.filter((localSleepData) => localSleepData[2] > 0),
-        _.map((localSleepData) => _.go(
+        _.map((localSleepData) =>
+          _.go(
             monthSleepDataArr.flat(),
             L.filter((sleeptData) => sleeptData[0] === localSleepData[0]),
             L.filter((sleeptData) => sleeptData[1] === localSleepData[1]),
@@ -65,12 +79,16 @@ export default class AnayModal {
     return JSON.parse(localStorage.getItem("CURRENT_SLEEP"));
   }
 
-  setSleepChartElement() { // 추상화 가능
+  setSleepChartElement() {
+    // 추상화 가능
     const sleepElementWrap = qs(".anaypage__sleep__graph__box");
 
     return _.go(
       sleepElementWrap.children,
-      _.filter((sleepElement) => sleepElement.classList.contains("anaypage__sleep__graph__graph")))
+      _.filter((sleepElement) =>
+        sleepElement.classList.contains("anaypage__sleep__graph__graph")
+      )
+    );
   }
 
   addSleepData(sleepData) {
@@ -88,7 +106,8 @@ export default class AnayModal {
       _.go(
         weightDataList.flat(),
         L.filter((localWeightData) => localWeightData[2] > 0),
-        _.map((localWeightData) => _.go(
+        _.map((localWeightData) =>
+          _.go(
             monthWeightDataArr.flat(),
             L.filter((weightData) => weightData[0] === localWeightData[0]),
             L.filter((weightData) => weightData[1] === localWeightData[1]),
@@ -96,10 +115,16 @@ export default class AnayModal {
           )
         )
       );
-      localStorage.setItem("CURRENT_WEIGHT", JSON.stringify(monthWeightDataArr));
+      localStorage.setItem(
+        "CURRENT_WEIGHT",
+        JSON.stringify(monthWeightDataArr)
+      );
     } else if (!weightDataList) {
       //로컬에 데이터 없다면 초기 상태
-      localStorage.setItem("CURRENT_WEIGHT", JSON.stringify(monthWeightDataArr));
+      localStorage.setItem(
+        "CURRENT_WEIGHT",
+        JSON.stringify(monthWeightDataArr)
+      );
     }
   }
 
@@ -114,13 +139,16 @@ export default class AnayModal {
 
     return _.go(
       weightElementWrap.children,
-      _.filter((weightElement) => weightElement.classList.contains("anaypage__weight__graph__graph")));
+      _.filter((weightElement) =>
+        weightElement.classList.contains("anaypage__weight__graph__graph")
+      )
+    );
   }
 
   getWeightData() {
     return JSON.parse(localStorage.getItem("CURRENT_WEIGHT"));
   }
-  
+
   setWeightGoalData(event) {
     localStorage.setItem("GOAL_WEIGHT", event);
   }
@@ -130,11 +158,16 @@ export default class AnayModal {
   }
 
   steGoalElementList() {
-    const goaElementWrap = document.querySelector(".anaypage__goal__check__main");
+    const goaElementWrap = document.querySelector(
+      ".anaypage__goal__check__main"
+    );
 
     return _.go(
       goaElementWrap.children,
-      _.filter((element) => !element.classList.contains("anaypage__goal__check__wrap")));
+      _.filter(
+        (element) => !element.classList.contains("anaypage__goal__check__wrap")
+      )
+    );
   }
 
   setGoalData() {
@@ -164,12 +197,13 @@ export default class AnayModal {
       groupBySize(7),
       _.values,
       L.map((v) => v.reverse()),
-      _.take(4),
+      _.take(4)
     );
   }
   // 에러 모달 처리 해주기
   async getStepDataList() {
-    const googleStepCountUrl = "https://v1.nocodeapi.com/kimyunjun/fit/lHneRLggDPetxSfn/aggregatesDatasets?dataTypeName=steps_count&timePeriod=30days";
+    const googleStepCountUrl =
+      "https://v1.nocodeapi.com/kimyunjun/fit/lHneRLggDPetxSfn/aggregatesDatasets?dataTypeName=steps_count&timePeriod=30days";
     try {
       const response = await fetch(googleStepCountUrl);
       const data = await response.json();
@@ -183,10 +217,13 @@ export default class AnayModal {
   }
 
   setValidateData(data) {
-    const lastStepDataDate = data.steps_count[data.steps_count.length - 1].endTime[0] + data.steps_count[data.steps_count.length - 1].endTime[1];
+    const lastStepDataDate =
+      data.steps_count[data.steps_count.length - 1].endTime[0] +
+      data.steps_count[data.steps_count.length - 1].endTime[1];
     if (lastStepDataDate < this.date.getDate()) {
-      if (this.date.getHours() < 12) { // 12시 기준으로 당일 데이터 불러올 수 있다
-        this.anayStepView.beforeLunchStepDataModal(); 
+      if (this.date.getHours() < 12) {
+        // 12시 기준으로 당일 데이터 불러올 수 있다
+        this.anayStepView.beforeLunchStepDataModal();
       } else {
         this.anayStepView.updateStepDataModal();
       }
@@ -198,25 +235,26 @@ export default class AnayModal {
   }
 
   setStepChart() {
-  const stepDataGraphWrap = qs(".anaypage__walk__graph__box");
+    const stepDataGraphWrap = qs(".anaypage__walk__graph__box");
 
-  return _.filter(
-    (charBar) => charBar.classList.contains("anaypage__walk__graph__graph"),
-    stepDataGraphWrap.children
-  );
+    return _.filter(
+      (charBar) => charBar.classList.contains("anaypage__walk__graph__graph"),
+      stepDataGraphWrap.children
+    );
   }
 
   setEachWeekStepDataSum(stepDataGroup) {
     return _.go(
       L.entries(stepDataGroup),
       L.map(([_, stepData]) => stepData),
-      L.map((stepData) => _.go(
-        stepData,
-        L.map((stepData) => stepData.value),
-        _.reduce(add)
-      )),
+      L.map((stepData) =>
+        _.go(
+          stepData,
+          L.map((stepData) => stepData.value),
+          _.reduce(add)
+        )
+      ),
       _.take(4)
     );
   }
-
 }

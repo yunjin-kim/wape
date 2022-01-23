@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="kr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>anaypage</title>
+    <link rel="stylesheet" href="../main.css" />
+  </head>
+  <body>
+    <div class="mainpage__line"></div>
+    <div class="mainpageWap">
+      <div class="mainpage__title">
+        <div class="mainpage__title__text">워피</div>
+        <div class="mainpage__title__icon">
+          <img
+            onclick="location='/page/profile'"
+            src="../img/mypage.png"
+            alt="마이페이지"
+          />
+          <img src="../img/setting.png" alt="설정" />
+        </div>
+      </div>
+      <div class="anaypage__header">
+        <h1><span class="anayUsername"></span>님의 분석</h1>
+      </div>
+      <div class="anaypage__walk">
+        <h3 class="anaypage__walk__title">걸음 수</h3>
+        <div class="anaypage__walk__errorModal"></div>
+        <div class="anaypage__walk__graph">
+          <div class="anaypage__walk__graph__period"></div>
+          <div class="anaypage__walk__graph__box">
+            <div class="anaypage__walk__graph__left__wrap">
+              <button class="anaypage__walk__graph__left">
+                <img src="../img/next4.png" alt="" />
+              </button>
+            </div>
+            <div class="anaypage__walk__graph__graph">
+              <span></span>
+              <div></div>
+            </div>
+            <div class="anaypage__walk__graph__graph">
+              <span></span>
+              <div></div>
+            </div>
+            <div class="anaypage__walk__graph__graph">
+              <span></span>
+              <div></div>
+            </div>
+            <div class="anaypage__walk__graph__graph">
+              <span></span>
+              <div></div>
+            </div>
+            <div class="anaypage__walk__graph__graph">
+              <span></span>
+              <div></div>
+            </div>
+            <div class="anaypage__walk__graph__graph">
+              <span></span>
+              <div></div>
+            </div>
+            <div class="anaypage__walk__graph__graph">
+              <span></span>
+              <div></div>
+            </div>
+            <div class="anaypage__walk__graph__right__wrap">
+              <button class="anaypage__walk__graph__right hiddenButton">
+                <img src="../img/next3.png" alt="" />
+              </button>
+            </div>
+          </div>
+          <div class="anaypage__walk__graph__day">
+            <ul class="anaypage__walk__graph__day__ul">
+              <li>월</li>
+              <li>화</li>
+              <li>수</li>
+              <li>목</li>
+              <li>금</li>
+              <li>토</li>
+              <li>일</li>
+            </ul>
+          </div>
+        </div>
+        <div class="anaypage__walk__flex">
+          <div class="anaypage__walk__average">
+            <div>
+              <h4>하루평균</h4>
+              <span class="anaypage__walk__weekAverage">0,000</span>
+            </div>
+            <div>
+              <h4>권장</h4>
+              <span>7000</span>
+            </div>
+          </div>
+          <div class="anaypage__walk__accure">
+            <div class="anaypage__walk__accure__value">
+              <h4>주간누적</h4>
+              <span class="anaypage__walk__accure__weekValue">00,000</span>
+            </div>
+            <div class="anaypage__walk__accure__percent">
+              <h5>지난주에 비해</h5>
+              <div>
+                <img
+                  class="stepPercentArrow"
+                  src="../img/up.png"
+                  alt="상승아이콘"
+                />
+                <h6>
+                  <span class="anaypage__walk__accure__weekPercent">20</span>%
+                </h6>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="anaypage__weight">
+        <h3>체중</h3>
+        <div class="anaypage__weight__graph">
+          <div class="anaypage__weight__graph__period"></div>
+          <div class="anaypage__weight__graph__box">
+            <div class="anaypage__weight__graph__left__wrap">
+              <button class="anaypage__weight__graph__left">
+                <img src="../img/next4.png" alt="" />
+              </button>
+            </div>
+            <div class="anaypage__weight__graph__graph">
+              <span></span>
+              <div></div>
+            </div>
+            <div class="anaypage__weight__graph__graph">
+              <span></span>
+              <div></div>
+            </div>
+            <div class="anaypage__weight__graph__graph">
+              <span></span>
+              <div></div>
+            </div>
+            <div class="anaypage__weight__graph__graph">
+              <span></span>
+              <div></div>
+            </div>
+            <div class="anaypage__weight__graph__graph">
+              <span></span>
+              <div></div>
+            </div>
+            <div class="anaypage__weight__graph__graph">
+              <span></span>
+              <div></div>
+            </div>
+            <div class="anaypage__weight__graph__graph">
+              <span></span>
+              <div></div>
+            </div>
+            <div class="anaypage__weight__graph__right__wrap">
+              <button class="anaypage__weight__graph__right hiddenButton">
+                <img src="../img/next3.png" alt="" />
+              </button>
+            </div>
+          </div>
+          <div class="anaypage__weight__graph__day">
+            <ul class="anaypage__weight__graph__day__ul">
+              <li>월</li>
+              <li>화</li>
+              <li>수</li>
+              <li>목</li>
+              <li>금</li>
+              <li>토</li>
+              <li>일</li>
+            </ul>
+          </div>
+        </div>
+        <div class="anaypage__weight__flex">
+          <div class="anaypage__weight__current"></div>
+          <div class="anaypage__weight__accure"></div>
+        </div>
+      </div>
+      <div class="anaypage__sleep">
+        <h3>수면</h3>
+        <div class="anaypage__sleep__graph">
+          <div class="anaypage__sleep__graph__period"></div>
+          <div class="anaypage__sleep__graph__box">
+            <div class="anaypage__sleep__graph__left__wrap">
+              <button class="anaypage__sleep__graph__left">
+                <img src="../img/next4.png" alt="" />
+              </button>
+            </div>
+            <div class="anaypage__sleep__graph__graph">
+              <span></span>
+              <div></div>
+            </div>
+            <div class="anaypage__sleep__graph__graph">
+              <span></span>
+              <div></div>
+            </div>
+            <div class="anaypage__sleep__graph__graph">
+              <span></span>
+              <div></div>
+            </div>
+            <div class="anaypage__sleep__graph__graph">
+              <span></span>
+              <div></div>
+            </div>
+            <div class="anaypage__sleep__graph__graph">
+              <span></span>
+              <div></div>
+            </div>
+            <div class="anaypage__sleep__graph__graph">
+              <span></span>
+              <div></div>
+            </div>
+            <div class="anaypage__sleep__graph__graph">
+              <span></span>
+              <div></div>
+            </div>
+            <div class="anaypage__sleep__graph__right__wrap">
+              <button class="anaypage__sleep__graph__right hiddenButton">
+                <img src="../img/next3.png" alt="" />
+              </button>
+            </div>
+          </div>
+          <div class="anaypage__sleep__graph__day">
+            <ul class="anaypage__sleep__graph__day__ul">
+              <li>월</li>
+              <li>화</li>
+              <li>수</li>
+              <li>목</li>
+              <li>금</li>
+              <li>토</li>
+              <li>일</li>
+            </ul>
+          </div>
+        </div>
+        <div class="anaypage__sleep__flex">
+          <div class="anaypage__sleep__current"></div>
+          <div class="anaypage__sleep__accure"></div>
+        </div>
+      </div>
+      <div class="anaypage__goal">
+        <h3>목표 달성</h3>
+        <div class="anaypage__goal__check">
+          <div class="anaypage__goal__check__period"></div>
+          <div class="anaypage__goal__check__noGoal"></div>
+          <div class="anaypage__goal__check__main">
+            <div class="anaypage__goal__check__wrap">
+              <button class="anaypage__goal__check__left">
+                <img src="../img/next4.png" alt="왼쪽슬라이드" />
+              </button>
+            </div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div class="anaypage__goal__check__wrap">
+              <button class="anaypage__goal__check__right hiddenButton">
+                <img src="../img/next3.png" alt="오른쪽슬라이드" />
+              </button>
+            </div>
+          </div>
+          <div class="anaypage__goal__check__day">
+            <ul class="anaypage__goal__check__day__ul">
+              <li>월</li>
+              <li>화</li>
+              <li>수</li>
+              <li>목</li>
+              <li>금</li>
+              <li>토</li>
+              <li>일</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mainpage__bar">
+      <span onclick="location='/page/main'" class="mainpage__bar__home"
+        ><img src="../img/home.png" alt="홈아이콘"
+      /></span>
+      <span onclick="location='/page/anay'" class="mainpage__bar__anay"
+        ><img src="../img/anaygreen.png" alt="분석아이콘"
+      /></span>
+      <span onclick="location='/page/bank'" class="mainpage__bar__bank"
+        ><img src="../img/bank.png" alt="통장아이콘"
+      /></span>
+      <span onclick="location='/page/map'" class="mainpage__bar__map"
+        ><img src="../img/mapicon.png" alt="지도아이콘"
+      /></span>
+    </div>
+
+  </body>
+    <script src="https://unpkg.com/fxjs/dist/fx.js"></script>
+    <script type="module" src="../anaypage/anaypage.js"></script>
+</html>
