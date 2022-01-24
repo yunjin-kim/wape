@@ -17,20 +17,19 @@ export default class HomeWalkReserveView extends View {
   }
 
   rednerTimeOption(hourOptions, minuteOption) {
-    console.log("rednerTimeOption")
     this.hourOptiomElement.append(...hourOptions);
     this.minuteOptionElement.append(...minuteOption);
   }
 
   renderWalkDate(walkDateList) {
-    const $bookDays = this.reserveDateListElement.children;
+    const reserveDateElement = this.reserveDateListElement.children;
 
     for (let i = 0; i < 7; i++) {
-      $bookDays[i].children[0].textContent = walkDateList.holeDayArr[i];
-      $bookDays[i].children[1].textContent = walkDateList.holeDateArr[i];
-      $bookDays[i].children[0].classList.add("dateSpan");
-      $bookDays[i].children[1].classList.add("dateSpan");
-      $bookDays[i].classList.add("coloredBox");
+      reserveDateElement[i].children[0].textContent = walkDateList.holeDayArr[i];
+      reserveDateElement[i].children[1].textContent = walkDateList.holeDateArr[i];
+      reserveDateElement[i].children[0].classList.add("dateSpan");
+      reserveDateElement[i].children[1].classList.add("dateSpan");
+      reserveDateElement[i].classList.add("coloredBox");
     }
   }
 

@@ -145,7 +145,7 @@ export default class HomeModel {
   getStepData() {
     this.stepData = JSON.parse(localStorage.getItem("STEP_DATA"));
     
-    return this.stepData.steps_count[0].value;
+    return this.stepData.steps_count.reverse()[0].value;
   }
 
   setGoalData(goalData) {

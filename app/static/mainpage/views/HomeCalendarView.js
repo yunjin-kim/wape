@@ -50,7 +50,7 @@ export default class homeCalendarView extends View {
     const clickDateElement = qs(".modalTimeDiv");
     const clickDate = clickDateElement.textContent.match(/[^일]/gm).join("");
     this.deleteBtn = qs(".reserveDelete");
-    on(this.deleteBtn, "click", (event) => this.handleReserveTimeDelete(event, clickDate)); // 다른날짜 예약 연속으로 지울때 delegate로 하면 안 됨
+    this.deleteBtn && on(this.deleteBtn, "click", (event) => this.handleReserveTimeDelete(event, clickDate)); // 다른날짜 예약 연속으로 지울때 delegate로 하면 안 됨
   }
 
   handleReserveTimeDelete(event, clickDate) {
@@ -60,9 +60,11 @@ export default class homeCalendarView extends View {
     };
     this.emit("@delete", value);
     event.target.parentNode.remove();
+    this.bindReserveTimeDelete();
   }
 
   handleReserveModalClose() {
+    console.log("handleReserveModalClose")
     this.reverseModel = qs(".reserveModal", this.element);
     this.reverseModel.remove();
   }

@@ -207,7 +207,6 @@ export default class AnayModal {
     try {
       const response = await fetch(googleStepCountUrl);
       const data = await response.json();
-      console.log(data)
       localStorage.setItem("STEP_DATA", JSON.stringify(data));
       this.setValidateData(data);
       return data;
