@@ -192,7 +192,7 @@ export default class AnayModal {
     const stepDataList = JSON.parse(localStorage.getItem("STEP_DATA"));
 
     return _.go(
-      stepDataList.steps_count,
+      stepDataList.steps_count.reverse(),
       L.map((stepData) => stepData),
       groupBySize(7),
       _.values,
@@ -207,6 +207,7 @@ export default class AnayModal {
     try {
       const response = await fetch(googleStepCountUrl);
       const data = await response.json();
+      console.log(data)
       localStorage.setItem("STEP_DATA", JSON.stringify(data));
       this.setValidateData(data);
       return data;

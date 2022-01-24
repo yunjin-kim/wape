@@ -16,11 +16,7 @@ export default class AnayController {
     
   }
 
-  errorModal() {
-    console.log("errorModal");
-  }
-
-   setData() { // 쓸데없는 데이터를 다시 렌더하는 것보다는 중복이 낫다
+  setData() {
     this.dayOfWeekData = this.anayModal.setDayOfWeek();
     this.setSleepData();
     this.setWeightData();

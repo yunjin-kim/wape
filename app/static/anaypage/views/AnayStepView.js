@@ -58,6 +58,7 @@ export default class AnayStepView extends View {
   }
 
   setStepChartHeight(stepElementList, stepDataGroup) {
+    console.log(stepDataGroup)
     let chartDataArrFlat = _.values(stepDataGroup).flat();
     this.monthSumStep = _.reduce(add, _.map((v) => v.value, chartDataArrFlat));
     this.weekSumStep = _.reduce(add, _.map((stepData) => stepData.value, stepDataGroup[this.stepPageNumber]));
