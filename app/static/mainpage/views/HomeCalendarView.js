@@ -1,5 +1,5 @@
 import { L } from "../../fx.js";
-import { creatEl, on, qs } from "../../helper.js";
+import { creatEl, delegate, on, qs, qsAll } from "../../helper.js";
 import View from "./Views.js";
 
 export default class homeCalendarView extends View {
@@ -47,13 +47,15 @@ export default class homeCalendarView extends View {
   }
 
   bindReserveTimeDelete() {
-    const clickDateElement = qs(".modalTimeDiv");
-    const clickDate = clickDateElement.textContent.match(/[^일]/gm).join("");
-    this.deleteBtn = qs(".reserveDelete");
-    this.deleteBtn && on(this.deleteBtn, "click", (event) => this.handleReserveTimeDelete(event, clickDate)); // 다른날짜 예약 연속으로 지울때 delegate로 하면 안 됨
+    const clickDateElement = qs(".reserveModalTitle");
+    const clickDate = clickDateElement.textContent.match(/[^일 걷기 일정]/gm).join("");
+    this.reserveTimeList = qs(".reserveTimeList");
+    this.deleteBtn = qsAll(".reserveDelete");
+    this.deleteBtn && delegate(this.reserveTimeList, "click", ".reserveDelete", (event) => this.handleReserveTimeDelete(event, clickDate));
   }
 
   handleReserveTimeDelete(event, clickDate) {
+    console.log(event, clickDate)
     const value = {
       deleteDate: clickDate,
       deleteTime: event.target.previousSibling.previousSibling.textContent,
@@ -97,11 +99,11 @@ class Template {
     const divFargment = creatEl('div');
     divFargment.classList.add("reserveModal");
     divFargment.innerHTML = `
-      <h2 class="reserveModalTitle">걷기 일정</h2>
+      <h2 class="reserveModalTitle">${`${date}일`} 걷기 일정</h2>
       <button class="reserveModalClose">X</button>
-      <h3 class="reserveModalDate"></h3>
-      <span class="modalTimeDiv">${`${date}일`}</span>
-      ${this.reserveTime(timeArr)}`;
+      <div class="reserveTimeList">
+        ${this.reserveTime(timeArr)}
+      </div>`;
 
     return divFargment;
   }
@@ -110,7 +112,7 @@ class Template {
     let timeListTemplate = "";
     timeArr.forEach((time) => {
       timeListTemplate += `
-        <div class="reserveTiemWrap">
+        <div class="reserveTimeWrap">
           <p class="reserveModalTime">${time[1]}시 ${time[2]}분</p>
           <button class="reserveDelete">X</button>
         </div>`;
