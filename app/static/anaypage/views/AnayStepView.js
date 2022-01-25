@@ -1,5 +1,5 @@
-import { add, L } from "../../fx.js";
-import { qs, on } from "../../helper.js";
+import { add } from "../../fx.js";
+import { qs, on, delegate } from "../../helper.js";
 import View from "./View.js";
 
 export default class AnayStepView extends View {
@@ -114,10 +114,21 @@ export default class AnayStepView extends View {
 
   beforeLunchStepDataModal() {
     this.stepDataErrorModalWrap.innerHTML = this.template.beforeLunchStepDataModalTemplate();
+    this.errorModalClose();
   }
 
   updateStepDataModal() {
-    this.stepDataErrorModalWrap.innerHTML = this.template
+    this.stepDataErrorModalWrap.innerHTML = this.template.updateStepDataModalTemplete();
+    this.errorModalClose();
+  }
+
+  errorModalClose() {
+    this.errorModal = qs(".updateDataModal");
+    delegate(this.errorModal, "click", ".updateDataModalClose", () => this.handleErrorModalClose());
+  }
+  
+  handleErrorModalClose() {
+    this.errorModal.remove();
   }
 
 }

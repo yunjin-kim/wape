@@ -200,7 +200,7 @@ export default class AnayModal {
       _.take(4)
     );
   }
-  // 에러 모달 처리 해주기
+
   async getStepDataList() {
     const googleStepCountUrl =
       "https://v1.nocodeapi.com/kimyunjun/fit/lHneRLggDPetxSfn/aggregatesDatasets?dataTypeName=steps_count&timePeriod=30days";
@@ -221,8 +221,7 @@ export default class AnayModal {
       data.steps_count[data.steps_count.length - 1].endTime[0] +
       data.steps_count[data.steps_count.length - 1].endTime[1];
     if (lastStepDataDate < this.date.getDate()) {
-      if (this.date.getHours() < 12) {
-        // 12시 기준으로 당일 데이터 불러올 수 있다
+      if (this.date.getHours() < 12) { // 12시 기준으로 당일 데이터 불러올 수 있다
         this.anayStepView.beforeLunchStepDataModal();
       } else {
         this.anayStepView.updateStepDataModal();

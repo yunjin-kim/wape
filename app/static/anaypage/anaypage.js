@@ -20,23 +20,5 @@ function anayMain() {
   new AnayController(anayModal, views);
 }
 
-function setUsername() {
-  const $anayUsername = document.querySelector(".anayUsername");
-  // $anayUsername.textContent = getNameFromCookie();
-}
-
-function showBeforeLunchModal() {
-  updateDataModalDiv.addEventListener("click", () => {
-    updateDataModalDiv.remove();
-  });
-}
-
-//걸음 데이터가 동기화 되지 않음에 대한 모달
-function showUpdateDataModal() {
-  updateDataModalDiv.addEventListener("click", () => {
-    updateDataModalDiv.remove();
-  });
-
-}
 
 
