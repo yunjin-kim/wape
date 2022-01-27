@@ -411,20 +411,16 @@
 .mainpage__weather__flex span {
   margin: 0px 1vw;
 }
-.mainpage__weather__dust {
-  width: 24vw;
+.mainpage__weather__location {
+  width: 40vw;
   height: 5vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-.mainpage__weather__dust__gu {
-  font-size: 1rem;
-}
-.mainpage__weather__dust__value {
-  font-size: 0.6rem;
-  color: var(--main-color);
+.mainpage__weather__location__value {
+  font-size: 0.8rem;
 }
 .walkingDay {
   background-image: url(../img/calendarWalk.png);

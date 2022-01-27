@@ -1,13 +1,30 @@
+import MapController from "./controller/MapController.js";
+import MapModel from "./model/MapModel.js";
+import MapView from "./views/MapView.js";
+
+document.addEventListener("DOMContentLoaded", mapMain);
+
+function mapMain() {
+  const mapModel = new MapModel();
+
+  const views = {
+    mapView: new MapView(),
+  };
+
+  new MapController(mapModel, views);
+}
+
+
 let map;
 let dragged = false;
 
-(function enterMapPage() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(getGeo)
-  } else {
-    console.log('error')
-  }
-}())
+// (function enterMapPage() {
+//   if (navigator.geolocation) {
+//     navigator.geolocation.getCurrentPosition(getGeo)
+//   } else {
+//     console.log('error')
+//   }
+// }())
 
 function getGeo(event) {
   const lat = event.coords.latitude;
@@ -18,6 +35,7 @@ function getGeo(event) {
       center: new kakao.maps.LatLng(lat, lon), // 지도의 중심좌표
       level: 2 // 지도의 확대 레벨
     };
+    console.log(mapOption)
     getMap(mapOption)
   } catch (e) {
     mapErrorModal();
@@ -25,10 +43,10 @@ function getGeo(event) {
   }
 }
 
-const $showMap = document.getElementById('showmap');
-const $mapText = document.querySelector('.mappage__location__text ');
-const geocoder = new kakao.maps.services.Geocoder();// 주소-좌표 변환 객체를 생성합니다
-const pointArr = [];
+// const $showMap = document.getElementById('showmap');
+// const $mapText = document.querySelector('.mappage__location__text');
+// const geocoder = new kakao.maps.services.Geocoder();// 주소-좌표 변환 객체를 생성합니다
+// const pointArr = [];
 
 function getMap(mapOption) {
   // 지도를 생성합니다
@@ -39,6 +57,7 @@ function getMap(mapOption) {
   kakao.maps.event.addListener(map, 'idle', function () {
     searchAddrFromCoords(map.getCenter(), displayCenterInfo)
   })
+  console.log("getBannerData시작")
   getBannerData()
 }
 
@@ -48,7 +67,7 @@ async function getBannerData() {
   try {
     const mapPointResponse = await fetch('https://yunjin-kim.github.io/mappoint.json');
     const maoPointData = await mapPointResponse.json();
-    console.log(maoPointData)
+    console.log("getBannerData", maoPointData)
     pointArr.push(maoPointData.points)
     canLoadBanner = true;
 
@@ -106,8 +125,8 @@ function getMyGeo(event) {
 }
 
 //내 위치 표시
-const myLocArr = [];
-let currentMyLoc;
+// const myLocArr = [];
+// let currentMyLoc;
 function showMyLoction(myMapOption) {
   const myLocIconImg = '../img/mylocation.png';
   const myLocIconSize = new kakao.maps.Size(10, 10);
@@ -129,6 +148,9 @@ function showMyLoction(myMapOption) {
     currentMyLoc.setPosition(myLocPosition)
   }
 }
+
+
+
 
 const $firstSelectCourse = document.querySelector('.mappage__walkload__course');
 const $firstSourseImage = document.querySelector('.mappage__walkload__course__img__img');
