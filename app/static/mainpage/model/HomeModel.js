@@ -2,11 +2,9 @@ import { L } from "../../fx.js";
 import { creatEl } from "../../helper.js";
 import HomeTodayWalkView from "../views/HomeTodayWalkView.js";
 import HomeWeatherView from "../views/HomeWeatherView.js";
-
-
 export default class HomeModel {
   constructor() {
-    this.homeWeatherView = new HomeWeatherView(); // 비동기는 mvc 패턴으로 어떻게?
+    this.homeWeatherView = new HomeWeatherView();
     this.homeTodayWalkView = new HomeTodayWalkView();
     this.getCurrentLoaction();
   }
@@ -28,18 +26,18 @@ export default class HomeModel {
   }
 
   getCurrentLoaction() {
-    const locationEvent = (event) => {this.getGeo(event)}; 
-    navigator.geolocation.getCurrentPosition(locationEvent); 
-
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.latitude = position.coords.latitude;
+        this.longitude = position.coords.longitude;
+        this.getWeatherApi();
+      });
+    }
   }
 
-  async getGeo(event) {
-    console.log(event)
+  async getWeatherApi() {
     const API_KEY = "3f681357220c8b5aada0c70d0d540eaf";
-    const lat = event.coords.latitude;
-    const lon = event.coords.longitude;
-    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${API_KEY}`;
-
+    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${this.latitude}&lon=${this.longitude}&units=metric&appid=${API_KEY}`;
     const response = await fetch(url);
     const data = await response.json();
     this.setWeather(data);

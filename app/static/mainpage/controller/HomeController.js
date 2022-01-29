@@ -1,15 +1,13 @@
 export default class HomeController {
   constructor(
-    homeModel,
-    {
+    homeModel, {
       homeQuoteView,
       homeWeatherView,
       homeCalendarView,
       homeGoalView,
       homeTodayWalkView,
       homeWalkReserveView,
-    }
-  ) {
+    }) {
     this.homeModel = homeModel;
 
     this.homeQuoteView = homeQuoteView;
@@ -48,13 +46,12 @@ export default class HomeController {
     this.hourOptions = this.homeModel.setTimeHourOption();
     this.minuteOptions = this.homeModel.setTimeMinuteOption();
     this.walkDateList = this.homeModel.setWalkDateList();
-
   }
 
   setGoalData() {
     this.stepData = this.homeModel.getStepData();
     this.goalStepData = this.homeModel.getGoalStepData();
-  };
+  }
 
   setCalendarData() {
     this.calendarData = this.homeModel.setCalendar();
@@ -72,16 +69,10 @@ export default class HomeController {
   }
 
   subScribeViewEvents() {
-    this.homeCalendarView.on("@click", (event) =>
-      this.bindReserveModalEvent(event)
-    );
-    this.homeCalendarView.on("@delete", (event) =>
-      this.setDeleteReverseTimeList(event)
-    );
+    this.homeCalendarView.on("@click", (event) => this.bindReserveModalEvent(event));
+    this.homeCalendarView.on("@delete", (event) => this.setDeleteReverseTimeList(event));
     this.homeGoalView.on("@submit", (event) => this.changeGoalData(event));
-    this.homeWalkReserveView.on("@reserve", (event) =>
-      this.setReserveDateList(event)
-    );
+    this.homeWalkReserveView.on("@reserve", (event) => this.setReserveDateList(event));
   }
 
   bindReserveModalEvent(event) {
@@ -122,10 +113,7 @@ export default class HomeController {
   }
 
   setTimeOption() {
-    this.homeWalkReserveView.rednerTimeOption(
-      this.hourOptions,
-      this.minuteOptions
-    );
+    this.homeWalkReserveView.rednerTimeOption(this.hourOptions, this.minuteOptions);
   }
 
   setReserveWalkDate() {
