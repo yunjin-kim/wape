@@ -31,6 +31,7 @@ export default class HomeModel {
         this.latitude = position.coords.latitude;
         this.longitude = position.coords.longitude;
         this.getWeatherApi();
+        this.homeWeatherView.renderMap(this.latitude, this.longitude);
       });
     }
   }
