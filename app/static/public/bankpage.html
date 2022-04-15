@@ -5,12 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>bankpage</title>
-    <link rel="stylesheet" href="../main.css" />
+    <link rel="stylesheet" href="../css/bankpage.css" />
   </head>
   <body>
     <div class="mainpage__line"></div>
     <div class="wrap">
-      <div class="mainpage__title">
+      <header class="mainpage__title">
         <div class="mainpage__title__text">워피</div>
         <div class="mainpage__title__icon">
           <img
@@ -20,60 +20,61 @@
           />
           <img src="../img/setting.png" alt="설정" />
         </div>
-      </div>
-      <div class="bankpage__asset">
-        <div class="bankpage__asset__value">
+      </header>
+
+      <section class="user-walk-asset-wrap">
+        <div class="user-walk-total-asset">
           <img src="../img/coin.png" alt="" />
-          <h1>총 자산 : <span class="bankTotalMoney"></span>원</h1>
+          <h1>총 자산 : <span class="user-walk-total-asset-value"></span>원</h1>
         </div>
-        <div class="bankpage__asset__title">
-          <h3>획득한 칭호 : <span class="currentTitle"></span></h3>
-          <div class="bankpage__asset__flex">
-            <div class="bankpage__asset__next">
-              다음 칭호 : <span class="nextTitle"></span>
+        <div class="user-walk-asset-title-wrap">
+          <h3>획득한 칭호 : <span class="user-walk-asset-current-title"></span></h3>
+          <div class="user-walk-asset-next-title-wrap">
+            <div class="user-walk-asset-next-title">
+              다음 칭호 : <span class="user-walk-assert-next-title-text"></span>
             </div>
-            <div class="bankpage__asset__all">
+            <div class="user-walk-asset-total-title">
               모든 칭호보기
               <img src="../img/next3.png" alt="오른쪽화살표" />
             </div>
           </div>
         </div>
-        <div class="bankpage__asset__graph">
-          <div class="bankpage__asset__flex">
-            <span class="bankMoneyGraghMin">30,000,000</span>
-            <span class="bankMoneyGraghMax">50,000,000</span>
+        <div class="user-walk-asset-graph-wrap">
+          <div class="user-walk-asset-graph-range">
+            <span class="user-walk-asset-graph-min-range">30,000,000</span>
+            <span class="user-walk-asset-graph-max-range">50,000,000</span>
           </div>
-          <div class="bankpage__asset__graph__graph">
-            <div class="bankpage__asset__graph__total"></div>
-            <div class="bankpage__asset__graph__my"></div>
-          </div>
-        </div>
-      </div>
-      <div class="bankpage__walk">
-        <div class="bankpage__walk__value">
-          <div class="bankpage__walk__flex">
-            <img src="../img/walking1.png" alt="" />
-            <h1>총 걸은 거리 : <span class="bankTotalDistance"></span>km</h1>
-          </div>
-          <h2>총 걸음 수 : <span class="bankTotalStep"></span>걸음</h2>
-        </div>
-        <div class="bankpage__walk__like">
-          <div class="bank__walk__earth">
-            <h3>지구 둘레</h3>
-            <h2><span class="bankEarth"></span>바퀴</h2>
-          </div>
-          <div class="bank__walk__seoul">
-            <h3>서울에서 부산</h3>
-            <h2><span class="bankSeoulToBusan"></span>번</h2>
-          </div>
-          <div class="bank__walk__marar">
-            <h3>마라톤 풀코스</h3>
-            <h2><span class="bankMaraton"></span>번</h2>
+          <div class="user-walk-asset-graph">
+            <div class="user-walk-asset-total-graph"></div>
+            <div class="user-walk-asset-user-graph"></div>
           </div>
         </div>
-      </div>
+      </section>
 
-      <div class="bankpage__reposit"></div>
+      <section class="user-walk-info-wrap">
+        <div class="user-walk-info-value">
+          <div class="user-total-walk-wrap">
+            <img src="../img/walking1.png" alt="" />
+            <h2>총 걸은 거리 : <span class="user-total-walk-distance-value"></span>km</h2>
+          </div>
+          <h3>총 걸음 수 : <span class="user-total-walk-value"></span>걸음</h3>
+        </div>
+        <div class="user-walk-info-example-wrap">
+          <div class="user-walk-info-earth-example">
+            <h3>지구 둘레</h3>
+            <h2><span class="user-walk-info-earth-value"></span>바퀴</h2>
+          </div>
+          <div class="user-walk-info-seoulBusan-example">
+            <h3>서울에서 부산</h3>
+            <h2><span class="user-walk-info-seoulBusan-value"></span>번</h2>
+          </div>
+          <div class="user-walk-info-marathon-example">
+            <h3>마라톤 풀코스</h3>
+            <h2><span class="user-walk-info-marathon-wrap"></span>번</h2>
+          </div>
+        </div>
+      </section>
+      <section class="user-walk-info-report"></section>
     </div>
 
     <div class="mainpage__bar">

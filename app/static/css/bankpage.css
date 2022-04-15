@@ -1,9 +1,15 @@
+@import url('https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css');
+@import "./reset.css";
+@import "./style.css";
+@import "../components/bar.css";
+@import "../components/mainpage_title.css";
+
 .wrap {
   overflow: hidden;
   margin: 0px 6.4vw;
   padding-bottom: 12vh;
 }
-.bankpage__asset {
+.user-walk-asset-wrap {
   width: 100%;
   height: 22vh;
   background-color: var(--sub-background);
@@ -13,64 +19,65 @@
   box-sizing: border-box;
   padding: 2.5vh 5.2vw 2.5vh 5.2vw;
 }
-.bankpage__asset__value {
+.user-walk-total-asset {
   width: 100%;
   height: 4.2vh;
   display: flex;
   align-items: center;
   margin-bottom: 2.5vh;
 }
-.bankpage__asset__value img {
+.user-walk-total-asset img {
   width: 9vw;
   margin-right: 4.8vw;
 }
-.bankpage__asset__title {
+.user-walk-asset-title-wrap {
   width: 100%;
   height: 4.5vh;
   box-sizing: border-box;
-  padding-right: 9.2vw;
   margin-bottom: 2.4vh;
 }
-.bankpage__asset__title h3 {
+.user-walk-asset-title-wrap h3 {
   font-size: 0.8rem;
 }
-.bankpage__asset__flex {
+.user-walk-asset-next-title-wrap {
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-top: 1vh;
 }
-.bankpage__asset__next {
+.user-walk-asset-next-title {
   width: 34vw;
   height: 1.3vh;
   font-size: 0.5rem;
   color: var(--sub-font);
   margin-top: 1vh;
 }
-.bankpage__asset__all {
+.user-walk-asset-total-title {
   width: 20vw;
   height: 1.3vh;
   font-size: 0.5rem;
   color: var(--sub-font);
   margin-top: 1vh;
+  margin-right: -3vw;
 }
-.bankpage__asset__all img {
+.user-walk-asset-total-title img {
   width: 2vw;
 }
-.bankpage__asset__flex {
-  display: flex;
-  margin: 0;
-}
-.bankpage__asset__graph {
+.user-walk-asset-graph-wrap {
   width: 100%;
   height: 4vh;
 }
-.bankpage__asset__graph span {
+.user-walk-asset-graph-wrap span {
   font-size: 0.5rem;
   color: var(--sub-font);
 }
-
-.bankpage__asset__graph__graph {
+.user-walk-asset-graph-range {
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+}
+.user-walk-asset-graph {
   width: 100%;
   height: 1.2vh;
   position: relative;
@@ -78,7 +85,7 @@
   float: left;
   margin-top: 0.4vh;
 }
-.bankpage__asset__graph__total {
+.user-walk-asset-total-graph {
   width: 76vw;
   height: 1vh;
   background-color: #ffffff;
@@ -86,14 +93,14 @@
   border-radius: 4px;
   position: absolute;
 }
-.bankpage__asset__graph__my {
+.user-walk-asset-user-graph {
   width: 10vw;
   height: 1vh;
   background-color: var(--sub-color);
   border-radius: 4px;
   position: absolute;
 }
-.bankpage__walk {
+.user-walk-info-wrap {
   width: 100%;
   height: 20vh;
   background-color: var(--sub-background);
@@ -103,110 +110,118 @@
   box-sizing: border-box;
   padding: 2.5vh 5.2vw 2.5vh 5.2vw;
 }
-.bankpage__walk__value {
+.user-walk-info-value {
   width: 100%;
   height: 7.2vh;
   margin-bottom: 2.4vh;
 }
-.bankpage__walk__flex {
-  display: flex;
-  align-items: center;
-}
-.bankpage__walk__value img {
+.user-walk-info-value img {
   width: 12.5vw;
   margin-right: 3.2vw;
 }
-.bankpage__walk__value h1 {
-  font-size: 1.2rem;
+.user-walk-info-value h2 {
+  font-size: 1rem;
+  margin-top: -4vh;
 }
-.bankpage__walk__value h2 {
+.user-walk-info-value h3 {
+  font-size: 0.9rem;
   margin-left: 16vw;
+  margin-top: -2vh;
 }
-.bankpage__walk__like {
+.user-total-walk-wrap {
+  display: flex;
+  align-items: center;
+}
+.user-walk-info-example-wrap {
   width: 100%;
   height: 6.2vh;
   display: flex;
   justify-content: space-between;
 }
-.bankpage__walk__like div {
+.user-walk-info-earth-example,
+.user-walk-info-seoulBusan-example,
+.user-walk-info-marathon-example {
   width: 24vw;
   height: 100%;
   background-color: var(--point-background);
   border-radius: 10px;
   display: flex;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
-.bankpage__walk__like div h3 {
+.user-walk-info-earth-example h3,
+.user-walk-info-seoulBusan-example h3,
+.user-walk-info-marathon-example h3 {
   margin-bottom: 0.6vh;
 }
-.bankpage__reposit {
+.user-walk-info-report {
   width: 100%;
   height: 40vh;
-}
-.bankpage__reposit__wrap {
   margin-bottom: 4vh;
 }
-.bankpage__reposit__title {
+.user-walk-info-report-wrap {
+  margin-bottom: 4vh;
+}
+.user-walk-info-report-text {
   width: 100%;
   height: 6.8vh;
   margin-bottom: 2.4vh;
 }
-.bankpage__reposit__flex {
+.user-walk-info-report-date {
   display: flex;
   align-items: center;
 }
-.circle {
+.user-walk-info-report-symbol {
   width: 8px;
   height: 8px;
   border-radius: 4px;
   border: 1px solid black;
   margin-right: 3.2vw;
 }
-.bankpage__reposit__day {
+.user-walk-info-report-date-text {
   width: 100%;
   height: 2vh;
 }
-.bankpage__reposit__value {
+.user-walk-info-report-value {
   width: 100%;
   height: 3.8vh;
   margin-left: 5.3vw;
   margin-top: 1vh;
 }
-.bankpage__reposit__value h3 {
+.user-walk-info-report-value h3 {
   font-size: 0.8rem;
   font-weight: 700;
 }
-
-.bankpage__reposit__walk {
+.user-walk-info-report-walk-gragh-wrap {
   width: 100%;
-  height: 4.8vh;
+  height: 5.4vh;
   background-color: var(--sub-background);
   border-radius: 14px;
   box-sizing: border-box;
   padding: 0.6vh 10vw 0.6vh 6vw;
   box-shadow: 2px 4px 4px -2px rgba(0, 0, 0, 0.2);
-  margin-bottom: 1vh;
+  margin-bottom: 2vh;
 }
-.bankpage__reposit__walk__flex {
+.user-walk-info-report-walk-value {
   display: flex;
   justify-content: space-between;
-}
-.bankpage__reposit__walk__flex h4 {
   font-size: 0.5rem;
-  font-weight: 900;
 }
-.bankpage__reposit__walk__flex b {
+.user-walk-info-report-walk-value strong {
   color: var(--main-color);
   font-weight: 600;
 }
-.bankpage__reposit__walk__flex p {
+.user-walk-info-report-walk-value h4 span {
+  margin-left: 10px;
+  font-weight: 900;
+}
+.user-walk-info-report-walk-value p {
   font-size: 0.5rem;
   color: var(--sub-font);
 }
-.bankpage__reposit__walk__graph {
+.user-walk-info-report-walk-gragh {
   width: 70vw;
   height: 1.2vh;
   position: relative;
@@ -214,7 +229,7 @@
   float: left;
   margin-top: 0.4vh;
 }
-.bankpage__reposit__walk__total {
+.user-walk-info-report-total-walk-gragh {
   width: 100%;
   height: 1vh;
   background-color: #ffffff;
@@ -222,16 +237,16 @@
   border-radius: 4px;
   position: absolute;
 }
-.bankpage__reposit__walk__my {
+.user-walk-info-report-user-walk-gragh {
   height: 1vh;
   background-color: var(--main-color);
   border-radius: 4px;
   position: absolute;
 }
 
-.bankpage__reposit__money {
+.user-walk-info-report-money-gragh-wrap {
   width: 100%;
-  height: 4.8vh;
+  height: 5.4vh;
   background-color: var(--sub-background);
   border-radius: 14px;
   box-sizing: border-box;
@@ -239,23 +254,24 @@
   box-shadow: 2px 4px 4px -2px rgba(0, 0, 0, 0.2);
   margin-bottom: 1vh;
 }
-.bankpage__reposit__money__flex {
+.user-walk-info-report-money-value {
   display: flex;
   justify-content: space-between;
-}
-.bankpage__reposit__money__flex h4 {
   font-size: 0.5rem;
+}
+.user-walk-info-report-money-value h4 span {
+  margin-left: 10px;
   font-weight: 900;
 }
-.bankpage__reposit__money__flex b {
+.user-walk-info-report-money-value strong {
   color: var(--sub-color);
   font-weight: 600;
 }
-.bankpage__reposit__money__flex p {
+.user-walk-info-report-money-value p {
   font-size: 0.5rem;
   color: var(--sub-font);
 }
-.bankpage__reposit__money__graph {
+.user-walk-info-report-money-gragh{
   width: 70vw;
   height: 1.2vh;
   position: relative;
@@ -263,7 +279,7 @@
   float: left;
   margin-top: 0.4vh;
 }
-.bankpage__reposit__money__total {
+.user-walk-info-report-total-money-gragh {
   width: 100%;
   height: 1vh;
   background-color: #ffffff;
@@ -271,35 +287,41 @@
   border-radius: 4px;
   position: absolute;
 }
-.bankpage__reposit__money__my {
+.user-walk-info-report-user-money-gragh {
   width: 10vw;
   height: 1vh;
   background-color: var(--sub-color);
   border-radius: 4px;
   position: absolute;
 }
-.titleModal {
-  width: 150px;
-  height: 200px;
+.total-title-modal {
+  width: 120px;
+  height: 160px;
   border: 1px solid black;
-  border-radius: 20px;
+  border-radius: 14px;
   background-color: white;
   position: absolute;
-  z-index: 10;
-  top: 0px;
-  margin-top: 150px;
-  margin-left: 120px;
+  top: 22vh;
+  left: 60vw;
 }
-.titleModalClose {
+.hide {
+  display: none;
+}
+.total-title-modal-close-button {
   background-color: white;
-  margin-top: -10px;
-  margin-right: 5px;
+  margin: -3vh 1vw 0 0;
   border: none;
   float: right;
 }
-.titles {
+.total-title-text {
+  margin: 2vh 0 0 8vw;
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+.each-title {
   margin-top: 10px;
   margin-left: 10px;
+  font-size: 0.7rem;
 }
 
 .stepErrorModal {
@@ -318,7 +340,7 @@
   text-align: center;
   margin-top: 24px;
 }
-.titleModalTitle {
+.total-title {
   font-weight: 900;
   margin-left: 10px;
   margin-top: 10px;
