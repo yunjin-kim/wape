@@ -16,7 +16,8 @@ https://notefolio.net/sion11290805/250934
 
 - TypeScript
 - Next.js
-- Vite
+- SWC
+- pnpm
 - styled-components
 - NestJS
 
