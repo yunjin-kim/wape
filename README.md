@@ -1,12 +1,27 @@
 ![Asset 1](https://user-images.githubusercontent.com/79692272/140050154-3aec18e9-d242-45e4-9482-664177f19a5c.png)
 
 # 걷기 웹앱, 워피
+
 ### 워피는 걷기가 우리의 건강과 삶에 미치는 좋은 영향이 크다는 것을 알려주고 실천할 수 있게 도와주는 서비스 입니다
 
 ## 기획, 브랜딩, UI, UX 설계
+
 https://notefolio.net/sion11290805/250934
 
 ## 활용 기술
+
+### 마이그레이션 예정
+
+기술스택
+
+- TypeScript
+- Next.js
+- Vite
+- styled-components
+- NestJS
+
+이전 기술스택
+
 - Node.js express
 - MySQL
 - JavaScript
@@ -21,6 +36,7 @@ https://notefolio.net/sion11290805/250934
 - Node.js 의 express를 활용하여 서버, 로그인, 회원가입을 구현했고 MySQL에 회원 정보를 저장합니다
 
 ## 메인 페이지
+
 <img src="https://user-images.githubusercontent.com/79692272/140625349-0f6d0fc4-7b6a-4854-a033-4f861e7eb119.png" width="350">
 
 - 유저가 목표 걸음 수를 정할 수 있습니다
@@ -30,6 +46,7 @@ https://notefolio.net/sion11290805/250934
 - 유저가 입력한 정보를 화면에 바로 볼 수 있게 설계하였습니다
 
 ## 분석 페이지
+
 <img src="https://user-images.githubusercontent.com/79692272/140052178-7f922754-3181-4678-b619-b751c476b4a7.png" width="350">
 
 - 구글 fitness를 통해 유저의 장보를 불러올려고 했으나 현재는 noCodeApi를 활용하여 제 데이터만 가져와서 활용하고 있습니다
@@ -39,11 +56,13 @@ https://notefolio.net/sion11290805/250934
 - 데이터로 화면을 구성하므로 데이터에 대한 예외처리를 신경써서 설계하였습니다
 
 ## 은행 페이지
+
 <img src="https://user-images.githubusercontent.com/79692272/140052758-2ea6e9ea-c9d0-4b4c-ad05-911f29957fc0.png" width="350">
 
 - 유저의 한달동안의 데이터를 활용하여 다양한 정보를 제공합니다
 
 ## 지도 페이지
+
 <img src="https://user-images.githubusercontent.com/79692272/140052917-14051626-abc8-4f9e-b4ad-4e04d488d030.png" width="350">
 
 - 카카오 지도 API를 활용하였습니다
