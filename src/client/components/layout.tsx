@@ -1,5 +1,7 @@
 import Head from 'next/head';
 import styled from '@emotion/styled';
+import { GlobalStyles } from '../styles/globalStyle';
+import { Global } from '@emotion/react';
 
 interface Props {
   children: JSX.Element | JSX.Element[];
@@ -15,6 +17,7 @@ export default function Layout({ children, page }: Props) {
           content="워피는 걷기가 우리의 건강과 삶에 미치는 좋은 영향이 크다는 것을 알려주고 실천할 수 있게 도와주는 서비스 입니다"
         />
       </Head>
+      <Global styles={GlobalStyles} />
       <S.Container>{children}</S.Container>
     </div>
   );
@@ -30,5 +33,6 @@ const S = {
     min-height: 100vh;
     margin: auto;
     padding: 0 3rem;
+    border: 1px solid black;
   `,
 };
