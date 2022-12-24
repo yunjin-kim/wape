@@ -1,7 +1,8 @@
 import Head from 'next/head';
 import styled from '@emotion/styled';
 import { GlobalStyles } from '../styles/globalStyle';
-import { Global } from '@emotion/react';
+import { Global, ThemeProvider } from '@emotion/react';
+import { theme } from '../styles/theme';
 
 interface Props {
   children: JSX.Element | JSX.Element[];
@@ -18,7 +19,9 @@ export default function Layout({ children, page }: Props) {
         />
       </Head>
       <Global styles={GlobalStyles} />
-      <S.Container>{children}</S.Container>
+      <ThemeProvider theme={theme}>
+        <S.Container>{children}</S.Container>
+      </ThemeProvider>
     </div>
   );
 }
@@ -28,8 +31,7 @@ const S = {
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-width: 46.875rem;
-    min-width: 23.4375rem;
+    max-width: 23.4375rem;
     min-height: 100vh;
     margin: auto;
     padding: 0 3rem;
