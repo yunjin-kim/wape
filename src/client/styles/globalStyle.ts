@@ -89,6 +89,15 @@ export const GlobalStyles = css`
     box-sizing: border-box;
   }
 
+  h1,
+  h2,
+  h3,
+  h4,
+  p,
+  span {
+    color: '#191919';
+  }
+
   html {
     height: 100%;
     width: 100%;
