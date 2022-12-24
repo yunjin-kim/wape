@@ -18,7 +18,7 @@ https://notefolio.net/sion11290805/250934
 - Next.js
 - SWC
 - pnpm
-- styled-components
+- emotion
 - NestJS
 
 이전 기술스택
