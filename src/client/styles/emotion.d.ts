@@ -1,6 +1,6 @@
 import '@emotion/react';
 
-import { Colors } from './colorList';
+import { Colors } from './colors';
 
 declare module '@emotion/react' {
   export interface Theme {
