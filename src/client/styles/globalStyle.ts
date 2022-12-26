@@ -95,7 +95,7 @@ export const GlobalStyles = css`
   h4,
   p,
   span {
-    color: '#191919';
+    color: #191919;
   }
 
   html {
