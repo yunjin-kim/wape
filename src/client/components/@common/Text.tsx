@@ -4,15 +4,16 @@ import styled from '@emotion/styled';
 import { Colors } from '../../styles/colors';
 
 interface Props extends PropsWithChildren {
-  size: number;
+  size?: number;
+  align?: 'center' | 'left' | 'right' | 'initial';
   color?: keyof Colors;
 }
 
-type TextColorProps = Props & Record<'theme', Theme>;
+type StyledProps = Omit<Props, 'children'> & Record<'theme', Theme>;
 
-const Text = ({ size, color, children }: Props) => {
+const Text = ({ size = 1, align = 'initial', color = 'BLACK_700', children }: Props) => {
   return (
-    <S.Container size={size} color={color}>
+    <S.Container size={size} align={align} color={color}>
       {children}
     </S.Container>
   );
@@ -20,8 +21,9 @@ const Text = ({ size, color, children }: Props) => {
 
 const S = {
   Container: styled.p`
-    font-size: ${({ size }: Pick<Props, 'size'>) => `${size}rem`};
-    color: ${({ theme, color }: TextColorProps) => (color ? color : theme.colors.BLACK_700)};
+    font-size: ${({ size }: StyledProps) => `${size}rem`};
+    color: ${({ color }: StyledProps) => color};
+    text-align: ${({ align }: StyledProps) => align};
   `,
 };
 
