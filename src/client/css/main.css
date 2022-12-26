@@ -1,24 +1,23 @@
 @import url('https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css');
-@import "./reset.css";
-@import "./style.css";
+@import './reset.css';
+@import './style.css';
 
 /* Components */
-@import "./components/onboarding_bar.css";
-@import "./components/bar.css";
-@import "./components/mainpage_title.css";
+@import './components/onboarding_bar.css';
+@import './components/bar.css';
+@import './components/mainpage_title.css';
 
 /* Screens */
-@import "./splash.css";
-@import "./onboarding_influ.css";
-@import "./onboarding_earn.css";
-@import "./onboarding_plan.css";
-@import "./onboarding_map.css";
-@import "./onboarding_login.css";
-@import "./login.css";
-@import "./join.css";
-@import "./find.css";
-@import "./mainpage.css";
-@import "./bankpage.css";
-@import "./anaypage.css";
-@import "./mappage.css";
-@import "./profile.css";
+@import './onboarding_influ.css';
+@import './onboarding_earn.css';
+@import './onboarding_plan.css';
+@import './onboarding_map.css';
+@import './onboarding_login.css';
+@import './login.css';
+@import './join.css';
+@import './find.css';
+@import './mainpage.css';
+@import './bankpage.css';
+@import './anaypage.css';
+@import './mappage.css';
+@import './profile.css';
