@@ -9,8 +9,6 @@ interface Props {
   page: string;
 }
 
-type StyledProps = Omit<Props, 'children'> & Record<'theme', Theme>;
-
 export default function Layout({ children, page }: Props) {
   return (
     <div>
@@ -22,7 +20,7 @@ export default function Layout({ children, page }: Props) {
       </Head>
       <Global styles={GlobalStyles} />
       <ThemeProvider theme={theme}>
-        <S.Container page={page}>{children}</S.Container>
+        <S.Container>{children}</S.Container>
       </ThemeProvider>
     </div>
   );
@@ -34,6 +32,6 @@ const S = {
     width: 23.4375rem;
     min-height: 100vh;
     margin: auto;
-    padding: ${({ page }: StyledProps) => (page === 'onboarding' ? '0' : '0 1.5rem')};
+    padding: 0 1.5rem;
   `,
 };
