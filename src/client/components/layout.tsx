@@ -1,13 +1,15 @@
 import Head from 'next/head';
 import styled from '@emotion/styled';
 import { GlobalStyles } from '../styles/globalStyle';
-import { Global, ThemeProvider } from '@emotion/react';
+import { Global, Theme, ThemeProvider } from '@emotion/react';
 import { theme } from '../styles/theme';
 
 interface Props {
   children: JSX.Element | JSX.Element[];
   page: string;
 }
+
+type StyledProps = Omit<Props, 'children'> & Record<'theme', Theme>;
 
 export default function Layout({ children, page }: Props) {
   return (
@@ -20,7 +22,7 @@ export default function Layout({ children, page }: Props) {
       </Head>
       <Global styles={GlobalStyles} />
       <ThemeProvider theme={theme}>
-        <S.Container>{children}</S.Container>
+        <S.Container page={page}>{children}</S.Container>
       </ThemeProvider>
     </div>
   );
@@ -28,13 +30,10 @@ export default function Layout({ children, page }: Props) {
 
 const S = {
   Container: styled.main`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-width: 23.4375rem;
+    overflow: auto;
+    width: 23.4375rem;
     min-height: 100vh;
     margin: auto;
-    padding: 0 3rem;
-    border: 1px solid black;
+    padding: ${({ page }: StyledProps) => (page === 'onboarding' ? '0' : '0 1.5rem')};
   `,
 };
