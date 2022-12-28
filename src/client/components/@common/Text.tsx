@@ -1,15 +1,13 @@
 import { PropsWithChildren } from 'react';
-import { Theme } from '@emotion/react';
 import styled from '@emotion/styled';
 import { Colors } from '../../styles/colors';
+import { StyledProps } from '../../types/style';
 
 interface Props extends PropsWithChildren {
   size?: number;
   align?: 'center' | 'left' | 'right' | 'initial';
   color?: keyof Colors;
 }
-
-type StyledProps = Omit<Props, 'children'> & Record<'theme', Theme>;
 
 const Text = ({ size = 1, align = 'initial', color = 'BLACK_700', children }: Props) => {
   return (
@@ -21,9 +19,9 @@ const Text = ({ size = 1, align = 'initial', color = 'BLACK_700', children }: Pr
 
 const S = {
   Container: styled.p`
-    font-size: ${({ size }: StyledProps) => `${size}rem`};
-    color: ${({ color }: StyledProps) => color};
-    text-align: ${({ align }: StyledProps) => align};
+    font-size: ${({ size }: StyledProps<Omit<Props, 'children'>>) => `${size}rem`};
+    color: ${({ color }: StyledProps<Omit<Props, 'children'>>) => color};
+    text-align: ${({ align }: StyledProps<Omit<Props, 'children'>>) => align};
   `,
 };
 
