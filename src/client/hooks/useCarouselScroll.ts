@@ -11,10 +11,14 @@ const useCarouselScroll = ({ dragDistanceForScroll }: Props) => {
   const [currentPage, setCurrentPage] = useState(0);
 
   const handleTouchStart = () => {
+    if (!carouselUlRef.current) return;
+
     initRefScrollLeft = carouselUlRef.current.scrollLeft;
   };
 
   const handleTouchEnd = () => {
+    if (!carouselUlRef.current) return;
+
     const elOffsetWidth = carouselUlRef.current.offsetWidth;
     const scrollDistance = carouselUlRef.current.scrollLeft - initRefScrollLeft;
     if (scrollDistance > dragDistanceForScroll) {
