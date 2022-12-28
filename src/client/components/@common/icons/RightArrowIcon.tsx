@@ -15,9 +15,9 @@ const RightArrowIcon = ({ width, height, color }: SVGProps<SVGMaskElement>) => {
           d="M81.5,103,96,118,81.5,133"
           fill="none"
           stroke={color}
-          stroke-linecap="round"
-          stroke-miterlimit="10"
-          stroke-width="2"
+          strokeLinecap="round"
+          strokeMiterlimit="10"
+          strokeWidth="2"
         />
         <path
           id="패스_42"
@@ -25,9 +25,9 @@ const RightArrowIcon = ({ width, height, color }: SVGProps<SVGMaskElement>) => {
           d="M81.5,103,96,118,81.5,133"
           fill="none"
           stroke="#000"
-          stroke-linecap="round"
-          stroke-miterlimit="10"
-          stroke-width="2"
+          strokeLinecap="round"
+          strokeMiterlimit="10"
+          strokeWidth="2"
         />
       </g>
     </svg>
