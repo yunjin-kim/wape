@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import Head from 'next/head';
 import React from 'react';
 import Layout from '../../client/components/layout';
+import useCarouselScroll from '../../client/hooks/useCarouselScroll';
 import WalkEffectInfoBox, {WalkEffectInfo} from './components/WalkEffectInfoBox';
 
 const WalkEffectInfos: WalkEffectInfo[] = [
@@ -56,13 +57,15 @@ const WalkEffectInfos: WalkEffectInfo[] = [
 ];
 
 export default function Onboarding() {
+  const {carouselUlRef, handleTouchStart, handleTouchEnd} = useCarouselScroll({dragDistanceForScroll: 150});
+
   return (
     <Layout page={'onboarding'}>
       <Head>
         <title>onboarding | wape</title>
       </Head>
       <S.Container>
-        <S.PageBox>
+        <S.PageBox ref={carouselUlRef} onTouchEnd={handleTouchEnd} onTouchStart={handleTouchStart}>
           <S.Page>
             <S.TopLayout>
               {WalkEffectInfos.map((WalkEffectInfo, index) => (
