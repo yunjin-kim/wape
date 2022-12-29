@@ -20,6 +20,26 @@ export default function Onboarding() {
       <S.Container>
         <S.PageBox ref={carouselUlRef} onTouchEnd={handleTouchEnd} onTouchStart={handleTouchStart}>
           <S.Page>
+            <S.TopLayout top={6.25} left={4}>
+              <Text size={1.2}>
+                <S.StrongText>홍시영</S.StrongText> 님의
+              </Text>
+
+              <MarginBox bottom={1.875} />
+              <Text size={1.2}>오늘 3km 걸음으로써 </Text>
+
+              <MarginBox bottom={1.875} />
+              <Text size={1.2}>40,000원을 벌었어요!</Text>
+            </S.TopLayout>
+            <S.BottomLayout>
+              <Text size={1} align={'center'}>
+                하루에 걸은 거리에 비례해서 미래의
+                <br /> 건강관리 비용을 아낀 값을 알 수 있어요!
+              </Text>
+            </S.BottomLayout>
+          </S.Page>
+
+          <S.Page>
             <S.TopLayout top={0} left={0}>
               {WalkEffectInfos.map((WalkEffectInfo, index) => (
                 <WalkEffectInfoBox key={index} WalkEffectInfo={WalkEffectInfo} />
@@ -41,14 +61,11 @@ export default function Onboarding() {
             </S.TopLayout>
             <S.BottomLayout>
               <Text size={1} align={'center'}>
-                하루에 걸은 거리에 비례해서 미래의
-                <br /> 건강관리 비용을 아낀 값을 알 수 있어요!
+                자기만의 걷기 계획을 정해서 정해진
+                <br />
+                시간에 알림이 와 꾸준한 걷기를 도와줘요!
               </Text>
             </S.BottomLayout>
-          </S.Page>
-
-          <S.Page>
-            <p>page3</p>
           </S.Page>
 
           <S.Page>
