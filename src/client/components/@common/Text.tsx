@@ -1,15 +1,16 @@
 import { PropsWithChildren } from 'react';
 import styled from '@emotion/styled';
-import { Colors } from '../../styles/colors';
+import { ColorsValue } from '../../styles/colors';
 import { StyledProps } from '../../types/style';
+import { theme } from '../../styles/theme';
 
 interface Props extends PropsWithChildren {
   size?: number;
   align?: 'center' | 'left' | 'right' | 'initial';
-  color?: keyof Colors;
+  color?: ColorsValue;
 }
 
-const Text = ({ size = 1, align = 'initial', color = 'BLACK_700', children }: Props) => {
+const Text = ({ size = 1, align = 'initial', color = theme.colors.BLACK_700, children }: Props) => {
   return (
     <S.Container size={size} align={align} color={color}>
       {children}
