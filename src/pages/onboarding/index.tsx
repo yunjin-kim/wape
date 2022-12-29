@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import Head from 'next/head';
+import Image from 'next/image';
 import React from 'react';
 import MarginBox from '../../client/components/@common/MarginBox';
 import Text from '../../client/components/@common/Text';
@@ -20,26 +21,6 @@ export default function Onboarding() {
       <S.Container>
         <S.PageBox ref={carouselUlRef} onTouchEnd={handleTouchEnd} onTouchStart={handleTouchStart}>
           <S.Page>
-            <S.TopLayout top={6.25} left={4}>
-              <Text size={1.2}>
-                <S.StrongText>홍시영</S.StrongText> 님의
-              </Text>
-
-              <MarginBox bottom={1.875} />
-              <Text size={1.2}>오늘 3km 걸음으로써 </Text>
-
-              <MarginBox bottom={1.875} />
-              <Text size={1.2}>40,000원을 벌었어요!</Text>
-            </S.TopLayout>
-            <S.BottomLayout>
-              <Text size={1} align={'center'}>
-                하루에 걸은 거리에 비례해서 미래의
-                <br /> 건강관리 비용을 아낀 값을 알 수 있어요!
-              </Text>
-            </S.BottomLayout>
-          </S.Page>
-
-          <S.Page>
             <S.TopLayout top={0} left={0}>
               {WalkEffectInfos.map((WalkEffectInfo, index) => (
                 <WalkEffectInfoBox key={index} WalkEffectInfo={WalkEffectInfo} />
@@ -54,11 +35,33 @@ export default function Onboarding() {
               </Text>
 
               <MarginBox bottom={1.875} />
+              <Text size={1.2}>오늘 3km 걸음으로써 </Text>
+
+              <MarginBox bottom={1.875} />
+              <Text size={1.2}>40,000원을 벌었어요!</Text>
+            </S.TopLayout>
+
+            <S.BottomLayout>
+              <Text size={1} align={'center'}>
+                하루에 걸은 거리에 비례해서 미래의
+                <br /> 건강관리 비용을 아낀 값을 알 수 있어요!
+              </Text>
+            </S.BottomLayout>
+          </S.Page>
+
+          <S.Page>
+            <S.TopLayout top={6.25} left={4}>
+              <Text size={1.2}>
+                <S.StrongText>홍시영</S.StrongText> 님의
+              </Text>
+
+              <MarginBox bottom={1.875} />
               <Text size={1.2}>걷기 계획은 </Text>
 
               <MarginBox bottom={1.875} />
               <Text size={1.2}>20시 00분 입니다.</Text>
             </S.TopLayout>
+
             <S.BottomLayout>
               <Text size={1} align={'center'}>
                 자기만의 걷기 계획을 정해서 정해진
@@ -69,7 +72,16 @@ export default function Onboarding() {
           </S.Page>
 
           <S.Page>
-            <p>page4</p>
+            <S.TopLayout top={6.25} left={4}>
+              <Image priority src={'/images/onboarding-map.png'} width={250} height={250} alt={'효창동 지도'} />
+            </S.TopLayout>
+
+            <S.BottomLayout>
+              <Text size={1} align={'center'}>
+                집 주변 걷기 코스를 살펴보세요 <br />
+                자기만의 걷기 코스를 만들 수 도 있어요!
+              </Text>
+            </S.BottomLayout>
           </S.Page>
 
           <S.Page>
@@ -114,7 +126,6 @@ const S = {
     justify-content: flex-end;
     min-width: 100%;
     height: 90vh;
-    border: 1px solid black;
   `,
 
   TopLayout: styled.div`
