@@ -1,60 +1,13 @@
 import styled from '@emotion/styled';
 import Head from 'next/head';
 import React from 'react';
+import MarginBox from '../../client/components/@common/MarginBox';
+import Text from '../../client/components/@common/Text';
 import Layout from '../../client/components/layout';
 import useCarouselScroll from '../../client/hooks/useCarouselScroll';
-import WalkEffectInfoBox, {WalkEffectInfo} from './components/WalkEffectInfoBox';
-
-const WalkEffectInfos: WalkEffectInfo[] = [
-  {
-    imgSrc: '/images/growth.png',
-    alt: '상승하는 화살표',
-    text: '기억력, 인지능력이 향상된다',
-    top: 3.125,
-    left: 13.75,
-    zIndex: 10,
-  },
-  {
-    imgSrc: '/images/lightbulb.png',
-    alt: '번쩍이는 전구',
-    text: '더 창의적인 생각을 할 수 있다',
-    top: 5.375,
-    left: 3.25,
-    zIndex: 10,
-  },
-  {
-    imgSrc: '/images/coronavirus.png',
-    alt: '코로나 바이러스',
-    text: '코로나 시기에 가장 전략적인 행동',
-    top: 10,
-    left: 8.75,
-    zIndex: 20,
-  },
-  {
-    imgSrc: '/images/brain.png',
-    alt: '사람 뇌 형상',
-    text: '뇌 건강에 매우 좋다',
-    top: 16,
-    left: 2,
-    zIndex: 10,
-  },
-  {
-    imgSrc: '/images/waist.png',
-    alt: '홀쭉한 사람 형상',
-    text: '다이어트, 성인병 예방',
-    top: 15,
-    left: 14,
-    zIndex: 10,
-  },
-  {
-    imgSrc: '/images/happy.png',
-    alt: '웃고 있는 이모지',
-    text: '항우울 효과가 있다',
-    top: 24,
-    left: 9,
-    zIndex: 10,
-  },
-];
+import {StyledProps} from '../../client/types/style';
+import WalkEffectInfoBox from './components/WalkEffectInfoBox';
+import {WalkEffectInfos} from './static';
 
 export default function Onboarding() {
   const {carouselUlRef, handleTouchStart, handleTouchEnd} = useCarouselScroll({dragDistanceForScroll: 150});
@@ -67,16 +20,31 @@ export default function Onboarding() {
       <S.Container>
         <S.PageBox ref={carouselUlRef} onTouchEnd={handleTouchEnd} onTouchStart={handleTouchStart}>
           <S.Page>
-            <S.TopLayout>
+            <S.TopLayout top={0} left={0}>
               {WalkEffectInfos.map((WalkEffectInfo, index) => (
                 <WalkEffectInfoBox key={index} WalkEffectInfo={WalkEffectInfo} />
               ))}
             </S.TopLayout>
-            <p>page1</p>
           </S.Page>
 
           <S.Page>
-            <p>page2</p>
+            <S.TopLayout top={6.25} left={4}>
+              <Text size={1.2}>
+                <S.StrongText>홍시영</S.StrongText> 님의
+              </Text>
+
+              <MarginBox bottom={1.875} />
+              <Text size={1.2}>걷기 계획은 </Text>
+
+              <MarginBox bottom={1.875} />
+              <Text size={1.2}>20시 00분 입니다.</Text>
+            </S.TopLayout>
+            <S.BottomLayout>
+              <Text size={1} align={'center'}>
+                하루에 걸은 거리에 비례해서 미래의
+                <br /> 건강관리 비용을 아낀 값을 알 수 있어요!
+              </Text>
+            </S.BottomLayout>
           </S.Page>
 
           <S.Page>
@@ -123,13 +91,28 @@ const S = {
   `,
 
   Page: styled.li`
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
     min-width: 100%;
-    height: 100vh;
+    height: 90vh;
     border: 1px solid black;
   `,
 
   TopLayout: styled.div`
-    position: relative;
+    position: absolute;
+    top: ${({top}: StyledProps<Record<'top' | 'left', number>>) => `${top}rem`};
+    left: ${({left}: StyledProps<Record<'top' | 'left', number>>) => `${left}rem`};
+  `,
+
+  BottomLayout: styled.div`
+    line-height: 24px;
+  `,
+
+  StrongText: styled.span`
+    font-size: 1.875rem;
+    font-weight: 700;
   `,
 
   ButtonBox: styled.div`
