@@ -20,3 +20,11 @@ export const colors = {
 export type Colors = typeof colors;
 
 export type ColorsValue = typeof colors[keyof Colors];
+
+export const buttonStyles = {
+  BRAND: { font: colors.WHITE_000, back: colors.GREEN_700 },
+};
+
+export type ButtonStyles = typeof buttonStyles;
+
+export type ButtonStylesKey = keyof typeof buttonStyles;
