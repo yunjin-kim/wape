@@ -1,7 +1,9 @@
 import styled from '@emotion/styled';
 import Head from 'next/head';
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
+import Button from '../../client/components/@common/Button';
 import MarginBox from '../../client/components/@common/MarginBox';
 import Text from '../../client/components/@common/Text';
 import Layout from '../../client/components/layout';
@@ -21,6 +23,28 @@ export default function Onboarding() {
       <S.Container>
         <S.PageBox ref={carouselUlRef} onTouchEnd={handleTouchEnd} onTouchStart={handleTouchStart}>
           <S.Page>
+            <S.WalkingBackImage />
+            <S.TopLayout top={6.25} left={4}>
+              <S.Text size={2}>
+                오늘은 <br /> 가볍게 <br /> 걸어볼까요?
+              </S.Text>
+            </S.TopLayout>
+
+            <S.BottomLayout>
+              <Link href={'/login'}>
+                <Button size={'LARGE'} buttonStyle={'BRAND'} textSize={1.125}>
+                  로그인
+                </Button>
+              </Link>
+              <Link href={'/join'}>
+                <Button size={'LARGE'} buttonStyle={'BRAND'} textSize={1.125}>
+                  회원가입
+                </Button>
+              </Link>
+            </S.BottomLayout>
+          </S.Page>
+
+          <S.Page>
             <S.TopLayout top={0} left={0}>
               {WalkEffectInfos.map((WalkEffectInfo, index) => (
                 <WalkEffectInfoBox key={index} WalkEffectInfo={WalkEffectInfo} />
@@ -31,7 +55,7 @@ export default function Onboarding() {
           <S.Page>
             <S.TopLayout top={6.25} left={4}>
               <Text size={1.2}>
-                <S.StrongText>홍시영</S.StrongText> 님의
+                <S.Span>홍시영</S.Span> 님의
               </Text>
 
               <MarginBox bottom={1.875} />
@@ -52,7 +76,7 @@ export default function Onboarding() {
           <S.Page>
             <S.TopLayout top={6.25} left={4}>
               <Text size={1.2}>
-                <S.StrongText>홍시영</S.StrongText> 님의
+                <S.Span>홍시영</S.Span> 님의
               </Text>
 
               <MarginBox bottom={1.875} />
@@ -82,10 +106,6 @@ export default function Onboarding() {
                 자기만의 걷기 코스를 만들 수 도 있어요!
               </Text>
             </S.BottomLayout>
-          </S.Page>
-
-          <S.Page>
-            <p>page5</p>
           </S.Page>
         </S.PageBox>
 
@@ -120,25 +140,35 @@ const S = {
   `,
 
   Page: styled.li`
+    overflow: hidden;
     position: relative;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     min-width: 100%;
-    height: 90vh;
+    height: 80vh;
   `,
 
   TopLayout: styled.div`
     position: absolute;
     top: ${({top}: StyledProps<Record<'top' | 'left', number>>) => `${top}rem`};
     left: ${({left}: StyledProps<Record<'top' | 'left', number>>) => `${left}rem`};
+    width: 100%;
   `,
 
   BottomLayout: styled.div`
-    line-height: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.625rem;
+    line-height: 1.5rem;
   `,
 
-  StrongText: styled.span`
+  Text: styled(Text)`
+    line-height: 3.75rem;
+  `,
+
+  Span: styled.span`
     font-size: 1.875rem;
     font-weight: 700;
   `,
@@ -153,5 +183,16 @@ const S = {
     border: 1px solid ${({theme}) => theme.colors.BLACK_900};
     border-radius: 1rem;
     background-color: ${({theme}) => theme.colors.WHITE_000};
+  `,
+
+  WalkingBackImage: styled.div`
+    position: absolute;
+    top: -4.875rem;
+    left: -4.375rem;
+    width: 31.25rem;
+    height: 31.25rem;
+    background-repeat: no-repeat;
+    background-size: 31.25rem;
+    background-image: url('/images/walking-back.png');
   `,
 };
