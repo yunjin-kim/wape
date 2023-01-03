@@ -6,6 +6,7 @@ import {StyledProps} from '../../../client/types/style';
 import WalkEffectInfoBox, {WalkEffectInfo} from '../components/WalkEffectInfoBox';
 import MarginBox from '../../../client/components/@common/MarginBox';
 import Button from '../../../client/components/@common/Button';
+import {ROUTES} from '../../../client/constants/routes';
 
 const WalkEffectInfos: WalkEffectInfo[] = [
   {
@@ -177,7 +178,7 @@ export const sections = [
     ),
     bottom: (
       <S.BottomLayout>
-        <Link href={'/login'}>
+        <Link href={ROUTES.LOGIN}>
           <Button size={'LARGE'} buttonStyle={'BRAND'} textSize={1.125}>
             로그인
           </Button>
