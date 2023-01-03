@@ -32,6 +32,5 @@ const S = {
     width: 23.4375rem;
     min-height: 100vh;
     margin: auto;
-    padding: 0 1.5rem;
   `,
 };
