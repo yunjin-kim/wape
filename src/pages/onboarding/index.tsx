@@ -2,18 +2,18 @@ import styled from '@emotion/styled';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
 import Button from '../../client/components/@common/Button';
 import MarginBox from '../../client/components/@common/MarginBox';
 import Text from '../../client/components/@common/Text';
 import Layout from '../../client/components/layout';
+import OptionButton from '../../client/components/OptionButton';
 import useCarouselScroll from '../../client/hooks/useCarouselScroll';
 import {StyledProps} from '../../client/types/style';
 import WalkEffectInfoBox from './components/WalkEffectInfoBox';
 import {WalkEffectInfos} from './static';
 
 export default function Onboarding() {
-  const {carouselUlRef, handleTouchStart, handleTouchEnd} = useCarouselScroll({dragDistanceForScroll: 150});
+  const {currentPage, carouselUlRef, handleClick, handleTouchStart, handleTouchEnd} = useCarouselScroll({dragDistanceForScroll: 150});
 
   return (
     <Layout page={'onboarding'}>
@@ -22,28 +22,6 @@ export default function Onboarding() {
       </Head>
       <S.Container>
         <S.PageBox ref={carouselUlRef} onTouchEnd={handleTouchEnd} onTouchStart={handleTouchStart}>
-          <S.Page>
-            <S.WalkingBackImage />
-            <S.TopLayout top={6.25} left={4}>
-              <S.Text size={2}>
-                오늘은 <br /> 가볍게 <br /> 걸어볼까요?
-              </S.Text>
-            </S.TopLayout>
-
-            <S.BottomLayout>
-              <Link href={'/login'}>
-                <Button size={'LARGE'} buttonStyle={'BRAND'} textSize={1.125}>
-                  로그인
-                </Button>
-              </Link>
-              <Link href={'/join'}>
-                <Button size={'LARGE'} buttonStyle={'BRAND'} textSize={1.125}>
-                  회원가입
-                </Button>
-              </Link>
-            </S.BottomLayout>
-          </S.Page>
-
           <S.Page>
             <S.TopLayout top={0} left={0}>
               {WalkEffectInfos.map((WalkEffectInfo, index) => (
@@ -57,10 +35,8 @@ export default function Onboarding() {
               <Text size={1.2}>
                 <S.Span>홍시영</S.Span> 님의
               </Text>
-
               <MarginBox bottom={1.875} />
               <Text size={1.2}>오늘 3km 걸음으로써 </Text>
-
               <MarginBox bottom={1.875} />
               <Text size={1.2}>40,000원을 벌었어요!</Text>
             </S.TopLayout>
@@ -78,10 +54,8 @@ export default function Onboarding() {
               <Text size={1.2}>
                 <S.Span>홍시영</S.Span> 님의
               </Text>
-
               <MarginBox bottom={1.875} />
               <Text size={1.2}>걷기 계획은 </Text>
-
               <MarginBox bottom={1.875} />
               <Text size={1.2}>20시 00분 입니다.</Text>
             </S.TopLayout>
@@ -107,15 +81,36 @@ export default function Onboarding() {
               </Text>
             </S.BottomLayout>
           </S.Page>
+
+          <S.Page>
+            <S.WalkingBackImage />
+            <S.TopLayout top={6.25} left={4}>
+              <S.Text size={2}>
+                오늘은 <br /> 가볍게 <br /> 걸어볼까요?
+              </S.Text>
+            </S.TopLayout>
+
+            <S.BottomLayout>
+              <Link href={'/login'}>
+                <Button size={'LARGE'} buttonStyle={'BRAND'} textSize={1.125}>
+                  로그인
+                </Button>
+              </Link>
+              <Link href={'/join'}>
+                <Button size={'LARGE'} buttonStyle={'BRAND'} textSize={1.125}>
+                  회원가입
+                </Button>
+              </Link>
+            </S.BottomLayout>
+          </S.Page>
         </S.PageBox>
 
-        <S.ButtonBox>
-          <S.OptionButton />
-          <S.OptionButton />
-          <S.OptionButton />
-          <S.OptionButton />
-          <S.OptionButton />
-        </S.ButtonBox>
+        <MarginBox bottom={3.375} />
+        <S.OptionButtonBox>
+          {Array.from({length: 5}).map((_, index) => (
+            <OptionButton key={index} index={index} currentCheck={currentPage} onClick={handleClick(index)} />
+          ))}
+        </S.OptionButtonBox>
       </S.Container>
     </Layout>
   );
@@ -173,16 +168,10 @@ const S = {
     font-weight: 700;
   `,
 
-  ButtonBox: styled.div`
-    width: 100%;
-  `,
-
-  OptionButton: styled.button`
-    width: 1rem;
-    height: 1rem;
-    border: 1px solid ${({theme}) => theme.colors.BLACK_900};
-    border-radius: 1rem;
-    background-color: ${({theme}) => theme.colors.WHITE_000};
+  OptionButtonBox: styled.div`
+    display: flex;
+    justify-content: center;
+    gap: 0.375rem;
   `,
 
   WalkingBackImage: styled.div`
