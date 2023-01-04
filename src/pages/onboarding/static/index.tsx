@@ -183,7 +183,7 @@ export const sections = [
             로그인
           </Button>
         </Link>
-        <Link href={'/join'}>
+        <Link href={ROUTES.JOIN}>
           <Button size={'LARGE'} buttonStyle={'BRAND'} textSize={1.125}>
             회원가입
           </Button>
