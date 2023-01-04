@@ -14,6 +14,8 @@ export const colors = {
 
   YELLOW_700: '#E5C84D',
 
+  RED_700: '##FF0000',
+
   WHITE_000: '#FFFFFF',
 } as const;
 
