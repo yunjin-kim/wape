@@ -6,13 +6,14 @@ import { ButtonKeys } from '../../styles/sizes';
 import { StyledProps } from '../../types/style';
 
 interface Props extends PropsWithChildren {
+  type: 'button' | 'submit' | 'reset';
   size: ButtonKeys;
   buttonStyle: ButtonStylesKey;
   textSize: number;
   onClick?: () => void;
 }
 
-const Button = ({ size, buttonStyle, textSize, onClick, children }: Props) => {
+const Button = ({ type, size, buttonStyle, textSize, onClick, children }: Props) => {
   const handleClick = () => {
     if (onClick) {
       onClick();
@@ -20,7 +21,7 @@ const Button = ({ size, buttonStyle, textSize, onClick, children }: Props) => {
   };
 
   return (
-    <S.Container size={size} buttonStyle={buttonStyle} onClick={handleClick}>
+    <S.Container type={type} size={size} buttonStyle={buttonStyle} onClick={handleClick}>
       <S.Text buttonStyle={buttonStyle} textSize={textSize}>
         {children}
       </S.Text>
@@ -34,9 +35,9 @@ const S = {
       width: ${theme.buttonSizes[size].width}rem;
       height: ${theme.buttonSizes[size].height}rem;
       background-color: ${theme.buttonStyles[buttonStyle].back};
+      border: 1px solid ${theme.buttonStyles[buttonStyle].border};
+      border-radius: ${theme.buttonSizes[size].height / 3}rem;
     `}
-    border: none;
-    border-radius: 1.25rem;
   `,
 
   Text: styled.p`
