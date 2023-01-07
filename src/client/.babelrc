@@ -5,10 +5,9 @@
       {
         "preset-react": {
           "runtime": "automatic",
-          "importSource": "@emotion/react"
+          "jsxImportSource": "@emotion/react"
         }
       }
     ]
-  ],
-  "plugins": ["@emotion/babel-plugin"]
+  ]
 }
